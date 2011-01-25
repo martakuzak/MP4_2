@@ -155,7 +155,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         for (unsigned int i = 0; i<3; ++i) {
             f.append(analyzer->valueOfGroupOfBytes(1, off + offset + i + 9));
         }
-        unsigned long int entryCount = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
+        unsigned int entryCount = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
         std::shared_ptr<Box> ret(new DataReferenceBox(size, type, off, v, f, entryCount));
         return ret;
     }
@@ -201,9 +201,9 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         return ret;
     }
     else if(type == "btrt") {
-        unsigned long int bufferSizeDB = analyzer->valueOfGroupOfBytes(4, off + 8);
-        unsigned long int maxBitrate = analyzer->valueOfGroupOfBytes(4, off + 12);
-        unsigned long int avgBitrate = analyzer->valueOfGroupOfBytes(4, off + 16);
+        unsigned int bufferSizeDB = analyzer->valueOfGroupOfBytes(4, off + 8);
+        unsigned int maxBitrate = analyzer->valueOfGroupOfBytes(4, off + 12);
+        unsigned int avgBitrate = analyzer->valueOfGroupOfBytes(4, off + 16);
 
         return std::shared_ptr<Box> (new MPEG4BitRateBox(size, type, off, bufferSizeDB, maxBitrate, avgBitrate));
     }
@@ -448,7 +448,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         return std::shared_ptr<Box>(new ProducerReferenceTimeBox(size, type, off, v, f));
     }
     else if(type == "uuid") {
-        unsigned long long int extendedType = analyzer->valueOfGroupOfBytes(16, off + 8);
+        QString extendedType = analyzer->qstringValue(16, 8);
         return std::shared_ptr<Box>(new UniversalUniqueIdentifier(size, type, off, extendedType));
     }
     else{
@@ -734,7 +734,7 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         unsigned int alternateGroup = analyzer->valueOfGroupOfBytes(1,  off + offset + 42);
         unsigned int volume = analyzer->valueOfGroupOfBytes(2, off + offset + 44)/256;
         unsigned int reserved3 = analyzer->valueOfGroupOfBytes(2, off + offset + 46);
-        QList<unsigned long int> matrix;
+        QList<unsigned int> matrix;
         for(int i = 0; i<9; i++) {
             matrix.append(analyzer->valueOfGroupOfBytes(4 , off + offset + 48 ));
             offset += 4;
@@ -781,12 +781,12 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         for (unsigned int i = 0; i<3; ++i) {
             f.append(analyzer->valueOfGroupOfBytes(1, off + offset + i + 9));
         }
-        unsigned long int tid = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
+        unsigned int tid = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
         unsigned long int bdo = 0;
-        unsigned long int sdi = 0;
-        unsigned long int dsd = 0;
-        unsigned long int dss = 0;
-        unsigned long int dsf = 0;
+        unsigned int sdi = 0;
+        unsigned int dsd = 0;
+        unsigned int dss = 0;
+        unsigned int dsf = 0;
         if(size >= 24) {
             bdo = analyzer->valueOfGroupOfBytes(8, off + offset + 16);
             if(size >= 28) {
@@ -813,7 +813,7 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         for (unsigned int i = 0; i<3; ++i) {
             f.append(analyzer->valueOfGroupOfBytes(1, off + offset + i + 9));
         }
-        unsigned long int sampleCount = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
+        unsigned int sampleCount = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
         long int dataOffset = 0;
         if(f.at(2) == 1 || f.at(2) == 5) {
             dataOffset = analyzer->signedValueOfGroupOfBytes(4, off + offset + 16);
@@ -824,10 +824,10 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
             firstSampleFlags = analyzer->valueOfGroupOfBytes(4, off + offset + 16);
             offset += 4;
         }
-        QList<unsigned long int> sampleDuration;
-        QList<unsigned long int> sampleSize;
+        QList<unsigned int> sampleDuration;
+        QList<unsigned int> sampleSize;
         QList<unsigned int> sampleFlags;
-        QList<unsigned long int> sampleCompositionTimeOffset;
+        QList<unsigned int> sampleCompositionTimeOffset;
         //?
         if(f.at(1) == 2) {
             for (unsigned int i = 0; i<sampleCount; ++i) {
@@ -943,8 +943,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         for (unsigned int i = 0; i<3; ++i) {
             f.append(analyzer->valueOfGroupOfBytes(1, off + offset + i + 9));
         }
-        unsigned long int sampleSize = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
-        unsigned long int sampleCount = analyzer->valueOfGroupOfBytes(4, off + offset + 16);
+        unsigned int sampleSize = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
+        unsigned int sampleCount = analyzer->valueOfGroupOfBytes(4, off + offset + 16);
         QList<unsigned int> entrySize;
         if(sampleSize == 0) {
             for(unsigned int i = 0; i<sampleCount; ++i) {
@@ -982,10 +982,10 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         for (unsigned int i = 0; i<3; ++i) {
             f.append(analyzer->valueOfGroupOfBytes(1, off + offset + i + 9));
         }
-        unsigned long int entryCount = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
-        QList<unsigned long int> firstChunk;
-        QList<unsigned long int> samplesPerChunk;
-        QList<unsigned long int> sampleDescriptionIndex;
+        unsigned int entryCount = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
+        QList<unsigned int> firstChunk;
+        QList<unsigned int> samplesPerChunk;
+        QList<unsigned int> sampleDescriptionIndex;
         for(unsigned int i = 0; i<entryCount; ++i) {
             firstChunk.append(analyzer->valueOfGroupOfBytes(4 , off + offset + 16 + 12*i ));
             samplesPerChunk.append(analyzer->valueOfGroupOfBytes(4, off + offset + 20 + 12*i ));
@@ -1004,8 +1004,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         for (unsigned int i = 0; i<3; ++i) {
             f.append(analyzer->valueOfGroupOfBytes(1, off + offset + i + 9));
         }
-        unsigned long int entryCount = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
-        QList<unsigned long int> chunkOffset;
+        unsigned int entryCount = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
+        QList<unsigned int> chunkOffset;
         for(unsigned int i = 0; i<entryCount; ++i) {
             chunkOffset.append(analyzer->valueOfGroupOfBytes(4, off + offset + 16 + 4*i));
         }
@@ -1021,8 +1021,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         for (unsigned int i = 0; i<3; ++i) {
             f.append(analyzer->valueOfGroupOfBytes(1, off + offset + i + 9));
         }
-        unsigned long int entryCount = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
-        QList<unsigned long int> sampleNumber;
+        unsigned int entryCount = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
+        QList<unsigned int> sampleNumber;
         for (unsigned int i = 0; i<entryCount; ++i) {
             sampleNumber.append(analyzer->valueOfGroupOfBytes(4, off + offset + 16 + 4*i));
         }
@@ -1131,8 +1131,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int referenceId = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
         unsigned int timescale = analyzer->valueOfGroupOfBytes(4, off + offset + 16);
 
-        unsigned int earliestPresentationTime = 0;
-        unsigned int firstOffset = 0;
+        unsigned long int earliestPresentationTime = 0;
+        unsigned long int firstOffset = 0;
         if (version == 0){
             earliestPresentationTime = analyzer->valueOfGroupOfBytes(4, off + offset + 20);
             firstOffset = analyzer->valueOfGroupOfBytes(4 , off + offset + 24 );

@@ -97,22 +97,22 @@ public:
  */
 class SampleSizeBox : public FullBox {
 private:
-    unsigned long int sampleSize;
-    unsigned long int sampleCount;
+    unsigned int sampleSize;
+    unsigned int sampleCount;
     QList<unsigned int> entrySize;
 public:
     SampleSizeBox(const unsigned long int& s, const QString& t, const unsigned long int& off,const unsigned int& v,
-                  const QList<unsigned int>& f, const unsigned long int &sz, const unsigned long int & sc,
+                  const QList<unsigned int>& f, const unsigned int &sz, const unsigned int & sc,
                   const QList<unsigned int> & es);
     virtual QString getFullName() { return QString("Sample Size Box"); }
     virtual QStandardItemModel *getModel();
-    unsigned long int getSampleSize(const unsigned long int& id) {
+    unsigned int getSampleSize(const unsigned int& id) {
         return entrySize.at(id);
     }
-    unsigned long int getEntryCount() {
+    unsigned int getEntryCount() {
         return sampleCount;
     }
-    unsigned long int getSampleSize() {
+    unsigned int getSampleSize() {
         return sampleSize;
     }
 };
@@ -132,13 +132,13 @@ public:
                          const QList<unsigned int>& es);
     virtual QString getFullName() { return QString("Compact Sample Size Box"); }
     virtual QStandardItemModel *getModel();
-    unsigned long int getSampleSize(const unsigned long int& id) {
+    unsigned int getSampleSize(const unsigned int& id) {
         return entrySize.at(id);
     }
-    unsigned long int getEntryCount() {
+    unsigned int getEntryCount() {
         return sampleCount;
     }
-    unsigned long int getSampleSize() {
+    unsigned int getSampleSize() {
         return fieldSize;
     }
 };
@@ -149,14 +149,14 @@ public:
  */
 class SampleToChunkBox : public FullBox {
 private:
-    unsigned long int entryCount;
-    QList<unsigned long int> firstChunk;
-    QList<unsigned long int> samplesPerChunk;
-    QList<unsigned long int> sampleDescriptionIndex;
+    unsigned int entryCount;
+    QList<unsigned int> firstChunk;
+    QList<unsigned int> samplesPerChunk;
+    QList<unsigned int> sampleDescriptionIndex;
 public:
     SampleToChunkBox(const unsigned long int& s, const QString& t, const unsigned long int& off,const unsigned int& v,
-                     const QList<unsigned int>& f, const unsigned long int &entryCount, const QList<unsigned long int>& fc,
-                     const QList<unsigned long int>& spc, const QList<unsigned long int>& sdi);
+                     const QList<unsigned int>& f, const unsigned int &entryCount, const QList<unsigned int>& fc,
+                     const QList<unsigned int>& spc, const QList<unsigned int>& sdi);
     virtual QString getFullName() { return QString("Sample To Chunk Box"); }
     virtual QStandardItemModel *getModel();
 };
@@ -167,11 +167,11 @@ public:
  */
 class ChunkOffsetBox : public FullBox {
 private:
-     unsigned long int entryCount;
-    QList<unsigned long int> chunkOffset;
+     unsigned int entryCount;
+    QList<unsigned int> chunkOffset;
 public:
     ChunkOffsetBox(const unsigned long int& s, const QString& t, const unsigned long int& off,const unsigned int& v,
-                   const QList<unsigned int>& f, const unsigned long int& ec, const QList<unsigned long int>& co);
+                   const QList<unsigned int>& f, const unsigned int& ec, const QList<unsigned int>& co);
     virtual QString getFullName() { return QString("Chunk Offset Box"); }
     virtual QStandardItemModel *getModel();
 };
@@ -197,17 +197,17 @@ public:
  */
 class SyncSampleBox : public FullBox {
 private:
-    unsigned long int entryCount;
-    QList<unsigned long int> sampleNumber;
+    unsigned int entryCount;
+    QList<unsigned int> sampleNumber;
 public:
     SyncSampleBox(const unsigned long int& s, const QString& t, const unsigned long int& off,const unsigned int& v,
-                  const QList<unsigned int>& f, const unsigned long int&ec, const QList<unsigned long int> sn);
+                  const QList<unsigned int>& f, const unsigned int&ec, const QList<unsigned int> sn);
     virtual QString getFullName() { return QString("Sync Sample Box"); }
     virtual QStandardItemModel *getModel();
-    unsigned long int getEntryCount() {
+    unsigned int getEntryCount() {
         return entryCount;
     }
-    unsigned long int getSyncSample(const int& id) {
+    unsigned int getSyncSample(const int& id) {
         return sampleNumber.at(id);
     }
 };

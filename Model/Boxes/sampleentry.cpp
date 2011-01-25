@@ -244,7 +244,7 @@ QStandardItemModel *AVCConfigurationBox::getModel() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 MPEG4BitRateBox::MPEG4BitRateBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
-                                 const unsigned long int& bsDB, const unsigned long int& maxbr, const unsigned long int& avgBr):
+                                 const unsigned int &bsDB, const unsigned int &maxbr, const unsigned int &avgBr):
     Box(s, t, off),
     bufferSizeDB(bsDB),
     maxBitrate(maxbr),

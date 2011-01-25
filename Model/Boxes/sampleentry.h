@@ -146,9 +146,6 @@ public:
  * \see ISO/IEC 14496-14 Information technology – Coding of audio-visual objects – Part 14: MPEG4 MP4 file format
  */
 class ObjectDescriptorBox : public FullBox {
-private:
-    unsigned int version;
-
 public:
     ObjectDescriptorBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Object Descriptor Box"); }
@@ -159,9 +156,6 @@ public:
  * \see ISO/IEC 14496-14 Information technology – Coding of audio-visual objects – Part 14: MPEG4 MP4 file format
  */
 class ESDBox : public FullBox {
-private:
-    unsigned int version;
-
 public:
     ESDBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v,const QList<unsigned int>& f);
     virtual unsigned int getContainerOffset() { return 8; }
@@ -218,12 +212,12 @@ public:
  * \see ISO/IEC 14496-15 Information technology – Coding of audio-visual objects – Part 15: Advanced Video Coding (AVC) file format
  */
 class MPEG4BitRateBox: public Box {
-    unsigned long int bufferSizeDB;
-    unsigned long int maxBitrate;
-    unsigned long int avgBitrate;
+    unsigned int bufferSizeDB;
+    unsigned int maxBitrate;
+    unsigned int avgBitrate;
 public:
     MPEG4BitRateBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
-                        const unsigned long int& bsDB, const unsigned long int& maxbr, const unsigned long int& avgBr);
+                        const unsigned int& bsDB, const unsigned int& maxbr, const unsigned int& avgBr);
     virtual bool isContainer() { return false; }
     virtual QString getFullName() { return QString("MPEG4 Bitrate Box"); }
     virtual QStandardItemModel *getModel();

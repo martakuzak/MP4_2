@@ -295,7 +295,7 @@ QStandardItemModel *DataEntryUrlBox::getModel() {
 }
 /////////////
 DataReferenceBox::DataReferenceBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
-                                   const unsigned  int& v, const QList<unsigned int>& f, const unsigned long int&ec):
+                                   const unsigned  int& v, const QList<unsigned int>& f, const unsigned int &ec):
     FullBox(s,t,off,v, f),
 
 
@@ -533,7 +533,7 @@ SampleAuxiliaryInformationOffsetsBox::SampleAuxiliaryInformationOffsetsBox(const
 LevelAssignmentBox::LevelAssignmentBox(const unsigned long int& s, const QString& t, const unsigned long int& off,  const unsigned  int& v, const QList<unsigned int>& f): FullBox(s,t,off,v, f) {}
 ////////////////////////////////////////////////////////////////////////////////////////////
 SegmentIndexBox::SegmentIndexBox(const unsigned long int& s, const QString& t, const unsigned long int& off,  const unsigned  int& v, const QList<unsigned int>& f,
-                                 const unsigned int &ri, const unsigned int &ts, const unsigned int& myEarliestPresentationTime, const unsigned int& myFirstOffset,
+                                 const unsigned int &ri, const unsigned int &ts, const unsigned long &myEarliestPresentationTime, const unsigned long &myFirstOffset,
                                  const unsigned int &myReserved, const QList<bool>& myReferenceType, const QList<unsigned  int> myReferenceSize,
                                  const QList<unsigned  int> &mySubsegmentDuration, const QList<bool> & myStartsWithSAP, const QList<unsigned  int> &mySAPType,
                                  const QList<unsigned  int> &mySAPDeltaTime):
@@ -627,7 +627,7 @@ ProducerReferenceTimeBox::ProducerReferenceTimeBox(const unsigned long int& s, c
                                                    const unsigned  int &v, const QList<unsigned int> &f): FullBox(s,t,off,v, f) {}
 ////////////////////////////////////////////////////////////////////////////////////////////
 UniversalUniqueIdentifier::UniversalUniqueIdentifier(const unsigned long int& s, const QString& t, const unsigned long int& off,
-                                                     const unsigned long long &eType):
+                                                     const QString &eType):
     Box(s, t, off),
     extendedType(eType)
 {}

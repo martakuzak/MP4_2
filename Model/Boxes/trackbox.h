@@ -44,20 +44,20 @@ protected:
     unsigned long int modificationTime;
     unsigned int trackID;
     unsigned int reserved1;
-    unsigned int long duration;
+    unsigned long duration;
     QList<unsigned int> reserved2;
     unsigned int layer;
     unsigned int alternateGroup;
     unsigned int volume;
     unsigned int reserved3;
-    QList<unsigned long int> matrix;
+    QList<unsigned int> matrix;
     unsigned int width;
     unsigned int height;
 public:
     TrackHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
                    const QList<unsigned int>& f, const unsigned long int& ct, const unsigned long int & mt, const unsigned int & tid,
                    const unsigned int & r1, const unsigned long int & dur, const QList<unsigned int> & r2, const unsigned int & lay,
-                   const unsigned int & ag, const unsigned int & vol, const unsigned int & r3, const QList<unsigned long int> mx,
+                   const unsigned int & ag, const unsigned int & vol, const unsigned int & r3, const QList<unsigned int> mx,
                    const unsigned int & wdth, const unsigned int & hght);
     virtual QString getFullName() { return QString("Track Header Box"); }
     virtual QStandardItemModel *getModel();
@@ -117,17 +117,17 @@ public:
  */
 class TrackFragmentHeaderBox : public FullBox {
 protected:
-    unsigned long int getTrackID;
+    unsigned int getTrackID;
     unsigned long int baseDataOffset;
-    unsigned long int sampleDescriptionIndex;
-    unsigned long int defaultSampleDuration;
-    unsigned long int defaultSampleSize;
-    unsigned long int defaultSampleFlags;
+    unsigned int sampleDescriptionIndex;
+    unsigned int defaultSampleDuration;
+    unsigned int defaultSampleSize;
+    unsigned int defaultSampleFlags;
 public:
     TrackFragmentHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
-                           const unsigned int& v, const QList<unsigned int>& f, const unsigned long int& tid, const unsigned long int& bdo,
-                           const unsigned long int& dsdi, const unsigned long int& dsd, const unsigned long int& dss,
-                           const unsigned long int& dsf);
+                           const unsigned int& v, const QList<unsigned int>& f, const unsigned int& tid, const unsigned long int& bdo,
+                           const unsigned int& dsdi, const unsigned int& dsd, const unsigned int& dss,
+                           const unsigned int& dsf);
     virtual QString getFullName() { return QString("Track Fragment Header Box"); }
     virtual QStandardItemModel *getModel();
 };
@@ -138,19 +138,19 @@ public:
  */
 class TrackRunBox : public FullBox {
 protected:
-    unsigned long int sampleCount;
+    unsigned int sampleCount;
     long int dataOffset;
     unsigned int firstSampleFlags;
-    QList<unsigned long int> sampleDuration;
-    QList<unsigned long int> sampleSize;
+    QList<unsigned int> sampleDuration;
+    QList<unsigned int> sampleSize;
     QList<unsigned int> sampleFlags;
-    QList<unsigned long int> sampleCompositionTimeOffset;
+    QList<unsigned int> sampleCompositionTimeOffset;
 
 public:
     TrackRunBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
-                const QList<unsigned int>& f, const unsigned long int& sc, const long int& dof, const unsigned int& fsf,
-                const QList<unsigned long int>& sd, const QList<unsigned long int>& ss, const QList<unsigned int>& sf,
-                const QList<unsigned long int>& scto);
+                const QList<unsigned int>& f, const unsigned int& sc, const long int& dof, const unsigned int& fsf,
+                const QList<unsigned  int>& sd, const QList<unsigned int>& ss, const QList<unsigned int>& sf,
+                const QList<unsigned int>& scto);
     virtual QString getFullName() { return QString("Track Run Box"); }
     virtual QStandardItemModel *getModel();
 };
@@ -185,10 +185,8 @@ public:
  */
 class HandlerBox : public FullBox {
 protected:
-    unsigned  int version;
-
     unsigned int predefined;
-    unsigned long int handlerType;
+    unsigned int handlerType;
     QList<unsigned int> reserved;
     QString name;
 public:

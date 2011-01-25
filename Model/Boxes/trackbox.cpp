@@ -6,7 +6,7 @@ TrackHeaderBox::TrackHeaderBox(const unsigned long int& s, const QString& t, con
                                const unsigned  int& v, const QList<unsigned int>& f, const unsigned long &ct, const unsigned long &mt,
                                const unsigned int &tid, const unsigned int &r1, const unsigned long &dur, const QList<unsigned int> &r2,
                                const unsigned int &lay, const unsigned int &ag, const unsigned int &vol, const unsigned int &r3,
-                               const QList<unsigned long> mx, const unsigned int &wdth, const unsigned int &hght):
+                               const QList<unsigned int> mx, const unsigned int &wdth, const unsigned int &hght):
     FullBox(s,t,off,v, f) ,
 
 
@@ -162,8 +162,8 @@ TrackFragmentBox::TrackFragmentBox(const unsigned long int& s, const QString& t,
 ////////////////////////////////////////////////////////////////////////////////////////////
 TrackFragmentHeaderBox::TrackFragmentHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
                                                const unsigned  int& v, const QList<unsigned int>& f,
-                                               const unsigned long int& tid, const unsigned long &bdo, const unsigned long &dsdi,
-                                               const unsigned long &dsd, const unsigned long &dss, const unsigned long &dsf):
+                                               const unsigned int &tid, const unsigned long &bdo, const unsigned int &dsdi,
+                                               const unsigned int &dsd, const unsigned int &dss, const unsigned int &dsf):
     FullBox(s,t,off,v, f),
     getTrackID(tid),
     baseDataOffset(bdo),
@@ -224,10 +224,10 @@ QStandardItemModel *TrackFragmentHeaderBox::getModel() {
     return model;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-TrackRunBox::TrackRunBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
-                         const unsigned  int& v, const QList<unsigned int>& f, const unsigned long &sc, const long &dof,
-                         const unsigned int &fsf, const QList<unsigned long> &sd, const QList<unsigned long> &ss,
-                         const QList<unsigned int> &sf, const QList<unsigned long> &scto):
+TrackRunBox::TrackRunBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
+                         const QList<unsigned int>& f, const unsigned int& sc, const long int& dof, const unsigned int& fsf,
+                         const QList<unsigned  int>& sd, const QList<unsigned int>& ss, const QList<unsigned int>& sf,
+                         const QList<unsigned int>& scto):
     FullBox(s,t,off,v, f) ,
 
 
@@ -262,7 +262,7 @@ QStandardItemModel *TrackRunBox::getModel() {
     int k = 0;
     tmp.clear();
     if(!sampleDuration.empty()) {
-        QList<unsigned long int>::iterator i;
+        QList<unsigned int>::iterator i;
         int index = 0;
         for (i = sampleDuration.begin(); i !=sampleDuration.end(); ++i) {
             model->setData(model->index(5 + index, 0, QModelIndex()), "Sample duration[" +
@@ -275,7 +275,7 @@ QStandardItemModel *TrackRunBox::getModel() {
         k+= index;
     }
     if(!sampleSize.empty()) {
-        QList<unsigned long int>::iterator i;
+        QList<unsigned int>::iterator i;
         int index = 0;
         for (i = sampleSize.begin(); i !=sampleSize.end(); ++i) {
             model->setData(model->index(5 + k + index, 0, QModelIndex()), "Sample size[" +
@@ -301,7 +301,7 @@ QStandardItemModel *TrackRunBox::getModel() {
         k+= index;
     }
     else if(!sampleCompositionTimeOffset.empty()) {
-        QList<unsigned long int>::iterator i;
+        QList<unsigned int>::iterator i;
         int index = 0;
         for (i = sampleCompositionTimeOffset.begin(); i !=sampleCompositionTimeOffset.end(); ++i) {
             model->setData(model->index(5 + k + index, 0, QModelIndex()), "Sample composition time offset[" +

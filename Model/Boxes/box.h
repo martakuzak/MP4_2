@@ -202,7 +202,7 @@ public:
                    const unsigned long int & dur, const bool & pad, const QList<unsigned int> & lan, const unsigned int & pd);
     virtual QString getFullName() { return QString("Media Header Box"); }
     virtual QStandardItemModel *getModel();
-    unsigned long int getMediaTimeScale() {
+    unsigned int getMediaTimeScale() {
         return timescale;
     }
 };
@@ -239,7 +239,7 @@ protected:
     QList<unsigned int> reserved32;
     QList<unsigned int> matrix;
     QList<unsigned int> predefined;
-    unsigned long nextTrackId;
+    unsigned int nextTrackId;
 public:
     MovieHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
                    const QList<unsigned int>& f, const unsigned long int &creationTime, const unsigned long int& modificationTime,
@@ -251,7 +251,7 @@ public:
     unsigned long int getDuration() {
         return duration;
     }
-    unsigned long int getTimeScale() {
+    unsigned int getTimeScale() {
         return timeScale;
     }
 };
@@ -359,10 +359,10 @@ public:
  */
 class DataReferenceBox : public FullBox {
 protected:
-    unsigned long int entryCount;
+    unsigned int entryCount;
 public:
     DataReferenceBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
-                     const QList<unsigned int>& f, const unsigned long int& ec);
+                     const QList<unsigned int>& f, const unsigned int& ec);
     virtual QString getFullName() { return QString("Data Reference Box"); }
     virtual QStandardItemModel *getModel();
     virtual bool isContainer() { return true; }
@@ -826,8 +826,8 @@ class SegmentIndexBox : public FullBox {
 protected:
     unsigned int referenceId;
     unsigned int timescale;
-    unsigned int earliestPresentationTime;
-    unsigned int firstOffset;
+    unsigned long int earliestPresentationTime;
+    unsigned int long firstOffset;
     unsigned int reserved;
     QList<bool> referenceType;
     QList<unsigned int> referenceSize;
@@ -838,7 +838,7 @@ protected:
 
 public:
     SegmentIndexBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f, const unsigned int& referenceId,
-                    const unsigned int& timescale,const unsigned int& myEarliestPresentationTime, const unsigned int& myFirstOffset, const unsigned int& myReserved,
+                    const unsigned int& timescale,const unsigned long int& myEarliestPresentationTime, const unsigned long int& myFirstOffset, const unsigned int& myReserved,
                     const QList<bool>& referenceType, const QList<unsigned int> referenceSize, const QList<unsigned int> & subsegmentDuration,
                     const QList<bool> & startsWithSAP, const QList<unsigned int>& SAPType, const QList<unsigned int>& SAPDeltaTime);
     virtual QString getFullName() { return QString("Segment Index Box"); }
@@ -871,9 +871,9 @@ public:
  */
 class UniversalUniqueIdentifier : public Box {
 private:
-    unsigned long long int extendedType;
+    QString extendedType;
 public:
-    UniversalUniqueIdentifier(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned long long int& eType);
+    UniversalUniqueIdentifier(const unsigned long int& s, const QString& t, const unsigned long int& off, const QString& eType);
     virtual QString getFullName() { return QString("Universal Unique Identifier"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
