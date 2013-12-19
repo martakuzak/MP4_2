@@ -4,7 +4,7 @@ DashProxy::DashProxy(const QString& fileName, TreeModel* model) {
     dashCreator = new DashCreator(fileName, model);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void DashProxy::closeFileStream() {
+/*void DashProxy::closeFileStream() {
     dashCreator->closeFileStream();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,12 +24,12 @@ unsigned int DashProxy::writeMdat(const unsigned long int& firstSample, const un
 //    return dashCreator->writeMinf(dashFile);
 //}
 ////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int DashProxy::writeMoof(const unsigned long int& sequenceNumber, const unsigned int& trackID,
+/*unsigned int DashProxy::writeMoof(const unsigned long int& sequenceNumber, const unsigned int& trackID,
                                   const unsigned long &baseMediaDecodeTime, const unsigned int& trunFlag2, const unsigned int& trunFlag3,
-                                  const unsigned int& sampleCount, const signed int& dataOffset, const unsigned int& firstSampleFlags,
-                                  const unsigned long int& firstSample, std::shared_ptr<Box>& stsz, QFile* dashFile) {
-    return dashCreator->writeMoof(sequenceNumber, trackID, baseMediaDecodeTime, trunFlag2, trunFlag3, sampleCount, dataOffset,
-                                  firstSampleFlags, firstSample, stsz, dashFile);
+                                  const unsigned int& sampleCount, const unsigned int& firstSampleFlags, const unsigned long int& firstSample,
+                                  std::shared_ptr<Box>& stsz, QFile* dashFile) {
+    return dashCreator->writeMoof(sequenceNumber, trackID, baseMediaDecodeTime, trunFlag2, trunFlag3, sampleCount, firstSampleFlags,
+                                  firstSample, stsz, dashFile);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 unsigned int DashProxy::writeMoov(QFile* dashFile) {
@@ -109,7 +109,7 @@ unsigned int DashProxy::writeTrex(QFile* dashFile) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 void DashProxy::writeSegments(const unsigned int &maxSampleNum, QFile* dashFile) {
     dashCreator->writeSegments(maxSampleNum, dashFile);
-}
+}*/
 ////////////////////////////////////////////////////////////////////////////////////////////
 void DashProxy::writeFile(const unsigned int &maxSampleNum, QFile* dashFile) {
     dashCreator->writeFile(maxSampleNum, dashFile);

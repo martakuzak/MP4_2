@@ -44,8 +44,7 @@ public:
     unsigned int writeMehd(QFile* dashFile = NULL);
     unsigned int writeMfhd(const unsigned long int& sequenceNumber, QFile* dashFile);
     unsigned int writeMoof(const unsigned long int& sequenceNumber, const unsigned int& trackID, const unsigned long &baseMediaDecodeTime,
-                           const unsigned int& trunFlag2,const unsigned int& trunFlag3, const unsigned int& sampleCount,
-                           const signed int& dataOffset,const unsigned int& firstSampleFlags, const unsigned long int& firstSample,
+                           const unsigned int& trunFlag2, const unsigned int& trunFlag3, const unsigned int& sampleCount, const unsigned int& firstSampleFlags, const unsigned long int& firstSample,
                            std::shared_ptr<Box>& stsz, QFile* dashFile = NULL);
     unsigned int writeMoov(QFile* dashFile = NULL);
     unsigned int writeMvex(QFile* dashFile = NULL);

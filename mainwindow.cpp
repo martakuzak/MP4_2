@@ -338,7 +338,7 @@ void MainWindow::splitOneFile() {
     //QFile* dashFile = new QFile("olaboga");*/
     QString fileName = title.mid(4);
     dashProxy = new DashProxy(fileName, model);
-    QFile* dashFile = new QFile(fileName + ".dash");
+    QFile* dashFile = new QFile(fileName + "_dash");
     if (dashFile->open(QIODevice::ReadWrite)) {
         dashProxy->writeFile(50, dashFile);
         //dashProxy->writeMoov(dashFile);

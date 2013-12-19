@@ -12,14 +12,13 @@ class DashProxy
 public:
     DashProxy(const QString& fileName, TreeModel* model);
     void closeFileStream();
-    unsigned long int mdatSize(const unsigned long int& firstSample, const unsigned int& sampleNumber, std::shared_ptr<Box>& stsz);
+    /*unsigned long int mdatSize(const unsigned long int& firstSample, const unsigned int& sampleNumber, std::shared_ptr<Box>& stsz);
     unsigned int writeMdat(const unsigned long int& firstSample, const unsigned int& sampleNumber, std::shared_ptr<Box>& stsz,
                            QFile* dashFile);
     unsigned int writeMdia(QFile* dashFile = NULL);
     unsigned int writeMinf(QFile* dashFile);
     unsigned int writeMoof(const unsigned long int& sequenceNumber, const unsigned int& trackID, const unsigned long &baseMediaDecodeTime,
-                           const unsigned int& trunFlag2,const unsigned int& trunFlag3, const unsigned int& sampleCount,
-                           const signed int& dataOffset,const unsigned int& firstSampleFlags, const unsigned long int& firstSample,
+                           const unsigned int& trunFlag2, const unsigned int& trunFlag3, const unsigned int& sampleCount, const unsigned int& firstSampleFlags, const unsigned long int& firstSample,
                            std::shared_ptr<Box>& stsz, QFile* dashFile);
     unsigned int writeMoov(QFile* dashFile = NULL);
     unsigned int writeMfhd(const unsigned long int& sequenceNumber, QFile* dashFile);
@@ -46,7 +45,7 @@ public:
     unsigned int writeMehd(QFile* dashFile);
     unsigned int writeTrex(QFile* dashFile);
     unsigned int writeMvex(QFile* dashFile = NULL);
-    void writeSegments(const unsigned int &maxSampleNum, QFile* dashFile);
+    void writeSegments(const unsigned int &maxSampleNum, QFile* dashFile);*/
     void writeFile(const unsigned int &maxSampleNum, QFile* dashFile);
 
 private:
