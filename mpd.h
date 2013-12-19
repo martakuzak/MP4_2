@@ -9,6 +9,7 @@
 #include "period.h"
 #include "segmentlist.h"
 #include "treemodel.h"
+#include "analyzer.h"
 
 //profiles="urn:mpeg:dash:profile:isoff-main:2011">
 class TreeModel;
@@ -75,6 +76,8 @@ private:
     MPD* mpd;
     ProgramInformation* programInformation;
     Period* period;
+    SegmentList* slist;
+    TreeModel* dashModel;
     TreeModel* model;
 
     QString getDuration();
@@ -83,7 +86,7 @@ private:
     void setProgramInformation();
     void setSegmentList();
 public:
-    MPDWriter(const QString& fn, TreeModel* mod);
+    MPDWriter(const QString& fn, TreeModel *mod);
     void writeMPD(QFile* file);
 };
 /*QFile* file = new QFile("D://plik.xml");

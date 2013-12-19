@@ -138,7 +138,7 @@ void MainWindow::setBoxInfoSection(const QString& fileName) {
     }
     delete analyzer;
     analyzer = new Analyzer(fileName);
-    model= new TreeModel(analyzer);
+    model = new TreeModel(analyzer);
     treeView->setModel(model);
     //treeView->setFont(QFont("Arial", 12));
     //treeView->header()->setStretchLastSection(false);
@@ -325,13 +325,16 @@ void MainWindow::searchBox() {
 void MainWindow::splitOneFile() {
     QString fileName = title.mid(4);
     dashProxy = new DashProxy(fileName, model);
-    QFile* dashFile = new QFile(fileName + ".xml");
-    /*if (dashFile->open(QIODevice::ReadWrite)) {
+    QFile* dashFile = new QFile("D://ka.mp4");
+    if (dashFile->open(QIODevice::ReadWrite)) {
         dashProxy->writeFile(50, dashFile);
         dashFile->close();
-    }*/
-    mpdWriter = new MPDWriter(fileName, model);
-    mpdWriter->writeMPD(dashFile);
+        QFile* file = new QFile("D://manifest.xml");
+        if(file->open(QIODevice::ReadWrite)) {
+            mpdWriter = new MPDWriter(QString("D://ka.mp4"), model);
+            mpdWriter->writeMPD(file);
+        }
+    }
 }
 ////////////////////////////////////////////////////////////
 void MainWindow::writeMPD(const QString& filename) {

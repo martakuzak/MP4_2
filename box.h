@@ -96,7 +96,7 @@ public:
      * \return size in bytes
      */
     virtual unsigned long int getSize() { return size; }
-    virtual unsigned long int getOffset() { return offset; }
+    virtual unsigned long int getOffset() const { return offset; }
     virtual unsigned long int getSampleSize(const unsigned long int& id) {
         return id*0;
     }
@@ -125,6 +125,9 @@ public:
     }
     virtual unsigned long int getTimeScale() {
         return 0;
+    }
+    bool operator < (const Box &b) const {
+        return offset < b.getOffset();
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////
