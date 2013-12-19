@@ -56,9 +56,9 @@ public:
                            const QList<unsigned long int>& referenceSize, const QList<unsigned long int>& subsegmentDuration,
                            const QList <unsigned short int>& startsWithSAP, const QList <unsigned short int>& SAPType,
                            const QList <unsigned long int>& SAPDeltaTime, QFile* dashFile = NULL);unsigned int writeTfdt(const unsigned long &baseMediaDecodeTime, QFile* dashFile);
-    unsigned int writeStbl(QFile* dashFile = NULL);
-    unsigned int writeStsd(QFile* dashFile = NULL);
-    unsigned int writeStsz(QFile* dashFile = NULL);
+    unsigned int writeStbl(std::shared_ptr<Box> minf, QFile* dashFile = NULL);
+    unsigned int writeStsd(std::shared_ptr<Box> stbl, QFile* dashFile = NULL);
+    unsigned int writeStsz(std::shared_ptr<Box> stbl, QFile* dashFile = NULL);
     //for stts, stco, stsc
     unsigned int writeStxx(const QString &type, QFile* dashFile = NULL);
     unsigned int writeTfhd(const unsigned int& trackID, QFile* dashFile = NULL);

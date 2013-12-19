@@ -77,9 +77,9 @@ unsigned int DashProxy:: writeSidx(const unsigned short int& version, const unsi
                                   referenceSize, subsegmentDuration, startsWithSAP, SAPType, SAPDeltaTime, dashFile);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int DashProxy::writeStbl(QFile* dashFile) {
-    return dashCreator->writeStbl(dashFile);
-}
+//unsigned int DashProxy::writeStbl(QFile* dashFile) {
+//    return dashCreator->writeStbl(dashFile);
+//}
 ////////////////////////////////////////////////////////////////////////////////////////////
 unsigned int DashProxy::writeFree(QFile* dashFile) {
     return dashCreator->writeFree(dashFile);

@@ -41,6 +41,9 @@ unsigned int DashCreator::copyBox(const QString& type, std::shared_ptr<Box> pare
     qDebug()<<"big copyBox 2"<<type;
     TreeItem* parentItem = model->getChild(parentOffset);
     qDebug()<<"big copyBox 3"<<type;
+    if(parentItem ==  NULL) {
+        qDebug()<<"big copy why";
+    }
     std::shared_ptr<Box> box = model->getChild(parentItem, type)->getBox();
     qDebug()<<"big copyBox 4"<<type;
     if(box == NULL)
@@ -90,8 +93,6 @@ unsigned int DashCreator::writeAvc1(QFile* dashFile) {
         return size;
     qDebug()<<"writeAvc1";
     copyBox("avc1", dashFile, maxSize);
-    copyBox("mp4v", dashFile, maxSize);
-    copyBox("mp4a", dashFile, maxSize);
     copyBox("avcC", dashFile);
     copyBox("btrt", dashFile);
     return size;
@@ -296,15 +297,15 @@ unsigned int DashCreator::writeMinf(std::shared_ptr<Box> parent, QFile* dashFile
     TreeItem* parentItem = model->getChild(offset);
     std::shared_ptr<Box> minf = model->getChild(parentItem, "minf")->getBox();
     unsigned long int size = 8; //naglowek
-    size = size + copyBox("vmhd", parent) + copyBox("dinf") + writeStbl();
+    size = size + copyBox("vmhd", minf) + copyBox("dinf", minf) + writeStbl(minf);
     if(dashFile == NULL)
         return size;
     QDataStream stream(dashFile);
     stream<<quint32(size);
     stream.writeRawData("minf", 4);
-    copyBox("vmhd", parent, dashFile);
-    copyBox("dinf", dashFile); //wszystko kopiujemy, lacznie z dziecmi: dref i url
-    writeStbl(dashFile);
+    copyBox("vmhd", minf, dashFile);
+    copyBox("dinf", minf, dashFile); //wszystko kopiujemy, lacznie z dziecmi: dref i url
+    writeStbl(minf, dashFile);
     return size;
 }////////////////////////////////////////////////////////////////////////////////////////////
 unsigned int DashCreator::writeMoof(const unsigned long int& sequenceNumber, const unsigned int& trackID,
@@ -468,37 +469,49 @@ unsigned int DashCreator::writeSidx(const unsigned short int& version, const uns
     return size;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int DashCreator::writeStbl(QFile* dashFile) {
+unsigned int DashCreator::writeStbl(std::shared_ptr<Box> minf, QFile* dashFile) {
+    qDebug()<<"writeStbl";
+    unsigned long int offset = minf->getOffset();
+    TreeItem* parentItem = model->getChild(offset);
+    std::shared_ptr<Box> stbl = model->getChild(parentItem, "stbl")->getBox();
     unsigned long int size = 8;
-    size = size + writeStsd() + writeStsz() + writeStxx("stco") + writeStxx("stsc") + writeStxx("stts");
+    size = size + writeStsd(stbl) + writeStsz(stbl) + writeStxx("stco") + writeStxx("stsc") + writeStxx("stts");
     if(dashFile == NULL)
         return size;
     qDebug()<<"writeStbl";
     QDataStream stream(dashFile);
     stream<<quint32(size);
     stream.writeRawData("stbl", 4);
-    writeStsd(dashFile);
+    writeStsd(stbl, dashFile);
     writeStxx("stts", dashFile);
     writeStxx("stsc", dashFile);
-    writeStsz(dashFile);
+    writeStsz(stbl, dashFile);
     writeStxx("stco", dashFile);
     return size;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int DashCreator::writeStsd(QFile* dashFile) {
-    std::shared_ptr<Box> stsd = model->getBoxes("stsd").at(0);
+unsigned int DashCreator::writeStsd(std::shared_ptr<Box> stbl, QFile* dashFile) {
+    qDebug()<<"writeStsd";
+    unsigned long int offset = stbl->getOffset();
+    TreeItem* parentItem = model->getChild(offset);
+    std::shared_ptr<Box> stsd = model->getChild(parentItem, "stsd")->getBox();
+    //std::shared_ptr<Box> stsd = model->getBoxes("stsd").at(0);
     unsigned long int size = stsd->getSize();
     unsigned long int maxSize = stsd->getContainerOffset();
     if(dashFile == NULL)
         return size;
-    qDebug()<<"writeStsd";
-    copyBox("stsd", dashFile, maxSize);
-    writeAvc1(dashFile);
+    copyBox("stsd", stbl, dashFile/*, maxSize*/);
+    //copyBox("avc1", stsd, dashFile)
+    //writeAvc1(dashFile);
     //writeMp4v(dashFile);
     return size;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int DashCreator::writeStsz(QFile* dashFile) {
+unsigned int DashCreator::writeStsz(std::shared_ptr<Box> stbl, QFile* dashFile) {
+    qDebug()<<"writeStsz";
+    unsigned long int offset = stbl->getOffset();
+    TreeItem* parentItem = model->getChild(offset);
+    std::shared_ptr<Box> stsz = model->getChild(parentItem, "stsz")->getBox();
     if(dashFile == NULL)
         return 20;
     qDebug()<<"writeStsz";
@@ -506,7 +519,7 @@ unsigned int DashCreator::writeStsz(QFile* dashFile) {
     stream<<quint32(20); //size
     stream.writeRawData("stsz", 4);
     stream<<quint32(0); //version i flags
-    std::shared_ptr<Box> stsz = model->getBoxes("stsz").at(0);
+    //std::shared_ptr<Box> stsz = model->getBoxes("stsz").at(0);
     stream<<quint32(stsz->getSampleSize());
     stream<<quint32(0); //sample count
     return 20;
