@@ -17,12 +17,12 @@ unsigned int DashProxy::writeMdat(const unsigned long int& firstSample, const un
     return dashCreator->writeMdat(firstSample, sampleNumber, stsz, dashFile);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int DashProxy::writeMdia(QFile* dashFile) {
+/*unsigned int DashProxy::writeMdia(QFile* dashFile) {
     return dashCreator->writeMdia(dashFile);
-}////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int DashProxy::writeMinf(QFile* dashFile) {
-    return dashCreator->writeMinf(dashFile);
-}
+}*/////////////////////////////////////////////////////////////////////////////////////////////
+//unsigned int DashProxy::writeMinf(QFile* dashFile) {
+//    return dashCreator->writeMinf(dashFile);
+//}
 ////////////////////////////////////////////////////////////////////////////////////////////
 unsigned int DashProxy::writeMoof(const unsigned long int& sequenceNumber, const unsigned int& trackID,
                                   const unsigned long &baseMediaDecodeTime, const unsigned int& trunFlag2, const unsigned int& trunFlag3,
@@ -49,9 +49,9 @@ unsigned int DashProxy::writeTraf(const unsigned int& trackID, const unsigned lo
                                   stsz, dashFile);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int DashProxy::writeTrak(QFile* dashFile) {
-    return dashCreator->writeTrak(dashFile);
-}
+//unsigned int DashProxy::writeTrak(QFile* dashFile) {
+//    return dashCreator->writeTrak(dashFile);
+//}
 ////////////////////////////////////////////////////////////////////////////////////////////
 unsigned int DashProxy::writeTfhd(const unsigned int& trackID, QFile* dashFile) {
     return dashCreator->writeTfhd(trackID, dashFile);

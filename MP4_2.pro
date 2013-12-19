@@ -45,4 +45,4 @@ HEADERS  += mainwindow.h \
     treeitem.h \
     treemodel.h
 
-FORMS    += mainwindow.ui
+FORMS

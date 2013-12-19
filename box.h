@@ -404,7 +404,7 @@ public:
     UserDataBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e);
     virtual QString getFullName() { return QString("User Data Box"); }
     virtual QString getInfo() { return QString("User Data Box is container for objects that declare user information about the containing box and its data (presentation or track)."); }
-    //virtual bool isContainer() { return true; }
+    virtual bool isContainer() { return true; }
     virtual unsigned int getContainerOffset() { return 8;}
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////

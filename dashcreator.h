@@ -29,17 +29,18 @@ public:
      * \return
      */
     unsigned int copyBox(const QString& type, QFile *dashFile = NULL, const unsigned long int& maxSize = 0);
+    unsigned int copyBox(const QString &type, std::shared_ptr<Box> parent, QFile *dashFile = NULL, const unsigned long &maxSize = 0);
     unsigned long int mdatSize(const unsigned long int& firstSample, const unsigned int& sampleNumber, std::shared_ptr<Box>& stsz);
     unsigned int writeAvc1(QFile* dashFile = NULL);
     unsigned int writeAvcC(QFile* dashFile = NULL);
     unsigned int writeBtrt(QFile* dashFile = NULL);
-    unsigned int writeMinf(QFile* dashFile = NULL);
+    unsigned int writeMinf(std::shared_ptr<Box> parent, QFile* dashFile = NULL);
     unsigned int writeFree(QFile* dashFile = NULL);
     unsigned int writeFtyp(QFile* dashFile = NULL);
     unsigned int writeMdat(const unsigned long int& firstSample, const unsigned int& sampleNumber, std::shared_ptr<Box>& stsz,
                            QFile* dashFile = NULL);
-    unsigned int writeMdhd(QFile* dashFile = NULL);
-    unsigned int writeMdia(QFile* dashFile = NULL);
+    unsigned int writeMdhd(std::shared_ptr<Box> parent, QFile* dashFile = NULL);
+    unsigned int writeMdia(std::shared_ptr<Box> parent, QFile* dashFile = NULL);
     unsigned int writeMehd(QFile* dashFile = NULL);
     unsigned int writeMfhd(const unsigned long int& sequenceNumber, QFile* dashFile);
     unsigned int writeMoof(const unsigned long int& sequenceNumber, const unsigned int& trackID, const unsigned long &baseMediaDecodeTime,
@@ -61,17 +62,17 @@ public:
     //for stts, stco, stsc
     unsigned int writeStxx(const QString &type, QFile* dashFile = NULL);
     unsigned int writeTfhd(const unsigned int& trackID, QFile* dashFile = NULL);
-    unsigned int writeTkhd(QFile* dashFile = NULL);
+    unsigned int writeTkhd(std::shared_ptr<Box> parent, QFile* dashFile = NULL);
     unsigned int writeTraf(const unsigned int& trackID, const unsigned long &baseMediaDecodeTime, const unsigned int& trunFlag2,
                            const unsigned int& trunFlag3, const unsigned int& sampleCount, const signed int& dataOffset,
                            const unsigned int& firstSampleFlags, const unsigned long int& firstSample, std::shared_ptr<Box>& stsz,
                            QFile* dashFile = NULL);
-    unsigned int writeTrak(QFile* dashFile = NULL);
+    unsigned int writeTrak(std::shared_ptr<Box> trak, QFile* dashFile = NULL);
     unsigned int writeTrun(const unsigned int& flag2, const unsigned int& flag3, const unsigned int& sampleCount,
                            const signed int& dataOffset, const unsigned int& firstSampleFlags, const unsigned long int& firstSample,
                            std::shared_ptr<Box>& stsz, QFile* dashFile = NULL);
     unsigned int writeTrex(QFile* dashFile = NULL);
-    unsigned int writeVmhd(QFile* dashFile = NULL);
+    unsigned int writeVmhd(std::shared_ptr<Box> parent, QFile* dashFile = NULL);
 
     void writeSegments(const unsigned int &maxSampleNum, QFile* dashFile = NULL);
     void writeFile(const unsigned int & maxSampleNum, QFile* dashFile = NULL);
