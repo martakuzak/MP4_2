@@ -12,7 +12,7 @@ private:
     QString sourceURL;
 public:
     Initialization();
-    Initialization(const QString& range, const QString& sURL);
+//    Initialization(const QString& range, const QString& sURL);
     void write(QXmlStreamWriter *stream);
 };
 
@@ -25,8 +25,12 @@ private:
     //QString index;
 public:
     SegmentURL();
-    SegmentURL(const QString& media, const QString& mediaRange, const QString& indexRange);
+//    SegmentURL(const QString& media, const QString& mediaRange, const QString& indexRange);
     void write(QXmlStreamWriter *stream);
+    QString getMediaRange() const;
+    void setMediaRange(const QString &value);
+    QString getIndexRange() const;
+    void setIndexRange(const QString &value);
 };
 
 class SegmentList {
@@ -35,11 +39,13 @@ private:
     unsigned int timescale;
     unsigned long int duration;
     Initialization initialization;
-    QList<SegmentURL> segmentURLs;
+    QList<SegmentURL*> segmentURLs;
 public:
     SegmentList();
-    SegmentList(const unsigned int& ts, const unsigned long int& dur, const Initialization& init, const QList<SegmentURL> surl);
+//    SegmentList(const unsigned int& ts, const unsigned long int& dur, const Initialization& init, const QList<SegmentURL> surl);
     void write(QXmlStreamWriter *stream);
+    void addSegmentURL(const QString &mediaRange, const QString &indexRange);
+    void addSegmentsURL();
 };
 
 

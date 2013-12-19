@@ -325,15 +325,22 @@ void MainWindow::searchBox() {
 void MainWindow::splitOneFile() {
     QString fileName = title.mid(4);
     dashProxy = new DashProxy(fileName, model);
-    QFile* dashFile = new QFile(fileName + "_dash");
-    if (dashFile->open(QIODevice::ReadWrite)) {
+    QFile* dashFile = new QFile(fileName + ".xml");
+    /*if (dashFile->open(QIODevice::ReadWrite)) {
         dashProxy->writeFile(50, dashFile);
         dashFile->close();
-    }
+    }*/
+    mpdWriter = new MPDWriter(fileName, model);
+    mpdWriter->writeMPD(dashFile);
+}
+////////////////////////////////////////////////////////////
+void MainWindow::writeMPD(const QString& filename) {
+
 }
 ////////////////////////////////////////////////////////////
 void MainWindow::launchHelp() {
     QDesktopServices::openUrl(QUrl("D://PDI//Code//help.html"));
 }
+
 
 

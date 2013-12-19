@@ -4,22 +4,52 @@
 #include <QString>
 #include <QFile>
 #include <QXmlStreamWriter>
+#include <QList>
+#include "box.h"
 #include "period.h"
 #include "segmentlist.h"
-//#include "treemodel.h"
+#include "treemodel.h"
 
 //profiles="urn:mpeg:dash:profile:isoff-main:2011">
+class TreeModel;
 
-class MPD
-{
+class ProgramInformation {
+public:
+    QString getLang() const;
+    void setLang(const QString &value);
+
+    QString getMoreInformationURL() const;
+    void setMoreInformationURL(const QString &value);
+
+    QString getTitle() const;
+    void setTitle(const QString &value);
+
+    QString getSource() const;
+    void setSource(const QString &value);
+
+    QString getCopyright() const;
+    void setCopyright(const QString &value);
+
+private:
+    QString lang;
+    QString moreInformationURL;
+    //
+    QString title;
+    QString source;
+    QString copyright;
+};
+
+class MPD {
 private:
     QString type;
     QString xmlns;
     QString minBufferTime;
     QString mediaPresentationDuration;
     QString profiles;
+    QList <Period> periods;
 public:
     MPD();
+    void addPeriod();
     QString getType() const;
     void setType(const QString &value);
     QString getXmlns() const;
@@ -31,6 +61,8 @@ public:
     QString getProfiles() const;
     void setProfiles(const QString &value);
     void write(QXmlStreamWriter *stream);
+    QList<Period> getPeriods() const;
+    void setPeriods(const QList<Period> &value);
 };
 
 class MPDWriter {
@@ -41,9 +73,17 @@ private:
     QFile* mpdFile;
     //TreeModel* model;
     MPD* mpd;
+    ProgramInformation* programInformation;
     Period* period;
+    TreeModel* model;
+
+    QString getDuration();
+    QString getHMSFormat(const double& value);
+    void setMPD();
+    void setProgramInformation();
+    void setSegmentList();
 public:
-    MPDWriter(const QString& fn);
+    MPDWriter(const QString& fn, TreeModel* mod);
     void writeMPD(QFile* file);
 };
 /*QFile* file = new QFile("D://plik.xml");

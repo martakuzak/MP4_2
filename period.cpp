@@ -1,9 +1,9 @@
 #include "period.h"
 
 Period::Period() {}
-Period::Period(const unsigned int &i, const QString &dur, const QString &st): id(i), duration(dur), start(st)
-{
-}
+//Period::Period(const unsigned int &i, const QString &dur, const QString &st): id(i), duration(dur), start(st)
+//{
+//}
 void Period::write(QXmlStreamWriter *stream) {
     stream->writeStartElement("Period");
     if(id != NULL) {
@@ -13,7 +13,9 @@ void Period::write(QXmlStreamWriter *stream) {
         stream->writeAttribute("duration", duration);
     if(start.size())
         stream->writeAttribute("start", start);
-    adaptationSet->write(stream);
+    for(int i = 0; i < adaptationSets.size(); ++i) {
+        adaptationSets.at(i)->write(stream);
+    }
     stream->writeEndElement();
 }
 
@@ -47,43 +49,23 @@ void Period::setDuration(const QString &value)
 {
     duration = value;
 }
-
-AdaptationSet *Period::getAdaptationSet() const
-{
-return adaptationSet;
-}
-
-void Period::setAdaptationSet(AdaptationSet *value)
-{
-adaptationSet = value;
+void Period::addAdaptationSet() {
+    AdaptationSet* adaptSet = new AdaptationSet();
+    //nic nie jest obowiazkowe niby
+    adaptationSets.append(adaptSet);
 }
 /////////////////////////////////////////////////////////////////////////////
 AdaptationSet::AdaptationSet() {}
-/// \brief AdaptationSet::AdaptationSet
-/// \param segAlig
-/// \param subsegAlig
-/// \param bitsSwit
-/// \param maxW
-/// \param maxH
-/// \param maxFR
-/// \param swSAP
-/// \param subsswSAP
-/// \param p
-/// \param mimeT
-/// \param cod
-/// \param fr
-/// \param lan
-/// \param rep
-AdaptationSet::AdaptationSet(const bool& segAlig, const bool& subsegAlig, const bool& bitsSwit, const unsigned int& maxW,
-                             const unsigned int& maxH, const unsigned int& maxFR, const unsigned short int& swSAP,
-                             const unsigned short int& subsswSAP, const QString& p, const QString& mimeT, const QString& cod,
-                             const QString& fr, const QString& lan
+//AdaptationSet::AdaptationSet(const bool& segAlig, const bool& subsegAlig, const bool& bitsSwit, const unsigned int& maxW,
+//                             const unsigned int& maxH, const unsigned int& maxFR, const unsigned short int& swSAP,
+//                             const unsigned short int& subsswSAP, const QString& p, const QString& mimeT, const QString& cod,
+//                             const QString& fr, const QString& lan
 
-                             , const QList<Representation> rep):
-    segmentAlignment(segAlig), subsegmentAlignment(subsegAlig), bitstreamSwitching(bitsSwit), maxWidth(maxW), maxHeight(maxH),
-    maxFrameRate(maxFR), startsWithSAP(swSAP), subsegmentStartsWithSAP(subsswSAP), par(p), mimeType(mimeT), codecs(cod),
-    frameRate(fr), lang(lan), representations(rep)
-{}
+//                             , const QList<Representation> rep):
+//    segmentAlignment(segAlig), subsegmentAlignment(subsegAlig), bitstreamSwitching(bitsSwit), maxWidth(maxW), maxHeight(maxH),
+//    maxFrameRate(maxFR), startsWithSAP(swSAP), subsegmentStartsWithSAP(subsswSAP), par(p), mimeType(mimeT), codecs(cod),
+//    frameRate(fr), lang(lan), representations(rep)
+//{}
 ///////////
 void AdaptationSet::write(QXmlStreamWriter *stream) {
     stream->writeStartElement("AdaptationSet");
@@ -130,22 +112,19 @@ void AdaptationSet::write(QXmlStreamWriter *stream) {
         stream->writeAttribute("lang", lang);
     int size = representations.size();
     for (int i = 0; i < size; ++i) {
-        Representation r = representations.at(i);
-        r.write(stream);
+        Representation* r = representations.at(i);
+        r->write(stream);
     }
     stream->writeEndElement();
 }
+void AdaptationSet::addRepresentation() {
+    Representation* repr = new Representation();
+    int newId = representations.size();
+    repr->setId(newId);
+    repr->setBandwidth(2000); //skąd?
+    representations.append(repr);
+}
 
-/////////////
-QList<Representation> AdaptationSet::getRepresentations() const
-{
-    return representations;
-}
-/////////////
-void AdaptationSet::setRepresentations(const QList<Representation> &value)
-{
-    representations = value;
-}
 /////////////
 QString AdaptationSet::getLang() const
 {
@@ -279,15 +258,10 @@ void AdaptationSet::setSegmentAlignment(bool value)
 
 /////////////////////////////////////////////////////////////////////////////
 BaseURL::BaseURL() {}
-/// \brief BaseURL::BaseURL
-/// \param con
-/// \param sl
-/// \param br
-///
-BaseURL::BaseURL(const QString& con, const QString &sl, const QString &br):
-    content(con), serviceLocation(sl), byteRange(br) {
+//BaseURL::BaseURL(const QString& con, const QString &sl, const QString &br):
+//    content(con), serviceLocation(sl), byteRange(br) {
 
-}
+//}
 /////////////
 void BaseURL::write(QXmlStreamWriter *stream) {
     stream->writeStartElement("BaseURL");
@@ -331,25 +305,13 @@ void BaseURL::setContent(const QString &value)
 }
 /////////////////////////////////////////////////////////////////////////////
 Representation::Representation() {}
-/// \brief Representation::Representation
-/// \param i
-/// \param mime
-/// \param cod
-/// \param w
-/// \param h
-/// \param fr
-/// \param sa
-/// \param swSAP
-/// \param band
-/// \param burl
-/// \param slist
-///
-Representation::Representation(const unsigned int& i, const QString& mime, const QString& cod, const unsigned int& w, const unsigned int& h,
-                               const unsigned int& fr, const QString& sa, const unsigned short int& swSAP,
-                               const unsigned int& band,const BaseURL &burl, const SegmentList &slist):
-    id(i), mimeType(mime), codecs(cod), width(w), height(h), frameRate(fr), sar(sa), startsWithSAP(swSAP), bandwidth(band), baseurl(burl),
-    segmentList(slist)
-{}
+//Representation::Representation(const unsigned int& i, const QString& mime, const QString& cod, const unsigned int& w, const unsigned int& h,
+//                               const unsigned int& fr, const QString& sa, const unsigned short int& swSAP,
+//                               const unsigned int& band,const BaseURL &burl, const SegmentList &slist):
+//    id(i), mimeType(mime), codecs(cod), width(w), height(h), frameRate(fr), sar(sa), startsWithSAP(swSAP), bandwidth(band), baseurl(burl),
+//    segmentList(slist)
+//{}
+
 void Representation::write(QXmlStreamWriter *stream) {
     stream->writeStartElement("AdaptationSet");
     if(id != NULL)

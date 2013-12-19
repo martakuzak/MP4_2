@@ -123,6 +123,9 @@ public:
     virtual unsigned long int getSampleSize() {
         return 0;
     }
+    virtual unsigned long int getTimeScale() {
+        return 0;
+    }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////
 class FullBox : public Box
@@ -244,6 +247,9 @@ public:
     virtual QString getInfo();
     virtual unsigned long int getDuration() {
         return duration;
+    }
+    virtual unsigned long int getTimeScale() {
+        return timeScale;
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////

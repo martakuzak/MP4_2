@@ -30,11 +30,13 @@
 #include "treeitem.h"
 #include "analyzer.h"
 #include "dashproxy.h"
+#include "mpd.h"
 
 
 class Analyzer;
 class TreeModel;
 class DashProxy;
+class MPDWriter;
 
 /*!
  * \brief The MainWindow class defines a mind window of the application
@@ -97,6 +99,7 @@ private:
      */
     Analyzer * analyzer;
     DashProxy * dashProxy;
+    MPDWriter * mpdWriter;
 public:
     //!Constructor
     /*!
@@ -151,6 +154,7 @@ private:
      * \info search box section enables searching for boxes by typing typename
      */
     void setSearchBoxSection();
+    void writeMPD(const QString& filename);
 };
 
 
