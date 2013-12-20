@@ -183,17 +183,17 @@ void MPDWriter::writeMPD(QFile* file) {
     file->close();
 }
 ////////////////////////
-void MPDWriter::setProgramInformation() {
-    programInformation = new ProgramInformation();
-    //    programInformation->setCopyright();//nic nieobowiązkowe
-    //    programInformation->setLang();
-    //    programInformation->setMoreInformationURL();
-    //    programInformation->setSource();
-    //    programInformation->setTitle();
-}
+//void MPDWriter::setProgramInformation() {
+//    programInformation = new ProgramInformation();
+//    //    programInformation->setCopyright();//nic nieobowiązkowe
+//    //    programInformation->setLang();
+//    //    programInformation->setMoreInformationURL();
+//    //    programInformation->setSource();
+//    //    programInformation->setTitle();
+//}
 ////////////////////////
 SegmentList* MPDWriter::setSegmentList() {
-    slist = new SegmentList();
+    SegmentList* slist = new SegmentList();
     Initialization* init = new Initialization();
     QList< std::shared_ptr<Box> > mdats = dashModel->getBoxes("mdat");
     QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");

@@ -75,17 +75,13 @@ private:
     QFile* mpdFile;
     //TreeModel* model;
     MPD* mpd;
-    ProgramInformation* programInformation;
-    Period* period;
-    Representation* repr;
-    SegmentList* slist;
     TreeModel* dashModel;
     TreeModel* model;
 
     QString getDuration();
     QString getHMSFormat(const double& value);
     void setMPD();
-    void setProgramInformation();
+    //void setProgramInformation();
     SegmentList *setSegmentList();
     BaseURL* setBaseURL();
     Representation* setRepresentation();
@@ -95,19 +91,6 @@ public:
     MPDWriter(const QString& fn, TreeModel *mod);
     void writeMPD(QFile* file);
 };
-/*QFile* file = new QFile("D://plik.xml");
-    file->open(QIODevice::WriteOnly | QIODevice::Text);
-    //m_file.open(QIODevice::WriteOnly | QIODevice::Text);
 
-    QXmlStreamWriter stream(file);
-        stream.setAutoFormatting(true);
-        stream.writeStartDocument();
-        stream.writeStartElement("bookmark");
-        stream.writeAttribute("href", "http://qt-project.org/");
-        stream.writeTextElement("title", "Qt Project");
-        stream.writeEndElement(); // bookmark
-
-        stream.writeEndDocument();
-        file->close();*/
 
 #endif // MPD_H
