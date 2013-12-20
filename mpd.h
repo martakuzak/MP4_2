@@ -47,10 +47,11 @@ private:
     QString minBufferTime;
     QString mediaPresentationDuration;
     QString profiles;
-    QList <Period> periods;
+    QList <Period*> periods;
 public:
     MPD();
     void addPeriod();
+    void addPeriod(Period* period);
     QString getType() const;
     void setType(const QString &value);
     QString getXmlns() const;
@@ -62,8 +63,8 @@ public:
     QString getProfiles() const;
     void setProfiles(const QString &value);
     void write(QXmlStreamWriter *stream);
-    QList<Period> getPeriods() const;
-    void setPeriods(const QList<Period> &value);
+    QList<Period*> getPeriods() const;
+    void setPeriods(const QList<Period *> &value);
 };
 
 class MPDWriter {
@@ -85,8 +86,11 @@ private:
     QString getHMSFormat(const double& value);
     void setMPD();
     void setProgramInformation();
-    void setSegmentList();
-    void setRepresentation();
+    SegmentList *setSegmentList();
+    BaseURL* setBaseURL();
+    Representation* setRepresentation();
+    AdaptationSet* setAdaptationSet();
+    Period* setPeriod();
 public:
     MPDWriter(const QString& fn, TreeModel *mod);
     void writeMPD(QFile* file);

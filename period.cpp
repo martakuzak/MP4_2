@@ -318,7 +318,7 @@ Representation::Representation() {}
 //{}
 
 void Representation::write(QXmlStreamWriter *stream) {
-    stream->writeStartElement("AdaptationSet");
+    stream->writeStartElement("RepresentationSet");
     if(id != NULL)
         stream->writeAttribute("id", QString::number(id));
     if(mimeType.size())
@@ -335,7 +335,7 @@ void Representation::write(QXmlStreamWriter *stream) {
         stream->writeAttribute("startsWithSAP", QString::number(startsWithSAP));
     if(bandwidth != NULL)
         stream->writeAttribute("bandwidth", QString::number(bandwidth));
-    baseurl.write(stream);
+    baseurl->write(stream);
     segmentList->write(stream);
     stream->writeEndElement();
 }
@@ -351,12 +351,12 @@ void Representation::setSegmentList(SegmentList* value)
     segmentList = value;
 }
 /////////////
-BaseURL Representation::getBaseurl() const
+BaseURL *Representation::getBaseurl() const
 {
     return baseurl;
 }
 /////////////
-void Representation::setBaseurl(const BaseURL &value)
+void Representation::setBaseurl(BaseURL* value)
 {
     baseurl = value;
 }

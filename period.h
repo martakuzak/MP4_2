@@ -34,7 +34,7 @@ private:
     unsigned short int startsWithSAP;
     unsigned int bandwidth;
     //
-    BaseURL baseurl;
+    BaseURL* baseurl;
     SegmentList* segmentList;
 public:
     Representation();
@@ -59,8 +59,8 @@ public:
     void setStartsWithSAP(unsigned short value);
     unsigned int getBandwidth() const;
     void setBandwidth(unsigned int value);
-    BaseURL getBaseurl() const;
-    void setBaseurl(const BaseURL &value);
+    BaseURL* getBaseurl() const;
+    void setBaseurl(BaseURL* value);
     SegmentList* getSegmentList() const;
     void setSegmentList(SegmentList* value);
     void write(QXmlStreamWriter *stream);

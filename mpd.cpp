@@ -45,9 +45,13 @@ MPD::MPD()
 {}
 /////////////
 void MPD::addPeriod() {
-    Period period;
-    period.setStart(QString("PT0S"));
+    Period* period = new Period();
+    period->setStart(QString("PT0S"));
 
+    periods.append(period);
+}
+/////////////
+void MPD::addPeriod(Period* period) {
     periods.append(period);
 }
 /////////////
@@ -92,11 +96,11 @@ void MPD::setType(const QString &value) {
 }
 ////////////
 
-QList<Period> MPD::getPeriods() const{
+QList<Period *> MPD::getPeriods() const{
     return periods;
 }
 
-void MPD::setPeriods(const QList<Period> &value){
+void MPD::setPeriods(const QList<Period*> &value){
     periods = value;
 }
 
@@ -116,6 +120,13 @@ void MPD::write(QXmlStreamWriter* stream ) {
         stream->writeAttribute("profiles", profiles);
     if(mediaPresentationDuration.size())
         stream->writeAttribute("mediaPresentationDuration", mediaPresentationDuration);
+    if(periods.size()) {
+        int size = periods.size();
+        for(int i = 0; i < size; ++i) {
+            periods.at(i)->write(stream);
+        }
+    }
+    stream->writeEndElement();
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 QString MPDWriter::getDuration() {
@@ -157,69 +168,18 @@ void MPDWriter::setMPD() {
     //mpd->getSuggestedPresentationDelay();//w staticu ignorowane
     //mpd->getMaxSegmentDuration(); //nieobowiązkowe
     //mpd->getMaxSubsegmentDuration(); //nieobowiązkowe
-    setSegmentList();
+    mpd->addPeriod(setPeriod());
 }
 ////////////////////////
 void MPDWriter::writeMPD(QFile* file) {
     setMPD();
-    period = new Period();
-    AdaptationSet* adapt = new AdaptationSet();
-    Representation* repr = new Representation();
-    BaseURL burl;
-    qDebug()<<"gdzie 1";
-    burl.setContent(filename);
-    repr->setBaseurl(burl);
-    repr->setSegmentList(slist);
-    qDebug()<<"gdzie 2";
-    adapt->addRepresentation(repr);
-    period->addAdaptationSet(adapt);
-    qDebug()<<"gdzie 3";
-
 
     stream = new QXmlStreamWriter(file);
     stream->setAutoFormatting(true);
     stream->writeStartDocument();
-    qDebug()<<"gdzie 4";
-
     mpd->write(stream);
-    qDebug()<<"gdzie 5";
-    period->write(stream);
-    qDebug()<<"gdzie 6";
-    //slist->write(stream);
-    stream->writeEndElement();
+    stream->writeEndDocument();
 
-    /*BaseURL b;
-    b.setByteRange("100-200");
-    b.setServiceLocation("u marty");
-    b.setContent("zawartosc");
-
-    QList<Representation> repr;
-    Representation r;
-    r.setBandwidth(200);
-    r.setMimeType("mime");
-    r.setStartsWithSAP(1);
-    r.setBaseurl(b);
-    repr.append(r);
-
-
-    AdaptationSet* adapt = new AdaptationSet();
-    adapt->setBitstreamSwitching(false);
-    adapt->setLang("polish");
-    adapt->setMaxWidth(14);
-    //adapt->setRepresentations(repr);
-
-    period = new Period();
-    period->setDuration("dnufs");
-    period->setId(3);
-    period->addAdaptationSet();
-
-    file->open(QIODevice::WriteOnly | QIODevice::Text);
-    stream = new QXmlStreamWriter(file);
-    stream->setAutoFormatting(true);
-    stream->writeStartDocument();
-    mpd->write(stream);
-    period->write(stream);
-    stream->writeEndDocument();*/
     file->close();
 }
 ////////////////////////
@@ -232,7 +192,7 @@ void MPDWriter::setProgramInformation() {
     //    programInformation->setTitle();
 }
 ////////////////////////
-void MPDWriter::setSegmentList() {
+SegmentList* MPDWriter::setSegmentList() {
     slist = new SegmentList();
     Initialization* init = new Initialization();
     QList< std::shared_ptr<Box> > mdats = dashModel->getBoxes("mdat");
@@ -264,10 +224,40 @@ void MPDWriter::setSegmentList() {
         }
         //sidxs.pop_back();
     }
+    return slist;
+}
+//////////////
+BaseURL* MPDWriter::setBaseURL() {
+    BaseURL* burl = new BaseURL;
+    int last = filename.lastIndexOf("\\");
+    if(last == -1)
+        last = filename.lastIndexOf("/");
+    QString name = filename.mid(last + 1);
+    qDebug()<<name<<filename<<QString::number(last);
+    burl->setContent(name);
+    return burl;
 }
 /////////////
-void MPDWriter::setRepresentation() {
-
+Representation* MPDWriter::setRepresentation() {
+    Representation* repr = new Representation();
+    repr->setBaseurl(setBaseURL());
+    repr->setSegmentList(setSegmentList());
+    return repr;
 }
+/////////////
+AdaptationSet* MPDWriter::setAdaptationSet() {
+    AdaptationSet* adapt = new AdaptationSet();
+    adapt->addRepresentation(setRepresentation());
+    return adapt;
+}
+////////////////
+Period* MPDWriter::setPeriod() {
+    Period* period = new Period();
+    period->setStart(QString("PT0S"));
+    period->setDuration(getDuration());
+    period->addAdaptationSet(setAdaptationSet());
+    return period;
+}
+
 
 
