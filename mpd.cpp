@@ -116,7 +116,6 @@ void MPD::write(QXmlStreamWriter* stream ) {
         stream->writeAttribute("profiles", profiles);
     if(mediaPresentationDuration.size())
         stream->writeAttribute("mediaPresentationDuration", mediaPresentationDuration);
-    stream->writeEndElement();
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 QString MPDWriter::getDuration() {
@@ -163,10 +162,32 @@ void MPDWriter::setMPD() {
 ////////////////////////
 void MPDWriter::writeMPD(QFile* file) {
     setMPD();
+    period = new Period();
+    AdaptationSet* adapt = new AdaptationSet();
+    Representation* repr = new Representation();
+    BaseURL burl;
+    qDebug()<<"gdzie 1";
+    burl.setContent(filename);
+    repr->setBaseurl(burl);
+    repr->setSegmentList(slist);
+    qDebug()<<"gdzie 2";
+    adapt->addRepresentation(repr);
+    period->addAdaptationSet(adapt);
+    qDebug()<<"gdzie 3";
+
+
     stream = new QXmlStreamWriter(file);
     stream->setAutoFormatting(true);
     stream->writeStartDocument();
-    slist->write(stream);
+    qDebug()<<"gdzie 4";
+
+    mpd->write(stream);
+    qDebug()<<"gdzie 5";
+    period->write(stream);
+    qDebug()<<"gdzie 6";
+    //slist->write(stream);
+    stream->writeEndElement();
+
     /*BaseURL b;
     b.setByteRange("100-200");
     b.setServiceLocation("u marty");
@@ -243,9 +264,10 @@ void MPDWriter::setSegmentList() {
         }
         //sidxs.pop_back();
     }
-    while(!mdats.empty()) {
-        qDebug()<<"mdats"<<QString::number(mdats.back()->getOffset());
-        mdats.pop_back();
-    }
 }
+/////////////
+void MPDWriter::setRepresentation() {
+
+}
+
 

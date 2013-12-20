@@ -86,6 +86,7 @@ void Analyzer::setData(TreeItem* parent, QHash<long, TreeItem *>* items) {
         return ;
     }
     setData(parent, items, 0, fileSize); //zaczynamy od zerowego offsetu
+    file->close();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 

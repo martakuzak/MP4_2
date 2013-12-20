@@ -34,11 +34,7 @@ private:
     QHash<long,TreeItem*>* treeItems;
 
 public:
-    /*!
-     * \brief TreeModel constructor
-     * \param fileName  name of the analyzed file
-     * \param parent
-     */
+
     explicit TreeModel(Analyzer* analyzer, QObject *parent = 0);
     //!Destructor
     ~TreeModel();

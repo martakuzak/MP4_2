@@ -35,7 +35,7 @@ private:
     unsigned int bandwidth;
     //
     BaseURL baseurl;
-    SegmentList segmentList;
+    SegmentList* segmentList;
 public:
     Representation();
 //    Representation(const unsigned int& i, const QString& mime, const QString& cod, const unsigned int& w, const unsigned int& h,
@@ -61,8 +61,8 @@ public:
     void setBandwidth(unsigned int value);
     BaseURL getBaseurl() const;
     void setBaseurl(const BaseURL &value);
-    SegmentList getSegmentList() const;
-    void setSegmentList(const SegmentList &value);
+    SegmentList* getSegmentList() const;
+    void setSegmentList(SegmentList* value);
     void write(QXmlStreamWriter *stream);
 };
 ///////////////////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@ public:
 //                  const unsigned int& maxFR, const unsigned short int& swSAP, const unsigned short int& subsswSAP, const QString& p,
 //                  const QString& mimeT, const QString& cod, const QString& fr, const QString& lan, const QList<Representation> rep);
     void addRepresentation();
-
+    void addRepresentation(Representation* repr);
     bool getSegmentAlignment() const;
     void setSegmentAlignment(bool value);
     bool getSubsegmentAlignment() const;
@@ -140,6 +140,7 @@ public:
     void setStart(const QString &value);
     void write(QXmlStreamWriter *stream);
     void addAdaptationSet();
+    void addAdaptationSet(AdaptationSet* adaptSet);
 };
 ///////////////////////////////////////////////////////////////////////////////////
 

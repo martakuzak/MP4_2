@@ -76,6 +76,7 @@ private:
     MPD* mpd;
     ProgramInformation* programInformation;
     Period* period;
+    Representation* repr;
     SegmentList* slist;
     TreeModel* dashModel;
     TreeModel* model;
@@ -85,6 +86,7 @@ private:
     void setMPD();
     void setProgramInformation();
     void setSegmentList();
+    void setRepresentation();
 public:
     MPDWriter(const QString& fn, TreeModel *mod);
     void writeMPD(QFile* file);

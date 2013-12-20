@@ -325,16 +325,33 @@ void MainWindow::searchBox() {
 void MainWindow::splitOneFile() {
     QString fileName = title.mid(4);
     dashProxy = new DashProxy(fileName, model);
-    QFile* dashFile = new QFile("D://ka.mp4");
+    //QString str("D:\\PDI\\Samples\\multi\\multi_ballroom_side_by_side_2048.mp4");
+    int last = fileName.lastIndexOf("\\");
+    if(last == -1)
+        last = fileName.lastIndexOf("/");
+    QString name = fileName.mid(last + 1);
+    QString path = fileName.mid(0, last + 1);
+    QString dashName = QString(path + "dash_" + name);
+    QFile* dashFile = new QFile(dashName);
     if (dashFile->open(QIODevice::ReadWrite)) {
         dashProxy->writeFile(50, dashFile);
         dashFile->close();
-        QFile* file = new QFile("D://manifest.xml");
+
+        QFile* file = new QFile(dashName + ".xml");
         if(file->open(QIODevice::ReadWrite)) {
-            mpdWriter = new MPDWriter(QString("D://ka.mp4"), model);
+            mpdWriter = new MPDWriter(dashName, model);
             mpdWriter->writeMPD(file);
+            //qDebug()<<"gdzie 7";
         }
+        else {
+            delete dashProxy;
+            delete mpdWriter;
+            return;
+        }
+        file->close();
     }
+    delete dashProxy;
+    delete mpdWriter;
 }
 ////////////////////////////////////////////////////////////
 void MainWindow::writeMPD(const QString& filename) {

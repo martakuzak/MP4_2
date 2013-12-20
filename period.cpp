@@ -54,6 +54,9 @@ void Period::addAdaptationSet() {
     //nic nie jest obowiazkowe niby
     adaptationSets.append(adaptSet);
 }
+void Period::addAdaptationSet(AdaptationSet* adaptSet) {
+    adaptationSets.append(adaptSet);
+}
 /////////////////////////////////////////////////////////////////////////////
 AdaptationSet::AdaptationSet() {}
 //AdaptationSet::AdaptationSet(const bool& segAlig, const bool& subsegAlig, const bool& bitsSwit, const unsigned int& maxW,
@@ -124,7 +127,9 @@ void AdaptationSet::addRepresentation() {
     repr->setBandwidth(2000); //skąd?
     representations.append(repr);
 }
-
+void AdaptationSet::addRepresentation(Representation *repr) {
+    representations.append(repr);
+}
 /////////////
 QString AdaptationSet::getLang() const
 {
@@ -331,17 +336,17 @@ void Representation::write(QXmlStreamWriter *stream) {
     if(bandwidth != NULL)
         stream->writeAttribute("bandwidth", QString::number(bandwidth));
     baseurl.write(stream);
-    segmentList.write(stream);
+    segmentList->write(stream);
     stream->writeEndElement();
 }
 
 /////////////
-SegmentList Representation::getSegmentList() const
+SegmentList *Representation::getSegmentList() const
 {
     return segmentList;
 }
 /////////////
-void Representation::setSegmentList(const SegmentList &value)
+void Representation::setSegmentList(SegmentList* value)
 {
     segmentList = value;
 }
