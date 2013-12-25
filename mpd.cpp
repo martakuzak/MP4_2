@@ -146,10 +146,10 @@ QString MPDWriter::getHMSFormat(const double& value) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-MPDWriter::MPDWriter(const QString& fn, TreeModel *mod): filename(fn), model(mod) {
+MPDWriter::MPDWriter(const QString& fn, TreeModel *mod): dashName(fn), model(mod) {
 }
 void MPDWriter::init() {
-    Analyzer* an = new Analyzer(filename);
+    Analyzer* an = new Analyzer(dashName);
     dashModel = new TreeModel(an);
 }
 
@@ -229,11 +229,11 @@ SegmentList* MPDWriter::setSegmentList() {
 //////////////
 BaseURL* MPDWriter::setBaseURL() {
     BaseURL* burl = new BaseURL;
-    int last = filename.lastIndexOf("\\");
+    int last = dashName.lastIndexOf("\\");
     if(last == -1)
-        last = filename.lastIndexOf("/");
-    QString name = filename.mid(last + 1);
-    qDebug()<<name<<filename<<QString::number(last);
+        last = dashName.lastIndexOf("/");
+    QString name = dashName.mid(last + 1);
+    qDebug()<<name<<dashName<<QString::number(last);
     burl->setContent(name);
     return burl;
 }

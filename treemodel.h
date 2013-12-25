@@ -17,8 +17,7 @@ class DashProxy;
  * \brief The TreeModel class
  * represents tree model for TreeView
  */
-class TreeModel : public QAbstractItemModel
-{
+class TreeModel : public QAbstractItemModel {
     Q_OBJECT
 private:
     //void setupModelData(const QStringList &lines, TreeItem *parent);
@@ -87,25 +86,30 @@ public:
      * \return the number of columns for the children of the given parent.
      */
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    /*!
+     * \brief getRootItem
+     * \return rootItem
+     */
     TreeItem* getRootItem() { return rootItem; }
+    /*!
+     * \brief getChild
+     * \param parent parent TreeItem
+     * \param type box type
+     * \return child item of given parent and box type
+     */
     TreeItem *getChild(TreeItem *parent, QString type);
+    /*!
+     * \brief getChild
+     * \param offset offset of box in bytes in the file
+     * \return child that has given offset
+     */
     TreeItem *getChild(int offset);
+    /*!
+     * \brief getBoxes
+     * \param type box type
+     * \return list of pointers to boxes that has given type
+     */
     QList <std::shared_ptr <Box>> getBoxes(const QString& type);
-    //    unsigned long int mdatSize(const unsigned long int& firstSample, const unsigned int& sampleNumber, std::shared_ptr<Box>& stsz,
-    //                               Analyzer* an);
-    //    unsigned int writeMdat(const unsigned long int& firstSample, const unsigned int& sampleNumber, std::shared_ptr<Box>& stsz, QFile* dashFile,
-    //                   Analyzer* an);
-    //    unsigned int writeMoof(const unsigned long int& sequenceNumber, const unsigned int& trackID, const unsigned long &baseMediaDecodeTime,
-    //                          const unsigned int& trunFlag2, const unsigned int& trunFlag3, const unsigned int& sampleCount,
-    //                          const signed int& dataOffset, const unsigned int& firstSampleFlags, const unsigned long int& firstSample, std::shared_ptr<Box>& stsz, QFile* dashFile, Analyzer* an);
-    //    unsigned int writeMfhd(const unsigned long int& sn, QFile* dashFile, Analyzer* an);
-    //    unsigned int writeTfhd(const unsigned int& trackID, QFile* dashFile, Analyzer* an);
-    //    unsigned int writeTfdt(const unsigned long &baseMediaDecodeTime, QFile* dashFile, Analyzer* an);
-    //    unsigned int writeTrun(const unsigned int& flag2, const unsigned int& flag3, const unsigned int& sampleCount,
-    //                           const signed int& dataOffset, const unsigned int& firstSampleFlags, const unsigned long int& firstSample, std::shared_ptr<Box>& stsz, QFile* dashFile, Analyzer* an);
-    //    unsigned int writeTraf(const unsigned int& trackID, const unsigned long &baseMediaDecodeTime, const unsigned int& trunFlag2,
-    //                           const unsigned int& trunFlag3, const unsigned int& sampleCount, const signed int& dataOffset,
-    //                           const unsigned int& firstSampleFlags, const unsigned long int& firstSample, std::shared_ptr<Box>& stsz, QFile* dashFile, Analyzer* an);
 };
 
 #endif // TREEMODEL_H

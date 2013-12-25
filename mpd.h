@@ -50,6 +50,12 @@ private:
     QList <Period*> periods;
 public:
     MPD();
+    /*!
+     * \brief write
+     * Writes MPD vertex into Media Presentation Description file
+     * \param stream stream of the MPD file
+     */
+    void write(QXmlStreamWriter *stream);
     void addPeriod();
     void addPeriod(Period* period);
     QString getType() const;
@@ -62,16 +68,21 @@ public:
     void setMediaPresentationDuration(const QString &value);
     QString getProfiles() const;
     void setProfiles(const QString &value);
-    void write(QXmlStreamWriter *stream);
     QList<Period*> getPeriods() const;
     void setPeriods(const QList<Period *> &value);
 };
 
+/*!
+ * \brief The MPDWriter class
+ */
 class MPDWriter {
 private:
     QString xmlHeader;// = "<?xml version=\"1.0\"?>";
     QXmlStreamWriter* stream;
-    QString filename;
+    /*!
+     * \brief dashName
+     */
+    QString dashName;
     QFile* mpdFile;
     //TreeModel* model;
     MPD* mpd;
@@ -88,8 +99,22 @@ private:
     AdaptationSet* setAdaptationSet();
     Period* setPeriod();
 public:
+    /*!
+     * \brief MPDWriter
+     * \param fn name of mp4 dash file
+     * \param mod model of mp4 original file
+     */
     MPDWriter(const QString& fn, TreeModel *mod);
+    /*!
+     * \brief init
+     * Creates tree model of mp4 dash file
+     */
     void init();
+    /*!
+     * \brief writeMPD
+     * Writes Media Description File
+     * \param file Media Presentation Description file that is created
+     */
     void writeMPD(QFile* file);
 };
 

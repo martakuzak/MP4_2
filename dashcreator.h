@@ -7,9 +7,11 @@
 #include "treemodel.h"
 
 class TreeModel;
-
-class DashCreator
-{
+/*!
+ * \brief The DashCreator class provides several methods that enables writing mp4 dash file. The file may be streamed via internet
+ * according to MPEG-DASH standard.
+ */
+class DashCreator {
 public:
     /*!
      * \brief DashCreator manages stream to newly created dash file
@@ -340,8 +342,17 @@ public:
 
 
 private:
+    /*!
+     * \brief fileName name of the mp4 file that is transformed into dash mp4 file
+     */
     QString fileName;
+    /*!
+     * \brief model model of boxes mp4 file
+     */
     TreeModel* model;
+    /*!
+     * \brief file mp4 file that is transformed into dash mp4 file
+     */
     QFile* file;
 };
 

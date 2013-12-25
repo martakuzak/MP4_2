@@ -86,6 +86,9 @@ private:
      * \brief fileMenu
      */
     QMenu *fileMenu;
+    /*!
+     * \brief dashMenu
+     */
     QMenu *dashMenu;
     /*!
      * \brief helpMenu
@@ -95,6 +98,9 @@ private:
      * \brief analyzer
      */
     Analyzer * analyzer;
+    /*!
+     * \brief dashProxy
+     */
     DashProxy * dashProxy;
 public:
     //!Constructor
@@ -128,6 +134,10 @@ private slots:
      * \brief launchHelp launches help html site.
      */
     void launchHelp();
+    /*!
+     * \brief splitOneFile
+     * Creates mp4 dash file and appropiate .mpd file according to currently open mp4 file
+     */
     void splitOneFile();
 
 

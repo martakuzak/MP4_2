@@ -126,6 +126,10 @@ public:
     QString getInfo() {
         return box->getInfo();
     }
+    /*!
+     * \brief getBox
+     * \return box
+     */
     std::shared_ptr<Box> getBox() {
         return box;
     }
