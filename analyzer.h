@@ -35,15 +35,21 @@ public:
      * \brief valueOfGroupOfBytes takes a given sequence of bytes and converts them into unsigned long int value
      * \param length number of bytes in the sequence
      * \param offset offset of the sequence in the file
-     * \return value of byte sequence
+     * \return unsigned value of byte sequence
      */
     unsigned long int valueOfGroupOfBytes(const int & length, const unsigned long int& offset = 0);
+    /*!
+     * \brief signedValueOfGroupOfBytes takes a given sequence of bytes and converts them into unsigned long int value
+     * \param length number of bytes in the sequence
+     * \param offset offset of the sequence in the file
+     * \return signed value of byte sequence
+     */
     signed long int signedValueOfGroupOfBytes(const int & length, const unsigned long int& offset = 0);
     /*!
      * \brief valueOfGroupOfBits takes a given sequence of bits and converts them into unsigned long int value
      * \param length number of bits in the sequence
      * \param offset offset of the sequnce in the file
-     * \return value of bit sequence
+     * \return unsigned value of bit sequence
      */
     unsigned long int valueOfGroupOfBits(const int & length, const unsigned long int& offset);
     /*!
@@ -78,13 +84,19 @@ public:
      */
     QString fileName;
     /*!
-     * \brief tempArray
+     * \brief file
+     * analyzed file
      */
     QFile* file;
     /*!
-     * \brief arraySize
+     * \brief fileSize
+     * number of bytes of analyzed file
      */
     unsigned long int fileSize;
+    /*!
+     * \brief mdatOffset
+     * offset in bytes of mdat box
+     */
     unsigned long int mdatOffset;
 
 };

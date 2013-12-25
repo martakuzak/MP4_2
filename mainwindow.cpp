@@ -337,25 +337,17 @@ void MainWindow::splitOneFile() {
         dashProxy->writeFile(50, dashFile);
         dashFile->close();
 
-        QFile* file = new QFile(dashName + ".xml");
-        if(file->open(QIODevice::ReadWrite)) {
-            mpdWriter = new MPDWriter(dashName, model);
-            mpdWriter->writeMPD(file);
-            //qDebug()<<"gdzie 7";
+        QFile* mpdFile = new QFile(dashName + ".xml");
+        if(mpdFile->open(QIODevice::ReadWrite)) {
+            dashProxy->writeMPD(mpdFile);
         }
         else {
             delete dashProxy;
-            delete mpdWriter;
             return;
         }
-        file->close();
+        mpdFile->close();
     }
     delete dashProxy;
-    delete mpdWriter;
-}
-////////////////////////////////////////////////////////////
-void MainWindow::writeMPD(const QString& filename) {
-
 }
 ////////////////////////////////////////////////////////////
 void MainWindow::launchHelp() {

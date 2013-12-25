@@ -1,6 +1,8 @@
 #include "period.h"
 
-Period::Period() {}
+Period::Period() {
+    id = NULL;
+}
 //Period::Period(const unsigned int &i, const QString &dur, const QString &st): id(i), duration(dur), start(st)
 //{
 //}
@@ -57,8 +59,23 @@ void Period::addAdaptationSet() {
 void Period::addAdaptationSet(AdaptationSet* adaptSet) {
     adaptationSets.append(adaptSet);
 }
+////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-AdaptationSet::AdaptationSet() {}
+AdaptationSet::AdaptationSet() {
+    segmentAlignment = NULL;
+    subsegmentAlignment = NULL;
+    bitstreamSwitching = NULL;
+    maxWidth = NULL;
+    maxHeight = NULL;
+    maxFrameRate = NULL;
+    subsegmentStartsWithSAP = NULL;
+    startsWithSAP = NULL;
+    par = QString("");
+    mimeType = QString("");
+    codecs = QString("");
+    frameRate = QString("");
+    lang = QString("");
+}
 //AdaptationSet::AdaptationSet(const bool& segAlig, const bool& subsegAlig, const bool& bitsSwit, const unsigned int& maxW,
 //                             const unsigned int& maxH, const unsigned int& maxFR, const unsigned short int& swSAP,
 //                             const unsigned short int& subsswSAP, const QString& p, const QString& mimeT, const QString& cod,
@@ -309,7 +326,17 @@ void BaseURL::setContent(const QString &value)
     content = value;
 }
 /////////////////////////////////////////////////////////////////////////////
-Representation::Representation() {}
+Representation::Representation() {
+    id = NULL;
+    mimeType = QString("");
+    codecs = QString("");
+    width = NULL;
+    height = NULL;
+    frameRate = NULL;
+    bandwidth = NULL;
+    sar = QString("");
+    startsWithSAP = NULL;
+}
 //Representation::Representation(const unsigned int& i, const QString& mime, const QString& cod, const unsigned int& w, const unsigned int& h,
 //                               const unsigned int& fr, const QString& sa, const unsigned short int& swSAP,
 //                               const unsigned int& band,const BaseURL &burl, const SegmentList &slist):

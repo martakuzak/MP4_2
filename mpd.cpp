@@ -40,7 +40,8 @@ QString ProgramInformation::getMoreInformationURL() const {
 void ProgramInformation::setMoreInformationURL(const QString &value){
     moreInformationURL = value;
 }
-///////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 MPD::MPD()
 {}
 /////////////
@@ -103,11 +104,7 @@ QList<Period *> MPD::getPeriods() const{
 void MPD::setPeriods(const QList<Period*> &value){
     periods = value;
 }
-
-/////////////
-/// \brief MPD::write
-/// \param stream
-///
+//////////////////////////////////
 void MPD::write(QXmlStreamWriter* stream ) {
     stream->writeStartElement("MPD");
     if(type.size())
@@ -147,12 +144,15 @@ QString MPDWriter::getHMSFormat(const double& value) {
     durationInSec -= 60*minutes;
     return QString("PT" + QString::number(hours) + "H" + QString::number(minutes) + "M" + QString::number(durationInSec) + "S");
 }
-
+////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 MPDWriter::MPDWriter(const QString& fn, TreeModel *mod): filename(fn), model(mod) {
-    Analyzer* an = new Analyzer(fn);
+}
+void MPDWriter::init() {
+    Analyzer* an = new Analyzer(filename);
     dashModel = new TreeModel(an);
 }
+
 void MPDWriter::setMPD() {
     //MPD
     mpd = new MPD();

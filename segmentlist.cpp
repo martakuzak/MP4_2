@@ -1,6 +1,9 @@
 #include "segmentlist.h"
 
-SegmentList::SegmentList() {}
+SegmentList::SegmentList() {
+    timescale = NULL;
+    duration = NULL;
+}
 /////////////
 //SegmentList::SegmentList(const unsigned int &ts, const unsigned long &dur, const Initialization &init, const QList<SegmentURL> surl):
 //    timescale(ts), duration(dur), initialization(init), segmentURLs(surl)

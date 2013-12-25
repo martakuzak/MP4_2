@@ -89,6 +89,7 @@ private:
     Period* setPeriod();
 public:
     MPDWriter(const QString& fn, TreeModel *mod);
+    void init();
     void writeMPD(QFile* file);
 };
 

@@ -60,9 +60,9 @@ public:
     /*!
      * \brief Box
      * constructor
-     * \param s size
-     * \param t type
-     * \param off offset
+     * \param s size of box in bytes
+     * \param t type of box (created from reading bytes in ASCII code)
+     * \param off offset of box in bytes
      * \param e extended_type
      */
     Box(const unsigned  int &s, const QString& t, const unsigned long &off, const unsigned  int &e);
@@ -72,8 +72,8 @@ public:
      */
     virtual bool isContainer() { return false; }
     /*!
-     * \brief getOffset
-     * \return offset of child boxes
+     * \brief getContainetOffset
+     * \return offset of child boxes in the box (in bytes)
      */
     virtual unsigned int getContainerOffset() { return 8; }
     /*!
@@ -96,36 +96,118 @@ public:
      * \return size in bytes
      */
     virtual unsigned long int getSize() { return size; }
+    /*!
+     * \brief getOffset
+     * \return offset of the box in bytes
+     */
     virtual unsigned long int getOffset() const { return offset; }
+    /*!
+     * \brief getSampleSize
+     * This method is overwritten in SampleSizeBox. It should not be used while dealing with other boxes.
+     * When called on other boxes it returns 0.
+     * \see virtual unsigned long int SampleSizeBox::getSampleSize(const unsigned long int& id);
+     * \param id
+     * \return
+     */
     virtual unsigned long int getSampleSize(const unsigned long int& id) {
         return id*0;
     }
+    /*!
+     * \brief getEntryCount
+     * This method is overwritten in SampleSizeBox, SyncSampleBox and SampleDescriptionBox. It should not be used while dealing with
+     * other boxes.
+     * When called on other boxes it returns 0.
+     * \see virtual unsigned long int SampleSizeBox::getEntryCount();
+     * \see virtual unsigned long int SyncSampleBox::getEntryCount();
+     * \see virtual unsigned long int SampleDescriptionBox::getEntryCount();
+     * \param id
+     * \return
+     */
     virtual unsigned long int getEntryCount() {
         return 0;
     }
+    /*!
+     * \brief getSyncSample
+     * This method is overwritten in SyncSampleBox. It should not be used while dealing with other boxes.
+     * When called on other boxes it returns 0.
+     * \see virtual unsigned long int SyncSampleBox::getSyncSample(const unsigned long int& id);
+     * \param id
+     * \return
+     */
     virtual unsigned long int getSyncSample(const int& id) {
         return 0*id;
     }
+    /*!
+     * \brief getMediaTimeScale()
+     * This method is overwritten in MediaHeaderBox. It should not be used while dealing with other boxes.
+     * When called on other boxes it returns 0.
+     * \see virtual unsigned long int MediaHeaderBox::getMediaTimeScale();
+     * \param id
+     * \return
+     */
     virtual unsigned long int getMediaTimeScale() {
         return 0;
     }
+    /*!
+     * \brief getTrackID()
+     * This method is overwritten in MediaHeaderBox, TrackHeaderBox, TrackExtendsBox and TrackFragmentHeaderBox.
+     * It should not be used while dealing with other boxes.
+     * When called on other boxes it returns 0.
+     * \see virtual unsigned long int MediaHeaderBox::getTrackID);
+     * \see virtual unsigned long int TrackHeaderBox::getTrackID);
+     * \see virtual unsigned long int TrackExtendsBox::getTrackID);
+     * \see virtual unsigned long int TrackFragmentHeaderBox::getTrackID);
+     * \param id
+     * \return
+     */
     virtual unsigned int getTrackID() {
         return 0;
     }
-
+    /*!
+     * \brief getVersion
+     * \return version of the box or 2 if box is not FullBox
+     */
     virtual unsigned int getVersion() {
         return 2;
     }
-
+    /*!
+     * \brief getDuration
+     * This method is overwritten in MovieHeaderBox.
+     * It should not be used while dealing with other boxes.
+     * When called on other boxes it returns 0.
+     * \see virtual unsigned long int MovieHeaderBox::getDuration()
+     * \return
+     */
     virtual unsigned long int getDuration() {
         return 0;
     }
+    /*!
+     * \brief getSampleSize
+     * This method is overwritten in SampleSizeBox.
+     * It should not be used while dealing with other boxes.
+     * When called on other boxes it returns 0.
+     * \see virtual unsigned long int SampelSizeBox::getSampleSize()
+     * \return
+     */
     virtual unsigned long int getSampleSize() {
         return 0;
     }
+    /*!
+     * \brief getTimeScale
+     * This method is overwritten in MovieHeaderBox.
+     * It should not be used while dealing with other boxes.
+     * When called on other boxes it returns 0.
+     * \see virtual unsigned long int MovieHeaderBox::getTimeScale()
+     * \return
+     */
     virtual unsigned long int getTimeScale() {
         return 0;
     }
+    /*!
+     * \brief operator <
+     * \param b
+     * \return true if offset of the box is smaller than offset of box b
+     */
     bool operator < (const Box &b) const {
         return offset < b.getOffset();
     }
@@ -134,6 +216,9 @@ public:
 class FullBox : public Box
 {
 private:
+    /*!
+     * \brief version
+     */
     unsigned int version;
     QList<unsigned int> flags;
 public:
