@@ -333,7 +333,7 @@ void MainWindow::splitIntoMoreFiles() {
     date.replace(QString(":"), QString("_"));
     dashProxy = new DashProxy(fileName, model, date);
     if(dashProxy->writeFiles(50/*, dashFile*/)) {
-        return;
+        //return;
         int last = fileName.lastIndexOf("\\");
         if(last == -1)
             last = fileName.lastIndexOf("/");

@@ -9,6 +9,14 @@ QString Initialization::getRange() const{
 void Initialization::setRange(const QString &value){
     range = value;
 }
+/////////////////
+QString Initialization::getSourceURL() const {
+    return sourceURL;
+}
+///////////////
+void Initialization::setSourceURL(const QString &value) {
+    sourceURL = value;
+}
 
 //Initialization::Initialization(const QString& r, const QString &sURL): range(r), sourceURL(sURL) {}
 /////////////
@@ -21,6 +29,14 @@ void Initialization::write(QXmlStreamWriter *stream) {
     stream->writeEndElement();
 }
 //////////////////////////////////////////////////////////////////
+QString SegmentURL::getMedia() const {
+    return media;
+}
+///////////
+void SegmentURL::setMedia(const QString &value) {
+    media = value;
+}
+///////
 SegmentURL::SegmentURL() {}
 ////////
 QString SegmentURL::getMediaRange() const {
@@ -38,6 +54,7 @@ QString SegmentURL::getIndexRange() const {
 void SegmentURL::setIndexRange(const QString &value) {
     indexRange = value;
 }
+
 ///////////
 void SegmentURL::write(QXmlStreamWriter *stream) {
     stream->writeStartElement("SegmentURL");
@@ -75,6 +92,13 @@ void SegmentList::addSegmentURL(const QString& mediaRange, const QString& indexR
     surl->setIndexRange(indexRange);
     segmentURLs.append(surl);
 }
+////////
+void SegmentList::addSegmentURL(const QString &media) {
+    SegmentURL* surl = new SegmentURL();
+    surl->setMedia(media);
+    segmentURLs.append(surl);
+}
+
 ///////
 Initialization *SegmentList::getInitialization() const {
     return initialization;

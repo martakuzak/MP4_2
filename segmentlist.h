@@ -34,6 +34,8 @@ public:
     void write(QXmlStreamWriter *stream);
     QString getRange() const;
     void setRange(const QString &value);
+    QString getSourceURL() const;
+    void setSourceURL(const QString &value);
 };
 ///////////////////////////////////////////////////////////////////////////
 /*!
@@ -63,6 +65,8 @@ public:
     void setMediaRange(const QString &value);
     QString getIndexRange() const;
     void setIndexRange(const QString &value);
+    QString getMedia() const;
+    void setMedia(const QString &value);
 };
 ///////////////////////////////////////////////////////////////////////////
 /*!
@@ -97,6 +101,7 @@ public:
      * \param indexRange defines byte range of segment index like this: 'first_byte-last_byte', for example '841-897'
      */
     void addSegmentURL(const QString &mediaRange, const QString &indexRange);
+    void addSegmentURL(const QString &media);
    // void addSegmentsURL();
     Initialization *getInitialization() const;
     void setInitialization(Initialization *value);
