@@ -4,7 +4,6 @@
 #include <QFile>
 #include <QByteArray>
 #include <QString>
-#include <QDateTime>
 #include <QDir>
 #include "treemodel.h"
 
@@ -20,7 +19,7 @@ public:
      * \param fn according to file with given fileName dash file is created
      * \param model model of box tree
      */
-    DashCreator(const QString& fn, TreeModel* model);
+    DashCreator(const QString& fn, TreeModel* model, const QString& dt);
     ~DashCreator();
     /*!
      * \brief closeFileStream closes filename file stream
@@ -363,6 +362,7 @@ private:
      * \brief fileName name of the mp4 file that is transformed into dash mp4 file
      */
     QString fileName;
+    QString date;
     /*!
      * \brief model model of boxes mp4 file
      */

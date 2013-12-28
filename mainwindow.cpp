@@ -75,7 +75,7 @@ void MainWindow::createActions()
     connect(dashOneFileAct, SIGNAL(triggered()), this, SLOT(splitOneFile()));
 
     dashSeparatedFilesAct = new QAction(tr("&Split with each segment in separated file"), this);
-    connect(dashSeparatedFilesAct, SIGNAL(triggered()), this, SLOT(splitIntoMoreFile()));
+    connect(dashSeparatedFilesAct, SIGNAL(triggered()), this, SLOT(splitIntoMoreFiles()));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::createMenu()
@@ -294,11 +294,21 @@ void MainWindow::searchBox() {
 ////////////////////////////////////////////////////////////
 void MainWindow::splitOneFile() {
     QString fileName = title.mid(4);
-    dashProxy = new DashProxy(fileName, model);
+    QDateTime local(QDateTime::currentDateTime());
+    QString date = local.toString();
+    date.replace(QString(":"), QString("_"));
+    dashProxy = new DashProxy(fileName, model, date);
     if(dashProxy->writeFile(50/*, dashFile*/)) {
-        QFile* mpdFile = new QFile(fileName + ".xml");
+        int last = fileName.lastIndexOf("\\");
+        if(last == -1)
+            last = fileName.lastIndexOf("/");
+        QString name = fileName.mid(last + 1);
+        QString path = fileName.mid(0, last + 1);
+        path.append("DASH " + date + "/");
+        QString mpdName = QString(path + "dash_" + name + ".xml");
+        QFile* mpdFile = new QFile(mpdName);
         if(mpdFile->open(QIODevice::ReadWrite)) {
-            dashProxy->writeMPD(mpdFile);
+            dashProxy->writeMPD(mpdFile, true);
         }
         else {
             delete dashProxy;
@@ -316,14 +326,24 @@ void MainWindow::splitOneFile() {
     delete dashProxy;
 }
 ////////////////////////////////////////////////////////////
-void MainWindow::splitIntoMoreFile() {
+void MainWindow::splitIntoMoreFiles() {
     QString fileName = title.mid(4);
-    dashProxy = new DashProxy(fileName, model);
+    QDateTime local(QDateTime::currentDateTime());
+    QString date = local.toString();
+    date.replace(QString(":"), QString("_"));
+    dashProxy = new DashProxy(fileName, model, date);
     if(dashProxy->writeFiles(50/*, dashFile*/)) {
         return;
-        QFile* mpdFile = new QFile(fileName + ".xml");
+        int last = fileName.lastIndexOf("\\");
+        if(last == -1)
+            last = fileName.lastIndexOf("/");
+        QString name = fileName.mid(last + 1);
+        QString path = fileName.mid(0, last + 1);
+        path.append("DASH " + date + "/");
+        QString mpdName = QString(path + "dash_" + name + ".xml");
+        QFile* mpdFile = new QFile(mpdName);
         if(mpdFile->open(QIODevice::ReadWrite)) {
-            dashProxy->writeMPD(mpdFile);
+            dashProxy->writeMPD(mpdFile, false);
         }
         else {
             delete dashProxy;

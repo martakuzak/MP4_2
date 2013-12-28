@@ -19,7 +19,7 @@ public:
      * \param fileName name of mp4 file that is transformed into dash mp4 file
      * \param model model of boxes of mp4 file that is transformed into dash mp4 file
      */
-    DashProxy(const QString& fileName, TreeModel* model);
+    DashProxy(const QString& fileName, TreeModel* model, const QString &date);
     /*!
      * \brief closeFileStream
      * closes file stream
@@ -44,7 +44,7 @@ public:
      * Writes Media Presentation Description File
      * \param mpdFile Media Presentation Description file that is created
      */
-    void writeMPD(QFile *mpdFile);
+    void writeMPD(QFile *mpdFile, bool oneFile);
 
 private:
     DashCreator* dashCreator;

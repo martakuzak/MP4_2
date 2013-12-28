@@ -1,6 +1,7 @@
 #include "dashcreator.h"
 
-DashCreator::DashCreator(const QString &fn, TreeModel* m): fileName(fn), model(m) {
+DashCreator::DashCreator(const QString &fn, TreeModel* m, const QString &dt): fileName(fn), model(m),
+date(dt) {
     file = new QFile(fileName);
     if (!file->open(QIODevice::ReadOnly)) {
         return ;
@@ -40,7 +41,8 @@ unsigned int DashCreator::copyBox(const QString& type, QFile* dashFile, const un
     }
     return size;
 }
-unsigned int DashCreator::copyBox(const QString& type, std::shared_ptr<Box> parent, QFile* dashFile, const unsigned long &maxSize) {
+unsigned int DashCreator::copyBox(const QString& type, std::shared_ptr<Box> parent, QFile* dashFile,
+                                  const unsigned long &maxSize) {
     //qDebug()<<"big copyBox"<<type;
     unsigned long int parentOffset = parent->getOffset();
     //qDebug()<<"big copyBox 2"<<type;
@@ -83,7 +85,8 @@ unsigned int DashCreator::copyBox(const QString& type, std::shared_ptr<Box> pare
     return size;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-unsigned long int DashCreator::mdatSize(const unsigned long int& firstSample, const unsigned int& sampleNumber, std::shared_ptr<Box>& stsz) {
+unsigned long int DashCreator::mdatSize(const unsigned long int& firstSample,
+                                        const unsigned int& sampleNumber, std::shared_ptr<Box>& stsz) {
     unsigned long int mdatSize = 8;
     for (unsigned int i = firstSample; i< (firstSample + sampleNumber); ++i) {
         mdatSize += stsz->getSampleSize(i);
@@ -166,7 +169,8 @@ unsigned int DashCreator::writeFtyp(QFile* dashFile) {
     return size;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int DashCreator::writeMdat(const unsigned long int& firstSample, const unsigned int &sampleNumber, std::shared_ptr<Box>& stsz,
+unsigned int DashCreator::writeMdat(const unsigned long int& firstSample, const unsigned int &sampleNumber,
+                                    std::shared_ptr<Box>& stsz,
                                     QFile* dashFile) {
     unsigned long int size = mdatSize(firstSample, sampleNumber, stsz);
     if(dashFile == NULL)
@@ -318,7 +322,8 @@ unsigned int DashCreator::writeMinf(std::shared_ptr<Box> parent, QFile* dashFile
     return size;
 }////////////////////////////////////////////////////////////////////////////////////////////
 unsigned int DashCreator::writeMoof(const unsigned long int& sequenceNumber, const unsigned int& trackID,
-                                    const unsigned long &baseMediaDecodeTime, const unsigned int& trunFlag2,const unsigned int& trunFlag3,
+                                    const unsigned long &baseMediaDecodeTime, const unsigned int& trunFlag2,
+                                    const unsigned int& trunFlag3,
                                     const unsigned int& sampleCount, const unsigned int& firstSampleFlags,
                                     const unsigned long int& firstSample, std::shared_ptr<Box>& stsz,
                                     QFile* dashFile) {
@@ -342,8 +347,8 @@ unsigned int DashCreator::writeMoof(const unsigned long int& sequenceNumber, con
     stream.writeRawData("moof", 4);
 
     writeMfhd(sequenceNumber, dashFile);
-    writeTraf(trackID, baseMediaDecodeTime, trunFlag2, trunFlag3, sampleCount, size + 8, firstSampleFlags, firstSample,
-              stsz, dashFile);
+    writeTraf(trackID, baseMediaDecodeTime, trunFlag2, trunFlag3, sampleCount, size + 8, firstSampleFlags,
+              firstSample, stsz, dashFile);
 
     return size;
 }
@@ -484,7 +489,8 @@ unsigned int DashCreator::writeStbl(std::shared_ptr<Box> minf, QFile* dashFile) 
     TreeItem* parentItem = model->getChild(offset);
     std::shared_ptr<Box> stbl = model->getChild(parentItem, "stbl")->getBox();
     unsigned long int size = 8;
-    size = size + writeStsd(stbl) + writeStsz(stbl) + writeStxx("stco") + writeStxx("stsc") + writeStxx("stts");
+    size = size + writeStsd(stbl) + writeStsz(stbl) + writeStxx("stco") + writeStxx("stsc") +
+            writeStxx("stts");
     if(dashFile == NULL)
         return size;
     //qDebug()<<"writeStbl";
@@ -627,8 +633,9 @@ unsigned int DashCreator::writeTkhd(std::shared_ptr<Box> parent, QFile* dashFile
     return size;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int DashCreator::writeTraf(const unsigned int& trackID, const unsigned long &baseMediaDecodeTime, const unsigned int& flag2,
-                                    const unsigned int& flag3, const unsigned int& sampleCount, const signed int& dataOffset,
+unsigned int DashCreator::writeTraf(const unsigned int& trackID, const unsigned long &baseMediaDecodeTime,
+                                    const unsigned int& flag2, const unsigned int& flag3,
+                                    const unsigned int& sampleCount, const signed int& dataOffset,
                                     const unsigned int& firstSampleFlags, const unsigned long int& firstSample,
                                     std::shared_ptr<Box>& stsz, QFile* dashFile) {
     QDataStream stream(dashFile);
@@ -690,8 +697,9 @@ unsigned int DashCreator::writeTrex(QFile* dashFile) {
     return 32;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int DashCreator::writeTrun(const unsigned int& flag2, const unsigned int& flag3, const unsigned int& sampleCount,
-                                    const signed int& dataOffset, const unsigned int& firstSampleFlags, const unsigned long int& firstSample,
+unsigned int DashCreator::writeTrun(const unsigned int& flag2, const unsigned int& flag3,
+                                    const unsigned int& sampleCount, const signed int& dataOffset,
+                                    const unsigned int& firstSampleFlags, const unsigned long int& firstSample,
                                     std::shared_ptr<Box>& stsz, QFile* dashFile) {
     QDataStream stream(dashFile);
     int size = 16; //size + type + version + flags + sampleCount
@@ -851,16 +859,12 @@ bool DashCreator::writeSegments(const unsigned int& maxSampleNum, QFile* dashFil
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 bool DashCreator::writeFile(const unsigned int& maxSampleNum) {
-    QDateTime local(QDateTime::currentDateTime());
-    QString date = local.toString();
-    date.replace(QString(":"), QString("_"));
-
     int last = fileName.lastIndexOf("\\");
     if(last == -1)
         last = fileName.lastIndexOf("/");
     QString name = fileName.mid(last + 1);
     QString path = fileName.mid(0, last + 1);
-    path.append(name + " " + date + "/");
+    path.append("DASH " + date + "/");
     QDir().mkdir(path);
     QString dashName = QString(path + "dash_" + name);
     QFile* dashFile = new QFile(dashName);
@@ -884,7 +888,7 @@ bool DashCreator::writeFiles(const unsigned int & maxSampleNum) {
         last = fileName.lastIndexOf("/");
     QString name = fileName.mid(last + 1);
     QString path = fileName.mid(0, last + 1);
-    path.append(name + " " + date + "/");
+    path.append("DASH " + date + "/");
     QDir().mkdir(path);
     QString initName = QString(path + "dash_init_" + name);
     QFile* initFile = new QFile(initName);

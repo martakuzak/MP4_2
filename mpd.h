@@ -93,31 +93,31 @@ private:
 
     QString getDuration();
     QString getHMSFormat(const double& value);
-    void setMPD();
+    void setMPD(bool oneFile);
     //void setProgramInformation();
-    SegmentList *setSegmentList();
-    BaseURL* setBaseURL();
-    Representation* setRepresentation();
-    AdaptationSet* setAdaptationSet();
-    Period* setPeriod();
+    SegmentList *setSegmentList(bool oneFile);
+    BaseURL* setBaseURL(bool oneFile);
+    Representation* setRepresentation(bool oneFile);
+    AdaptationSet* setAdaptationSet(bool oneFile);
+    Period* setPeriod(bool oneFile);
 public:
     /*!
      * \brief MPDWriter
      * \param fn name of mp4 dash file
      * \param mod model of mp4 original file
      */
-    MPDWriter(const QString &path, const QString& fn, TreeModel *mod);
+    MPDWriter(const QString &path, const QString& fn, TreeModel *mod, const QString& dt);
     /*!
      * \brief init
      * Creates tree model of mp4 dash file
      */
-    void init();
+    void init(bool b);
     /*!
      * \brief writeMPD
      * Writes Media Description File
      * \param file Media Presentation Description file that is created
      */
-    void writeMPD(QFile* file);
+    void writeMPD(QFile* file, bool oneFile);
 };
 
 

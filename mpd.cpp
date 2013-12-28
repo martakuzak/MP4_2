@@ -146,15 +146,22 @@ QString MPDWriter::getHMSFormat(const double& value) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-MPDWriter::MPDWriter(const QString& pth, const QString& fn, TreeModel *mod): path(pth), fileName(fn),
-    model(mod) {
+MPDWriter::MPDWriter(const QString& pth, const QString& fn, TreeModel *mod, const QString& dt): path(pth),
+    fileName(fn), model(mod) {
+    path.append("DASH " + dt + "/");
 }
-void MPDWriter::init() {
+void MPDWriter::init(bool b) {
+    //qDebug()<<"mpdw init"<<
+    if(b) {
+        Analyzer* an = new Analyzer(path + "dash_" + fileName);
+        dashModel = new TreeModel(an);
+        return;
+    }
     Analyzer* an = new Analyzer(path + "dash_init_" + fileName);
     dashModel = new TreeModel(an);
 }
 
-void MPDWriter::setMPD() {
+void MPDWriter::setMPD(bool oneFile) {
     //MPD
     mpd = new MPD();
     qDebug()<<"mpdWriter setMPD1";
@@ -174,13 +181,13 @@ void MPDWriter::setMPD() {
     //mpd->getMaxSegmentDuration(); //nieobowiązkowe
     //mpd->getMaxSubsegmentDuration(); //nieobowiązkowe
     qDebug()<<"mpdWriter setMPD5";
-    mpd->addPeriod(setPeriod());
+    mpd->addPeriod(setPeriod(oneFile));
     qDebug()<<"mpdWriter setMPD6";
 }
 ////////////////////////
-void MPDWriter::writeMPD(QFile* file) {
+void MPDWriter::writeMPD(QFile* file, bool oneFile) {
     qDebug()<<"mpdWriter write MPD";
-    setMPD();
+    setMPD(oneFile);
     qDebug()<<"po setMPD";
 
     stream = new QXmlStreamWriter(file);
@@ -201,65 +208,113 @@ void MPDWriter::writeMPD(QFile* file) {
 //    //    programInformation->setTitle();
 //}
 ////////////////////////
-SegmentList* MPDWriter::setSegmentList() {
+SegmentList* MPDWriter::setSegmentList(bool oneFile) {
     SegmentList* slist = new SegmentList();
     Initialization* init = new Initialization();
-    QList< std::shared_ptr<Box> > mdats = dashModel->getBoxes("mdat");
-    QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
-    init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
-    slist->setInitialization(init);
-    while(!sidxs.empty()) {
-        if(sidxs.size() == 1) {
-            std::shared_ptr<Box> sidx = sidxs.back();
-            std::shared_ptr<Box> mdat = mdats.front();
-            unsigned int firstMediaRange = sidx->getOffset();
-            unsigned int secondMediaRange = mdat->getOffset() + mdat->getSize() - 1;
-            QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
-            unsigned int secondIndexRange = sidx->getOffset() + sidx->getSize();
-            QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
-            slist->addSegmentURL(mediaRange, indexRange);
-            sidxs.pop_back();
+    if(oneFile) {
+        qDebug()<<"mpdw slist 1";
+        QList< std::shared_ptr<Box> > mdats = dashModel->getBoxes("mdat");
+        qDebug()<<"mpdw slist 2";
+        QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
+        qDebug()<<"mpdw slist 3";
+        init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
+        qDebug()<<"mpdw slist 4";
+        slist->setInitialization(init);
+        while(!sidxs.empty()) {
+            if(sidxs.size() == 1) {
+                std::shared_ptr<Box> sidx = sidxs.back();
+                std::shared_ptr<Box> mdat = mdats.front();
+                unsigned int firstMediaRange = sidx->getOffset();
+                unsigned int secondMediaRange = mdat->getOffset() + mdat->getSize() - 1;
+                QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
+                unsigned int secondIndexRange = sidx->getOffset() + sidx->getSize();
+                QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
+                slist->addSegmentURL(mediaRange, indexRange);
+                sidxs.pop_back();
+            }
+            else {
+                std::shared_ptr<Box> sidx1 = sidxs.back();
+                sidxs.pop_back();
+                std::shared_ptr<Box> sidx2 = sidxs.back();
+                unsigned int firstMediaRange = sidx1->getOffset();
+                unsigned int secondMediaRange = sidx2->getOffset() - 1;
+                QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
+                unsigned int secondIndexRange = sidx1->getOffset() + sidx1->getSize();
+                QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
+                slist->addSegmentURL(mediaRange, indexRange);
+            }
         }
-        else {
-            std::shared_ptr<Box> sidx1 = sidxs.back();
-            sidxs.pop_back();
-            std::shared_ptr<Box> sidx2 = sidxs.back();
-            unsigned int firstMediaRange = sidx1->getOffset();
-            unsigned int secondMediaRange = sidx2->getOffset() - 1;
-            QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
-            unsigned int secondIndexRange = sidx1->getOffset() + sidx1->getSize();
-            QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
-            slist->addSegmentURL(mediaRange, indexRange);
+    }
+    else {
+        qDebug()<<"mpdw slist 1";
+        QList< std::shared_ptr<Box> > mdats = dashModel->getBoxes("mdat");
+        qDebug()<<"mpdw slist 2";
+        QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
+        qDebug()<<"mpdw slist 3";
+        init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
+        qDebug()<<"mpdw slist 4";
+        slist->setInitialization(init);
+        while(!sidxs.empty()) {
+            if(sidxs.size() == 1) {
+                std::shared_ptr<Box> sidx = sidxs.back();
+                std::shared_ptr<Box> mdat = mdats.front();
+                unsigned int firstMediaRange = sidx->getOffset();
+                unsigned int secondMediaRange = mdat->getOffset() + mdat->getSize() - 1;
+                QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
+                unsigned int secondIndexRange = sidx->getOffset() + sidx->getSize();
+                QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
+                slist->addSegmentURL(mediaRange, indexRange);
+                sidxs.pop_back();
+            }
+            else {
+                std::shared_ptr<Box> sidx1 = sidxs.back();
+                sidxs.pop_back();
+                std::shared_ptr<Box> sidx2 = sidxs.back();
+                unsigned int firstMediaRange = sidx1->getOffset();
+                unsigned int secondMediaRange = sidx2->getOffset() - 1;
+                QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
+                unsigned int secondIndexRange = sidx1->getOffset() + sidx1->getSize();
+                QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
+                slist->addSegmentURL(mediaRange, indexRange);
+            }
         }
-        //sidxs.pop_back();
     }
     return slist;
 }
 //////////////
-BaseURL* MPDWriter::setBaseURL() {
+BaseURL* MPDWriter::setBaseURL(bool oneFile) {
     BaseURL* burl = new BaseURL;
     burl->setContent(path);
     return burl;
 }
 /////////////
-Representation* MPDWriter::setRepresentation() {
+Representation* MPDWriter::setRepresentation(bool oneFile) {
+    qDebug()<<"mpdw repr 1";
     Representation* repr = new Representation();
-    repr->setBaseurl(setBaseURL());
-    repr->setSegmentList(setSegmentList());
+    qDebug()<<"mpdw repr 2";
+    repr->setBaseurl(setBaseURL(oneFile));
+    qDebug()<<"mpdw repr 3";
+    repr->setSegmentList(setSegmentList(oneFile));
     return repr;
 }
 /////////////
-AdaptationSet* MPDWriter::setAdaptationSet() {
+AdaptationSet* MPDWriter::setAdaptationSet(bool oneFile) {
+    qDebug()<<"mpdw setadapts 1";
     AdaptationSet* adapt = new AdaptationSet();
-    adapt->addRepresentation(setRepresentation());
+    qDebug()<<"mpdw setadapts 2";
+    adapt->addRepresentation(setRepresentation(oneFile));
     return adapt;
 }
 ////////////////
-Period* MPDWriter::setPeriod() {
+Period* MPDWriter::setPeriod(bool oneFile) {
+    qDebug()<<"mpdw setperiod 1";
     Period* period = new Period();
+    qDebug()<<"mpdw setperiod 2";
     period->setStart(QString("PT0S"));
+    qDebug()<<"mpdw setperiod 3";
     period->setDuration(getDuration());
-    period->addAdaptationSet(setAdaptationSet());
+    qDebug()<<"mpdw setperiod 4";
+    period->addAdaptationSet(setAdaptationSet(oneFile));
     return period;
 }
 

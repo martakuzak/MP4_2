@@ -25,6 +25,8 @@
 #include <QLineEdit>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QString>
+#include <QDateTime>
 #include <qDebug>
 #include "treemodel.h"
 #include "treeitem.h"
@@ -139,7 +141,7 @@ private slots:
      * Creates mp4 dash file and appropiate .mpd file according to currently open mp4 file
      */
     void splitOneFile();
-    void splitIntoMoreFile();
+    void splitIntoMoreFiles();
 
 
 private:
