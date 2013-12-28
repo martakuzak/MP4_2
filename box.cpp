@@ -24,7 +24,7 @@ QString FullBox::getInfo() {
     return tmp;
 }
 /////////////
-FileTypeBox::FileTypeBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int & e, const QString& mb, const QString& mv,
+FileTypeBox::FileTypeBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int & e, const QString& mb, const unsigned int &mv,
                          const QList<QString>& cb):
     Box(s,t,off,e),
     majorBrand(mb),
@@ -36,8 +36,8 @@ QString FileTypeBox::getInfo() {
     tmp.append("Major brand\t\t");
     tmp.append(majorBrand);
     tmp.append("\nMinor version\t\t");
-    tmp.append(minorVersion);
-    tmp.append("\ncompatibleBrands\t");
+    tmp.append(QString::number(minorVersion));
+    tmp.append("\nCompatible brands\t");
     QList<QString>::iterator i;
     for (i = compatibleBrands.begin(); i !=compatibleBrands.end(); ++i) {
         tmp.append(*i);
@@ -47,7 +47,7 @@ QString FileTypeBox::getInfo() {
 }
 /////////////
 SegmentTypeBox::SegmentTypeBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int & e,
-                               const QString& mb, const QString& mv, const QList<QString>& cb):
+                               const QString& mb, const unsigned int &mv, const QList<QString>& cb):
     Box(s,t,off,e),
     majorBrand(mb),
     minorVersion(mv),
@@ -58,8 +58,8 @@ QString SegmentTypeBox::getInfo() {
     tmp.append("Major brand\t\t");
     tmp.append(majorBrand);
     tmp.append("\nMinor version\t\t");
-    tmp.append(minorVersion);
-    tmp.append("\ncompatibleBrands\t");
+    tmp.append(QString::number(minorVersion));
+    tmp.append("\nCompatible brands\t");
     QList<QString>::iterator i;
     for (i = compatibleBrands.begin(); i !=compatibleBrands.end(); ++i) {
         tmp.append(*i);

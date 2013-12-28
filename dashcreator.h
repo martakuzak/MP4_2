@@ -249,6 +249,13 @@ public:
      */
     unsigned int writeStxx(const QString &type, QFile* dashFile = NULL);
     /*!
+     * \brief writeStyp
+     * Writes styp box and returns size of it. If dashFile is NULL, method only returns size of potentially written box.
+     * \param dashFile
+     * \return size in bytes of written styp box
+     */
+    unsigned int writeStyp(QFile* dashFile = NULL);
+    /*!
      * \brief writeTfhd
      * Writes tfhd with given track id and returns size of it.
      * If dashFile is NULL, method only returns size of potentially written box.
@@ -331,14 +338,22 @@ public:
      * \param maxSampleNum maximum number of samples in one mdat
      * \param dashFile
      */
-    void writeSegments(const unsigned int &maxSampleNum, QFile* dashFile);
+    bool writeSegments(const unsigned int &maxSampleNum, QFile* dashFile, const QString& path = QString(""),
+                       const QString& fileName = QString(""));
     /*!
      * \brief writeFile
      * Writes dash file
      * \param maxSampleNum maximum number of samples in one mdat
-     * \param dashFile
+     * \return true, if file was succesfully written
      */
-    void writeFile(const unsigned int & maxSampleNum, QFile* dashFile);
+    bool writeFile(const unsigned int & maxSampleNum/*, QFile* dashFile*/);
+    /*!
+     * \brief writeFiles
+     * Writes dash files - each segment has its own file
+     * \param maxSampleNum maximum number of samples in one mdat
+     * \return true, if all files were managed to be written
+     */
+    bool writeFiles(const unsigned int & maxSampleNum);
 
 
 private:

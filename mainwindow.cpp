@@ -75,6 +75,7 @@ void MainWindow::createActions()
     connect(dashOneFileAct, SIGNAL(triggered()), this, SLOT(splitOneFile()));
 
     dashSeparatedFilesAct = new QAction(tr("&Split with each segment in separated file"), this);
+    connect(dashSeparatedFilesAct, SIGNAL(triggered()), this, SLOT(splitIntoMoreFile()));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::createMenu()
@@ -211,37 +212,6 @@ void MainWindow::openFile()
         setBoxInfoSection(fileName);
         //boxParsingProgressDialog->close();
     }
-   /* QString type("stsz");
-    int row = 0;
-    int col = 0;
-    QModelIndexList Items = model->match(model->index(row,col),
-                                         Qt::DisplayRole,
-                                         QVariant::fromValue(QString(type)),
-                                         -1,
-                                         Qt::MatchRecursive);
-    QModelIndex backId = Items.back();
-    QModelIndex child = model->index(backId.row(), 2, (backId.parent()));
-    std::shared_ptr<Box> stsz = model->getChild(model->data(child,Qt::DisplayRole).toInt())->getBox();
-    //qDebug()<<"mdatsize"<<QString::number(model->mdatSize(0, 50, stsz, analyzer));
-    DashProxy dash(fileName, model);
-    QList<unsigned long int> referenceType;
-    referenceType.append(0); referenceType.append(0);
-    QList<unsigned long int> referenceSize;
-    referenceSize.append(529320); referenceSize.append(163092);
-    QList<unsigned long int> subsegmentDuration;
-    subsegmentDuration.append(50); subsegmentDuration.append(14);
-    QList<unsigned short int> startsWithSAP;
-    startsWithSAP.append(1); startsWithSAP.append(0);
-    QList<unsigned short int> SAPType;
-    SAPType.append(1); SAPType.append(0);
-    QList<unsigned long int> SAPDeltaTime;
-    SAPDeltaTime.append(0); SAPDeltaTime.append(0);
-    QFile* dashFile = new QFile("dash_testy_sidx");
-    if (dashFile->open(QIODevice::ReadWrite)) {
-        dash.writeSidx(0, 1, 25, 0, 0, 2, referenceType, referenceSize, subsegmentDuration, startsWithSAP, SAPType, SAPDeltaTime, dashFile);
-        dashFile->close();
-    }*/
-    //qDebug()<<"openFile: after if";
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::printSelectedBox() {
@@ -325,19 +295,8 @@ void MainWindow::searchBox() {
 void MainWindow::splitOneFile() {
     QString fileName = title.mid(4);
     dashProxy = new DashProxy(fileName, model);
-    //QString str("D:\\PDI\\Samples\\multi\\multi_ballroom_side_by_side_2048.mp4");
-    int last = fileName.lastIndexOf("\\");
-    if(last == -1)
-        last = fileName.lastIndexOf("/");
-    QString name = fileName.mid(last + 1);
-    QString path = fileName.mid(0, last + 1);
-    QString dashName = QString(path + "dash_" + name);
-    QFile* dashFile = new QFile(dashName);
-    if (dashFile->open(QIODevice::ReadWrite)) {
-        dashProxy->writeFile(50, dashFile);
-        dashFile->close();
-
-        QFile* mpdFile = new QFile(dashName + ".xml");
+    if(dashProxy->writeFile(50/*, dashFile*/)) {
+        QFile* mpdFile = new QFile(fileName + ".xml");
         if(mpdFile->open(QIODevice::ReadWrite)) {
             dashProxy->writeMPD(mpdFile);
         }
@@ -346,6 +305,38 @@ void MainWindow::splitOneFile() {
             return;
         }
         mpdFile->close();
+    }
+    else {
+        QMessageBox *infoBox = new QMessageBox(this);
+        infoBox->setIcon(QMessageBox::Warning);
+        infoBox->setText("Could not write file.");
+        infoBox->show();
+        return;
+    }
+    delete dashProxy;
+}
+////////////////////////////////////////////////////////////
+void MainWindow::splitIntoMoreFile() {
+    QString fileName = title.mid(4);
+    dashProxy = new DashProxy(fileName, model);
+    if(dashProxy->writeFiles(50/*, dashFile*/)) {
+        QFile* mpdFile = new QFile(fileName + ".xml");
+        return;
+        if(mpdFile->open(QIODevice::ReadWrite)) {
+            dashProxy->writeMPD(mpdFile);
+        }
+        else {
+            delete dashProxy;
+            return;
+        }
+        mpdFile->close();
+    }
+    else {
+        QMessageBox *infoBox = new QMessageBox(this);
+        infoBox->setIcon(QMessageBox::Warning);
+        infoBox->setText("Could not write file.");
+        infoBox->show();
+        return;
     }
     delete dashProxy;
 }

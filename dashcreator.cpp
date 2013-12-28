@@ -546,6 +546,22 @@ unsigned int DashCreator::writeStxx(const QString& type, QFile* dashFile) {
     return 16;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
+unsigned int DashCreator::writeStyp(QFile* dashFile) {
+    QDataStream stream(dashFile);
+    unsigned int size = 24;
+    if(dashFile == NULL)
+        return size;
+    //qDebug()<<"writeStyp";
+    stream<<quint32(size);
+    stream.writeRawData("styp", 4);
+    stream.writeRawData("msdh", 4); //major_brand
+    stream<<quint32(0); //minor_version
+    stream.writeRawData("msdh", 4); //compatible brands
+    stream.writeRawData("msix", 4);
+
+    return size;
+}
+////////////////////////////////////////////////////////////////////////////////////////////
 unsigned int DashCreator::writeTfdt(const unsigned long int& baseMediaDecodeTime, QFile* dashFile) {
     if(dashFile == NULL)
         return 16;
@@ -724,18 +740,14 @@ unsigned int DashCreator::writeVmhd(std::shared_ptr<Box> parent, QFile* dashFile
     return 20;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void DashCreator::writeSegments(const unsigned int& maxSampleNum, QFile* dashFile) {
-    //qDebug()<<"dash creator write segments"<<"0";
+bool DashCreator::writeSegments(const unsigned int& maxSampleNum, QFile* dashFile, const QString &path,
+                                const QString &fileName) {
     std::shared_ptr<Box> stsz = model->getBoxes("stsz").at(0); //Sample Size Box
-    //qDebug()<<"dashcreator 1";
     std::shared_ptr<Box> stss = model->getBoxes("stss").at(0); //Sync Sample Box
-    //qDebug()<<"dashcreator 2";
     std::shared_ptr<Box> mdhd = model->getBoxes("mdhd").at(0); //Media Header Box
-    //qDebug()<<"dashcreator 3";
     std::shared_ptr<Box> tkhd = model->getBoxes("tkhd").at(0); //Track Header Box
     //unsigned int dataOffset = 296;
     unsigned int flag3 = 5;
-    //qDebug()<<"dashcreator entry count"<<QString::number(stsz->getEntryCount());
     unsigned int maxSegmentNum = stss->getEntryCount(); //segmentow tyle co sync punktow?
     unsigned int segmentID = 0; //aktualny numer segmentu
     unsigned long int sequenceNumber = 0;
@@ -760,6 +772,16 @@ void DashCreator::writeSegments(const unsigned int& maxSampleNum, QFile* dashFil
             if(samplesInSegmentNum % maxSampleNum) {//zaokraglone ku gorze
                 ++ subsegmentNum;
             }
+        }
+        //write styp
+        if(path != QString("")) {
+            dashFile->close();
+            QString dashName = QString(path + "dash_" + QString::number(segmentID) + "_" + fileName + "s");
+            dashFile = new QFile(dashName);
+            if(dashFile->open(QIODevice::ReadWrite))
+                writeStyp(dashFile);
+            else
+                return false;
         }
         //write sidx
         //przygotowanie parametrow
@@ -823,14 +845,45 @@ void DashCreator::writeSegments(const unsigned int& maxSampleNum, QFile* dashFil
         //qDebug()<<"dashcreator writeSeg"<<"base"<<QString::number(segmentID)<<QString::number(maxSegmentNum);
         ++ segmentID;
     }
+    dashFile->close();
+    return true;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void DashCreator::writeFile(const unsigned int& maxSampleNum, QFile* dashFile) {
-    writeFtyp(dashFile);
-    writeFree(dashFile);
-    writeMoov(dashFile);
-    writeSegments(maxSampleNum, dashFile);
+bool DashCreator::writeFile(const unsigned int& maxSampleNum) {
+    int last = fileName.lastIndexOf("\\");
+    if(last == -1)
+        last = fileName.lastIndexOf("/");
+    QString name = fileName.mid(last + 1);
+    QString path = fileName.mid(0, last + 1);
+    QString dashName = QString(path + "dash_" + name);
+    QFile* dashFile = new QFile(dashName);
+    if(dashFile->open(QIODevice::ReadWrite)) {
+        writeFtyp(dashFile);
+        writeFree(dashFile);
+        writeMoov(dashFile);
+        writeSegments(maxSampleNum, dashFile);
+        return true;
+    }
+    return false;
 }
+////////////////////////////////////////////////////////////////////////////////////////////
+bool DashCreator::writeFiles(const unsigned int & maxSampleNum) {
+    int last = fileName.lastIndexOf("\\");
+    if(last == -1)
+        last = fileName.lastIndexOf("/");
+    QString name = fileName.mid(last + 1);
+    QString path = fileName.mid(0, last + 1);
+    QString initName = QString(path + "dash_init_" + name);
+    QFile* initFile = new QFile(initName);
+    if(initFile->open(QIODevice::ReadWrite)) {
+        writeFtyp(initFile);
+        writeFree(initFile);
+        writeMoov(initFile);
+        return writeSegments(maxSampleNum, initFile, path, name);
+    }
+    return false;
+}
+
 
 
 

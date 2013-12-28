@@ -232,11 +232,11 @@ class FileTypeBox : public Box
 {
 private:
     QString majorBrand;
-    QString minorVersion;
+    unsigned int minorVersion;
     QList<QString> compatibleBrands;
 public:
     FileTypeBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const QString& mb,
-                const QString& mv, const QList<QString>& cb);
+                const unsigned int& mv, const QList<QString>& cb);
     virtual QString getFullName() { return QString("File Type Box"); }
     virtual QString getInfo();
 };
@@ -245,11 +245,11 @@ class SegmentTypeBox : public Box
 {
 private:
     QString majorBrand;
-    QString minorVersion;
+    unsigned int minorVersion;
     QList<QString> compatibleBrands;
 public:
     SegmentTypeBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const QString& mb,
-                   const QString& mv, const QList<QString>& cb);
+                   const unsigned int& mv, const QList<QString>& cb);
     virtual QString getFullName() { return QString("Segment Type Box"); }
     virtual QString getInfo();
 };

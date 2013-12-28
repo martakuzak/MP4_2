@@ -15,7 +15,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         return this->getHBox(size, type, off, e);
     else if(type == "ftyp") {
         QString majorBrand = analyzer->qstringValue(4, off + 8);
-        QString minorVersion = analyzer->qstringValue(4, off + 12);
+        //QString minorVersion = analyzer->qstringValue(4, off + 12);
+        unsigned int minorVersion = analyzer->valueOfGroupOfBytes(4, off + 12);
 
         QList<QString> compatibleBrands;
         unsigned int index = 16;
@@ -1121,7 +1122,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     }
     else if(type == "styp") {
         QString majorBrand = analyzer->qstringValue(4, off + 8);
-        QString minorVersion = analyzer->qstringValue(4, off + 12);
+        unsigned int minorVersion = analyzer->valueOfGroupOfBytes(4, off + 12);
+        //QString minorVersion = analyzer->qstringValue(4, off + 12);
 
         QList<QString> compatibleBrands;
         unsigned int index = 16;

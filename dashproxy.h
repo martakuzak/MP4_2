@@ -29,15 +29,22 @@ public:
      * \brief writeFile
      * Writes dash file
      * \param maxSampleNum maximum number of samples in one mdat
-     * \param dashFile
+     * \return true, if file was successfully written
      */
-    void writeFile(const unsigned int &maxSampleNum, QFile* dashFile);
+    bool writeFile(const unsigned int &maxSampleNum/*, QFile* dashFile*/);
+    /*!
+     * \brief writeFiles
+     * Writes dash files - each segment has its own file
+     * \param maxSampleNum maximum number of samples in one mdat
+     * \return true, if all files were successfully written
+     */
+    bool writeFiles(const unsigned int& maxSampleNum);
     /*!
      * \brief writeMPD
      * Writes Media Presentation Description File
      * \param mpdFile Media Presentation Description file that is created
      */
-    void writeMPD(QFile* mpdFile);
+    void writeMPD(QFile *mpdFile);
 
 private:
     DashCreator* dashCreator;

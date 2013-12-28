@@ -139,6 +139,7 @@ private slots:
      * Creates mp4 dash file and appropiate .mpd file according to currently open mp4 file
      */
     void splitOneFile();
+    void splitIntoMoreFile();
 
 
 private:
