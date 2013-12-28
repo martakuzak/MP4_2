@@ -776,7 +776,8 @@ bool DashCreator::writeSegments(const unsigned int& maxSampleNum, QFile* dashFil
         //write styp
         if(path != QString("")) {
             dashFile->close();
-            QString dashName = QString(path + "dash_" + QString::number(segmentID) + "_" + fileName + "s");
+            QString dashName = QString(path + "dash_" +
+                                       QString::number(segmentID) + "_" + fileName + "s");
             dashFile = new QFile(dashName);
             if(dashFile->open(QIODevice::ReadWrite))
                 writeStyp(dashFile);
@@ -850,11 +851,17 @@ bool DashCreator::writeSegments(const unsigned int& maxSampleNum, QFile* dashFil
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 bool DashCreator::writeFile(const unsigned int& maxSampleNum) {
+    QDateTime local(QDateTime::currentDateTime());
+    QString date = local.toString();
+    date.replace(QString(":"), QString("_"));
+
     int last = fileName.lastIndexOf("\\");
     if(last == -1)
         last = fileName.lastIndexOf("/");
     QString name = fileName.mid(last + 1);
     QString path = fileName.mid(0, last + 1);
+    path.append(name + " " + date + "/");
+    QDir().mkdir(path);
     QString dashName = QString(path + "dash_" + name);
     QFile* dashFile = new QFile(dashName);
     if(dashFile->open(QIODevice::ReadWrite)) {
@@ -868,11 +875,17 @@ bool DashCreator::writeFile(const unsigned int& maxSampleNum) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 bool DashCreator::writeFiles(const unsigned int & maxSampleNum) {
+    QDateTime local(QDateTime::currentDateTime());
+    QString date = local.toString();
+    date.replace(QString(":"), QString("_"));
+
     int last = fileName.lastIndexOf("\\");
     if(last == -1)
         last = fileName.lastIndexOf("/");
     QString name = fileName.mid(last + 1);
     QString path = fileName.mid(0, last + 1);
+    path.append(name + " " + date + "/");
+    QDir().mkdir(path);
     QString initName = QString(path + "dash_init_" + name);
     QFile* initFile = new QFile(initName);
     if(initFile->open(QIODevice::ReadWrite)) {

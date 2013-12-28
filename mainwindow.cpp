@@ -320,8 +320,8 @@ void MainWindow::splitIntoMoreFile() {
     QString fileName = title.mid(4);
     dashProxy = new DashProxy(fileName, model);
     if(dashProxy->writeFiles(50/*, dashFile*/)) {
-        QFile* mpdFile = new QFile(fileName + ".xml");
         return;
+        QFile* mpdFile = new QFile(fileName + ".xml");
         if(mpdFile->open(QIODevice::ReadWrite)) {
             dashProxy->writeMPD(mpdFile);
         }

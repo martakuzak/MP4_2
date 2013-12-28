@@ -146,33 +146,42 @@ QString MPDWriter::getHMSFormat(const double& value) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-MPDWriter::MPDWriter(const QString& fn, TreeModel *mod): dashName(fn), model(mod) {
+MPDWriter::MPDWriter(const QString& pth, const QString& fn, TreeModel *mod): path(pth), fileName(fn),
+    model(mod) {
 }
 void MPDWriter::init() {
-    Analyzer* an = new Analyzer(dashName);
+    Analyzer* an = new Analyzer(path + "dash_init_" + fileName);
     dashModel = new TreeModel(an);
 }
 
 void MPDWriter::setMPD() {
     //MPD
     mpd = new MPD();
+    qDebug()<<"mpdWriter setMPD1";
     //mpd->setId(unisgned int); //nieobowiazkowe, poza tym bedzie jedno mpd, wiec bez tego
     mpd->setProfiles(QString("urn:mpeg:dash:profile:full:2011")); //obowiązkowe; urn:mpeg:dash:profil:isoff-main:2011?
+    qDebug()<<"mpdWriter setMPD2";
     mpd->setType("static"); //static jest domyślne, dynamic (MPD może być zmieniane); typowo dynamic przy live streamach
     //mpd->setAvailibilityStartTime(); //obowiazkowe przy dynamic
     //mpd->setAvailibilityEndTime(); //nieobowiazkowe
+    qDebug()<<"mpdWriter setMPD3";
     mpd->setMediaPresentationDuration(getDuration()); //obowiazkowe dla static
     //mpd->setMinimumUpdatePeriod(); //w static zakazane
     mpd->setMinBufferTime("10229"); //obowiązkowe - jak to ustawić?
+    qDebug()<<"mpdWriter setMPD4";
     //mpd->getTimeShitBufferDepth(); //w staticu zbędne
     //mpd->getSuggestedPresentationDelay();//w staticu ignorowane
     //mpd->getMaxSegmentDuration(); //nieobowiązkowe
     //mpd->getMaxSubsegmentDuration(); //nieobowiązkowe
+    qDebug()<<"mpdWriter setMPD5";
     mpd->addPeriod(setPeriod());
+    qDebug()<<"mpdWriter setMPD6";
 }
 ////////////////////////
 void MPDWriter::writeMPD(QFile* file) {
+    qDebug()<<"mpdWriter write MPD";
     setMPD();
+    qDebug()<<"po setMPD";
 
     stream = new QXmlStreamWriter(file);
     stream->setAutoFormatting(true);
@@ -229,12 +238,7 @@ SegmentList* MPDWriter::setSegmentList() {
 //////////////
 BaseURL* MPDWriter::setBaseURL() {
     BaseURL* burl = new BaseURL;
-    int last = dashName.lastIndexOf("\\");
-    if(last == -1)
-        last = dashName.lastIndexOf("/");
-    QString name = dashName.mid(last + 1);
-    qDebug()<<name<<dashName<<QString::number(last);
-    burl->setContent(name);
+    burl->setContent(path);
     return burl;
 }
 /////////////

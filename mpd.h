@@ -80,9 +80,11 @@ private:
     QString xmlHeader;// = "<?xml version=\"1.0\"?>";
     QXmlStreamWriter* stream;
     /*!
-     * \brief dashName
+     * \brief fileName
      */
-    QString dashName;
+    QString fileName;
+    QString path;
+    unsigned int segmentsNum;
     QFile* mpdFile;
     //TreeModel* model;
     MPD* mpd;
@@ -104,7 +106,7 @@ public:
      * \param fn name of mp4 dash file
      * \param mod model of mp4 original file
      */
-    MPDWriter(const QString& fn, TreeModel *mod);
+    MPDWriter(const QString &path, const QString& fn, TreeModel *mod);
     /*!
      * \brief init
      * Creates tree model of mp4 dash file

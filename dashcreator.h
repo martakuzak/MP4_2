@@ -4,6 +4,8 @@
 #include <QFile>
 #include <QByteArray>
 #include <QString>
+#include <QDateTime>
+#include <QDir>
 #include "treemodel.h"
 
 class TreeModel;

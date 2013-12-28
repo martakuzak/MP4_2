@@ -6,14 +6,15 @@ DashProxy::DashProxy(const QString& fileName, TreeModel* model) {
         last = fileName.lastIndexOf("/");
     QString name = fileName.mid(last + 1);
     QString path = fileName.mid(0, last + 1);
-    QString dashName = QString(path + "dash_" + name);
     dashCreator = new DashCreator(fileName, model);
-    mpdWriter = new MPDWriter(dashName, model);
+    mpdWriter = new MPDWriter(path, name, model);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void DashProxy::writeMPD(QFile* mpdFile) {
     mpdWriter->init();
+    qDebug()<<"dashProxy po init";
     mpdWriter->writeMPD(mpdFile);
+    qDebug()<<"dashProxy po writeMPD";
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 bool DashProxy::writeFile(const unsigned int &maxSampleNum/*, QFile* dashFile*/) {
