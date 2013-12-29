@@ -236,8 +236,14 @@ void MainWindow::printSelectedBox() {
     boxInfoLayout->removeWidget(tableView);
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     tableView->setModel(model);
-    treeView->setSizePolicy(QSizePolicy::Expanding,
+    tableView->setSizePolicy(QSizePolicy::Expanding,
                             QSizePolicy::Expanding);
+    //tableView->resizeColumnsToContents();
+    if(model->columnCount() > 1) {
+        tableView->horizontalHeader()->resizeSection(1, 300);
+        tableView->resizeColumnsToContents();
+        tableView->horizontalHeader()->setStretchLastSection(true);
+    }
     boxInfoLayout->addWidget(tableView);
     QString text = item->fullName();
     if(text!=NULL) {

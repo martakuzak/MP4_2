@@ -8,8 +8,8 @@ TrackHeaderBox::TrackHeaderBox(const unsigned  int& s, const QString& t, const u
                                const unsigned int &lay, const unsigned int &ag, const unsigned int &vol, const unsigned int &r3,
                                const QList<unsigned long> mx, const unsigned int &wdth, const unsigned int &hght):
     FullBox(s,t,off,e, v, f) ,
-    version(v),
-    flags(f),
+
+
     creationTime(ct),
     modificationTime(mt),
     trackID(tid),
@@ -120,8 +120,8 @@ HandlerBox::HandlerBox(const unsigned  int& s, const QString& t, const unsigned 
                        const unsigned  int& v, const QList<unsigned int>& f, const unsigned int &pred, const unsigned int &hand,
                        const QList<unsigned int> &res, const QString &nam):
     FullBox(s,t,off,e, v, f) ,
-    version(v),
-    flags(f),
+
+
     predefined(pred),
     handlerType(hand),
     reserved(res),
@@ -177,8 +177,8 @@ TrackExtendsBox::TrackExtendsBox(const unsigned  int& s, const QString& t, const
                                  const unsigned  int& v, const QList<unsigned int>& f, const unsigned int& tid, const unsigned int& dsdi,
                                  const unsigned int& dsd,const unsigned int& dss, const unsigned int& dsf):
     FullBox(s,t,off,e, v, f) ,
-    version(v),
-    flags(f),
+
+
     getTrackID(tid),
     defaultSampleDescriptionIndex(dsdi),
     defaultSampleDuration(dsd),
@@ -323,8 +323,8 @@ TrackRunBox::TrackRunBox(const unsigned  int& s, const QString& t, const unsigne
                          const unsigned int &fsf, const QList<unsigned long> &sd, const QList<unsigned long> &ss,
                          const QList<unsigned int> &sf, const QList<unsigned long> &scto):
     FullBox(s,t,off,e, v, f) ,
-    version(v),
-    flags(f),
+
+
     sampleCount(sc),
     dataOffset(dof),
     firstSampleFlags(fsf),

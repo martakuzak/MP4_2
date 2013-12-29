@@ -122,7 +122,7 @@ class ObjectDescriptorBox : public FullBox
 {
 private:
     unsigned int version;
-    QList<unsigned int> flags;
+
 public:
     ObjectDescriptorBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Object Descriptor Box"); }
@@ -132,7 +132,7 @@ class ESDBox : public FullBox
 {
 private:
     unsigned int version;
-    QList<unsigned int> flags;
+
 public:
     ESDBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v,const QList<unsigned int>& f);
     virtual unsigned int getContainerOffset() { return 8; }

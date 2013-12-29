@@ -225,15 +225,11 @@ MpegSampleEntry::MpegSampleEntry(const unsigned  int& s, const QString& t, const
 ///////////////
 /////MP4///////
 ObjectDescriptorBox::ObjectDescriptorBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v,const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f) ,
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 ESDBox::ESDBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v,const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f) ,
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 AVCSampleEntry::AVCSampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,

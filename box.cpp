@@ -112,8 +112,8 @@ MediaHeaderBox::MediaHeaderBox(const unsigned  int& s, const QString& t, const u
                                const unsigned int &ts, const unsigned long &dur, const bool &pd, const QList<unsigned int> &lan,
                                const unsigned int &prd):
     FullBox(s,t,off,e, v, f) ,
-    version(v),
-    flags(f),
+
+
     creationTime(ct),
     modificationTime(mt),
     timescale(ts),
@@ -154,7 +154,7 @@ QStandardItemModel* MediaHeaderBox::getModel() {
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
-    QList<unsigned int> flags;
+
     for(int i = 0; i < flags.size(); ++i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
@@ -193,8 +193,6 @@ MovieHeaderBox::MovieHeaderBox(const unsigned  int& s, const QString& t, const u
                                const unsigned int &r16, const QList<unsigned long> &r32, const QList<unsigned long> &mx,
                                const QList<unsigned long> &pr, const unsigned long &nid):
     FullBox(s,t,off,e, v, f) ,
-    version(v),
-    flags(f),
     creationTime(ct),
     modificationTime(mt),
     timeScale(ts),
@@ -252,7 +250,7 @@ QStandardItemModel* MovieHeaderBox::getModel() {
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
-    QList<unsigned int> flags;
+
     for(int i = 0; i < flags.size(); ++i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
@@ -302,8 +300,8 @@ VideoMediaHeaderBox::VideoMediaHeaderBox(const unsigned  int& s, const QString& 
                                          const unsigned  int& v, const QList<unsigned int>& f, const unsigned int &gmode,
                                          const QList<unsigned int> &opc):
     FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f),
+
+
     graphicsmode(gmode),
     opcolor(opc)
 {}
@@ -321,12 +319,12 @@ QString VideoMediaHeaderBox::getInfo() {
     return tmp;
 }
 QStandardItemModel* VideoMediaHeaderBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(11, 2, 0);
+    QStandardItemModel* model = new QStandardItemModel(6, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
-    QList<unsigned int> flags;
+
     for(int i = 0; i < flags.size(); ++i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
@@ -350,8 +348,8 @@ SoundMediaHeaderBox::SoundMediaHeaderBox(const unsigned  int& s, const QString& 
                                          const unsigned  int& v, const QList<unsigned int>& f, const unsigned int &bl,
                                          const unsigned int &res):
     FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f),
+
+
     balance(bl),
     reserved(res)
 {}
@@ -365,12 +363,12 @@ QString SoundMediaHeaderBox::getInfo() {
     return tmp;
 }
 QStandardItemModel* SoundMediaHeaderBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(11, 2, 0);
+    QStandardItemModel* model = new QStandardItemModel(6, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
-    QList<unsigned int> flags;
+
     for(int i = 0; i < flags.size(); ++i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
@@ -394,16 +392,12 @@ DataInformationBox::DataInformationBox(const unsigned  int& s, const QString& t,
 /////////////
 DataEntryUrnBox::DataEntryUrnBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e,
                                  const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 /////////////
 DataEntryUrlBox::DataEntryUrlBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e,
                                  const unsigned  int& v, const QList<unsigned int>& f, const QString &loc):
     FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f),
     location(loc)
 {}
 QString DataEntryUrlBox::getInfo() {
@@ -419,7 +413,7 @@ QStandardItemModel* DataEntryUrlBox::getModel() {
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
-    QList<unsigned int> flags;
+
     for(int i = 0; i < flags.size(); ++i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
@@ -433,8 +427,8 @@ QStandardItemModel* DataEntryUrlBox::getModel() {
 DataReferenceBox::DataReferenceBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e,
                                    const unsigned  int& v, const QList<unsigned int>& f, const unsigned long int&ec):
     FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f),
+
+
     entryCount(ec)
 {}
 QString DataReferenceBox::getInfo() {
@@ -450,7 +444,7 @@ QStandardItemModel* DataReferenceBox::getModel() {
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
-    QList<unsigned int> flags;
+
     for(int i = 0; i < flags.size(); ++i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
@@ -471,8 +465,8 @@ EditListBox::EditListBox(const unsigned int& s, const QString& t, const unsigned
                          const QList<unsigned long int>& segmD, const QList<unsigned long int>&medT, const QList<unsigned int>& mri,
                          const QList<unsigned int>& mrf):
     FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f),
+
+
     entryCount(eCount),
     segmentDuration(segmD),
     mediaTime(medT),
@@ -513,7 +507,7 @@ QStandardItemModel* EditListBox::getModel() {
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
-    QList<unsigned int> flags;
+
     for(int i = 0; i < flags.size(); ++i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
@@ -556,9 +550,7 @@ UserDataBox::UserDataBox(const unsigned  int& s, const QString& t, const unsigne
 ///////////////
 CopyRightBox::CopyRightBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e,
                            const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f) ,
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 MovieExtendsBox::MovieExtendsBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e): Box(s,t,off,e) {}
@@ -581,7 +573,7 @@ QStandardItemModel* MovieExtendsHeaderBox::getModel() {
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
-    QList<unsigned int> flags;
+
     for(int i = 0; i < flags.size(); ++i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
@@ -610,7 +602,7 @@ QStandardItemModel* MovieFragmentHeaderBox::getModel() {
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
-    QList<unsigned int> flags;
+
     for(int i = 0; i < flags.size(); ++i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
@@ -630,17 +622,13 @@ MovieFragmentRandomAccessOffsetBox::MovieFragmentRandomAccessOffsetBox(const uns
 SampleDependencyTypeBox::SampleDependencyTypeBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f): FullBox(s,t,off,e, v, f) {}
 ///////////////
 SampleToGroupBox::SampleToGroupBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 SampleGroupDescriptionBox::SampleGroupDescriptionBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f): FullBox(s,t,off,e, v, f) {}
 ///////////////
 SampleScaleBox::SampleScaleBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 SubSampleInformationBox::SubSampleInformationBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f): FullBox(s,t,off,e, v, f) {}
@@ -648,47 +636,33 @@ SubSampleInformationBox::SubSampleInformationBox(const unsigned  int& s, const Q
 ProgressiveDownloadInfoBox::ProgressiveDownloadInfoBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f): FullBox(s,t,off,e, v, f) {}
 ///////////////
 MetaBox::MetaBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 XMLBox::XMLBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 BinaryXMLBox::BinaryXMLBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 ItemLocationBox::ItemLocationBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 PrimaryItemBox::PrimaryItemBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 ItemProtectionBox::ItemProtectionBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f): FullBox(s,t,off,e, v, f) {}
 ///////////////
 ItemInfoEntry::ItemInfoEntry(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f) ,
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 ItemInfoBox::ItemInfoBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f) ,
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 ProtectionSchemeInfoBox::ProtectionSchemeInfoBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e): Box(s,t,off,e) {}
@@ -696,21 +670,15 @@ ProtectionSchemeInfoBox::ProtectionSchemeInfoBox(const unsigned  int& s, const Q
 OriginalFormatBox::OriginalFormatBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e): Box(s,t,off,e) {}
 ///////////////
 IPMPInfoBox::IPMPInfoBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f) ,
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 IPMPControlBox::IPMPControlBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 SchemeTypeBox::SchemeTypeBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 SchemeInformationBox::SchemeInformationBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e): Box(s,t,off,e) {}
@@ -722,9 +690,7 @@ TimeOffset::TimeOffset(const unsigned  int& s, const QString& t, const unsigned 
 SequenceOffset::SequenceOffset(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e): Box(s,t,off,e) {}
 ///////////////
 SRTPProcessBox::SRTPProcessBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f)
+    FullBox(s,t,off,e, v, f)
 {}
 ///////////////
 MovieHintInformation::MovieHintInformation(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e): Box(s,t,off,e) {}
@@ -749,8 +715,6 @@ SegmentIndexBox::SegmentIndexBox(const unsigned  int& s, const QString& t, const
                                  const QList<unsigned  int> &mySubsegmentDuration, const QList<bool> & myStartsWithSAP, const QList<unsigned  int> &mySAPType,
                                  const QList<unsigned  int> &mySAPDeltaTime):
     FullBox(s,t,off,e, v, f),
-    version(v),
-    flags(f),
     referenceId(ri),
     timescale(ts),
     earliestPresentationTime(myEarliestPresentationTime),
@@ -817,7 +781,7 @@ QStandardItemModel* SegmentIndexBox::getModel() {
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
-    QList<unsigned int> flags;
+
     for(int i = 0; i < flags.size(); ++i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
@@ -876,8 +840,6 @@ QStandardItemModel* SegmentIndexBox::getModel() {
         }
         model->setData(model->index(10, 1, QModelIndex()), tmp);
     }
-
-
     return model;
 }
 ///////////////

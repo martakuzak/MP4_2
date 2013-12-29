@@ -345,7 +345,7 @@ Representation::Representation() {
 //{}
 
 void Representation::write(QXmlStreamWriter *stream) {
-    stream->writeStartElement("RepresentationSet");
+    stream->writeStartElement("Representation");
     if(id != NULL)
         stream->writeAttribute("id", QString::number(id));
     if(mimeType.size())
