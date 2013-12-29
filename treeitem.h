@@ -126,6 +126,10 @@ public:
     QString getInfo() {
         return box->getInfo();
     }
+    QStandardItemModel* getModel() {
+        return box->getModel();
+    }
+
     /*!
      * \brief getBox
      * \return box

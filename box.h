@@ -24,6 +24,8 @@
 
 #include <QString>
 #include <QList>
+#include <QStandardItemModel>
+#include <QStandardItem>
 #include <qDebug>
 
 class MainWindow;
@@ -91,6 +93,7 @@ public:
      * \return all the attributes fields in one formatted QString.
      */
     virtual QString getInfo() {return QString(" "); }
+    virtual QStandardItemModel* getModel() { return NULL; }
     /*!
      * \brief getSize
      * \return size in bytes
@@ -239,6 +242,7 @@ public:
                 const unsigned int& mv, const QList<QString>& cb);
     virtual QString getFullName() { return QString("File Type Box"); }
     virtual QString getInfo();
+    virtual QStandardItemModel* getModel();
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////
 class SegmentTypeBox : public Box

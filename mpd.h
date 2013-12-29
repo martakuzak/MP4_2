@@ -96,7 +96,7 @@ private:
     void setMPD(bool oneFile);
     //void setProgramInformation();
     SegmentList *setSegmentList(bool oneFile);
-    BaseURL* setBaseURL(bool oneFile);
+    BaseURL* setBaseURL();
     Representation* setRepresentation(bool oneFile);
     AdaptationSet* setAdaptationSet(bool oneFile);
     Period* setPeriod(bool oneFile);

@@ -7,7 +7,9 @@
 #include <QAction>
 #include <QMenu>
 #include <QTreeView>
+#include <QTableView>
 #include <QHeaderView>
+#include <QAbstractItemView>
 #include <QMenuBar>
 #include <QLabel>
 #include <QTextEdit>
@@ -78,6 +80,7 @@ private:
     QProgressDialog * boxParsingProgressDialog;
     //info box content
     QLabel * boxNameLabel;
+    QTableView* tableView;
     QTextEdit * boxInfo;
     QTreeView *treeView;
     /*!

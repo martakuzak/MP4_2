@@ -164,31 +164,23 @@ void MPDWriter::init(bool b) {
 void MPDWriter::setMPD(bool oneFile) {
     //MPD
     mpd = new MPD();
-    qDebug()<<"mpdWriter setMPD1";
     //mpd->setId(unisgned int); //nieobowiazkowe, poza tym bedzie jedno mpd, wiec bez tego
     mpd->setProfiles(QString("urn:mpeg:dash:profile:full:2011")); //obowiązkowe; urn:mpeg:dash:profil:isoff-main:2011?
-    qDebug()<<"mpdWriter setMPD2";
     mpd->setType("static"); //static jest domyślne, dynamic (MPD może być zmieniane); typowo dynamic przy live streamach
     //mpd->setAvailibilityStartTime(); //obowiazkowe przy dynamic
     //mpd->setAvailibilityEndTime(); //nieobowiazkowe
-    qDebug()<<"mpdWriter setMPD3";
     mpd->setMediaPresentationDuration(getDuration()); //obowiazkowe dla static
     //mpd->setMinimumUpdatePeriod(); //w static zakazane
     mpd->setMinBufferTime("10229"); //obowiązkowe - jak to ustawić?
-    qDebug()<<"mpdWriter setMPD4";
     //mpd->getTimeShitBufferDepth(); //w staticu zbędne
     //mpd->getSuggestedPresentationDelay();//w staticu ignorowane
     //mpd->getMaxSegmentDuration(); //nieobowiązkowe
     //mpd->getMaxSubsegmentDuration(); //nieobowiązkowe
-    qDebug()<<"mpdWriter setMPD5";
     mpd->addPeriod(setPeriod(oneFile));
-    qDebug()<<"mpdWriter setMPD6";
 }
 ////////////////////////
 void MPDWriter::writeMPD(QFile* file, bool oneFile) {
-    qDebug()<<"mpdWriter write MPD";
     setMPD(oneFile);
-    qDebug()<<"po setMPD";
 
     stream = new QXmlStreamWriter(file);
     stream->setAutoFormatting(true);
@@ -212,13 +204,9 @@ SegmentList* MPDWriter::setSegmentList(bool oneFile) {
     SegmentList* slist = new SegmentList();
     Initialization* init = new Initialization();
     if(oneFile) {
-        qDebug()<<"mpdw slist 1";
         QList< std::shared_ptr<Box> > mdats = dashModel->getBoxes("mdat");
-        qDebug()<<"mpdw slist 2";
         QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
-        qDebug()<<"mpdw slist 3";
         init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
-        qDebug()<<"mpdw slist 4";
         slist->setInitialization(init);
         while(!sidxs.empty()) {
             if(sidxs.size() == 1) {
@@ -261,38 +249,29 @@ SegmentList* MPDWriter::setSegmentList(bool oneFile) {
     return slist;
 }
 //////////////
-BaseURL* MPDWriter::setBaseURL(bool oneFile) {
+BaseURL* MPDWriter::setBaseURL() {
     BaseURL* burl = new BaseURL;
     burl->setContent(path + "/");
     return burl;
 }
 /////////////
 Representation* MPDWriter::setRepresentation(bool oneFile) {
-    qDebug()<<"mpdw repr 1";
     Representation* repr = new Representation();
-    qDebug()<<"mpdw repr 2";
-    repr->setBaseurl(setBaseURL(oneFile));
-    qDebug()<<"mpdw repr 3";
+    repr->setBaseurl(setBaseURL());
     repr->setSegmentList(setSegmentList(oneFile));
     return repr;
 }
 /////////////
 AdaptationSet* MPDWriter::setAdaptationSet(bool oneFile) {
-    qDebug()<<"mpdw setadapts 1";
     AdaptationSet* adapt = new AdaptationSet();
-    qDebug()<<"mpdw setadapts 2";
     adapt->addRepresentation(setRepresentation(oneFile));
     return adapt;
 }
 ////////////////
 Period* MPDWriter::setPeriod(bool oneFile) {
-    qDebug()<<"mpdw setperiod 1";
     Period* period = new Period();
-    qDebug()<<"mpdw setperiod 2";
     period->setStart(QString("PT0S"));
-    qDebug()<<"mpdw setperiod 3";
     period->setDuration(getDuration());
-    qDebug()<<"mpdw setperiod 4";
     period->addAdaptationSet(setAdaptationSet(oneFile));
     return period;
 }

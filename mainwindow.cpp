@@ -130,8 +130,9 @@ void MainWindow::setBoxInfoSection(const QString& fileName) {
         boxParseGroupBox = new QGroupBox();
         boxInfoGroupBox = new QGroupBox();
         treeView = new QTreeView(this);
-        boxInfo = new QTextEdit();
-        boxInfo->setReadOnly(true);
+        //boxInfo = new QTextEdit();
+        //boxInfo->setReadOnly(true);
+        tableView = new QTableView();
         hSplitter = new QSplitter();
         boxNameLabel = new QLabel();
         boxNameLabel->setMaximumHeight(20);
@@ -155,12 +156,22 @@ void MainWindow::setBoxInfoSection(const QString& fileName) {
                                 QSizePolicy::Expanding);
     boxNameLabel->clear();
 
-    boxInfo->setSizePolicy(QSizePolicy::Expanding,
+    /*boxInfo->setSizePolicy(QSizePolicy::Expanding,
                            QSizePolicy::Expanding);
-    boxInfo->setText("");
+    boxInfo->setText("");*/
+    tableView->setSizePolicy(QSizePolicy::Expanding,
+                             QSizePolicy::Expanding);
 
+
+    tableView->verticalHeader()->hide();
+    //tableView->horizontalHeader()->setResizeMode(QHeaderView::Fixed);
+    //tableView->horizontalHeader()->hide();
+    tableView->resizeColumnsToContents();
+    tableView->horizontalHeader()->resizeSection(1, 300);
+    tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    tableView->setSelectionMode(QAbstractItemView::SingleSelection);
     boxInfoLayout->addWidget(boxNameLabel);
-    boxInfoLayout->addWidget(boxInfo);
+    boxInfoLayout->addWidget(tableView);
     boxInfoGroupBox->setLayout(boxInfoLayout);
 
     hSplitter->addWidget(treeView);
@@ -217,12 +228,19 @@ void MainWindow::openFile()
 void MainWindow::printSelectedBox() {
     QModelIndex index = treeView->selectionModel()->currentIndex();
     QModelIndex child = model->index(index.row(), 2, index.parent());
-    QString text= model->getChild(model->data(child,
-                                              Qt::DisplayRole).toInt())->fullName();
+    TreeItem* item = model->getChild(model->data(child, Qt::DisplayRole).toInt());
+    QStandardItemModel* model = item->getModel();
+    model->setHeaderData(0, Qt::Horizontal, tr(""));
+    model->setHeaderData(1, Qt::Horizontal, tr(""));
+    tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    tableView->setModel(model);
+    QString text = item->fullName();
     if(text!=NULL) {
         boxNameLabel->setText(text);
-        boxInfo->setText(model->getChild(model->data(child,Qt::DisplayRole).toInt())->getInfo());
     }
+    //boxInfoLayout->addWidget(boxNameLabel);
+    //boxInfoLayout->addWidget(tableView);
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::searchBox() {
@@ -305,7 +323,8 @@ void MainWindow::splitOneFile() {
         QString name = fileName.mid(last + 1);
         QString path = fileName.mid(0, last + 1);
         path.append("DASH " + date + "/");
-        QString mpdName = QString(path + "dash_" + name + ".xml");
+        name.replace(".mp4", ".mpd");
+        QString mpdName = QString(path + "dash_" + name);
         QFile* mpdFile = new QFile(mpdName);
         if(mpdFile->open(QIODevice::ReadWrite)) {
             dashProxy->writeMPD(mpdFile, true);
@@ -323,6 +342,10 @@ void MainWindow::splitOneFile() {
         infoBox->show();
         return;
     }
+    QMessageBox *infoBox = new QMessageBox(this);
+    infoBox->setIcon(QMessageBox::Information);
+    infoBox->setText("Dash files prepared.");
+    infoBox->show();
     delete dashProxy;
 }
 ////////////////////////////////////////////////////////////
@@ -340,7 +363,8 @@ void MainWindow::splitIntoMoreFiles() {
         QString name = fileName.mid(last + 1);
         QString path = fileName.mid(0, last + 1);
         path.append("DASH " + date + "/");
-        QString mpdName = QString(path + "dash_" + name + ".xml");
+        name.replace(".mp4", ".mpd");
+        QString mpdName = QString(path + "dash_" + name);
         QFile* mpdFile = new QFile(mpdName);
         if(mpdFile->open(QIODevice::ReadWrite)) {
             dashProxy->writeMPD(mpdFile, false);
@@ -358,6 +382,10 @@ void MainWindow::splitIntoMoreFiles() {
         infoBox->show();
         return;
     }
+    QMessageBox *infoBox = new QMessageBox(this);
+    infoBox->setIcon(QMessageBox::Information);
+    infoBox->setText("Dash files prepared.");
+    infoBox->show();
     delete dashProxy;
 }
 ////////////////////////////////////////////////////////////

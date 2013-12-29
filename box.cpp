@@ -45,6 +45,24 @@ QString FileTypeBox::getInfo() {
     }
     return tmp;
 }
+QStandardItemModel* FileTypeBox::getModel() {
+    QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
+    model->setData(model->index(0, 0, QModelIndex()), "Major brand");
+    model->setData(model->index(0, 1, QModelIndex()), majorBrand);
+    model->setData(model->index(1, 0, QModelIndex()), "Minor version");
+    model->setData(model->index(1, 1, QModelIndex()), QString::number(minorVersion));
+    model->setData(model->index(2, 0, QModelIndex()), "Compatible brands");
+    QString tmp("");
+    QList<QString>::iterator i;
+    for (i = compatibleBrands.begin(); i !=compatibleBrands.end(); ++i) {
+        tmp.append(*i);
+        tmp.append(" | ");
+    }
+    model->setData(model->index(2, 1, QModelIndex()), tmp);
+
+    return model;
+}
+
 /////////////
 SegmentTypeBox::SegmentTypeBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int & e,
                                const QString& mb, const unsigned int &mv, const QList<QString>& cb):

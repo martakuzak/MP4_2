@@ -12,9 +12,7 @@ DashProxy::DashProxy(const QString& fileName, TreeModel* model, const QString& d
 ////////////////////////////////////////////////////////////////////////////////////////////
 void DashProxy::writeMPD(QFile* mpdFile, bool oneFile) {
     mpdWriter->init(oneFile);
-    qDebug()<<"dashProxy po init";
     mpdWriter->writeMPD(mpdFile, oneFile);
-    qDebug()<<"dashProxy po writeMPD";
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 bool DashProxy::writeFile(const unsigned int &maxSampleNum/*, QFile* dashFile*/) {
