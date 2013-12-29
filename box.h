@@ -93,7 +93,7 @@ public:
      * \return all the attributes fields in one formatted QString.
      */
     virtual QString getInfo() {return QString(" "); }
-    virtual QStandardItemModel* getModel() { return NULL; }
+    virtual QStandardItemModel* getModel() { return new QStandardItemModel(); }
     /*!
      * \brief getSize
      * \return size in bytes
@@ -256,6 +256,7 @@ public:
                    const unsigned int& mv, const QList<QString>& cb);
     virtual QString getFullName() { return QString("Segment Type Box"); }
     virtual QString getInfo();
+    virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 class MediaBox : public Box

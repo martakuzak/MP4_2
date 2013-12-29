@@ -164,7 +164,7 @@ void MainWindow::setBoxInfoSection(const QString& fileName) {
 
 
     tableView->verticalHeader()->hide();
-    //tableView->horizontalHeader()->setResizeMode(QHeaderView::Fixed);
+    tableView->horizontalHeader()->setStretchLastSection(true);
     //tableView->horizontalHeader()->hide();
     tableView->resizeColumnsToContents();
     tableView->horizontalHeader()->resizeSection(1, 300);
