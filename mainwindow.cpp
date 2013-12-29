@@ -245,13 +245,14 @@ void MainWindow::printSelectedBox() {
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::searchBox() {
     QString boxType = typeBoxType->text();
+    qDebug()<<"searchBox"<<boxType;
     //if boxType hasn't 4 characters
     if(boxType.size()!=4) {
         QMessageBox *infoBox = new QMessageBox(this);
         infoBox->setIcon(QMessageBox::Warning);
         infoBox->setText("Box type should have 4 characters.");
         infoBox->show();
-        boxInfo->clear();
+        //boxInfo->clear();
         return;
     }
     //otherwise application looks for boxes
@@ -280,7 +281,7 @@ void MainWindow::searchBox() {
         infoBox->setText("No box found");
         infoBox->show();
         treeView->clearSelection();
-        boxInfo->clear();
+        //boxInfo->clear();
         return;
 
     }
@@ -304,7 +305,7 @@ void MainWindow::searchBox() {
                                               Qt::DisplayRole).toInt())->fullName();
     if(text!=NULL) {
         boxNameLabel->setText(text);
-        boxInfo->setText(model->getChild(model->data(child,Qt::DisplayRole).toInt())->getInfo());
+        //boxInfo->setText(model->getChild(model->data(child,Qt::DisplayRole).toInt())->getInfo());
     }
     mainLayout->update();
 

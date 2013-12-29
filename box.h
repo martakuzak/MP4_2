@@ -228,7 +228,8 @@ public:
     FullBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& e, const unsigned  int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString(" "); }
     virtual QString getInfo();
-    virtual unsigned int getVersion() { return version; }
+    unsigned int getVersion() { return version; }
+    QList<unsigned int> getFlags() { return flags; }
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////
 class FileTypeBox : public Box
@@ -268,6 +269,11 @@ public:
     virtual QString getInfo() {
         return QString("Media Box is a container for all objects that declare information about the media data within a track.");
     }
+    virtual QStandardItemModel* getModel() {
+         QStandardItemModel* model = new QStandardItemModel(1,1,0);
+        model->setData(model->index(0, 0, QModelIndex()), "Media Box is a container for all objects that declare information about the media data within a track.");
+        return model;
+    }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 class MediaDataBox : public Box
@@ -277,6 +283,11 @@ public:
     virtual QString getFullName() { return QString("Media Data Box"); }
     virtual QString getInfo() {
         return QString("Media Box contains the media data.");
+    }
+    virtual QStandardItemModel* getModel() {
+         QStandardItemModel* model = new QStandardItemModel(1,1,0);
+        model->setData(model->index(0, 0, QModelIndex()), "Media Box contains the media data.");
+        return model;
     }
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -297,7 +308,7 @@ public:
                    const QList<unsigned int>& f, const unsigned long int& ct, const unsigned long int& mt, const unsigned int & ts,
                    const unsigned long int & dur, const bool & pad, const QList<unsigned int> & lan, const unsigned int & pd);
     virtual QString getFullName() { return QString("Media Header Box"); }
-    virtual QString getInfo();
+    virtual QString getInfo(); virtual QStandardItemModel* getModel();
     virtual unsigned long int getMediaTimeScale() {
         return timescale;
     }
@@ -311,6 +322,11 @@ public:
     virtual QString getFullName() { return QString("Movie Box"); }
     virtual QString getInfo() {
         return QString("Movie Box is container box for all meta-data.");
+    }
+    virtual QStandardItemModel* getModel() {
+         QStandardItemModel* model = new QStandardItemModel(1,1,0);
+        model->setData(model->index(0, 0, QModelIndex()), "Movie Box is container box for all meta-data.");
+        return model;
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -338,6 +354,7 @@ public:
                    const QList<unsigned long int>& pr, const unsigned long int& nextTrackId);
     virtual QString getFullName() { return QString("Movie Header Box "); }
     virtual QString getInfo();
+    virtual QStandardItemModel* getModel();
     virtual unsigned long int getDuration() {
         return duration;
     }
@@ -368,6 +385,7 @@ public:
                         const QList <unsigned int> & opcolor);
     virtual QString getFullName() { return QString("Video Media Header Box"); }
     virtual QString getInfo();
+    virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SoundMediaHeaderBox : public FullBox
@@ -381,7 +399,7 @@ public:
     SoundMediaHeaderBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& e,
                         const unsigned  int& v, const QList<unsigned int>& f, const unsigned int& bl, const unsigned int&res);
     virtual QString getFullName() { return QString("Sound Media Header Box"); }
-    virtual QString getInfo();
+    virtual QString getInfo(); virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class HintMediaHeaderBox : public FullBox
@@ -439,6 +457,7 @@ public:
                     const QList<unsigned int>& f, const QString& location);
     virtual QString getFullName() { return QString("Data Entry URL Box"); }
     virtual QString getInfo();
+    virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class DataReferenceBox : public FullBox
@@ -452,6 +471,7 @@ public:
                      const QList<unsigned int>& f, const unsigned long int& ec);
     virtual QString getFullName() { return QString("Data Reference Box"); }
     virtual QString getInfo();
+    virtual QStandardItemModel* getModel();
     virtual bool isContainer() { return true; }
     virtual unsigned int getContainerOffset() { return 16; }
 };
@@ -495,6 +515,7 @@ public:
                 const QList<unsigned long int>&medT, const QList<unsigned int>& mri, const QList<unsigned int>& mrf);
     virtual QString getFullName() { return QString("Edit List Box"); }
     virtual QString getInfo();
+    virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class UserDataBox : public Box
@@ -539,6 +560,7 @@ public:
                           const unsigned  int& v, const QList<unsigned int>& f, const unsigned long int& fd);
     virtual QString getFullName() { return QString("Movie Extends Header Box"); }
     virtual QString getInfo();
+    virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class MovieFragmentBox : public Box
@@ -559,6 +581,7 @@ public:
     MovieFragmentHeaderBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const long& sn, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Movie Fragment Header Box"); }
     virtual QString getInfo();
+    virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -892,6 +915,7 @@ public:
                     const QList<bool> & startsWithSAP, const QList<unsigned  int>& SAPType, const QList<unsigned  int>& SAPDeltaTime);
     virtual QString getFullName() { return QString("Segment Index Box"); }
     virtual QString getInfo();
+    virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SubsegmentIndexBox : public FullBox
