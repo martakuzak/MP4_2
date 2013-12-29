@@ -232,8 +232,13 @@ void MainWindow::printSelectedBox() {
     QStandardItemModel* model = item->getModel();
     model->setHeaderData(0, Qt::Horizontal, tr(""));
     model->setHeaderData(1, Qt::Horizontal, tr(""));
+    //boxInfoLayout->removeWidget(
+    boxInfoLayout->removeWidget(tableView);
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     tableView->setModel(model);
+    treeView->setSizePolicy(QSizePolicy::Expanding,
+                            QSizePolicy::Expanding);
+    boxInfoLayout->addWidget(tableView);
     QString text = item->fullName();
     if(text!=NULL) {
         boxNameLabel->setText(text);
@@ -305,6 +310,7 @@ void MainWindow::searchBox() {
                                               Qt::DisplayRole).toInt())->fullName();
     if(text!=NULL) {
         boxNameLabel->setText(text);
+        printSelectedBox();
         //boxInfo->setText(model->getChild(model->data(child,Qt::DisplayRole).toInt())->getInfo());
     }
     mainLayout->update();
