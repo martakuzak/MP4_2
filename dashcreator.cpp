@@ -9,6 +9,7 @@ date(dt) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 DashCreator::~DashCreator() {
+    file->close();
     delete file;
     delete model;
 }
@@ -854,6 +855,7 @@ bool DashCreator::writeSegments(const unsigned int& maxSampleNum, QFile* dashFil
         //qDebug()<<"dashcreator writeSeg"<<"base"<<QString::number(segmentID)<<QString::number(maxSegmentNum);
         ++ segmentID;
     }
+    qDebug()<<"close";
     dashFile->close();
     return true;
 }

@@ -48,6 +48,7 @@ private:
     QString mediaPresentationDuration;
     QString profiles;
     QList <Period*> periods;
+    BaseURL* baseURL;
 public:
     MPD();
     /*!
@@ -70,6 +71,8 @@ public:
     void setProfiles(const QString &value);
     QList<Period*> getPeriods() const;
     void setPeriods(const QList<Period *> &value);
+    BaseURL *getBaseURL() const;
+    void setBaseURL(const QString &url);
 };
 
 /*!
@@ -92,11 +95,12 @@ private:
     TreeModel* model;
 
     QString getDuration();
+    unsigned int* getDimensions();
     QString getHMSFormat(const double& value);
     void setMPD(bool oneFile);
     //void setProgramInformation();
     SegmentList *setSegmentList(bool oneFile);
-    BaseURL* setBaseURL();
+    BaseURL* setBaseURL(const QString &url);
     Representation* setRepresentation(bool oneFile);
     AdaptationSet* setAdaptationSet(bool oneFile);
     Period* setPeriod(bool oneFile);

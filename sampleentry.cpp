@@ -87,7 +87,7 @@ QString VisualSampleEntry::getInfo() {
     return tmp;
 }
 QStandardItemModel* VisualSampleEntry::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(2, 2, 0);
+    QStandardItemModel* model = new QStandardItemModel(14, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Reserved");
     QString tmp("");
     for(int i = 0; i < reserved.size(); ++i) {

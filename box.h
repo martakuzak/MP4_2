@@ -206,6 +206,13 @@ public:
     virtual unsigned long int getTimeScale() {
         return 0;
     }
+    virtual unsigned int getHeight() {
+        return 0;
+    }
+    virtual unsigned int getWidth() {
+        return 0;
+    }
+
     /*!
      * \brief operator <
      * \param b

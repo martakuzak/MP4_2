@@ -57,9 +57,9 @@ public:
                       const unsigned int& vr, const unsigned int& r3, const unsigned int& fc, const QString & csn,
                       const unsigned int& dpth, const int &pd2);
     virtual bool isContainer() { return true; }
-    unsigned int getWidth() { return width; }
+    virtual unsigned int getWidth() { return width; }
     QString getQStringWidth() { return QString::number(width); }
-    unsigned int getHeight() { return height; }
+    virtual unsigned int getHeight() { return height; }
     unsigned int hResolution() { return horizontalResolution; }
     unsigned int vResolution() { return verticalResolution; }
     virtual QString getFullName() { return QString("Visual Sample Entry"); }
