@@ -10,6 +10,7 @@
 #include <QTableView>
 #include <QHeaderView>
 #include <QAbstractItemView>
+#include <QListView>
 #include <QMenuBar>
 #include <QLabel>
 #include <QTextEdit>
@@ -23,9 +24,11 @@
 #include <QMessageBox>
 #include <QProgressBar>
 #include <QProgressDialog>
+#include <QComboBox>
 #include <QDirModel>
 #include <QLineEdit>
 #include <QDesktopServices>
+#include <QLayoutItem>
 #include <QUrl>
 #include <QString>
 #include <QDateTime>
@@ -83,8 +86,6 @@ private:
     QTableView* tableView;
     QTextEdit * boxInfo;
     QTreeView *treeView;
-    //dash dialog
-    QDialog* dashDialog;
     /*!
      * \brief model
      */
@@ -111,11 +112,23 @@ private:
     DashProxy * dashProxy;
     //////////
     ////////
-    QTableView* fileList;
-    QPushButton* addOneFile;
-    QPushButton* addMoreFile;
+    QListView* fileList;
+    QStandardItemModel* fileModel;
+    QPushButton* addFile;
     QPushButton* removeFile;
+    QComboBox* dashOption;
+    QDialog* dashDialog;
     QAction* addFileAct;
+    QAction* removeFileAct;
+    QGroupBox* rightGroup;
+    QGroupBox* fileGroup;
+    QGroupBox* readyGroup;
+    QHBoxLayout* fileLayout;
+    QVBoxLayout* rightLayout;
+    QPushButton* readyButton;
+    QLabel* oneFile;
+    QLabel* moreFile;
+    QWidget* dash;
     //////////////
     ////////////////
 public:
@@ -156,6 +169,8 @@ private slots:
      */
     void splitOneFile();
     void splitIntoMoreFiles();
+    void addFileToDash();
+    void removeFileFromDash();
 
 
 private:
@@ -180,17 +195,18 @@ private:
     void setDashDialog();
 };
 
-/////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
 
-class DashPage: public QWidget {
-public:
-    DashPage(QWidget *parent = 0);
-    void addFile();
-private:
-    QVBoxLayout* mainLayout;
-    QPushButton* readyButton;
-    QLabel* oneFile;
-    QLabel* moreFile ;
-};
+//class DashPage: public QWidget {
+//public:
+//    DashPage(QPushButton* addFile, QComboBox* option, QPushButton* remove,
+//             QListView *fileList, QHBoxLayout *fileLayout, QGroupBox *rightGroup, QWidget *parent = 0);
+//    void addFile();
+//private:
+//    QVBoxLayout* mainLayout;
+//    QPushButton* readyButton;
+//    QLabel* oneFile;
+//    QLabel* moreFile;
+//};
 
 #endif // MAINWINDOW_H

@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
     boxParseLayout = new QHBoxLayout();
     searchBoxLayout = new QGridLayout();
     boxInfoLayout = new QVBoxLayout();
+    fileLayout = new QHBoxLayout();
+    rightLayout = new QVBoxLayout();
 
     analyzer = new Analyzer();
 
@@ -56,6 +58,12 @@ MainWindow::~MainWindow()
     delete analyzer;
     delete dashProxy;
     delete dashDialog;
+    delete fileList;
+    delete addFile;
+    delete removeFile;
+    delete addFileAct;
+    delete removeFileAct;
+    delete dashOption;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::createActions()
@@ -79,6 +87,11 @@ void MainWindow::createActions()
 
     dashSeparatedFilesAct = new QAction(tr("&Split with each segment in separated file"), this);
     connect(dashSeparatedFilesAct, SIGNAL(triggered()), this, SLOT(splitIntoMoreFiles()));
+
+    addFileAct = new QAction(tr("&Add file"), this);
+
+    removeFileAct = new QAction(tr("&Remove file"), this);
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::createMenu()
@@ -99,30 +112,34 @@ void MainWindow::createMenu()
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::setSearchBoxSection() {
     searchBoxGroupBox = new QGroupBox();
-
+    qDebug()<<"jjj 1";
     searchLabel = new QLabel("Type box type: ");
+    qDebug()<<"jjj 2";
     searchLabel->setMaximumSize(200,40);
 
     typeBoxType = new QLineEdit();
     typeBoxType->setMaximumWidth(50);
     typeBoxType->setMaxLength(4);
-
+    qDebug()<<"jjj 3";
     nextSearchButton = new QPushButton("Find");
     nextSearchButton->addAction(searchBoxAct);
     connect(nextSearchButton,
             SIGNAL(clicked()),
             this, SLOT(searchBox()));
+    qDebug()<<"jjj 4";
 
     searchBoxGroupBox->setMaximumHeight(50);
     searchBoxGroupBox->setMinimumHeight(40);
-
+    qDebug()<<"jjj 5";
     searchBoxLayout->addWidget(searchLabel, 1, 0);
     searchBoxLayout->addWidget(typeBoxType, 1, 1);
     searchBoxLayout->addWidget(nextSearchButton, 1, 2);
     searchBoxLayout->setColumnStretch(10, 1);
+    qDebug()<<"jjj 6";
     searchBoxGroupBox->setLayout(searchBoxLayout);
 
     vSplitter = new QSplitter();
+    qDebug()<<"jjj 7";
     vSplitter->addWidget(searchBoxGroupBox);
     mainLayout->addWidget(vSplitter);
 
@@ -217,13 +234,44 @@ void MainWindow::openFile()
         //        boxParsingProgress->setFormat("Box analyzing %p");
         //        boxParsingProgressDialog->setBar(boxParsingProgress);
         //        boxParsingProgressDialog->show();
+        if(fileLayout->count()) {
+//            qDebug()<<":(1";
+//            mainLayout->removeWidget(dash);
+//            delete readyGroup;
+//            qDebug()<<":(4";
+//            delete fileGroup;
+//            qDebug()<<":(5";
+//            //delete fileLayout;
+//            mainLayout->addStretch(1);
+//            qDebug()<<":(7";
+//            mainLayout->update();
+//            qDebug()<<":(8";
+//            //delete fileLayout;
+            delete dash;
+            dash = new QWidget();
 
+            fileLayout = new QHBoxLayout();
+            rightLayout = new QVBoxLayout();
+            //mainLayout = new QVBoxLayout();
+            qDebug()<<":(9";
+        }
+//        else if(boxParseLayout->count()) {
+//            return;
+//        }
+        if(mainLayout->isEmpty())
+            qDebug()<<":(6";
+        else
+            qDebug()<<"wut";
         if(!searchBoxLayout->count()) {
             // qDebug()<<"openFile: fileName.length() 2";
             setSearchBoxSection();
         }
+        qDebug()<<":(7";
+
         //qDebug()<<"openFile: fileName.length() 3";
         setBoxInfoSection(fileName);
+        qDebug()<<":(8";
+
         //boxParsingProgressDialog->close();
     }
 }
@@ -410,33 +458,191 @@ void MainWindow::setDashDialog() {
 }
 ////////////////////////////////////////////////////////////
 void MainWindow::launchHelp() {
-    QDesktopServices::openUrl(QUrl("D://PDI//Code//help.html"));
+    //QDesktopServices::openUrl(QUrl("D://PDI//Code//help.html"));
+    /*QDialog* dialog = new QDialog();
+    addFile = new QPushButton("Add file");
+    addFile->addAction(addFileAct);
+    connect(addFile, SIGNAL(clicked()), this, SLOT(addFileToDash()));
+
+    removeFile = new QPushButton("Remove");
+    removeFile->addAction(removeFileAct);
+    connect(removeFile, SIGNAL(clicked()), this, SLOT(removeFileFromDash()));
+
+    fileList = new QListView();
+    QStandardItemModel* model = new QStandardItemModel(5, 1, 0);
+    fileList->setModel(model);
+    fileList->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    QComboBox* option = new QComboBox();
+    option->addItem("One file for all segments");
+    option->addItem("Each segment has its own file");
+    DashPage* dashPage = new DashPage(addFile, option, removeFile, fileList);
+
+    QHBoxLayout *horizontalLayout = new QHBoxLayout;
+    horizontalLayout->addWidget(dashPage);
+
+    dialog->setLayout(horizontalLayout);
+    dialog->show();*/
+    setWindowTitle("MP4 MPEG-DASH");
+    if(boxParseLayout->count()) {
+//        mainLayout->removeWidget(vSplitter);
+        delete vSplitter;
+        vSplitter = new QSplitter();
+        boxParseLayout = new QHBoxLayout();
+        searchBoxLayout = new QGridLayout();
+        boxInfoLayout = new QVBoxLayout();
+qDebug()<<"dnefsnjrsdgfr";
+//        boxParseLayout = new QHBoxLayout();
+//        searchBoxLayout = new QGridLayout();
+//        boxInfoLayout = new QVBoxLayout();
+//        mainLayout->update();
+        mainLayout->update();
+    }
+    else if(rightLayout->count()) {
+        return;
+    }
+    qDebug()<<"figa";
+    fileModel = new QStandardItemModel;
+    addFile = new QPushButton("Add file");
+    addFile->addAction(addFileAct);
+    connect(addFile, SIGNAL(clicked()), this, SLOT(addFileToDash()));
+
+    removeFile = new QPushButton("Remove");
+    removeFile->addAction(removeFileAct);
+    connect(removeFile, SIGNAL(clicked()), this, SLOT(removeFileFromDash()));
+
+    fileList = new QListView();
+    //QStandardItemModel* model = new QStandardItemModel(5, 1, 0);
+    fileList->setModel(fileModel);
+    fileList->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    QComboBox* option = new QComboBox();
+    option->addItem("One file for all segments");
+    option->addItem("Each segment has its own file");
+    //DashPage* dashPage = new DashPage(addFile, option, removeFile, fileList, fileLayout, rightGroup);
+
+    //QHBoxLayout *horizontalLayout = new QHBoxLayout;
+    //mainLayout->addWidget(dashPage);
+    readyButton = new QPushButton("Ready");
+    oneFile = new QLabel("All segments in one file");
+    moreFile = new QLabel("Each segment in seperated file");
+    rightLayout = new QVBoxLayout;
+    rightLayout->addWidget(option);
+    rightLayout->addWidget(addFile);
+    rightLayout->addWidget(removeFile);
+    rightGroup = new QGroupBox;
+    rightGroup->setLayout(rightLayout);
+    fileLayout = new QHBoxLayout;
+    fileLayout->addWidget(fileList);
+    fileLayout->addWidget(rightGroup);
+    fileGroup = new QGroupBox();
+    fileGroup->setLayout(fileLayout);
+
+    readyGroup = new QGroupBox;
+    readyGroup->setMaximumHeight(50);
+    readyGroup->setMinimumHeight(40);
+
+    QGridLayout* downLayout = new QGridLayout();
+    downLayout->addWidget(readyButton, 1, 0);
+    downLayout->setColumnStretch(10, 1);
+    readyGroup->setLayout(downLayout);
+
+    QVBoxLayout* dashLayout = new QVBoxLayout;
+    dashLayout->addWidget(readyGroup);
+
+    dashLayout->addWidget(fileGroup);
+    dash = new QWidget();
+    dash->setLayout(dashLayout);
+    mainLayout->addWidget(dash);
+
+    //mainLayout->addStretch(1);
+    mainLayout->update();
+    //setLayout(mainLayout);
+}
+void MainWindow::addFileToDash() {
+    //int row = model->rowCount();
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    //    QString fileName = QFileDialog::getOpenFileName(this,
+    //                                                    tr("Open File"), "/", tr("MP4 Files (*.mp4)"));
+    QString fileName = QFileDialog::getOpenFileName(this,
+                                                    tr("Open File"), "/");
+    qDebug()<<"3";
+    if(fileName.length()) {
+        QStandardItem* tmpItem = new QStandardItem();
+        tmpItem->setText(fileName);
+        qDebug()<<"4";
+        QList<QStandardItem*> list;
+        list.append(tmpItem);
+        qDebug()<<"6";
+        fileLayout->removeWidget(rightGroup);
+        qDebug()<<"5";
+        fileLayout->removeWidget(fileList);
+        fileModel->appendColumn(list);
+        qDebug()<<"1";
+        fileList->setModel(fileModel);
+        fileLayout->addWidget(fileList);
+        qDebug()<<"2";
+        fileLayout->addWidget(rightGroup);
+    }
+
+    mainLayout->update();
+}
+
+void MainWindow::removeFileFromDash() {
+    qDebug()<<"remo";
+    int row = fileList->currentIndex().row();
+    if(row>0 && row < ( fileList->model()->rowCount() - 1)) {
+        fileList->model()->removeRow(row);
+        fileList->setModel(fileModel);
+    }
+    mainLayout->update();
+
 }
 
 ////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////
-DashPage::DashPage(QWidget *parent): QWidget(parent) {
-    mainLayout = new QVBoxLayout();
-    readyButton = new QPushButton("Ready");
-    fileList = new QTableView();
-    addOneFile = new QPushButton("Add");
-    addMoreFile = new QPushButton("Add");
-    removeFile = new QPushButton("Remove");
-    oneFile = new QLabel("All segments in one file");
-    moreFile = new QLabel("Each segment in seperated file");
+//DashPage::DashPage(QPushButton *addFile, QComboBox *option, QPushButton *remove,
+//                   QListView *fileList, QHBoxLayout* fileLayout, QGroupBox* rightGroup,
+//                   QWidget *parent): QWidget(parent) {
+//    mainLayout = new QVBoxLayout();
+//    readyButton = new QPushButton("Ready");
+//    oneFile = new QLabel("All segments in one file");
+//    moreFile = new QLabel("Each segment in seperated file");
+//    QVBoxLayout* rightLayout = new QVBoxLayout;
+//    rightLayout->addWidget(option);
+//    rightLayout->addWidget(addFile);
+//    rightLayout->addWidget(remove);
+//    rightGroup = new QGroupBox;
+//    rightGroup->setLayout(rightLayout);
+//    fileLayout = new QHBoxLayout;
+//    fileLayout->addWidget(fileList);
+//    fileLayout->addWidget(rightGroup);
+//    QGroupBox* fileGroup = new QGroupBox();
+//    fileGroup->setLayout(fileLayout);
+//    mainLayout->addWidget(fileGroup);
 
-    addFileAct = new QAction(tr("&Add file"), this);
-    //connect(addFileAct, SIGNAL(triggered()), this, SLOT(addFile()));
+//    QGroupBox* readyGroup = new QGroupBox;
+//    readyGroup->setMaximumHeight(50);
+//    readyGroup->setMinimumHeight(40);
 
-    //QFileDialog dialog(this);
-    // qDebug()<<"openFile 1";
-    //dialog.setFileMode(QFileDialog::AnyFile);
-    /*QString fileName = QFileDialog::getOpenFileName(this,
-                                                    tr("Add File"), "/");
-*/
-    /*nextSearchButton->addAction(searchBoxAct);
-    connect(nextSearchButton,
-            SIGNAL(clicked()),
-            this, SLOT(searchBox()));*/
-}
+//    QGridLayout* downLayout = new QGridLayout();
+//    downLayout->addWidget(readyButton, 1, 0);
+//    downLayout->setColumnStretch(10, 1);
+//    readyGroup->setLayout(downLayout);
+
+//    mainLayout->addWidget(readyGroup);
+//    //mainLayout->addStretch(1);
+//    setLayout(mainLayout);
+//    //connect(addFileAct, SIGNAL(triggered()), this, SLOT(addFile()));
+
+//    //QFileDialog dialog(this);
+//    // qDebug()<<"openFile 1";
+//    //dialog.setFileMode(QFileDialog::AnyFile);
+//    /*QString fileName = QFileDialog::getOpenFileName(this,
+//                                                    tr("Add File"), "/");
+//*/
+//    /*nextSearchButton->addAction(searchBoxAct);
+//    connect(nextSearchButton,
+//            SIGNAL(clicked()),
+//            this, SLOT(searchBox()));*/
+//}
 
