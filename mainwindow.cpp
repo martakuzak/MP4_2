@@ -500,7 +500,6 @@ qDebug()<<"dnefsnjrsdgfr";
     else if(rightLayout->count()) {
         return;
     }
-    qDebug()<<"figa";
     fileModel = new QStandardItemModel;
     addFile = new QPushButton("Add file");
     addFile->addAction(addFileAct);
@@ -511,21 +510,17 @@ qDebug()<<"dnefsnjrsdgfr";
     connect(removeFile, SIGNAL(clicked()), this, SLOT(removeFileFromDash()));
 
     fileList = new QListView();
-    //QStandardItemModel* model = new QStandardItemModel(5, 1, 0);
     fileList->setModel(fileModel);
     fileList->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    QComboBox* option = new QComboBox();
-    option->addItem("One file for all segments");
-    option->addItem("Each segment has its own file");
-    //DashPage* dashPage = new DashPage(addFile, option, removeFile, fileList, fileLayout, rightGroup);
+    dashOption = new QComboBox();
+    dashOption->addItem("One file for all segments");
+    dashOption->addItem("Each segment has its own file");
 
-    //QHBoxLayout *horizontalLayout = new QHBoxLayout;
-    //mainLayout->addWidget(dashPage);
     readyButton = new QPushButton("Ready");
     oneFile = new QLabel("All segments in one file");
     moreFile = new QLabel("Each segment in seperated file");
     rightLayout = new QVBoxLayout;
-    rightLayout->addWidget(option);
+    rightLayout->addWidget(dashOption);
     rightLayout->addWidget(addFile);
     rightLayout->addWidget(removeFile);
     rightGroup = new QGroupBox;
@@ -546,9 +541,9 @@ qDebug()<<"dnefsnjrsdgfr";
     readyGroup->setLayout(downLayout);
 
     QVBoxLayout* dashLayout = new QVBoxLayout;
+    dashLayout->addWidget(fileGroup);
     dashLayout->addWidget(readyGroup);
 
-    dashLayout->addWidget(fileGroup);
     dash = new QWidget();
     dash->setLayout(dashLayout);
     mainLayout->addWidget(dash);
@@ -568,29 +563,24 @@ void MainWindow::addFileToDash() {
     qDebug()<<"3";
     if(fileName.length()) {
         QStandardItem* tmpItem = new QStandardItem();
-        tmpItem->setText(fileName);
-        qDebug()<<"4";
+        tmpItem->setText(fileName + " (" + dashOption->currentText() + ")");
         QList<QStandardItem*> list;
         list.append(tmpItem);
-        qDebug()<<"6";
         fileLayout->removeWidget(rightGroup);
-        qDebug()<<"5";
         fileLayout->removeWidget(fileList);
-        fileModel->appendColumn(list);
-        qDebug()<<"1";
+        fileModel->appendRow(list);
         fileList->setModel(fileModel);
         fileLayout->addWidget(fileList);
-        qDebug()<<"2";
         fileLayout->addWidget(rightGroup);
+        fileLayout->update();
     }
 
     mainLayout->update();
 }
 
 void MainWindow::removeFileFromDash() {
-    qDebug()<<"remo";
     int row = fileList->currentIndex().row();
-    if(row>0 && row < ( fileList->model()->rowCount() - 1)) {
+    if(row >= 0 && row < ( fileList->model()->rowCount())) {
         fileList->model()->removeRow(row);
         fileList->setModel(fileModel);
     }
