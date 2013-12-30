@@ -1,3 +1,4 @@
+#include <QtWidgets>
 #include "mainwindow.h"
 
 
@@ -53,6 +54,8 @@ MainWindow::~MainWindow()
     delete boxParseLayout;
     delete searchBoxLayout;
     delete analyzer;
+    delete dashProxy;
+    delete dashDialog;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::createActions()
@@ -402,9 +405,38 @@ void MainWindow::splitIntoMoreFiles() {
     delete dashProxy;
 }
 ////////////////////////////////////////////////////////////
+void MainWindow::setDashDialog() {
+
+}
+////////////////////////////////////////////////////////////
 void MainWindow::launchHelp() {
     QDesktopServices::openUrl(QUrl("D://PDI//Code//help.html"));
 }
 
+////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+DashPage::DashPage(QWidget *parent): QWidget(parent) {
+    mainLayout = new QVBoxLayout();
+    readyButton = new QPushButton("Ready");
+    fileList = new QTableView();
+    addOneFile = new QPushButton("Add");
+    addMoreFile = new QPushButton("Add");
+    removeFile = new QPushButton("Remove");
+    oneFile = new QLabel("All segments in one file");
+    moreFile = new QLabel("Each segment in seperated file");
 
+    addFileAct = new QAction(tr("&Add file"), this);
+    //connect(addFileAct, SIGNAL(triggered()), this, SLOT(addFile()));
+
+    //QFileDialog dialog(this);
+    // qDebug()<<"openFile 1";
+    //dialog.setFileMode(QFileDialog::AnyFile);
+    /*QString fileName = QFileDialog::getOpenFileName(this,
+                                                    tr("Add File"), "/");
+*/
+    /*nextSearchButton->addAction(searchBoxAct);
+    connect(nextSearchButton,
+            SIGNAL(clicked()),
+            this, SLOT(searchBox()));*/
+}
 

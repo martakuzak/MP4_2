@@ -83,6 +83,8 @@ private:
     QTableView* tableView;
     QTextEdit * boxInfo;
     QTreeView *treeView;
+    //dash dialog
+    QDialog* dashDialog;
     /*!
      * \brief model
      */
@@ -107,6 +109,15 @@ private:
      * \brief dashProxy
      */
     DashProxy * dashProxy;
+    //////////
+    ////////
+    QTableView* fileList;
+    QPushButton* addOneFile;
+    QPushButton* addMoreFile;
+    QPushButton* removeFile;
+    QAction* addFileAct;
+    //////////////
+    ////////////////
 public:
     //!Constructor
     /*!
@@ -166,8 +177,20 @@ private:
      * \info search box section enables searching for boxes by typing typename
      */
     void setSearchBoxSection();
+    void setDashDialog();
 };
 
+/////////////////////////////////////////////////////////////
 
+class DashPage: public QWidget {
+public:
+    DashPage(QWidget *parent = 0);
+    void addFile();
+private:
+    QVBoxLayout* mainLayout;
+    QPushButton* readyButton;
+    QLabel* oneFile;
+    QLabel* moreFile ;
+};
 
 #endif // MAINWINDOW_H
