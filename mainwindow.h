@@ -31,7 +31,9 @@
 #include <QLayoutItem>
 #include <QUrl>
 #include <QString>
+#include <QStringList>
 #include <QDateTime>
+#include <QDir>
 #include <qDebug>
 #include "treemodel.h"
 #include "treeitem.h"
