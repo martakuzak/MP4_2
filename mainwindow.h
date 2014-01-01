@@ -142,7 +142,6 @@ public:
     //!Destructor
     ~MainWindow();
 
-
 private slots:
     /*!
      * \brief openFile opens QFileDialog to choose file that is to analyzed.
@@ -173,7 +172,7 @@ private slots:
     void splitIntoMoreFiles();
     void addFileToDash();
     void removeFileFromDash();
-
+    void generateDash();
 
 private:
     /*!

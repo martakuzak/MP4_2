@@ -93,6 +93,7 @@ private:
     MPD* mpd;
     TreeModel* dashModel;
     TreeModel* model;
+    QList<Representation*> representations;
 
     QString getDuration();
     unsigned int* getDimensions();
@@ -122,6 +123,7 @@ public:
      * \param file Media Presentation Description file that is created
      */
     void writeMPD(QFile* file, bool oneFile);
+    void addRepresentation(const QString& fn, const bool& oneFile);
 };
 
 

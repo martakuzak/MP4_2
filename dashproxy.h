@@ -20,6 +20,7 @@ public:
      * \param model model of boxes of mp4 file that is transformed into dash mp4 file
      */
     DashProxy(const QString& fileName, TreeModel* model, const QString &date);
+    ~DashProxy();
     /*!
      * \brief closeFileStream
      * closes file stream

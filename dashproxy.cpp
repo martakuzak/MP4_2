@@ -9,6 +9,14 @@ DashProxy::DashProxy(const QString& fileName, TreeModel* model, const QString& d
     dashCreator = new DashCreator(fileName, model, date);
     mpdWriter = new MPDWriter(path, name, model, date);
 }
+DashProxy::~DashProxy() {
+    //delete mpdWriter;
+    //delete dashCreator;
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+void DashProxy::closeFileStream() {
+    dashCreator->closeFileStream();
+}
 ////////////////////////////////////////////////////////////////////////////////////////////
 void DashProxy::writeMPD(QFile* mpdFile, bool oneFile) {
     mpdWriter->init(oneFile);

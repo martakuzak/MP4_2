@@ -10,12 +10,20 @@ date(dt) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 DashCreator::~DashCreator() {
     file->close();
+    dashFile->close();
+    initFile->close();
+    delete dashFile;
+    delete initFile;
     delete file;
     delete model;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void DashCreator::closeFileStream() {
     file->close();
+    if(dashFile != NULL)
+        dashFile->close();
+    if(initFile != NULL)
+        initFile->close();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 unsigned int DashCreator::copyBox(const QString& type, QFile* dashFile, const unsigned long &maxSize) {
@@ -869,7 +877,7 @@ bool DashCreator::writeFile(const unsigned int& maxSampleNum) {
     path.append("DASH " + date + "/");
     QDir().mkdir(path);
     QString dashName = QString(path + "dash_" + name);
-    QFile* dashFile = new QFile(dashName);
+    dashFile = new QFile(dashName);
     if(dashFile->open(QIODevice::ReadWrite)) {
         writeFtyp(dashFile);
         writeFree(dashFile);
@@ -893,7 +901,7 @@ bool DashCreator::writeFiles(const unsigned int & maxSampleNum) {
     path.append("DASH " + date + "/");
     QDir().mkdir(path);
     QString initName = QString(path + "dash_init_" + name);
-    QFile* initFile = new QFile(initName);
+    initFile = new QFile(initName);
     if(initFile->open(QIODevice::ReadWrite)) {
         writeFtyp(initFile);
         writeFree(initFile);
@@ -902,10 +910,3 @@ bool DashCreator::writeFiles(const unsigned int & maxSampleNum) {
     }
     return false;
 }
-
-
-
-
-
-
-

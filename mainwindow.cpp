@@ -144,8 +144,6 @@ void MainWindow::setBoxInfoSection(const QString& fileName) {
         boxParseGroupBox = new QGroupBox();
         boxInfoGroupBox = new QGroupBox();
         treeView = new QTreeView(this);
-        //boxInfo = new QTextEdit();
-        //boxInfo->setReadOnly(true);
         tableView = new QTableView();
         hSplitter = new QSplitter();
         boxNameLabel = new QLabel();
@@ -156,9 +154,6 @@ void MainWindow::setBoxInfoSection(const QString& fileName) {
     analyzer = new Analyzer(fileName);
     model = new TreeModel(analyzer);
     treeView->setModel(model);
-    //treeView->setFont(QFont("Arial", 12));
-    //treeView->header()->setStretchLastSection(false);
-    //treeView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
     treeView->setSizePolicy(QSizePolicy::Expanding,
                             QSizePolicy::Expanding);
     connect(treeView->selectionModel(),
@@ -169,10 +164,6 @@ void MainWindow::setBoxInfoSection(const QString& fileName) {
     boxNameLabel->setSizePolicy(QSizePolicy::Expanding,
                                 QSizePolicy::Expanding);
     boxNameLabel->clear();
-
-    /*boxInfo->setSizePolicy(QSizePolicy::Expanding,
-                           QSizePolicy::Expanding);
-    boxInfo->setText("");*/
     tableView->setSizePolicy(QSizePolicy::Expanding,
                              QSizePolicy::Expanding);
 
@@ -212,53 +203,24 @@ void MainWindow::openFile()
 {
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::AnyFile);
-    //qDebug()<<"openFile 2";
     //    QString fileName = QFileDialog::getOpenFileName(this,
     //                                                    tr("Open File"), "/", tr("MP4 Files (*.mp4)"));
     QString fileName = QFileDialog::getOpenFileName(this,
                                                     tr("Open File"), "/");
-
-    //qDebug()<<"openFile 3";
     if(fileName.length()) {
 
-        // qDebug()<<"openFile: fileName.length() 1";
-        //        boxParsingProgressDialog = new QProgressDialog(this);
-        //        boxParsingProgress = new QProgressBar();
-        //        boxParsingProgress->setFormat("Box analyzing %p");
-        //        boxParsingProgressDialog->setBar(boxParsingProgress);
-        //        boxParsingProgressDialog->show();
         if(fileLayout->count()) {
-//            qDebug()<<":(1";
-//            mainLayout->removeWidget(dash);
-//            delete readyGroup;
-//            qDebug()<<":(4";
-//            delete fileGroup;
-//            qDebug()<<":(5";
-//            //delete fileLayout;
-//            mainLayout->addStretch(1);
-//            qDebug()<<":(7";
-//            mainLayout->update();
-//            qDebug()<<":(8";
-//            //delete fileLayout;
             delete dash;
             dash = new QWidget();
 
             fileLayout = new QHBoxLayout();
             rightLayout = new QVBoxLayout();
-            //mainLayout = new QVBoxLayout();
         }
-//        else if(boxParseLayout->count()) {
-//            return;
-//        }
+
         if(!searchBoxLayout->count()) {
-            // qDebug()<<"openFile: fileName.length() 2";
             setSearchBoxSection();
         }
-
-        //qDebug()<<"openFile: fileName.length() 3";
         setBoxInfoSection(fileName);
-
-        //boxParsingProgressDialog->close();
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -269,13 +231,11 @@ void MainWindow::printSelectedBox() {
     QStandardItemModel* model = item->getModel();
     model->setHeaderData(0, Qt::Horizontal, tr(""));
     model->setHeaderData(1, Qt::Horizontal, tr(""));
-    //boxInfoLayout->removeWidget(
     boxInfoLayout->removeWidget(tableView);
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     tableView->setModel(model);
     tableView->setSizePolicy(QSizePolicy::Expanding,
-                            QSizePolicy::Expanding);
-    //tableView->resizeColumnsToContents();
+                             QSizePolicy::Expanding);
     if(model->columnCount() > 1) {
         tableView->horizontalHeader()->resizeSection(1, 300);
         tableView->resizeColumnsToContents();
@@ -286,9 +246,6 @@ void MainWindow::printSelectedBox() {
     if(text!=NULL) {
         boxNameLabel->setText(text);
     }
-    //boxInfoLayout->addWidget(boxNameLabel);
-    //boxInfoLayout->addWidget(tableView);
-
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::searchBox() {
@@ -377,6 +334,7 @@ void MainWindow::splitOneFile() {
         QFile* mpdFile = new QFile(mpdName);
         if(mpdFile->open(QIODevice::ReadWrite)) {
             dashProxy->writeMPD(mpdFile, true);
+            dashProxy->closeFileStream();
         }
         else {
             delete dashProxy;
@@ -419,6 +377,7 @@ void MainWindow::splitIntoMoreFiles() {
             dashProxy->writeMPD(mpdFile, false);
         }
         else {
+            dashProxy->closeFileStream();
             delete dashProxy;
             return;
         }
@@ -438,47 +397,30 @@ void MainWindow::splitIntoMoreFiles() {
     delete dashProxy;
 }
 ////////////////////////////////////////////////////////////
+void MainWindow::generateDash() {
+    bool oneFile = (dashOption->currentIndex() == 0);
+    QAbstractItemModel* model = fileList->model();
+    //QStringList strings ;
+    for ( int i = 0 ; i < model->rowCount() ; ++i ) {
+      // Get item at row i, col 0.
+      //strings << model->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
+        QString fileName = model->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
+    }
+}
+///////////////////////////////////////////////////////////
 void MainWindow::setDashDialog() {
 
 }
 ////////////////////////////////////////////////////////////
 void MainWindow::launchHelp() {
     //QDesktopServices::openUrl(QUrl("D://PDI//Code//help.html"));
-    /*QDialog* dialog = new QDialog();
-    addFile = new QPushButton("Add file");
-    addFile->addAction(addFileAct);
-    connect(addFile, SIGNAL(clicked()), this, SLOT(addFileToDash()));
-
-    removeFile = new QPushButton("Remove");
-    removeFile->addAction(removeFileAct);
-    connect(removeFile, SIGNAL(clicked()), this, SLOT(removeFileFromDash()));
-
-    fileList = new QListView();
-    QStandardItemModel* model = new QStandardItemModel(5, 1, 0);
-    fileList->setModel(model);
-    fileList->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    QComboBox* option = new QComboBox();
-    option->addItem("One file for all segments");
-    option->addItem("Each segment has its own file");
-    DashPage* dashPage = new DashPage(addFile, option, removeFile, fileList);
-
-    QHBoxLayout *horizontalLayout = new QHBoxLayout;
-    horizontalLayout->addWidget(dashPage);
-
-    dialog->setLayout(horizontalLayout);
-    dialog->show();*/
     setWindowTitle("MP4 MPEG-DASH");
     if(boxParseLayout->count()) {
-//        mainLayout->removeWidget(vSplitter);
         delete vSplitter;
         vSplitter = new QSplitter();
         boxParseLayout = new QHBoxLayout();
         searchBoxLayout = new QGridLayout();
         boxInfoLayout = new QVBoxLayout();
-//        boxParseLayout = new QHBoxLayout();
-//        searchBoxLayout = new QGridLayout();
-//        boxInfoLayout = new QVBoxLayout();
-//        mainLayout->update();
         mainLayout->update();
     }
     else if(rightLayout->count()) {
@@ -534,46 +476,27 @@ void MainWindow::launchHelp() {
 
     //mainLayout->addStretch(1);
     mainLayout->update();
-    //setLayout(mainLayout);
 }
 void MainWindow::addFileToDash() {
-    //int row = model->rowCount();
-    QFileDialog dialog(this);
-    //dialog.setFileMode(QFileDialog::DirectoryOnly);
-    //    QString fileName = QFileDialog::getOpenFileName(this,
-    //                                                    tr("Open File"), "/", tr("MP4 Files (*.mp4)"));
     QString directoryName = QFileDialog::getExistingDirectory(this, tr("Select directory"), "/");
-            //QFileDialog::getOpenFileName(this,
-              //                                      tr("Open File"), "/");
     if(directoryName.length()) {
-//        QStandardItem* tmpItem = new QStandardItem();
-//        tmpItem->setText(directory + " (" + dashOption->currentText() + ")");
-//        QList<QStandardItem*> list;
-//        list.append(tmpItem);
-//        fileLayout->removeWidget(rightGroup);
-//        fileLayout->removeWidget(fileList);
-//        fileModel->appendRow(list);
-//        fileList->setModel(fileModel);
-//        fileLayout->addWidget(fileList);
-//        fileLayout->addWidget(rightGroup);
-//        fileLayout->update();
         QDir* dir = new QDir(directoryName);
         QStringList files;
         files = dir->entryList(QStringList("*.mp4"),
-                                          QDir::Files | QDir::NoSymLinks);
+                               QDir::Files | QDir::NoSymLinks);
         while(!files.empty()) {
             QList<QStandardItem*> list;
             QStandardItem* tmpItem = new QStandardItem();
-            tmpItem->setText(files.back() + " (" + dashOption->currentText() + ")");
+            tmpItem->setText(files.back());
             list.append(tmpItem);
             fileModel->appendRow(list);
             files.pop_back();
         }
-//        fileLayout->removeWidget(rightGroup);
-//        fileLayout->removeWidget(fileList);
-//        fileList->setModel(fileModel);
-//        fileLayout->addWidget(fileList);
-//        fileLayout->addWidget(rightGroup);
+        fileLayout->removeWidget(rightGroup);
+        fileLayout->removeWidget(fileList);
+        fileList->setModel(fileModel);
+        fileLayout->addWidget(fileList);
+        fileLayout->addWidget(rightGroup);
         addFile->setDisabled(true);
         fileLayout->update();
     }
@@ -592,52 +515,3 @@ void MainWindow::removeFileFromDash() {
     mainLayout->update();
 
 }
-
-////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-//DashPage::DashPage(QPushButton *addFile, QComboBox *option, QPushButton *remove,
-//                   QListView *fileList, QHBoxLayout* fileLayout, QGroupBox* rightGroup,
-//                   QWidget *parent): QWidget(parent) {
-//    mainLayout = new QVBoxLayout();
-//    readyButton = new QPushButton("Ready");
-//    oneFile = new QLabel("All segments in one file");
-//    moreFile = new QLabel("Each segment in seperated file");
-//    QVBoxLayout* rightLayout = new QVBoxLayout;
-//    rightLayout->addWidget(option);
-//    rightLayout->addWidget(addFile);
-//    rightLayout->addWidget(remove);
-//    rightGroup = new QGroupBox;
-//    rightGroup->setLayout(rightLayout);
-//    fileLayout = new QHBoxLayout;
-//    fileLayout->addWidget(fileList);
-//    fileLayout->addWidget(rightGroup);
-//    QGroupBox* fileGroup = new QGroupBox();
-//    fileGroup->setLayout(fileLayout);
-//    mainLayout->addWidget(fileGroup);
-
-//    QGroupBox* readyGroup = new QGroupBox;
-//    readyGroup->setMaximumHeight(50);
-//    readyGroup->setMinimumHeight(40);
-
-//    QGridLayout* downLayout = new QGridLayout();
-//    downLayout->addWidget(readyButton, 1, 0);
-//    downLayout->setColumnStretch(10, 1);
-//    readyGroup->setLayout(downLayout);
-
-//    mainLayout->addWidget(readyGroup);
-//    //mainLayout->addStretch(1);
-//    setLayout(mainLayout);
-//    //connect(addFileAct, SIGNAL(triggered()), this, SLOT(addFile()));
-
-//    //QFileDialog dialog(this);
-//    // qDebug()<<"openFile 1";
-//    //dialog.setFileMode(QFileDialog::AnyFile);
-//    /*QString fileName = QFileDialog::getOpenFileName(this,
-//                                                    tr("Add File"), "/");
-//*/
-//    /*nextSearchButton->addAction(searchBoxAct);
-//    connect(nextSearchButton,
-//            SIGNAL(clicked()),
-//            this, SLOT(searchBox()));*/
-//}
-

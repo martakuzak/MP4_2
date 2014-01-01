@@ -371,6 +371,8 @@ private:
      * \brief file mp4 file that is transformed into dash mp4 file
      */
     QFile* file;
+    QFile* dashFile;
+    QFile* initFile;
 };
 
 #endif // DASHCREATOR_H
