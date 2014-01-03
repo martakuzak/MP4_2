@@ -11,38 +11,42 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = MP4_2
 TEMPLATE = app
 
+INCLUDEPATH += ./DASH \
+               ./GUI \
+               ./MPD \
+               ./TREE
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    analyzer.cpp \
-    box.cpp \
-    boxfactory.cpp \
-    dashcreator.cpp \
-    dashproxy.cpp \
-    exceptions.cpp \
-    mpd.cpp \
-    period.cpp \
-    sampleentry.cpp \
-    sampletablebox.cpp \
-    segmentlist.cpp \
-    trackbox.cpp \
-    treeitem.cpp \
-    treemodel.cpp
+        GUI\mainwindow.cpp \
+    TREE\analyzer.cpp \
+    TREE\box.cpp \
+    TREE\boxfactory.cpp \
+    DASH\dashcreator.cpp \
+    DASH\dashproxy.cpp \
+    TREE\exceptions.cpp \
+    MPD\mpd.cpp \
+    MPD\period.cpp \
+    TREE\sampleentry.cpp \
+    TREE\sampletablebox.cpp \
+    MPD\segmentlist.cpp \
+    TREE\trackbox.cpp \
+    TREE\treeitem.cpp \
+    TREE\treemodel.cpp
 
-HEADERS  += mainwindow.h \
-    analyzer.h \
-    box.h \
-    boxfactory.h \
-    dashcreator.h \
-    dashproxy.h \
-    exceptions.h \
-    mpd.h \
-    period.h \
-    sampleentry.h \
-    sampletablebox.h \
-    segmentlist.h \
-    trackbox.h \
-    treeitem.h \
-    treemodel.h
+HEADERS  += GUI\mainwindow.h \
+    TREE\analyzer.h \
+    TREE\box.h \
+    TREE\boxfactory.h \
+    DASH\dashcreator.h \
+    DASH\dashproxy.h \
+    TREE\exceptions.h \
+    MPD\mpd.h \
+    MPD\period.h \
+    TREE\sampleentry.h \
+    TREE\sampletablebox.h \
+    MPD\segmentlist.h \
+    TREE\trackbox.h \
+    TREE\treeitem.h \
+    TREE\treemodel.h
 
 FORMS
