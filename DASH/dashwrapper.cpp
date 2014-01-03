@@ -1,6 +1,6 @@
-#include "dashproxy.h"
+#include "dashwrapper.h"
 
-DashProxy::DashProxy(const QString& fileName, TreeModel* model, const QString& date) {
+DashWrapper::DashWrapper(const QString& fileName, TreeModel* model, const QString& date) {
     int last = fileName.lastIndexOf("\\");
     if(last == -1)
         last = fileName.lastIndexOf("/");
@@ -9,25 +9,25 @@ DashProxy::DashProxy(const QString& fileName, TreeModel* model, const QString& d
     dashCreator = new DashCreator(fileName, model, date);
     mpdWriter = new MPDWriter(path, name, model, date);
 }
-DashProxy::~DashProxy() {
+DashWrapper::~DashWrapper() {
     //delete mpdWriter;
     //delete dashCreator;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void DashProxy::closeFileStream() {
+void DashWrapper::closeFileStream() {
     dashCreator->closeFileStream();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void DashProxy::writeMPD(QFile* mpdFile, bool oneFile) {
+void DashWrapper::writeMPD(QFile* mpdFile, bool oneFile) {
     mpdWriter->init(oneFile);
     mpdWriter->writeMPD(mpdFile, oneFile);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-bool DashProxy::writeFile(const unsigned int &maxSampleNum/*, QFile* dashFile*/) {
+bool DashWrapper::writeFile(const unsigned int &maxSampleNum/*, QFile* dashFile*/) {
     return dashCreator->writeFile(maxSampleNum/*, dashFile*/);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-bool DashProxy::writeFiles(const unsigned int &maxSampleNum/*, QFile* dashFile*/) {
+bool DashWrapper::writeFiles(const unsigned int &maxSampleNum/*, QFile* dashFile*/) {
     return dashCreator->writeFiles(maxSampleNum/*, dashFile*/);
 }
 

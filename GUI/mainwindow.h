@@ -38,11 +38,11 @@
 #include "treemodel.h"
 #include "treeitem.h"
 #include "analyzer.h"
-#include "dashproxy.h"
+#include "dashwrapper.h"
 
 class Analyzer;
 class TreeModel;
-class DashProxy;
+class DashWrapper;
 
 /*!
  * \brief The MainWindow class defines a mind window of the application
@@ -110,7 +110,7 @@ private:
     /*!
      * \brief dashProxy
      */
-    DashProxy * dashProxy;
+    DashWrapper * dashProxy;
     //////////
     ////////
     QListView* fileList;
@@ -140,6 +140,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     //!Destructor
     ~MainWindow();
+    void fileAnalyzed(const TreeModel* mod, const QString &fileName);
 
 private slots:
     /*!

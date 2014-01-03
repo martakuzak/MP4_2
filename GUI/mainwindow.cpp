@@ -210,18 +210,7 @@ void MainWindow::openFile()
                                                     tr("Open File"), "/");
     if(fileName.length()) {
         emit fileSelected(fileName);
-        if(fileLayout->count()) {
-            delete dash;
-            dash = new QWidget();
 
-            fileLayout = new QHBoxLayout();
-            rightLayout = new QVBoxLayout();
-        }
-
-        if(!searchBoxLayout->count()) {
-            setSearchBoxSection();
-        }
-        setBoxInfoSection(fileName);
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -331,7 +320,7 @@ void MainWindow::splitOneFile() {
     QDateTime local(QDateTime::currentDateTime());
     QString date = local.toString();
     date.replace(QString(":"), QString("_"));
-    dashProxy = new DashProxy(fileName, model, date);
+    dashProxy = new DashWrapper(fileName, model, date);
     if(dashProxy->writeFile(50/*, dashFile*/)) {
         int last = fileName.lastIndexOf("\\");
         if(last == -1)
@@ -378,7 +367,7 @@ void MainWindow::splitIntoMoreFiles() {
     QDateTime local(QDateTime::currentDateTime());
     QString date = local.toString();
     date.replace(QString(":"), QString("_"));
-    dashProxy = new DashProxy(fileName, model, date);
+    dashProxy = new DashWrapper(fileName, model, date);
     if(dashProxy->writeFiles(50/*, dashFile*/)) {
         //return;
         int last = fileName.lastIndexOf("\\");
@@ -531,4 +520,20 @@ void MainWindow::removeFileFromDash() {
         addFile->setDisabled(false);
     mainLayout->update();
 
+}
+///////////////////////////////////
+void MainWindow::fileAnalyzed(const TreeModel* mod, const QString& fileName) {
+    qDebug()<<"Marcin";
+    if(fileLayout->count()) {
+        delete dash;
+        dash = new QWidget();
+
+        fileLayout = new QHBoxLayout();
+        rightLayout = new QVBoxLayout();
+    }
+
+    if(!searchBoxLayout->count()) {
+        setSearchBoxSection();
+    }
+    setBoxInfoSection(fileName);
 }

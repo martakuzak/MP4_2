@@ -12,15 +12,15 @@ class MPDWriter;
 /*!
  * \brief The DashProxy class
  */
-class DashProxy {
+class DashWrapper {
 public:
     /*!
      * \brief DashProxy
      * \param fileName name of mp4 file that is transformed into dash mp4 file
      * \param model model of boxes of mp4 file that is transformed into dash mp4 file
      */
-    DashProxy(const QString& fileName, TreeModel* model, const QString &date);
-    ~DashProxy();
+    DashWrapper(const QString& fileName, TreeModel* model, const QString &date);
+    ~DashWrapper();
     /*!
      * \brief closeFileStream
      * closes file stream

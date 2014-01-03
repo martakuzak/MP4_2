@@ -12,7 +12,7 @@
 class Analyzer;
 class TreeItem;
 class MainWindow;
-class DashProxy;
+class DashWrapper;
 /*!
  * \brief The TreeModel class
  * represents tree model for TreeView
@@ -31,6 +31,7 @@ private:
      * value: TreeItem
      */
     QHash<long,TreeItem*>* treeItems;
+    Analyzer* analyzer;
 
 public:
 

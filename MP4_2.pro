@@ -23,7 +23,7 @@ SOURCES += main.cpp\
     TREE\box.cpp \
     TREE\boxfactory.cpp \
     DASH\dashcreator.cpp \
-    DASH\dashproxy.cpp \
+    DASH\dashwrapper.cpp \
     TREE\exceptions.cpp \
     MPD\mpd.cpp \
     MPD\period.cpp \
@@ -40,7 +40,7 @@ HEADERS  += GUI\mainwindow.h \
     TREE\box.h \
     TREE\boxfactory.h \
     DASH\dashcreator.h \
-    DASH\dashproxy.h \
+    DASH\dashwrapper.h \
     TREE\exceptions.h \
     MPD\mpd.h \
     MPD\period.h \
