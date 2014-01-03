@@ -14,7 +14,8 @@ TEMPLATE = app
 INCLUDEPATH += ./DASH \
                ./GUI \
                ./MPD \
-               ./TREE
+               ./TREE \
+               ./CONTROLLER
 
 SOURCES += main.cpp\
         GUI\mainwindow.cpp \
@@ -31,7 +32,8 @@ SOURCES += main.cpp\
     MPD\segmentlist.cpp \
     TREE\trackbox.cpp \
     TREE\treeitem.cpp \
-    TREE\treemodel.cpp
+    TREE\treemodel.cpp \
+    CONTROLLER\controller.cpp
 
 HEADERS  += GUI\mainwindow.h \
     TREE\analyzer.h \
@@ -47,6 +49,7 @@ HEADERS  += GUI\mainwindow.h \
     MPD\segmentlist.h \
     TREE\trackbox.h \
     TREE\treeitem.h \
-    TREE\treemodel.h
+    TREE\treemodel.h \
+    CONTROLLER\controller.h
 
 FORMS

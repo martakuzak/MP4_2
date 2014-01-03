@@ -209,7 +209,7 @@ void MainWindow::openFile()
     QString fileName = QFileDialog::getOpenFileName(this,
                                                     tr("Open File"), "/");
     if(fileName.length()) {
-
+        emit fileSelected(fileName);
         if(fileLayout->count()) {
             delete dash;
             dash = new QWidget();

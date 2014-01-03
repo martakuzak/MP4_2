@@ -81,8 +81,8 @@ private:
     QLabel * searchLabel;
     QLineEdit * typeBoxType;
     QPushButton * nextSearchButton;
-    QProgressBar * boxParsingProgress;
-    QProgressDialog * boxParsingProgressDialog;
+   // QProgressBar * boxParsingProgress;
+   // QProgressDialog * boxParsingProgressDialog;
     //info box content
     QLabel * boxNameLabel;
     QTableView* tableView;
@@ -172,7 +172,8 @@ private slots:
     void addFileToDash();
     void removeFileFromDash();
     void generateDash();
-
+signals:
+    void fileSelected(const QString& fileName);
 private:
     /*!
      * \brief createActions create actions and adds slots to the widgets
