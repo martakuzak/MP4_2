@@ -321,6 +321,13 @@ void MainWindow::searchBox() {
 ////////////////////////////////////////////////////////////
 void MainWindow::splitOneFile() {
     QString fileName = title.mid(4);
+    if(fileName.isEmpty()) {
+        QMessageBox *infoBox = new QMessageBox(this);
+        infoBox->setIcon(QMessageBox::Warning);
+        infoBox->setText("No file specified");
+        infoBox->show();
+        return;
+    }
     QDateTime local(QDateTime::currentDateTime());
     QString date = local.toString();
     date.replace(QString(":"), QString("_"));
@@ -361,6 +368,13 @@ void MainWindow::splitOneFile() {
 ////////////////////////////////////////////////////////////
 void MainWindow::splitIntoMoreFiles() {
     QString fileName = title.mid(4);
+    if(fileName.isEmpty()) {
+        QMessageBox *infoBox = new QMessageBox(this);
+        infoBox->setIcon(QMessageBox::Warning);
+        infoBox->setText("No file specified");
+        infoBox->show();
+        return;
+    }
     QDateTime local(QDateTime::currentDateTime());
     QString date = local.toString();
     date.replace(QString(":"), QString("_"));
