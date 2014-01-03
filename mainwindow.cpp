@@ -44,7 +44,6 @@ MainWindow::~MainWindow()
     delete dashOneFileAct;
     delete dashSeparatedFilesAct;
     delete model;
-    delete boxInfo;
     delete nextSearchButton;
     delete typeBoxType;
     delete searchLabel;
@@ -112,6 +111,7 @@ void MainWindow::createMenu()
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::setSearchBoxSection() {
     searchBoxGroupBox = new QGroupBox();
+    searchBoxGroupBox->setTitle("Search for box");
     searchLabel = new QLabel("Type box type: ");
     searchLabel->setMaximumSize(200,40);
 
@@ -143,6 +143,7 @@ void MainWindow::setBoxInfoSection(const QString& fileName) {
     if(!boxParseLayout->count()) {
         boxParseGroupBox = new QGroupBox();
         boxInfoGroupBox = new QGroupBox();
+        boxInfoGroupBox->setTitle("Box details");
         treeView = new QTreeView(this);
         tableView = new QTableView();
         hSplitter = new QSplitter();
@@ -224,8 +225,12 @@ void MainWindow::openFile()
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::printSelectedBox() {
-    QModelIndex index = treeView->selectionModel()->currentIndex();
+void MainWindow::printSelectedBox(const bool& b, const QModelIndex& id) {
+    QModelIndex index;
+    if(b)
+        index = treeView->selectionModel()->currentIndex();
+    else
+        index = id;
     QModelIndex child = model->index(index.row(), 2, index.parent());
     TreeItem* item = model->getChild(model->data(child, Qt::DisplayRole).toInt());
     QStandardItemModel* model = item->getModel();
@@ -263,14 +268,15 @@ void MainWindow::searchBox() {
     QModelIndex index = treeView->selectionModel()->currentIndex();
     int row;
     int col;
-    if(index.isValid()) {
-        row = index.row();
-        col = index.column();
-    }
-    else { //no selection
+//    if(index.isValid()) {
+//        row = index.row();
+//        col = 0;
+//    }
+//    else { //no selection
         row = 0;
         col = 0;
-    }
+    //}
+
     QModelIndexList Items = model->match(model->index(row,col),
                                          Qt::DisplayRole,
                                          QVariant::fromValue(QString(boxType)),
@@ -284,10 +290,7 @@ void MainWindow::searchBox() {
         infoBox->setIcon(QMessageBox::Warning);
         infoBox->setText("No box found");
         infoBox->show();
-        treeView->clearSelection();
-        //boxInfo->clear();
         return;
-
     }
     //selects found boxes and expands their predecessors
     QModelIndex tmpId;
@@ -307,10 +310,10 @@ void MainWindow::searchBox() {
                                                       Qt::DisplayRole).toInt())->fullName());
     QString text= model->getChild(model->data(child,
                                               Qt::DisplayRole).toInt())->fullName();
+    qDebug()<<text;
     if(text!=NULL) {
         boxNameLabel->setText(text);
-        printSelectedBox();
-        //boxInfo->setText(model->getChild(model->data(child,Qt::DisplayRole).toInt())->getInfo());
+        printSelectedBox(false, child);
     }
     mainLayout->update();
 

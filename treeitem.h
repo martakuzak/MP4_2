@@ -119,13 +119,7 @@ public:
     QString fullName() {
         return box->getFullName();
     }
-    /*!
-     * \brief getInfo
-     * \return formated info about box (all the attributes)
-     */
-    QString getInfo() {
-        return box->getInfo();
-    }
+
     QStandardItemModel* getModel() {
         return box->getModel();
     }

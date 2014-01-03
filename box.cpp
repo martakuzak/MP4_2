@@ -10,19 +10,6 @@ FullBox::FullBox(const unsigned  int& s, const QString& t, const unsigned long i
     version(v),
     flags(f)
 {}
-QString FullBox::getInfo() {
-    QString tmp("");
-    tmp.append("Version\t\t");
-    tmp.append(QString::number(version));
-    tmp.append("\nFlags\t\t");
-    tmp.append(QString::number(flags.at(0), 16));
-    tmp.append(" | ");
-    tmp.append(QString::number(flags.at(1), 16));
-    tmp.append(" | ");
-    tmp.append(QString::number(flags.at(2), 16));
-    tmp.append(" | ");
-    return tmp;
-}
 /////////////
 FileTypeBox::FileTypeBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int & e, const QString& mb, const unsigned int &mv,
                          const QList<QString>& cb):
@@ -31,20 +18,6 @@ FileTypeBox::FileTypeBox(const unsigned  int& s, const QString& t, const unsigne
     minorVersion(mv),
     compatibleBrands(cb) {}
 
-QString FileTypeBox::getInfo() {
-    QString tmp("");
-    tmp.append("Major brand\t\t");
-    tmp.append(majorBrand);
-    tmp.append("\nMinor version\t\t");
-    tmp.append(QString::number(minorVersion));
-    tmp.append("\nCompatible brands\t");
-    QList<QString>::iterator i;
-    for (i = compatibleBrands.begin(); i !=compatibleBrands.end(); ++i) {
-        tmp.append(*i);
-        tmp.append(" | ");
-    }
-    return tmp;
-}
 QStandardItemModel* FileTypeBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Major brand");
@@ -71,20 +44,6 @@ SegmentTypeBox::SegmentTypeBox(const unsigned  int& s, const QString& t, const u
     minorVersion(mv),
     compatibleBrands(cb) {}
 
-QString SegmentTypeBox::getInfo() {
-    QString tmp("");
-    tmp.append("Major brand\t\t");
-    tmp.append(majorBrand);
-    tmp.append("\nMinor version\t\t");
-    tmp.append(QString::number(minorVersion));
-    tmp.append("\nCompatible brands\t");
-    QList<QString>::iterator i;
-    for (i = compatibleBrands.begin(); i !=compatibleBrands.end(); ++i) {
-        tmp.append(*i);
-        tmp.append(" | ");
-    }
-    return tmp;
-}
 QStandardItemModel* SegmentTypeBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Major brand");
@@ -122,32 +81,7 @@ MediaHeaderBox::MediaHeaderBox(const unsigned  int& s, const QString& t, const u
     language(lan),
     predefined(prd)
 {}
-QString MediaHeaderBox::getInfo() {
-    QString tmp("");
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nCreation time\t\t");
-    tmp.append(QString::number(creationTime));
-    tmp.append("\nModification time\t");
-    tmp.append(QString::number(modificationTime));
-    tmp.append("\nTimescale\t\t");
-    tmp.append(QString::number(timescale));
-    tmp.append("\nDuration\t\t");
-    tmp.append(QString::number(duration));
-    tmp.append("\nPad\t\t");
-    if(pad)
-        tmp.append("1");
-    else
-        tmp.append("0");
-    int lanSize = language.size();
-    tmp.append("\nLanguage\t\t");
-    for(int i = 0; i < lanSize; ++i) {
-        tmp.append(QString::number(language.at(i)));
-        tmp.append(" | ");
-    }
-    tmp.append("\nPredefined\t\t");
-    tmp.append(QString::number(predefined));
-    return tmp;
-}
+
 QStandardItemModel* MediaHeaderBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(8, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -205,45 +139,7 @@ MovieHeaderBox::MovieHeaderBox(const unsigned  int& s, const QString& t, const u
     matrix(mx),
     predefined(pr)
 {}
-QString MovieHeaderBox::getInfo() {
-    QString tmp("");
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nCreation time\t\t");
-    tmp.append(QString::number(creationTime));
-    tmp.append("\nModification time\t");
-    tmp.append(QString::number(modificationTime));
-    tmp.append("\nTimescale\t\t");
-    tmp.append(QString::number(timeScale));
-    tmp.append("\nDuration\t\t");
-    tmp.append(QString::number(duration));
-    tmp.append("\nRate\t\t");
-    tmp.append(QString::number(rate));
-    tmp.append("\nVolume\t\t");
-    tmp.append(QString::number(volume));
-    tmp.append("\nReserved16\t\t");
-    tmp.append(QString::number(reserved16));
-    tmp.append("\nReserved32\t\t");
-    QList<unsigned long int>::iterator p;
-    for (p = reserved32.begin(); p !=reserved32.end(); ++p) {
-        tmp.append(QString::number(*p));
-        tmp.append(" | ");
-    }
-    tmp.append("\nMatrix\t\t");
-    QList<unsigned long int>::iterator i;
-    for (i = matrix.begin(); i !=matrix.end(); ++i) {
-        tmp.append(QString::number(*i));
-        tmp.append(" | ");
-    }
-    tmp.append("\nPredefined\t\t");
-    QList<unsigned long int>::iterator k;
-    for (k = predefined.begin(); k !=predefined.end(); ++k) {
-        tmp.append(QString::number(*k));
-        tmp.append(" | ");
-    }
-    tmp.append("\nNext track id\t\t");
-    tmp.append(QString::number(nextTrackId));
-    return tmp;
-}
+
 QStandardItemModel* MovieHeaderBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(11, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -305,19 +201,7 @@ VideoMediaHeaderBox::VideoMediaHeaderBox(const unsigned  int& s, const QString& 
     graphicsmode(gmode),
     opcolor(opc)
 {}
-QString VideoMediaHeaderBox::getInfo() {
-    QString tmp("");
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nGraphicsmode\t\t");
-    tmp.append(QString::number(graphicsmode));
-    int ocSize = opcolor.size();
-    tmp.append("\nOpcolor\t\t");
-    for (int i = 0; i<ocSize; ++i) {
-        tmp.append(QString::number(opcolor.at(i)));
-        tmp.append(" | ");
-    }
-    return tmp;
-}
+
 QStandardItemModel* VideoMediaHeaderBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(6, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -353,15 +237,7 @@ SoundMediaHeaderBox::SoundMediaHeaderBox(const unsigned  int& s, const QString& 
     balance(bl),
     reserved(res)
 {}
-QString SoundMediaHeaderBox::getInfo() {
-    QString tmp("");
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nBalance\t\t");
-    tmp.append(QString::number(balance));
-    tmp.append("\nReserved\t\t");
-    tmp.append(QString::number(reserved));
-    return tmp;
-}
+
 QStandardItemModel* SoundMediaHeaderBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(6, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -400,13 +276,7 @@ DataEntryUrlBox::DataEntryUrlBox(const unsigned  int& s, const QString& t, const
     FullBox(s,t,off,e, v, f),
     location(loc)
 {}
-QString DataEntryUrlBox::getInfo() {
-    QString tmp;
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nLocation\t\t");
-    tmp.append(location);
-    return tmp;
-}
+
 QStandardItemModel* DataEntryUrlBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -431,13 +301,7 @@ DataReferenceBox::DataReferenceBox(const unsigned  int& s, const QString& t, con
 
     entryCount(ec)
 {}
-QString DataReferenceBox::getInfo() {
-    QString tmp;
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nEntry count\t\t");
-    tmp.append(QString::number(entryCount));
-    return tmp;
-}
+
 QStandardItemModel* DataReferenceBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -473,33 +337,6 @@ EditListBox::EditListBox(const unsigned int& s, const QString& t, const unsigned
     mediaRateInteger(mri),
     mediaRateFraction(mrf)
 {}
-QString EditListBox::getInfo() {
-    QString tmp("");
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nEntry count\t\t");
-    tmp.append(QString::number(entryCount));
-    tmp.append("\nSegment duration\t");
-    for (unsigned int i = 0; i<entryCount; ++i) {
-        tmp.append(QString::number(segmentDuration.at(i)));
-        tmp.append(" | ");
-    }
-    tmp.append("\nMedia time\t\t");
-    for (unsigned int i = 0; i<entryCount; ++i) {
-        tmp.append(QString::number(mediaTime.at(i)));
-        tmp.append(" | ");
-    }
-    tmp.append("\nMedia rate integer\t");
-    for (unsigned int i = 0; i<entryCount; ++i) {
-        tmp.append(QString::number(mediaRateInteger.at(i)));
-        tmp.append(" | ");
-    }
-    tmp.append("\nMedia rate fraction\t");
-    for (unsigned int i = 0; i<entryCount; ++i) {
-        tmp.append(QString::number(mediaRateFraction.at(i)));
-        tmp.append(" | ");
-    }
-    return tmp;
-}
 
 QStandardItemModel* EditListBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(6, 2, 0);
@@ -560,13 +397,7 @@ MovieExtendsHeaderBox::MovieExtendsHeaderBox(const unsigned  int& s, const QStri
     FullBox(s,t,off,e, v, f),
     fragmentDuration(fd)
 {}
-QString MovieExtendsHeaderBox::getInfo() {
-    QString tmp("");
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nFragment duration\t");
-    tmp.append(QString::number(fragmentDuration));
-    return tmp;
-}
+
 QStandardItemModel* MovieExtendsHeaderBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -589,13 +420,7 @@ MovieFragmentBox::MovieFragmentBox(const unsigned  int& s, const QString& t, con
 MovieFragmentHeaderBox::MovieFragmentHeaderBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const long &sn, const unsigned int& v, const QList<unsigned int>& f):
     FullBox(s,t,off,e, v, f),
     sequenceNumber(sn){}
-QString MovieFragmentHeaderBox::getInfo() {
-    QString tmp("");
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nSequence number\t");
-    tmp.append(QString::number(sequenceNumber));
-    return tmp;
-}
+
 QStandardItemModel* MovieFragmentHeaderBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -727,54 +552,7 @@ SegmentIndexBox::SegmentIndexBox(const unsigned  int& s, const QString& t, const
     SAPType(mySAPType),
     SAPDeltaTime(mySAPDeltaTime)
 {}
-QString SegmentIndexBox::getInfo() {
-    QString tmp;
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nReference ID\t\t");
-    tmp.append(QString::number(referenceId));
-    tmp.append("\nTimescale\t\t");
-    tmp.append(QString::number(timescale));
-    tmp.append("\nEarliest presentation time\t");
-    tmp.append(QString::number(earliestPresentationTime));
-    tmp.append("\nFirst offset\t\t");
-    tmp.append(QString::number(firstOffset));
-    tmp.append("\nReserved\t\t");
-    tmp.append(QString::number(reserved));
-    unsigned int size = referenceType.size();
-    if(size>0) {
-        tmp.append("\nReference type\t\t");
-        for(unsigned int i=0; i<size; i++) {
-            tmp.append(QString::number(referenceType.at(i)));
-            tmp.append(" |");
-        }
-        tmp.append("\nReference size\t\t");
-        for(unsigned int i=0; i<size; i++) {
-            tmp.append(QString::number(referenceSize.at(i)));
-            tmp.append(" |");
-        }
-        tmp.append("\nSubsegment duration\t");
-        for(unsigned int i=0; i<size; i++) {
-            tmp.append(QString::number(subsegmentDuration.at(i)));
-            tmp.append(" |");
-        }
-        tmp.append("\nStarts with SAP\t\t");
-        for(unsigned int i=0; i<size; i++) {
-            tmp.append(QString::number(startsWithSAP.at(i)));
-            tmp.append(" |");
-        }
-        tmp.append("\nSAP type\t\t");
-        for(unsigned int i=0; i<size; i++) {
-            tmp.append(QString::number(SAPType.at(i)));
-            tmp.append(" |");
-        }
-        tmp.append("\nSAP delta time\t\t");
-        for(unsigned int i=0; i<size; i++) {
-            tmp.append(QString::number(SAPDeltaTime.at(i)));
-            tmp.append(" |");
-        }
-    }
-    return tmp;
-}
+
 QStandardItemModel* SegmentIndexBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(5 + (SAPDeltaTime.size()>0)*6, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");

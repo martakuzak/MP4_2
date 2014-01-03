@@ -13,23 +13,7 @@ TimeToSampleBox::TimeToSampleBox(const unsigned int& s, const QString& t, const 
     sampleCount(sc),
     sampleDelta(sd)
 {}
-QString TimeToSampleBox::getInfo() {
-    QString tmp;
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nEntry count\t\t");
-    tmp.append(QString::number(entryCount));
-    tmp.append("\nSample count\t\t");
-    for(unsigned int i = 0; i<entryCount; ++i) {
-        tmp.append(QString::number(sampleCount.at(i)));
-        tmp.append(" | ");
-    }
-    tmp.append("\nSample delta\t\t");
-    for(unsigned int i = 0; i<entryCount; ++i) {
-        tmp.append(QString::number(sampleDelta.at(i)));
-        tmp.append(" | ");
-    }
-    return tmp;
-}
+
 QStandardItemModel* TimeToSampleBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(5, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -72,21 +56,7 @@ CompositionOffsetBox::CompositionOffsetBox(const unsigned int& s, const QString&
     sampleCount(sc),
     sampleOffset(sd)
 {}
-QString CompositionOffsetBox::getInfo() {
-    QString tmp;
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nSample count\t\t");
-    for(unsigned int i = 0; i<entryCount; ++i) {
-        tmp.append(QString::number(sampleCount.at(i)));
-        tmp.append(" | ");
-    }
-    tmp.append("\nSample offset\t\t");
-    for(unsigned int i = 0; i<entryCount; ++i) {
-        tmp.append(QString::number(sampleOffset.at(i)));
-        tmp.append(" | ");
-    }
-    return tmp;
-}
+
 QStandardItemModel* CompositionOffsetBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(5, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -126,13 +96,7 @@ SampleDescriptionBox::SampleDescriptionBox(const unsigned int &s, const QString&
 
     entryCount(ec)
 {}
-QString SampleDescriptionBox::getInfo(){
-    QString tmp;
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nEntry count\t\t");
-    tmp.append(QString::number(entryCount));
-    return tmp;
-}
+
 QStandardItemModel* SampleDescriptionBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -161,23 +125,6 @@ SampleSizeBox::SampleSizeBox(const unsigned int& s, const QString& t, const unsi
     sampleCount(sc),
     entrySize(es)
 {}
-QString SampleSizeBox::getInfo(){
-    QString tmp;
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nSample size\t\t");
-    tmp.append(QString::number(sampleSize));
-    tmp.append("\nSample count\t\t");
-    tmp.append(QString::number(sampleCount));
-    if(sampleSize == 0) {
-        for (unsigned int i = 0; i<sampleCount; ++i) {
-            tmp.append("\nentry_size[");
-            tmp.append(QString::number(i));
-            tmp.append("]\t\t");
-            tmp.append(QString::number(entrySize.at(i)));
-        }
-    }
-    return tmp;
-}
 
 QStandardItemModel* SampleSizeBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3 + (sampleSize == 0)*sampleCount - 1, 2, 0);
@@ -218,27 +165,6 @@ SampleToChunkBox::SampleToChunkBox(const unsigned int& s, const QString& t, cons
     sampleDescriptionIndex(sdi)
 {}
 
-QString SampleToChunkBox::getInfo() {
-    QString tmp;
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nEntry count\t\t");
-    tmp.append(QString::number(entryCount));
-    for (unsigned int i = 0; i<entryCount; ++i) {
-        tmp.append("\nfirst_chunk[");
-        tmp.append(QString::number(i));
-        tmp.append("]\t\t");
-        tmp.append(QString::number(firstChunk.at(i)));
-        tmp.append("\nsamples_per_chunk[");
-        tmp.append(QString::number(i));
-        tmp.append("]\t");
-        tmp.append(QString::number(samplesPerChunk.at(i)));
-        tmp.append("\nsample_description_index[");
-        tmp.append(QString::number(i));
-        tmp.append("]\t");
-        tmp.append(QString::number(sampleDescriptionIndex.at(i)));
-    }
-    return tmp;
-}
 QStandardItemModel* SampleToChunkBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3 + entryCount*3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -273,21 +199,7 @@ ChunkOffsetBox::ChunkOffsetBox(const unsigned int& s, const QString& t, const un
     entryCount(ec),
     chunkOffset(co)
 {}
-QString ChunkOffsetBox::getInfo() {
-    QString tmp;
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nEntry count\t\t");
-    tmp.append(QString::number(entryCount));
-    for (unsigned int i = 0; i<entryCount; ++i) {
-        tmp.append("\nchunk_offset[");
-        tmp.append(QString::number(i));
-        tmp.append("]\t");
-        if(i < 10)
-            tmp.append("\t");
-        tmp.append(QString::number(chunkOffset.at(i)));
-    }
-    return tmp;
-}
+
 QStandardItemModel* ChunkOffsetBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3 + entryCount, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -319,21 +231,7 @@ ChunkLargeOffsetBox::ChunkLargeOffsetBox(const unsigned int& s, const QString& t
     entryCount(ec),
     chunkOffset(co)
 {}
-QString ChunkLargeOffsetBox::getInfo() {
-    QString tmp;
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nEntry count\t\t");
-    tmp.append(QString::number(entryCount));
-    for (unsigned int i = 0; i<entryCount; ++i) {
-        tmp.append("\nchunk_offset[");
-        tmp.append(QString::number(i));
-        tmp.append("]\t");
-        if(i < 10)
-            tmp.append("\t");
-        tmp.append(QString::number(chunkOffset.at(i)));
-    }
-    return tmp;
-}
+
 QStandardItemModel* ChunkLargeOffsetBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3 + entryCount, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -364,19 +262,7 @@ SyncSampleBox::SyncSampleBox(const unsigned int& s, const QString& t, const unsi
     entryCount(ec),
     sampleNumber(sn)
 {}
-QString SyncSampleBox::getInfo() {
-    QString tmp;
-    tmp.append(FullBox::getInfo());
-    tmp.append("\nEntry count\t\t");
-    tmp.append(QString::number(entryCount));
-    for (unsigned int i = 0; i<entryCount; ++i) {
-        tmp.append("\nsample_number[");
-        tmp.append(QString::number(i));
-        tmp.append("]\t");
-        tmp.append(QString::number(sampleNumber.at(i)));
-    }
-    return tmp;
-}
+
 QStandardItemModel* SyncSampleBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3 + entryCount*3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");

@@ -25,7 +25,7 @@ public:
     SampleEntry(const unsigned int &s, const QString &t, const unsigned long int &off, const unsigned int &e, const QList<unsigned int>& res,
                 const unsigned int &dri);
     virtual QString getFullName() { return QString("Sample Entry"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +63,7 @@ public:
     unsigned int hResolution() { return horizontalResolution; }
     unsigned int vResolution() { return verticalResolution; }
     virtual QString getFullName() { return QString("Visual Sample Entry"); }
-    virtual QString getInfo(); virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class AudioSampleEntry: public SampleEntry{
@@ -80,7 +80,7 @@ public:
                      const unsigned int & chc, const unsigned int & ss, const unsigned int & pred, const unsigned int & res2,
                      const unsigned int & srate);
     virtual QString getFullName() { return QString("Audio Sample Entry"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -175,7 +175,7 @@ public:
                         const QList<unsigned int>& ppsl, const QList<unsigned long int>& ppsnu);
     virtual bool isContainer() { return false; }
     virtual QString getFullName() { return QString("AVC Configuration box"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
 
 };
@@ -189,7 +189,7 @@ public:
                         const unsigned long int& bsDB, const unsigned long int& maxbr, const unsigned long int& avgBr);
     virtual bool isContainer() { return false; }
     virtual QString getFullName() { return QString("MPEG4 Bitrate Box"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
 };
 #endif // SAMPLEENTRY_H

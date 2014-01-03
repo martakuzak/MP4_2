@@ -86,7 +86,6 @@ private:
     //info box content
     QLabel * boxNameLabel;
     QTableView* tableView;
-    QTextEdit * boxInfo;
     QTreeView *treeView;
     /*!
      * \brief model
@@ -152,7 +151,7 @@ private slots:
     /*!
      * \brief printSelectedBox prints info about selected Box in boxInfo->
      */
-    void printSelectedBox();
+    void printSelectedBox(const bool &b = true, const QModelIndex &id = QModelIndex());
     /*!
      * \brief searchBox searches for all boxes with type given in typeBoxType .
      * \info Found boxes are selected and all their predecessors are expanded. Application launches QMessageBox when:

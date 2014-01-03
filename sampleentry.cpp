@@ -7,18 +7,7 @@ SampleEntry::SampleEntry(const unsigned int& s, const QString& t, const unsigned
     reserved(res),
     dataReferenceIndex(dri)
 {}
-QString SampleEntry::getInfo() {
-    QString tmp("");
-    tmp.append("Reserved\t\t");
-    int resSize = reserved.size();
-    for (int i = 0; i<resSize; ++i) {
-        tmp.append(QString::number(reserved.at(i)));
-        tmp.append(" | ");
-    }
-    tmp.append("\nData reference index\t");
-    tmp.append(QString::number(dataReferenceIndex));
-    return tmp;
-}
+
 QStandardItemModel* SampleEntry::getModel() {
     QStandardItemModel* model = new QStandardItemModel(2, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Reserved");
@@ -54,38 +43,7 @@ VisualSampleEntry::VisualSampleEntry(const unsigned  int& s, const QString& t, c
     depth(dpth),
     predefined2(pd2)
 {}
-QString VisualSampleEntry::getInfo() {
-    QString tmp("");
-    tmp.append(SampleEntry::getInfo());
-    tmp.append("\nPredefined\t\t");
-    tmp.append(QString::number(predefined));
-    tmp.append("\nReserved\t\t");
-    tmp.append(QString::number(reserved2));
-    int p1Size = predefined1.size();
-    for (int i = 0; i<p1Size; ++i) {
-        tmp.append(QString::number(predefined1.at(i)));
-        tmp.append(" | ");
-    }
-    tmp.append("\nWidth\t\t");
-    tmp.append(QString::number(width));
-    tmp.append("\nHeight\t\t");
-    tmp.append(QString::number(height));
-    tmp.append("\nHorizontal resolution\t");
-    tmp.append(QString::number(horizontalResolution));
-    tmp.append("\nVertical resolution\t");
-    tmp.append(QString::number(verticalResolution));
-    tmp.append("\nReserved2\t\t");
-    tmp.append(QString::number(reserved3));
-    tmp.append("\nFrame count\t\t");
-    tmp.append(QString::number(frameCount));
-    tmp.append("\nCompressor name\t\t");
-    tmp.append(compressorname);
-    tmp.append("\nDepth\t\t");
-    tmp.append(QString::number(depth));
-    tmp.append("\nPredefined2\t\t");
-    tmp.append(QString::number(predefined2));
-    return tmp;
-}
+
 QStandardItemModel* VisualSampleEntry::getModel() {
     QStandardItemModel* model = new QStandardItemModel(14, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Reserved");
@@ -144,27 +102,7 @@ AudioSampleEntry::AudioSampleEntry(const unsigned  int& s, const QString& t, con
     reserved2(res2),
     sampleRate(srate)
 {}
-QString AudioSampleEntry::getInfo() {
-    QString tmp("");
-    tmp.append(SampleEntry::getInfo());
-    tmp.append("\nReserved1\t\t");
-    int res1Size = reserved1.size();
-    for (int i = 0; i<res1Size; ++i) {
-        tmp.append(QString::number(reserved1.at(i)));
-        tmp.append(" | ");
-    }
-    tmp.append("\nChannel count\t\t");
-    tmp.append(QString::number(channelCount));
-    tmp.append("\nSample size\t\t");
-    tmp.append(QString::number(sampleSize));
-    tmp.append("\nPredefined\t\t");
-    tmp.append(QString::number(predefined));
-    tmp.append("\nReserved2\t\t");
-    tmp.append(QString::number(reserved2));
-    tmp.append("\nSample rate\t\t");
-    tmp.append(QString::number(sampleRate));
-    return tmp;
-}
+
 QStandardItemModel* AudioSampleEntry::getModel() {
     QStandardItemModel* model = new QStandardItemModel(8, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Reserved");
@@ -260,46 +198,7 @@ AVCConfigurationBox::AVCConfigurationBox(const unsigned int& s, const QString& t
     pictureParameterSetLength(ppsl),
     pictureParameterSetNALUnit(ppsnu)
 {}
-QString AVCConfigurationBox::getInfo() {
-    QString tmp("");
-    tmp.append("Configuration version\t\t");
-    tmp.append(QString::number(configurationVersion));
-    tmp.append("\nAVC Profile Indication\t\t");
-    tmp.append(QString::number(AVCProfileIndication));
-    tmp.append("\nReserved1\t\t\t");
-    tmp.append(QString::number(reserved1, 2));
-    tmp.append("b");
-    tmp.append("\nlengthSizeMinusOne\t\t");
-    tmp.append(QString::number(lengthSizeMinusOne));
-    tmp.append("\nReserved2\t\t\t");
-    tmp.append(QString::number(reserved2, 2));
-    tmp.append("b");
-    tmp.append("\nnumOfSequenceParameterSets\t\t");
-    tmp.append(QString::number(numOfSequenceParameterSets));
-    for(unsigned int i = 0; i < numOfSequenceParameterSets; ++i) {
-        tmp.append("\nsequenceParameterSetLength [");
-        tmp.append(QString::number(i));
-        tmp.append("]\t");
-        tmp.append(QString::number(sequenceParameterSetLength.at(i)));
-        tmp.append("\nsequenceParameterSetNALUnit [");
-        tmp.append(QString::number(i));
-        tmp.append("]\t");
-        tmp.append(QString::number(sequenceParameterSetNALUnit.at(i)));
-    }
-    tmp.append("\nnumOfPictureParameterSets\t\t");
-    tmp.append(QString::number(numOfPictureParameterSets));
-    for(unsigned int i = 0; i < numOfPictureParameterSets; ++i) {
-        tmp.append("\npictureParameterSetLength [");
-        tmp.append(QString::number(i));
-        tmp.append("]\t\t");
-        tmp.append(QString::number(pictureParameterSetLength.at(i)));
-        tmp.append("\npictureParameterSetNALUnit [");
-        tmp.append(QString::number(i));
-        tmp.append("]\t\t");
-        tmp.append(QString::number(pictureParameterSetNALUnit.at(i)));
-    }
-    return tmp;
-}
+
 QStandardItemModel* AVCConfigurationBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(5 + 2*numOfSequenceParameterSets +
                                                        2*numOfPictureParameterSets, 2, 0);
@@ -351,16 +250,7 @@ MPEG4BitRateBox::MPEG4BitRateBox(const unsigned int& s, const QString& t, const 
     maxBitrate(maxbr),
     avgBitrate(avgBr)
 {}
-QString MPEG4BitRateBox::getInfo() {
-    QString tmp("");
-    tmp.append("Buffer size DB\t\t");
-    tmp.append(QString::number(bufferSizeDB));
-    tmp.append("\nMax bitrate\t\t");
-    tmp.append(QString::number(maxBitrate));
-    tmp.append("\nAverage bitrate\t\t");
-    tmp.append(QString::number(avgBitrate));
-    return tmp;
-}
+
 QStandardItemModel* MPEG4BitRateBox::getModel() {
     QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Buffer size DB");

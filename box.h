@@ -36,7 +36,7 @@ class MainWindow;
 
 class Box
 {
-private:
+protected:
     /*!
      * \brief size size of the box
      */
@@ -88,11 +88,6 @@ public:
      * \return fullName of the box, e.g. "Media Data Box"
      */
     virtual QString getFullName() { return QString(" "); }
-    /*!
-     * \brief getInfo
-     * \return all the attributes fields in one formatted QString.
-     */
-    virtual QString getInfo() {return QString(" "); }
     virtual QStandardItemModel* getModel() { return new QStandardItemModel(); }
     /*!
      * \brief getSize
@@ -235,14 +230,14 @@ protected:
 public:
     FullBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& e, const unsigned  int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString(" "); }
-    virtual QString getInfo();
+
     unsigned int getVersion() { return version; }
     QList<unsigned int> getFlags() { return flags; }
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////
 class FileTypeBox : public Box
 {
-private:
+protected:
     QString majorBrand;
     unsigned int minorVersion;
     QList<QString> compatibleBrands;
@@ -250,13 +245,13 @@ public:
     FileTypeBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const QString& mb,
                 const unsigned int& mv, const QList<QString>& cb);
     virtual QString getFullName() { return QString("File Type Box"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////
 class SegmentTypeBox : public Box
 {
-private:
+protected:
     QString majorBrand;
     unsigned int minorVersion;
     QList<QString> compatibleBrands;
@@ -264,7 +259,7 @@ public:
     SegmentTypeBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const QString& mb,
                    const unsigned int& mv, const QList<QString>& cb);
     virtual QString getFullName() { return QString("Segment Type Box"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -274,9 +269,6 @@ public:
     MediaBox(const unsigned  int &s, const QString& t, const unsigned long &off, const unsigned  int &e);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Media Box"); }
-    virtual QString getInfo() {
-        return QString("Media Box is a container for all objects that declare information about the media data within a track.");
-    }
     virtual QStandardItemModel* getModel() {
          QStandardItemModel* model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Media Box is a container for all objects that declare information about the media data within a track.");
@@ -289,9 +281,6 @@ class MediaDataBox : public Box
 public:
     MediaDataBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e);
     virtual QString getFullName() { return QString("Media Data Box"); }
-    virtual QString getInfo() {
-        return QString("Media Box contains the media data.");
-    }
     virtual QStandardItemModel* getModel() {
          QStandardItemModel* model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Media Box contains the media data.");
@@ -301,9 +290,7 @@ public:
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 class MediaHeaderBox : public FullBox
 {
-private:
-    unsigned int version;
-
+protected:
     unsigned long int creationTime;
     unsigned long int modificationTime;
     unsigned int timescale;
@@ -316,7 +303,7 @@ public:
                    const QList<unsigned int>& f, const unsigned long int& ct, const unsigned long int& mt, const unsigned int & ts,
                    const unsigned long int & dur, const bool & pad, const QList<unsigned int> & lan, const unsigned int & pd);
     virtual QString getFullName() { return QString("Media Header Box"); }
-    virtual QString getInfo(); virtual QStandardItemModel* getModel();
+     virtual QStandardItemModel* getModel();
     virtual unsigned long int getMediaTimeScale() {
         return timescale;
     }
@@ -328,9 +315,6 @@ public:
     MovieBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Movie Box"); }
-    virtual QString getInfo() {
-        return QString("Movie Box is container box for all meta-data.");
-    }
     virtual QStandardItemModel* getModel() {
          QStandardItemModel* model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Movie Box is container box for all meta-data.");
@@ -340,7 +324,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class MovieHeaderBox : public FullBox
 {
-private:
+protected:
 
 
     unsigned long int creationTime; //in seconds since midnight, Jan. 1, 1904, in UTC time
@@ -361,7 +345,7 @@ public:
                    const unsigned int& reserved16, const QList<unsigned long int>& reserved32, const QList<unsigned long int>& mx,
                    const QList<unsigned long int>& pr, const unsigned long int& nextTrackId);
     virtual QString getFullName() { return QString("Movie Header Box "); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
     virtual unsigned long int getDuration() {
         return duration;
@@ -377,12 +361,11 @@ public:
     MediaInformationBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Media Information Box"); }
-    virtual QString getInfo() { return QString("Media Information Box is a box container for objects that declare characteristic information of the media in the track."); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class VideoMediaHeaderBox : public FullBox
 {
-private:
+protected:
 
 
     unsigned int graphicsmode;
@@ -392,13 +375,13 @@ public:
                         const unsigned  int& v, const QList<unsigned int>& f, const unsigned int & graphicsmode,
                         const QList <unsigned int> & opcolor);
     virtual QString getFullName() { return QString("Video Media Header Box"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SoundMediaHeaderBox : public FullBox
 {
-private:
+protected:
 
 
     unsigned int balance;
@@ -407,12 +390,12 @@ public:
     SoundMediaHeaderBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& e,
                         const unsigned  int& v, const QList<unsigned int>& f, const unsigned int& bl, const unsigned int&res);
     virtual QString getFullName() { return QString("Sound Media Header Box"); }
-    virtual QString getInfo(); virtual QStandardItemModel* getModel();
+     virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class HintMediaHeaderBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -422,7 +405,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class NullMediaHeaderBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -432,21 +415,18 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class DataInformationBox : public Box
 {
-private:
+protected:
 
 
 public:
     DataInformationBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Data Information Box"); }
-    virtual QString getInfo() {
-        return QString("Data Information Box contains objects that declare the location of the media informatin in a track");
-    }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class DataEntryUrnBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -456,7 +436,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class DataEntryUrlBox : public FullBox
 {
-private:
+protected:
 
 
     QString location;
@@ -464,13 +444,13 @@ public:
     DataEntryUrlBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& e, const unsigned  int& v,
                     const QList<unsigned int>& f, const QString& location);
     virtual QString getFullName() { return QString("Data Entry URL Box"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class DataReferenceBox : public FullBox
 {
-private:
+protected:
 
 
     unsigned long int entryCount;
@@ -478,7 +458,7 @@ public:
     DataReferenceBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& e, const unsigned  int& v,
                      const QList<unsigned int>& f, const unsigned long int& ec);
     virtual QString getFullName() { return QString("Data Reference Box"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
     virtual bool isContainer() { return true; }
     virtual unsigned int getContainerOffset() { return 16; }
@@ -487,15 +467,12 @@ public:
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 class FreeSpaceBox : public Box
 {
-private:
+protected:
     bool container;
 public:
     FreeSpaceBox(bool container,const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e);
     virtual bool isContainer() { return container; }
     virtual QString getFullName() { return QString("Free Space Box"); }
-    virtual QString getInfo() {
-        return QString("Free Space Box may be ignored because its content is irrelevant.");
-    }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class EditBox : public Box
@@ -504,15 +481,12 @@ public:
     EditBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Edit Box"); }
-    virtual QString getInfo() { return QString("Edit Box is a container for edit lists. It maps the presentation time-line to the media time-line as it is stored in the file."); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class EditListBox : public FullBox
 {
-private:
-
-
-    unsigned int entryCount;
+protected:
+     unsigned int entryCount;
     QList <unsigned long int> segmentDuration;
     QList <unsigned long int> mediaTime;
     QList <unsigned int> mediaRateInteger;
@@ -522,7 +496,7 @@ public:
                 const unsigned  int& v, const QList<unsigned int>& f, const unsigned int & entryCount, const QList<unsigned long int>& segmD,
                 const QList<unsigned long int>&medT, const QList<unsigned int>& mri, const QList<unsigned int>& mrf);
     virtual QString getFullName() { return QString("Edit List Box"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -531,14 +505,13 @@ class UserDataBox : public Box
 public:
     UserDataBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e);
     virtual QString getFullName() { return QString("User Data Box"); }
-    virtual QString getInfo() { return QString("User Data Box is container for objects that declare user information about the containing box and its data (presentation or track)."); }
     virtual bool isContainer() { return true; }
     virtual unsigned int getContainerOffset() { return 8;}
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class CopyRightBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -552,14 +525,11 @@ public:
     MovieExtendsBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Movie Extends Box"); }
-    virtual QString getInfo() {
-        return QString("Movie Extends Box existence means that there may be Movie Fragment Boxes in the file.");
-    }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class MovieExtendsHeaderBox : public FullBox
 {
-private:
+protected:
 
 
     unsigned long int fragmentDuration;
@@ -567,7 +537,7 @@ public:
     MovieExtendsHeaderBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& e,
                           const unsigned  int& v, const QList<unsigned int>& f, const unsigned long int& fd);
     virtual QString getFullName() { return QString("Movie Extends Header Box"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -581,14 +551,14 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class MovieFragmentHeaderBox : public FullBox
 {
-private:
+protected:
     unsigned int sequenceNumber;
 
 
 public:
     MovieFragmentHeaderBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const long& sn, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Movie Fragment Header Box"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -604,7 +574,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class MovieFragmentRandomAccessOffsetBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -614,7 +584,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SampleDependencyTypeBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -624,7 +594,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SampleToGroupBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -634,7 +604,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SampleGroupDescriptionBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -644,7 +614,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SampleScaleBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -654,7 +624,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SubSampleInformationBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -664,7 +634,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class ProgressiveDownloadInfoBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -674,7 +644,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class MetaBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -686,7 +656,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class XMLBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -696,7 +666,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class BinaryXMLBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -706,7 +676,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class ItemLocationBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -716,7 +686,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PrimaryItemBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -726,7 +696,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class ItemProtectionBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -737,7 +707,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class ItemInfoEntry : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -747,7 +717,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class ItemInfoBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -772,7 +742,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class IPMPInfoBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -782,7 +752,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class IPMPControlBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -792,7 +762,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SchemeTypeBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -830,7 +800,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SRTPProcessBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -870,7 +840,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SampleAuxiliaryInformationSizesBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -880,7 +850,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SampleAuxiliaryInformationOffsetsBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -891,7 +861,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class LevelAssignmentBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -901,7 +871,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SegmentIndexBox : public FullBox
 {
-private:
+protected:
 
 
     unsigned  int referenceId;
@@ -922,13 +892,13 @@ public:
                     const QList<bool>& referenceType, const QList<unsigned  int> referenceSize, const QList<unsigned  int> & subsegmentDuration,
                     const QList<bool> & startsWithSAP, const QList<unsigned  int>& SAPType, const QList<unsigned  int>& SAPDeltaTime);
     virtual QString getFullName() { return QString("Segment Index Box"); }
-    virtual QString getInfo();
+
     virtual QStandardItemModel* getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SubsegmentIndexBox : public FullBox
 {
-private:
+protected:
 
 
 public:
@@ -938,7 +908,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class ProducerReferenceTimeBox : public FullBox
 {
-private:
+protected:
 
 
 public:
