@@ -79,51 +79,51 @@ public:
  * \brief The MPDWriter class
  */
 class MPDWriter {
-private:
-    QString xmlHeader;// = "<?xml version=\"1.0\"?>";
-    QXmlStreamWriter* stream;
-    /*!
-     * \brief fileName
-     */
-    QString fileName;
-    QString path;
-    unsigned int segmentsNum;
-    QFile* mpdFile;
-    //TreeModel* model;
-    MPD* mpd;
-    TreeModel* dashModel;
-    TreeModel* model;
-    QList<Representation*> representations;
+//private:
+//    QString xmlHeader;// = "<?xml version=\"1.0\"?>";
+//    QXmlStreamWriter* stream;
+//    /*!
+//     * \brief fileName
+//     */
+//    QString fileName;
+//    QString path;
+//    unsigned int segmentsNum;
+//    QFile* mpdFile;
+//    //TreeModel* model;
+//    MPD* mpd;
+//    TreeModel* dashModel;
+//    TreeModel* model;
+//    QList<Representation*> representations;
 
-    QString getDuration();
-    unsigned int* getDimensions();
-    QString getHMSFormat(const double& value);
-    void setMPD(bool oneFile);
-    //void setProgramInformation();
-    SegmentList *setSegmentList(bool oneFile);
-    BaseURL* setBaseURL(const QString &url);
-    Representation* setRepresentation(bool oneFile);
-    AdaptationSet* setAdaptationSet(bool oneFile);
-    Period* setPeriod(bool oneFile);
-public:
-    /*!
-     * \brief MPDWriter
-     * \param fn name of mp4 dash file
-     * \param mod model of mp4 original file
-     */
-    MPDWriter(const QString &path, const QString& fn, TreeModel *mod, const QString& dt);
-    /*!
-     * \brief init
-     * Creates tree model of mp4 dash file
-     */
-    void init(bool b);
-    /*!
-     * \brief writeMPD
-     * Writes Media Description File
-     * \param file Media Presentation Description file that is created
-     */
-    void writeMPD(QFile* file, bool oneFile);
-    void addRepresentation(const QString& fn, const bool& oneFile);
+//    QString getDuration();
+//    unsigned int* getDimensions();
+//    QString getHMSFormat(const double& value);
+//    void setMPD(bool oneFile);
+//    //void setProgramInformation();
+//    SegmentList *setSegmentList(bool oneFile);
+//    BaseURL* setBaseURL(const QString &url);
+//    Representation* setRepresentation(bool oneFile);
+//    AdaptationSet* setAdaptationSet(bool oneFile);
+//    Period* setPeriod(bool oneFile);
+//public:
+//    /*!
+//     * \brief MPDWriter
+//     * \param fn name of mp4 dash file
+//     * \param mod model of mp4 original file
+//     */
+//    MPDWriter(const QString &path, const QString& fn, TreeModel *mod, const QString& dt);
+//    /*!
+//     * \brief init
+//     * Creates tree model of mp4 dash file
+//     */
+//    void init(bool b);
+//    /*!
+//     * \brief writeMPD
+//     * Writes Media Description File
+//     * \param file Media Presentation Description file that is created
+//     */
+//    void writeMPD(QFile* file, bool oneFile);
+//    void addRepresentation(const QString& fn, const bool& oneFile);
 };
 
 

@@ -156,7 +156,7 @@ QStandardItemModel* MovieHeaderBox::getModel() {
     model->setData(model->index(2, 1, QModelIndex()), QString::number(creationTime));
     model->setData(model->index(3, 0, QModelIndex()), "Modification time");
     model->setData(model->index(3, 1, QModelIndex()), QString::number(modificationTime));
-    model->setData(model->index(4, 0, QModelIndex()), "Tiemscale");
+    model->setData(model->index(4, 0, QModelIndex()), "Timescale");
     model->setData(model->index(4, 1, QModelIndex()), QString::number(timeScale));
     model->setData(model->index(5, 0, QModelIndex()), "Duration");
     model->setData(model->index(5, 1, QModelIndex()), QString::number(duration));

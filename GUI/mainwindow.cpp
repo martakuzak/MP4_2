@@ -380,7 +380,7 @@ void MainWindow::addFileToDash() {
         while(!files.empty()) {
             QList<QStandardItem*> list;
             QStandardItem* tmpItem = new QStandardItem();
-            tmpItem->setText(directoryName + files.back());
+            tmpItem->setText(directoryName + "/" + files.back());
             list.append(tmpItem);
             fileModel->appendRow(list);
             files.pop_back();
@@ -508,5 +508,6 @@ void MainWindow::switchToDashMenu() {
 }
 void MainWindow::dashFilesSelected() {
     QAbstractItemModel* model = fileList->model();
-    emit dashFilesSelectedSignal(model);
+
+    emit dashFilesSelectedSignal(model, (dashOption->currentIndex() == 0));
 }

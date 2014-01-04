@@ -13,27 +13,38 @@ class TreeModel;
  * according to MPEG-DASH standard.
  */
 class DashCreator {
+private:
+    QString dashPath;
+    //name of analyzed file
+    QString fileName;
+    TreeModel* model;
+    QFile* dashFile;
+    QFile* file;
 public:
-    /*!
-     * \brief DashCreator manages stream to newly created dash file
-     * \param fn according to file with given fileName dash file is created
-     * \param model model of box tree
-     */
-    DashCreator(const QString& fn, TreeModel* model);
-    ~DashCreator();
-    /*!
-     * \brief closeFileStream closes filename file stream
-     */
-    void closeFileStream();
-    /*!
-     * \brief copyBox
-     * Copies first box (box of smallest offset) of given type in original file and writes it to the dash file.
-     * If dashFile is NULL method only returns size of potentially copied box.
-     * \param type type of the box
-     * \param dashFile
-     * \param maxSize maximum size of copied box
-     * \return number of copied bytes
-     */
+    DashCreator(const QString& path, const QString& name, TreeModel* mod);
+    bool writeFile(const unsigned int & maxSampleNum);
+
+//public:
+//    /*!
+//     * \brief DashCreator manages stream to newly created dash file
+//     * \param fn according to file with given fileName dash file is created
+//     * \param model model of box tree
+//     */
+//    DashCreator(const QString& fn, TreeModel* model);
+//    ~DashCreator();
+//    /*!
+//     * \brief closeFileStream closes filename file stream
+//     */
+//    void closeFileStream();
+//    /*!
+//     * \brief copyBox
+//     * Copies first box (box of smallest offset) of given type in original file and writes it to the dash file.
+//     * If dashFile is NULL method only returns size of potentially copied box.
+//     * \param type type of the box
+//     * \param dashFile
+//     * \param maxSize maximum size of copied box
+//     * \return number of copied bytes
+//     */
     unsigned int copyBox(const QString& type, QFile *dashFile = NULL, const unsigned long int& maxSize = 0);
     /*!
      * \brief copyBox
@@ -341,38 +352,38 @@ public:
      */
     bool writeSegments(const unsigned int &maxSampleNum, QFile* dashFile, const QString& path = QString(""),
                        const QString& fileName = QString(""));
-    /*!
-     * \brief writeFile
-     * Writes dash file
-     * \param maxSampleNum maximum number of samples in one mdat
-     * \return true, if file was succesfully written
-     */
-    bool writeFile(const QString &date, const QString &fileName, const unsigned int & maxSampleNum);
-    /*!
-     * \brief writeFiles
-     * Writes dash files - each segment has its own file
-     * \param maxSampleNum maximum number of samples in one mdat
-     * \return true, if all files were managed to be written
-     */
-    bool writeFiles(const QString &date, const QString& dashFile, const unsigned int & maxSampleNum);
+//    /*!
+//     * \brief writeFile
+//     * Writes dash file
+//     * \param maxSampleNum maximum number of samples in one mdat
+//     * \return true, if file was succesfully written
+//     */
+//    bool writeFile(const QString &date, const QString &fileName, const unsigned int & maxSampleNum);
+//    /*!
+//     * \brief writeFiles
+//     * Writes dash files - each segment has its own file
+//     * \param maxSampleNum maximum number of samples in one mdat
+//     * \return true, if all files were managed to be written
+//     */
+//    bool writeFiles(const QString &date, const QString& dashFile, const unsigned int & maxSampleNum);
 
 
-private:
-    /*!
-     * \brief fileName name of the mp4 file that is transformed into dash mp4 file
-     */
-    QString fileName;
-    QString date;
-    /*!
-     * \brief model model of boxes mp4 file
-     */
-    TreeModel* model;
-    /*!
-     * \brief file mp4 file that is transformed into dash mp4 file
-     */
-    QFile* file;
-    QFile* dashFile;
-    QFile* initFile;
+//private:
+//    /*!
+//     * \brief fileName name of the mp4 file that is transformed into dash mp4 file
+//     */
+//    QString fileName;
+//    QString date;
+//    /*!
+//     * \brief model model of boxes mp4 file
+//     */
+//    TreeModel* model;
+//    /*!
+//     * \brief file mp4 file that is transformed into dash mp4 file
+//     */
+//    QFile* file;
+//    QFile* dashFile;
+//    QFile* initFile;
 };
 
 #endif // DASHCREATOR_H

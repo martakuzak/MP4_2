@@ -138,206 +138,206 @@ void MPD::write(QXmlStreamWriter* stream ) {
     stream->writeEndElement();
 }
 /////////////////////////////////////////////////////////////////////////////////////////
-QString MPDWriter::getDuration() {
-    QList<std::shared_ptr <Box> > mvhds = model->getBoxes("mvhd");
-    if(mvhds.empty())
-        return QString("");
-    std::shared_ptr <Box> mvhd = mvhds.back();
-    unsigned long int timescale = mvhd->getTimeScale();
-    unsigned long int duration = mvhd->getDuration();
-    return getHMSFormat(duration/timescale);
-}
-/////////////////////////////////////////////////////////////////////////////////////////
-unsigned int* MPDWriter::getDimensions() {
-    unsigned int* ret = new unsigned int[2];
-    QList<std::shared_ptr <Box> > visualEntries = model->getBoxes("avc1");
-    if(visualEntries.empty()) {
-        visualEntries = model->getBoxes("mp4v");
-        if(visualEntries.empty()) {
-            ret[0] = 0;
-            ret[1] = 0;
-            return ret;
-        }
-    }
-    std::shared_ptr <Box> visualEntry = visualEntries.at(0);
-    ret[0] = visualEntry->getHeight();
-    ret[1] = visualEntry->getWidth();
-    return ret;
-}
-/////////////////////////////////////////////////////////////////////////////////////////
-QString MPDWriter::getHMSFormat(const double& value) {
-    double durationInSec = value;
-    unsigned int hours = durationInSec/3600;
-    durationInSec -= 3600*hours;
-    unsigned int minutes = durationInSec/60;
-    durationInSec -= 60*minutes;
-    return QString("PT" + QString::number(hours) + "H" + QString::number(minutes) + "M" + QString::number(durationInSec) + "S");
-}
+//QString MPDWriter::getDuration() {
+//    QList<std::shared_ptr <Box> > mvhds = model->getBoxes("mvhd");
+//    if(mvhds.empty())
+//        return QString("");
+//    std::shared_ptr <Box> mvhd = mvhds.back();
+//    unsigned long int timescale = mvhd->getTimeScale();
+//    unsigned long int duration = mvhd->getDuration();
+//    return getHMSFormat(duration/timescale);
+//}
+///////////////////////////////////////////////////////////////////////////////////////////
+//unsigned int* MPDWriter::getDimensions() {
+//    unsigned int* ret = new unsigned int[2];
+//    QList<std::shared_ptr <Box> > visualEntries = model->getBoxes("avc1");
+//    if(visualEntries.empty()) {
+//        visualEntries = model->getBoxes("mp4v");
+//        if(visualEntries.empty()) {
+//            ret[0] = 0;
+//            ret[1] = 0;
+//            return ret;
+//        }
+//    }
+//    std::shared_ptr <Box> visualEntry = visualEntries.at(0);
+//    ret[0] = visualEntry->getHeight();
+//    ret[1] = visualEntry->getWidth();
+//    return ret;
+//}
+///////////////////////////////////////////////////////////////////////////////////////////
+//QString MPDWriter::getHMSFormat(const double& value) {
+//    double durationInSec = value;
+//    unsigned int hours = durationInSec/3600;
+//    durationInSec -= 3600*hours;
+//    unsigned int minutes = durationInSec/60;
+//    durationInSec -= 60*minutes;
+//    return QString("PT" + QString::number(hours) + "H" + QString::number(minutes) + "M" + QString::number(durationInSec) + "S");
+//}
 ////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-MPDWriter::MPDWriter(const QString& pth, const QString &fn, TreeModel *mod, const QString& dt): path(pth),
-    fileName(fn), model(mod) {
-    path.append("DASH " + dt + "/");
-}
-void MPDWriter::init(bool b) {
-    //qDebug()<<"mpdw init"<<
-    if(b) {
-        Analyzer* an = new Analyzer(path + "dash_" + fileName);
-        dashModel = new TreeModel(an);
-        return;
-    }
-    Analyzer* an = new Analyzer(path + "dash_init_" + fileName);
-    dashModel = new TreeModel(an);
-}
-
-void MPDWriter::setMPD(bool oneFile) {
-    //MPD
-    mpd = new MPD();
-    //mpd->setId(unisgned int); //nieobowiazkowe, poza tym bedzie jedno mpd, wiec bez tego
-    mpd->setProfiles(QString("urn:mpeg:dash:profile:full:2011")); //obowiązkowe; urn:mpeg:dash:profil:isoff-main:2011?
-    mpd->setType("static"); //static jest domyślne, dynamic (MPD może być zmieniane); typowo dynamic przy live streamach
-    //mpd->setAvailibilityStartTime(); //obowiazkowe przy dynamic
-    //mpd->setAvailibilityEndTime(); //nieobowiazkowe
-    mpd->setMediaPresentationDuration(getDuration()); //obowiazkowe dla static
-    //mpd->setMinimumUpdatePeriod(); //w static zakazane
-    mpd->setMinBufferTime("10229"); //obowiązkowe - jak to ustawić?
-    //mpd->getTimeShitBufferDepth(); //w staticu zbędne
-    //mpd->getSuggestedPresentationDelay();//w staticu ignorowane
-    //mpd->getMaxSegmentDuration(); //nieobowiązkowe
-    //mpd->getMaxSubsegmentDuration(); //nieobowiązkowe
-    mpd->addPeriod(setPeriod(oneFile));
-    mpd->setBaseURL(path);
-}
-////////////////////////
-void MPDWriter::writeMPD(QFile* file, bool oneFile) {
-    setMPD(oneFile);
-    
-    stream = new QXmlStreamWriter(file);
-    stream->setAutoFormatting(true);
-    stream->writeStartDocument();
-    mpd->write(stream);
-    stream->writeEndDocument();
-    
-    file->close();
-}
-////////////////////////
-//void MPDWriter::setProgramInformation() {
-//    programInformation = new ProgramInformation();
-//    //    programInformation->setCopyright();//nic nieobowiązkowe
-//    //    programInformation->setLang();
-//    //    programInformation->setMoreInformationURL();
-//    //    programInformation->setSource();
-//    //    programInformation->setTitle();
+//MPDWriter::MPDWriter(const QString& pth, const QString &fn, TreeModel *mod, const QString& dt): path(pth),
+//    fileName(fn), model(mod) {
+//    path.append("DASH " + dt + "/");
 //}
-////////////////////////
-SegmentList* MPDWriter::setSegmentList(bool oneFile) {
-    SegmentList* slist = new SegmentList();
-    Initialization* init = new Initialization();
-    if(oneFile) {
-        QList< std::shared_ptr<Box> > mdats = dashModel->getBoxes("mdat");
-        QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
-        init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
-        slist->setInitialization(init);
-        while(!sidxs.empty()) {
-            if(sidxs.size() == 1) {
-                std::shared_ptr<Box> sidx = sidxs.back();
-                std::shared_ptr<Box> mdat = mdats.front();
-                unsigned int firstMediaRange = sidx->getOffset();
-                unsigned int secondMediaRange = mdat->getOffset() + mdat->getSize() - 1;
-                QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
-                unsigned int secondIndexRange = sidx->getOffset() + sidx->getSize();
-                QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
-                slist->addSegmentURL(mediaRange, indexRange);
-                sidxs.pop_back();
-            }
-            else {
-                std::shared_ptr<Box> sidx1 = sidxs.back();
-                sidxs.pop_back();
-                std::shared_ptr<Box> sidx2 = sidxs.back();
-                unsigned int firstMediaRange = sidx1->getOffset();
-                unsigned int secondMediaRange = sidx2->getOffset() - 1;
-                QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
-                unsigned int secondIndexRange = sidx1->getOffset() + sidx1->getSize();
-                QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
-                slist->addSegmentURL(mediaRange, indexRange);
-            }
-        }
-    }
-    else {
-        init->setSourceURL("dash_init_" + fileName); //setting initalization
-        slist->setInitialization(init);
-        unsigned int index = 0;
-        QString str("dash_" + QString::number(index) + "_" + fileName + "s");
-        while(QFile(path + str).exists()) {//setting SegmentList
-            Analyzer* an = new Analyzer(path + str);
-            dashModel = new TreeModel(an);
-            slist->addSegmentURL(str);
-            ++ index;
-            str = QString("dash_" + QString::number(index) + "_" + fileName + "s");
-        }
-    }
-    return slist;
-}
-//////////////
-BaseURL* MPDWriter::setBaseURL(const QString& url) {
-    BaseURL* burl = new BaseURL;
-    burl->setContent(url);
-    return burl;
-}
-/////////////
-Representation* MPDWriter::setRepresentation(bool oneFile) {
-    Representation* repr = new Representation();
-    if(oneFile)
-        repr->setBaseurl(setBaseURL("dash_" + fileName));
-    else
-        repr->setBaseurl(setBaseURL("dash_init_" + fileName));
-    repr->setSegmentList(setSegmentList(oneFile));
-    unsigned int* dim = getDimensions();
-    repr->setHeight(dim[0]);
-    repr->setWidth(dim[1]);
-    repr->setMimeType("video/mp4");
-    repr->setStartsWithSAP(1);
-    return repr;
-}
-/////////////
-AdaptationSet* MPDWriter::setAdaptationSet(bool oneFile) {
-    AdaptationSet* adapt = new AdaptationSet();
-    adapt->addRepresentation(setRepresentation(oneFile));
-    /*unsigned int* dim = getDimensions();
-    adapt->setMaxHeight(dim[0]);
-    adapt->setMaxWidth(dim[1]);*/
-    return adapt;
-}
+//void MPDWriter::init(bool b) {
+//    //qDebug()<<"mpdw init"<<
+//    if(b) {
+//        Analyzer* an = new Analyzer(path + "dash_" + fileName);
+//        dashModel = new TreeModel(an);
+//        return;
+//    }
+//    Analyzer* an = new Analyzer(path + "dash_init_" + fileName);
+//    dashModel = new TreeModel(an);
+//}
+
+//void MPDWriter::setMPD(bool oneFile) {
+//    //MPD
+//    mpd = new MPD();
+//    //mpd->setId(unisgned int); //nieobowiazkowe, poza tym bedzie jedno mpd, wiec bez tego
+//    mpd->setProfiles(QString("urn:mpeg:dash:profile:full:2011")); //obowiązkowe; urn:mpeg:dash:profil:isoff-main:2011?
+//    mpd->setType("static"); //static jest domyślne, dynamic (MPD może być zmieniane); typowo dynamic przy live streamach
+//    //mpd->setAvailibilityStartTime(); //obowiazkowe przy dynamic
+//    //mpd->setAvailibilityEndTime(); //nieobowiazkowe
+//    mpd->setMediaPresentationDuration(getDuration()); //obowiazkowe dla static
+//    //mpd->setMinimumUpdatePeriod(); //w static zakazane
+//    mpd->setMinBufferTime("10229"); //obowiązkowe - jak to ustawić?
+//    //mpd->getTimeShitBufferDepth(); //w staticu zbędne
+//    //mpd->getSuggestedPresentationDelay();//w staticu ignorowane
+//    //mpd->getMaxSegmentDuration(); //nieobowiązkowe
+//    //mpd->getMaxSubsegmentDuration(); //nieobowiązkowe
+//    mpd->addPeriod(setPeriod(oneFile));
+//    mpd->setBaseURL(path);
+//}
+//////////////////////////
+//void MPDWriter::writeMPD(QFile* file, bool oneFile) {
+//    setMPD(oneFile);
+    
+//    stream = new QXmlStreamWriter(file);
+//    stream->setAutoFormatting(true);
+//    stream->writeStartDocument();
+//    mpd->write(stream);
+//    stream->writeEndDocument();
+    
+//    file->close();
+//}
+//////////////////////////
+////void MPDWriter::setProgramInformation() {
+////    programInformation = new ProgramInformation();
+////    //    programInformation->setCopyright();//nic nieobowiązkowe
+////    //    programInformation->setLang();
+////    //    programInformation->setMoreInformationURL();
+////    //    programInformation->setSource();
+////    //    programInformation->setTitle();
+////}
+//////////////////////////
+//SegmentList* MPDWriter::setSegmentList(bool oneFile) {
+//    SegmentList* slist = new SegmentList();
+//    Initialization* init = new Initialization();
+//    if(oneFile) {
+//        QList< std::shared_ptr<Box> > mdats = dashModel->getBoxes("mdat");
+//        QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
+//        init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
+//        slist->setInitialization(init);
+//        while(!sidxs.empty()) {
+//            if(sidxs.size() == 1) {
+//                std::shared_ptr<Box> sidx = sidxs.back();
+//                std::shared_ptr<Box> mdat = mdats.front();
+//                unsigned int firstMediaRange = sidx->getOffset();
+//                unsigned int secondMediaRange = mdat->getOffset() + mdat->getSize() - 1;
+//                QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
+//                unsigned int secondIndexRange = sidx->getOffset() + sidx->getSize();
+//                QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
+//                slist->addSegmentURL(mediaRange, indexRange);
+//                sidxs.pop_back();
+//            }
+//            else {
+//                std::shared_ptr<Box> sidx1 = sidxs.back();
+//                sidxs.pop_back();
+//                std::shared_ptr<Box> sidx2 = sidxs.back();
+//                unsigned int firstMediaRange = sidx1->getOffset();
+//                unsigned int secondMediaRange = sidx2->getOffset() - 1;
+//                QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
+//                unsigned int secondIndexRange = sidx1->getOffset() + sidx1->getSize();
+//                QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
+//                slist->addSegmentURL(mediaRange, indexRange);
+//            }
+//        }
+//    }
+//    else {
+//        init->setSourceURL("dash_init_" + fileName); //setting initalization
+//        slist->setInitialization(init);
+//        unsigned int index = 0;
+//        QString str("dash_" + QString::number(index) + "_" + fileName + "s");
+//        while(QFile(path + str).exists()) {//setting SegmentList
+//            Analyzer* an = new Analyzer(path + str);
+//            dashModel = new TreeModel(an);
+//            slist->addSegmentURL(str);
+//            ++ index;
+//            str = QString("dash_" + QString::number(index) + "_" + fileName + "s");
+//        }
+//    }
+//    return slist;
+//}
 ////////////////
-Period* MPDWriter::setPeriod(bool oneFile) {
-    Period* period = new Period();
-    period->setStart(QString("PT0S"));
-    period->setDuration(getDuration());
-    period->addAdaptationSet(setAdaptationSet(oneFile));
-    return period;
-}
-/////////////////
-void MPDWriter::addRepresentation(const QString& fn, const bool& oneFile) {
-    fileName = fn;
-    Representation* repr = new Representation();
+//BaseURL* MPDWriter::setBaseURL(const QString& url) {
+//    BaseURL* burl = new BaseURL;
+//    burl->setContent(url);
+//    return burl;
+//}
+///////////////
+//Representation* MPDWriter::setRepresentation(bool oneFile) {
+//    Representation* repr = new Representation();
+//    if(oneFile)
+//        repr->setBaseurl(setBaseURL("dash_" + fileName));
+//    else
+//        repr->setBaseurl(setBaseURL("dash_init_" + fileName));
+//    repr->setSegmentList(setSegmentList(oneFile));
+//    unsigned int* dim = getDimensions();
+//    repr->setHeight(dim[0]);
+//    repr->setWidth(dim[1]);
+//    repr->setMimeType("video/mp4");
+//    repr->setStartsWithSAP(1);
+//    return repr;
+//}
+///////////////
+//AdaptationSet* MPDWriter::setAdaptationSet(bool oneFile) {
+//    AdaptationSet* adapt = new AdaptationSet();
+//    adapt->addRepresentation(setRepresentation(oneFile));
+//    /*unsigned int* dim = getDimensions();
+//    adapt->setMaxHeight(dim[0]);
+//    adapt->setMaxWidth(dim[1]);*/
+//    return adapt;
+//}
+//////////////////
+//Period* MPDWriter::setPeriod(bool oneFile) {
+//    Period* period = new Period();
+//    period->setStart(QString("PT0S"));
+//    period->setDuration(getDuration());
+//    period->addAdaptationSet(setAdaptationSet(oneFile));
+//    return period;
+//}
+///////////////////
+//void MPDWriter::addRepresentation(const QString& fn, const bool& oneFile) {
+//    fileName = fn;
+//    Representation* repr = new Representation();
 
-    QString dashName;
-    if(oneFile) {
-        dashName = "dash_" + fileName;/*
-        Analyzer* an = new Analyzer(fileName);
-        TreeModel* mod = new TreeModel(an);*/
-    }
-    else
-        dashName = "dash_init_" + fileName;
+//    QString dashName;
+//    if(oneFile) {
+//        dashName = "dash_" + fileName;/*
+//        Analyzer* an = new Analyzer(fileName);
+//        TreeModel* mod = new TreeModel(an);*/
+//    }
+//    else
+//        dashName = "dash_init_" + fileName;
 
-    repr->setBaseurl(setBaseURL(dashName));
-    repr->setSegmentList(setSegmentList(oneFile));
-    unsigned int* dim = getDimensions();
-    repr->setHeight(dim[0]);
-    repr->setWidth(dim[1]);
-    repr->setMimeType("video/mp4");
-    repr->setStartsWithSAP(1);
-}
+//    repr->setBaseurl(setBaseURL(dashName));
+//    repr->setSegmentList(setSegmentList(oneFile));
+//    unsigned int* dim = getDimensions();
+//    repr->setHeight(dim[0]);
+//    repr->setWidth(dim[1]);
+//    repr->setMimeType("video/mp4");
+//    repr->setStartsWithSAP(1);
+//}
 
 
 
