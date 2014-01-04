@@ -1,11 +1,15 @@
 #include "controller.h"
 
 Controller::Controller(MainWindow *mw): window(mw) {
+    makeConnection();
+}
+void Controller::makeConnection() {
     connect(window, SIGNAL(fileSelected(QString)), this, SLOT(fileSelected(QString)), Qt::QueuedConnection);
     connect(window, SIGNAL(boxSelected(QItemSelectionModel*)), this,
             SLOT(boxSelected(QItemSelectionModel*)), Qt::QueuedConnection);
     connect(window, SIGNAL(searchBox(QString)), this, SLOT(searchBox(QString)), Qt::QueuedConnection);
-    connect(window, SIGNAL(), this, SLOT(dashFilesSelected(QList<QString>)), Qt::QueuedConnection);
+    connect(window, SIGNAL(dashFilesSelectedSignal(QAbstractItemModel*)), this,
+            SLOT(dashFilesSelected(QAbstractItemModel*)), Qt::QueuedConnection);
 }
 ////////////////////
 void Controller::fileSelected(const QString& fileName) {
@@ -88,7 +92,26 @@ void Controller::searchBox(const QString &boxType) {
     qDebug()<<"i co";
 }
 ////////////////////////////////////////////
-void Controller::dashFilesSelected(const QList<QString>& fileList) {
+void Controller::dashFilesSelected(QAbstractItemModel* model, const bool& oneFile) {
+    //for each file
+    //create aFile
+    //create mpdRepr
 
+    //createMPD
+    qDebug()<<QString::number(model->rowCount());
+    QDateTime local(QDateTime::currentDateTime());
+    QString date = local.toString();
+    date.replace(QString(":"), QString("_"));
+    for ( int i = 0 ; i < model->rowCount() ; ++i ) {
+        QString fileName = model->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
+        qDebug()<<fileName;
+        if(dashWrap == NULL)
+            dashWrap = new DashWrapper();
+        dashWrap->setDashCreator(fileName);
+        if(oneFile)
+            dashWrap->writeFile(date, fileName, 50);
+        else
+            dashWrap->writeFiles(date, fileName, 50);
+    }
 }
 

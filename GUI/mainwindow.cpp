@@ -380,7 +380,7 @@ void MainWindow::addFileToDash() {
         while(!files.empty()) {
             QList<QStandardItem*> list;
             QStandardItem* tmpItem = new QStandardItem();
-            tmpItem->setText(files.back());
+            tmpItem->setText(directoryName + files.back());
             list.append(tmpItem);
             fileModel->appendRow(list);
             files.pop_back();
@@ -439,10 +439,7 @@ void MainWindow::searchButtonClicked() {
     QString boxType = typeBoxType->text();
     emit searchBox(boxType);
 }
-///////////////////////////////////
-void MainWindow::dashFilesSelected() {
-
-}
+////////////////////////////////////
 
 void MainWindow::switchToDashMenu() {
     setWindowTitle("MP4 MPEG-DASH");
@@ -474,6 +471,7 @@ void MainWindow::switchToDashMenu() {
     dashOption->addItem("Each segment has its own file");
 
     readyButton = new QPushButton("Ready");
+    connect(readyButton, SIGNAL(clicked()), this, SLOT(dashFilesSelected()), Qt::QueuedConnection);
     oneFile = new QLabel("All segments in one file");
     moreFile = new QLabel("Each segment in seperated file");
     rightLayout = new QVBoxLayout;
@@ -507,4 +505,8 @@ void MainWindow::switchToDashMenu() {
 
     //mainLayout->addStretch(1);
     //mainLayout->update();
+}
+void MainWindow::dashFilesSelected() {
+    QAbstractItemModel* model = fileList->model();
+    emit dashFilesSelectedSignal(model);
 }

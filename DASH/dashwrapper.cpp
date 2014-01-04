@@ -6,9 +6,12 @@ DashWrapper::DashWrapper(const QString& fileName, TreeModel* model, const QStrin
         last = fileName.lastIndexOf("/");
     QString name = fileName.mid(last + 1);
     QString path = fileName.mid(0, last + 1);
-    dashCreator = new DashCreator(fileName, model, date);
+    dashCreator = new DashCreator(fileName, model);
     mpdWriter = new MPDWriter(path, name, model, date);
 }
+////////////////////////////////////////////////////////////////////////////////////////////
+DashWrapper::DashWrapper() {}
+////////////////////////////////////////////////////////////////////////////////////////////
 DashWrapper::~DashWrapper() {
     //delete mpdWriter;
     //delete dashCreator;
@@ -23,11 +26,18 @@ void DashWrapper::writeMPD(QFile* mpdFile, bool oneFile) {
     mpdWriter->writeMPD(mpdFile, oneFile);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-bool DashWrapper::writeFile(const unsigned int &maxSampleNum/*, QFile* dashFile*/) {
-    return dashCreator->writeFile(maxSampleNum/*, dashFile*/);
+bool DashWrapper::writeFile(const QString& date, const QString& fileName, const unsigned int &maxSampleNum/*, QFile* dashFile*/) {
+    return dashCreator->writeFile(date, fileName, maxSampleNum/*, dashFile*/);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-bool DashWrapper::writeFiles(const unsigned int &maxSampleNum/*, QFile* dashFile*/) {
-    return dashCreator->writeFiles(maxSampleNum/*, dashFile*/);
+bool DashWrapper::writeFiles(const QString &date, const QString& fileName, const unsigned int &maxSampleNum/*, QFile* dashFile*/) {
+    return dashCreator->writeFiles(date, fileName, maxSampleNum/*, dashFile*/);
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////
+void DashWrapper::setDashCreator(const QString& fileName) {
+    if(dashCreator != NULL)
+        delete dashCreator;
+    Analyzer* an = new Analyzer(fileName);
+    TreeModel* model = new TreeModel(an);
+    dashCreator = new DashCreator(fileName, model);
+}

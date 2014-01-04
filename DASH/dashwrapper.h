@@ -20,6 +20,7 @@ public:
      * \param model model of boxes of mp4 file that is transformed into dash mp4 file
      */
     DashWrapper(const QString& fileName, TreeModel* model, const QString &date);
+    DashWrapper();
     ~DashWrapper();
     /*!
      * \brief closeFileStream
@@ -32,14 +33,14 @@ public:
      * \param maxSampleNum maximum number of samples in one mdat
      * \return true, if file was successfully written
      */
-    bool writeFile(const unsigned int &maxSampleNum/*, QFile* dashFile*/);
+    bool writeFile(const QString& date, const QString &fileName, const unsigned int &maxSampleNum/*, QFile* dashFile*/);
     /*!
      * \brief writeFiles
      * Writes dash files - each segment has its own file
      * \param maxSampleNum maximum number of samples in one mdat
      * \return true, if all files were successfully written
      */
-    bool writeFiles(const unsigned int& maxSampleNum);
+    bool writeFiles(const QString& date, const QString& fileName, const unsigned int& maxSampleNum);
     /*!
      * \brief writeMPD
      * Writes Media Presentation Description File
@@ -48,6 +49,8 @@ public:
     void writeMPD(QFile *mpdFile, bool oneFile);
 
 private:
+    void setDashCreator(const QString &fileName);
+
     DashCreator* dashCreator;
     MPDWriter* mpdWriter;
 };

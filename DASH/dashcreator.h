@@ -19,7 +19,7 @@ public:
      * \param fn according to file with given fileName dash file is created
      * \param model model of box tree
      */
-    DashCreator(const QString& fn, TreeModel* model, const QString& dt);
+    DashCreator(const QString& fn, TreeModel* model);
     ~DashCreator();
     /*!
      * \brief closeFileStream closes filename file stream
@@ -347,14 +347,14 @@ public:
      * \param maxSampleNum maximum number of samples in one mdat
      * \return true, if file was succesfully written
      */
-    bool writeFile(const unsigned int & maxSampleNum/*, QFile* dashFile*/);
+    bool writeFile(const QString &date, const QString &fileName, const unsigned int & maxSampleNum);
     /*!
      * \brief writeFiles
      * Writes dash files - each segment has its own file
      * \param maxSampleNum maximum number of samples in one mdat
      * \return true, if all files were managed to be written
      */
-    bool writeFiles(const unsigned int & maxSampleNum);
+    bool writeFiles(const QString &date, const QString& dashFile, const unsigned int & maxSampleNum);
 
 
 private:

@@ -179,11 +179,12 @@ private slots:
     void selectionChanged();
     void searchButtonClicked();
     void switchToDashMenu();
+    void dashFilesSelected();
 signals:
     void fileSelected(const QString& fileName);
     void boxSelected(QItemSelectionModel* selection);
     void searchBox(const QString& boxType);
-    void dashFilesSelected();
+    void dashFilesSelectedSignal(QAbstractItemModel* model);
 private:
     /*!
      * \brief createActions create actions and adds slots to the widgets

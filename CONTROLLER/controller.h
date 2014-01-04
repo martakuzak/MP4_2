@@ -16,9 +16,11 @@ private slots:
     void fileSelected(const QString& fileName);
     void boxSelected(QItemSelectionModel* selection);
     void searchBox(const QString& boxType);
-    void dashFilesSelected(const QList<QString>& fileList);
+    void dashFilesSelected(QAbstractItemModel *model, const bool &oneFile);
 public:
     Controller(MainWindow* mw);
+private:
+    void makeConnection();
 };
 
 #endif // CONTROLLER_H

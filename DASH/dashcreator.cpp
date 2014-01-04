@@ -1,7 +1,6 @@
 #include "dashcreator.h"
 
-DashCreator::DashCreator(const QString &fn, TreeModel* m, const QString &dt): fileName(fn), model(m),
-date(dt) {
+DashCreator::DashCreator(const QString &fn, TreeModel* m): fileName(fn), model(m) {
     file = new QFile(fileName);
     if (!file->open(QIODevice::ReadOnly)) {
         return ;
@@ -868,7 +867,7 @@ bool DashCreator::writeSegments(const unsigned int& maxSampleNum, QFile* dashFil
     return true;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-bool DashCreator::writeFile(const unsigned int& maxSampleNum) {
+bool DashCreator::writeFile(const QString& date, const QString &fileName, const unsigned int& maxSampleNum) {
     int last = fileName.lastIndexOf("\\");
     if(last == -1)
         last = fileName.lastIndexOf("/");
@@ -888,10 +887,10 @@ bool DashCreator::writeFile(const unsigned int& maxSampleNum) {
     return false;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-bool DashCreator::writeFiles(const unsigned int & maxSampleNum) {
+bool DashCreator::writeFiles(const QString& date, const QString &dashFile, const unsigned int & maxSampleNum) {
     QDateTime local(QDateTime::currentDateTime());
-    QString date = local.toString();
-    date.replace(QString(":"), QString("_"));
+    //QString date = local.toString();
+    //date.replace(QString(":"), QString("_"));
 
     int last = fileName.lastIndexOf("\\");
     if(last == -1)
