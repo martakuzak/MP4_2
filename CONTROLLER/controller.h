@@ -13,6 +13,7 @@ private:
 private slots:
     void fileSelected(const QString& fileName);
     void boxSelected(QItemSelectionModel* selection);
+    void searchBox(const QString& boxType);
 public:
     Controller(MainWindow* mw);
 };

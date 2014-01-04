@@ -142,6 +142,8 @@ public:
     ~MainWindow();
     void fileAnalyzed(TreeModel *mod, const QString &fileName);
     void printSelectedBox(QStandardItemModel* mod, TreeItem *item);
+    void boxesFound(QModelIndexList& Items);
+    void showWarningDialog(const QString &mes);
 
 private slots:
     /*!
@@ -159,7 +161,7 @@ private slots:
      * - typed boxType hasn't 4 characters
      * - no box was found
      */
-    void searchBox();
+    //void searchBox();
     /*!
      * \brief launchHelp launches help html site.
      */
@@ -174,9 +176,11 @@ private slots:
     void removeFileFromDash();
     void generateDash();
     void selectionChanged();
+    void searchButtonClicked();
 signals:
     void fileSelected(const QString& fileName);
     void boxSelected(QItemSelectionModel* selection);
+    void searchBox(const QString& boxType);
 private:
     /*!
      * \brief createActions create actions and adds slots to the widgets

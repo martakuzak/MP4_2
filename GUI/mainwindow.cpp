@@ -76,7 +76,7 @@ void MainWindow::createActions()
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
     searchBoxAct = new QAction(tr("&Search"), this);
-    connect(searchBoxAct, SIGNAL(triggered()), this, SLOT(searchBox()));
+    connect(searchBoxAct, SIGNAL(triggered()), this, SLOT(searchButtonClicked()));
 
     helpAct = new QAction(tr("&Help"), this);
     connect(helpAct, SIGNAL(triggered()), this, SLOT(launchHelp()));
@@ -122,7 +122,7 @@ void MainWindow::setSearchBoxSection() {
     nextSearchButton->addAction(searchBoxAct);
     connect(nextSearchButton,
             SIGNAL(clicked()),
-            this, SLOT(searchBox()));
+            this, SLOT(searchButtonClicked()));
 
     searchBoxGroupBox->setMaximumHeight(50);
     searchBoxGroupBox->setMinimumHeight(40);
@@ -228,47 +228,10 @@ void MainWindow::printSelectedBox(QStandardItemModel* mod, TreeItem* item) {
         boxNameLabel->setText(text);
     }
 }
-////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::searchBox() {
-    QString boxType = typeBoxType->text();
-    //if boxType hasn't 4 characters
-    if(boxType.size()!=4) {
-        QMessageBox *infoBox = new QMessageBox(this);
-        infoBox->setIcon(QMessageBox::Warning);
-        infoBox->setText("Box type should have 4 characters.");
-        infoBox->show();
-        //boxInfo->clear();
-        return;
-    }
-    //otherwise application looks for boxes
-    QModelIndex index = treeView->selectionModel()->currentIndex();
-    int row;
-    int col;
-//    if(index.isValid()) {
-//        row = index.row();
-//        col = 0;
-//    }
-//    else { //no selection
-        row = 0;
-        col = 0;
-    //}
-
-    QModelIndexList Items = model->match(model->index(row,col),
-                                         Qt::DisplayRole,
-                                         QVariant::fromValue(QString(boxType)),
-                                         -1,
-                                         Qt::MatchRecursive);
+///////////////////////////////////////////////////////////////////////////////////////////
+void MainWindow::boxesFound(QModelIndexList &Items) {
     treeView->clearSelection();
-    //no box found
-    if(Items.size()==0) {
-        treeView->clearSelection();
-        QMessageBox *infoBox = new QMessageBox(this);
-        infoBox->setIcon(QMessageBox::Warning);
-        infoBox->setText("No box found");
-        infoBox->show();
-        return;
-    }
-    //selects found boxes and expands their predecessors
+
     QModelIndex tmpId;
     while (!Items.isEmpty()) {
         QModelIndex backId = Items.back();
@@ -281,19 +244,69 @@ void MainWindow::searchBox() {
         treeView->selectionModel()->select(backId, QItemSelectionModel::Select | QItemSelectionModel::Rows);
         Items.pop_back();
     }
-    QModelIndex child = model->index(tmpId.row(), 2, tmpId.parent());
-    boxNameLabel->setText(model->getChild(model->data(child,
-                                                      Qt::DisplayRole).toInt())->fullName());
-    QString text= model->getChild(model->data(child,
-                                              Qt::DisplayRole).toInt())->fullName();
-    qDebug()<<text;
-    if(text!=NULL) {
-        boxNameLabel->setText(text);
-        //printSelectedBox(false, child);
-    }
+    emit selectionChanged();
+//    if(text!=NULL) {
+//        boxNameLabel->setText(text);
+//        //printSelectedBox(false, child);
+//    }
     mainLayout->update();
-
 }
+////////////////////////////////////////////////////////////////////////////////////////////
+//void MainWindow::searchBox() {
+
+//    //otherwise application looks for boxes
+//    QModelIndex index = treeView->selectionModel()->currentIndex();
+//    int row;
+//    int col;
+////    if(index.isValid()) {
+////        row = index.row();
+////        col = 0;
+////    }
+////    else { //no selection
+//        row = 0;
+//        col = 0;
+//    //}
+
+//    QModelIndexList Items = model->match(model->index(row,col),
+//                                         Qt::DisplayRole,
+//                                         QVariant::fromValue(QString(boxType)),
+//                                         -1,
+//                                         Qt::MatchRecursive);
+//    treeView->clearSelection();
+//    //no box found
+//    if(Items.size()==0) {
+//        treeView->clearSelection();
+//        QMessageBox *infoBox = new QMessageBox(this);
+//        infoBox->setIcon(QMessageBox::Warning);
+//        infoBox->setText("No box found");
+//        infoBox->show();
+//        return;
+//    }
+//    //selects found boxes and expands their predecessors
+//    QModelIndex tmpId;
+//    while (!Items.isEmpty()) {
+//        QModelIndex backId = Items.back();
+//        tmpId = backId;
+//        QModelIndex tmpParent = tmpId.parent();
+//        while(tmpParent.isValid()) {
+//            treeView->setExpanded(tmpParent, true);
+//            tmpParent = tmpParent.parent();
+//        }
+//        treeView->selectionModel()->select(backId, QItemSelectionModel::Select | QItemSelectionModel::Rows);
+//        Items.pop_back();
+//    }
+//    QModelIndex child = model->index(tmpId.row(), 2, tmpId.parent());
+//    boxNameLabel->setText(model->getChild(model->data(child,
+//                                                      Qt::DisplayRole).toInt())->fullName());
+//    QString text= model->getChild(model->data(child,
+//                                              Qt::DisplayRole).toInt())->fullName();
+//    if(text!=NULL) {
+//        boxNameLabel->setText(text);
+//        //printSelectedBox(false, child);
+//    }
+//    mainLayout->update();
+
+//}
 ////////////////////////////////////////////////////////////
 void MainWindow::splitOneFile() {
     QString fileName = title.mid(4);
@@ -526,4 +539,16 @@ void MainWindow::fileAnalyzed(TreeModel* mod, const QString& fileName) {
 void MainWindow::selectionChanged() {
     QItemSelectionModel* selection = treeView->selectionModel();
     emit boxSelected(selection);
+}
+//////////////////////////////////
+void MainWindow::showWarningDialog(const QString& mes) {
+    QMessageBox *infoBox = new QMessageBox(this);
+    infoBox->setIcon(QMessageBox::Warning);
+    infoBox->setText(mes);
+    infoBox->show();
+}
+///////////////////////////////////
+void MainWindow::searchButtonClicked() {
+    QString boxType = typeBoxType->text();
+    emit searchBox(boxType);
 }
