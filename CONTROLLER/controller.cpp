@@ -81,6 +81,7 @@ void Controller::dashFilesSelected(QAbstractItemModel* model, const bool& oneFil
         dashWrap->setFileProp(model->index(0,0).data(Qt::DisplayRole).toString());
     }
     for ( int i = 0 ; i < model->rowCount() ; ++i ) {
+        qDebug()<<"control"<<QString::number(i);
         QString fileName = model->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
         bool result;
         if(oneFile) {
@@ -89,6 +90,7 @@ void Controller::dashFilesSelected(QAbstractItemModel* model, const bool& oneFil
                 window->showWarningDialog("Error while writing files");
                 return;
             }
+            dashWrap->setMpdProps();
             dashWrap->initMPD(oneFile);
             qDebug()<<"before rep";
             dashWrap->addRepresentation(oneFile);
@@ -100,6 +102,7 @@ void Controller::dashFilesSelected(QAbstractItemModel* model, const bool& oneFil
                 window->showWarningDialog("Error while writing files");
                 return;
             }
+            dashWrap->setMpdProps();
             dashWrap->initMPD(oneFile);
 
             dashWrap->addRepresentation(oneFile);

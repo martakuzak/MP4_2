@@ -1,6 +1,7 @@
 #ifndef PERIOD_H
 #define PERIOD_H
 
+#include <qDebug>
 #include "segmentlist.h"
 
 /*!

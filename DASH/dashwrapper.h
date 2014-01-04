@@ -38,6 +38,7 @@ public:
     void addRepresentation(const bool& oneFile);
     void writeMPD(const bool& oneFile);
     void initMPD(const bool& oneFile);
+    void setMpdProps();
 //public:
 //    /*!
 //     * \brief DashProxy

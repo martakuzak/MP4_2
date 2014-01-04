@@ -59,6 +59,12 @@ void DashWrapper::initMPD(const bool& oneFile) {
     mpdWriter->init(oneFile);
 }
 
+void DashWrapper::setMpdProps() {
+    qDebug()<<path<<catalog<<fileName;
+    mpdWriter->setDashPath(path  + catalog);
+    mpdWriter->setOriginalFileName(fileName);
+}
+
 //DashWrapper::DashWrapper(const QString& fileName, TreeModel* model, const QString& date) {
 //    int last = fileName.lastIndexOf("\\");
 //    if(last == -1)

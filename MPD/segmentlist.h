@@ -12,6 +12,7 @@
 #include <QString>
 #include <QList>
 #include <QXmlStreamWriter>
+#include <QDebug>
 
 /*!
  * \brief The Initialization class specifies the URL including a possible byte range for the Initialization Segment.

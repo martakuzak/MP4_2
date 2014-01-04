@@ -345,6 +345,7 @@ Representation::Representation() {
 //{}
 
 void Representation::write(QXmlStreamWriter *stream) {
+    qDebug()<<"repr wr 1";
     stream->writeStartElement("Representation");
     if(id != NULL)
         stream->writeAttribute("id", QString::number(id));
@@ -375,6 +376,7 @@ SegmentList *Representation::getSegmentList() const
 /////////////
 void Representation::setSegmentList(SegmentList* value)
 {
+    qDebug()<<"repr setsegmentlist";
     segmentList = value;
 }
 /////////////
