@@ -179,16 +179,17 @@ void MPD::write(QXmlStreamWriter* stream ) {
 //    fileName(fn), model(mod) {
 //    path.append("DASH " + dt + "/");
 //}
-//void MPDWriter::init(bool b) {
-//    //qDebug()<<"mpdw init"<<
-//    if(b) {
-//        Analyzer* an = new Analyzer(path + "dash_" + fileName);
-//        dashModel = new TreeModel(an);
-//        return;
-//    }
-//    Analyzer* an = new Analyzer(path + "dash_init_" + fileName);
-//    dashModel = new TreeModel(an);
-//}
+void MPDWriter::init(bool oneFile) {
+    qDebug()<<"mpdw init";
+    if(oneFile) {
+        Analyzer* an = new Analyzer(dashPath + "dash_" + originalFileName);
+        qDebug()<<"init"<<(dashPath + "dash_" + originalFileName);
+        dashModel = new TreeModel(an);
+        return;
+    }
+    Analyzer* an = new Analyzer(dashPath + "dash_init_" + originalFileName);
+    dashModel = new TreeModel(an);
+}
 
 //void MPDWriter::setMPD(bool oneFile) {
 //    //MPD
@@ -209,17 +210,28 @@ void MPD::write(QXmlStreamWriter* stream ) {
 //    mpd->setBaseURL(path);
 //}
 //////////////////////////
-//void MPDWriter::writeMPD(QFile* file, bool oneFile) {
-//    setMPD(oneFile);
+void MPDWriter::writeMPD(/*QFile* file, */bool oneFile) {
+    qDebug()<<"WRITEMPD1";
+    QFile* mpd = new QFile("C:\\Users\\Marta\\Documents\\Marcin.xml");
+    if(mpd->open(QIODevice::ReadWrite)) {
+        //setMPD(oneFile);
+        qDebug()<<"WRITEMPD2";
+
+        QXmlStreamWriter* stream = new QXmlStreamWriter(mpd);
+        stream->setAutoFormatting(true);
+        stream->writeStartDocument();
+        qDebug()<<"WRITEMPD2";
+
+        //mpd->write(stream);
+        for(int i = 0; i<representations.size(); ++i) {
+            qDebug()<<"WRITEMPD3"<<QString::number(i);
+            representations.at(i)->write(stream);
+        }
+        stream->writeEndDocument();
+    }
     
-//    stream = new QXmlStreamWriter(file);
-//    stream->setAutoFormatting(true);
-//    stream->writeStartDocument();
-//    mpd->write(stream);
-//    stream->writeEndDocument();
-    
-//    file->close();
-//}
+    mpd->close();
+}
 //////////////////////////
 ////void MPDWriter::setProgramInformation() {
 ////    programInformation = new ProgramInformation();
@@ -340,26 +352,113 @@ void MPD::write(QXmlStreamWriter* stream ) {
 //}
 
 
+
+QString MPDWriter::getOriginalFileName() const
+{
+    return originalFileName;
+}
+
+void MPDWriter::setOriginalFileName(const QString &value)
+{
+    originalFileName = value;
+}
 void MPDWriter::addRepresentation(const QString& fn, const bool& oneFile) {
-    QString fileName = fn;
+    qDebug()<<"mpd addrepr";
+    //originalFileName = fn;
     qDebug()<<fn;
     Representation* repr = new Representation();
-
+    qDebug()<<"mpd addrepr 2";
     QString dashName;
+    qDebug()<<"mpd addrepr 3";
     if(oneFile) {
-        dashName = "dash_" + fileName;/*
+        qDebug()<<"mpd addrepr 4";
+        dashName = "dash_" + originalFileName;/*
             Analyzer* an = new Analyzer(fileName);
             TreeModel* mod = new TreeModel(an);*/
     }
     else
-        dashName = "dash_init_" + fileName;
+        dashName = "dash_init_" + originalFileName;
+    qDebug()<<"mpd addrepr 5";
 
-    //repr->setBaseurl(setBaseURL(dashName));
-    //repr->setSegmentList(setSegmentList(oneFile));
+    BaseURL* baseURL = new BaseURL();
+    baseURL->setContent(dashName);
+    repr->setBaseurl(baseURL);
+    qDebug()<<"mpd addrepr 6";
+    repr->setSegmentList(setSegmentList(oneFile));
+    qDebug()<<"mpd addrepr 7";
     //unsigned int* dim = getDimensions();
     //repr->setHeight(dim[0]);
     //repr->setWidth(dim[1]);
     repr->setMimeType("video/mp4");
     repr->setStartsWithSAP(1);
     representations.append(repr);
+}
+
+void MPDWriter::setDashPath(const QString &dPath) {
+    dashPath = dPath;
+}
+
+SegmentList* MPDWriter::setSegmentList(bool oneFile) {
+    qDebug()<<"setsegmn 1";
+    SegmentList* slist = new SegmentList();
+    Initialization* init = new Initialization();
+    qDebug()<<"setsegmn 2";
+    if(oneFile) {
+        qDebug()<<"setsegmn 2.01"<<originalFileName;
+        QList< std::shared_ptr<Box> > mdats = dashModel->getBoxes("mdat");
+        qDebug()<<"setsegmn 2.1";
+        QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
+        qDebug()<<"setsegmn 3";
+        init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
+        qDebug()<<"setsegmn 3.1";
+        slist->setInitialization(init);
+        qDebug()<<"setsegmn 4";
+        while(!sidxs.empty()) {
+            qDebug()<<"setsegmn 5";
+            if(sidxs.size() == 1) {
+                std::shared_ptr<Box> sidx = sidxs.back();
+                qDebug()<<"setsegmn 6";
+                std::shared_ptr<Box> mdat = mdats.front();
+                qDebug()<<"setsegmn 7";
+                unsigned int firstMediaRange = sidx->getOffset();
+                qDebug()<<"setsegmn 8";
+                unsigned int secondMediaRange = mdat->getOffset() + mdat->getSize() - 1;
+                qDebug()<<"setsegmn 9";
+                QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
+                qDebug()<<"setsegmn 10";
+                unsigned int secondIndexRange = sidx->getOffset() + sidx->getSize();
+                qDebug()<<"setsegmn 11";
+                QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
+                qDebug()<<"setsegmn 12";
+                slist->addSegmentURL(mediaRange, indexRange);
+                qDebug()<<"setsegmn 13";
+                sidxs.pop_back();
+            }
+            else {
+                std::shared_ptr<Box> sidx1 = sidxs.back();
+                sidxs.pop_back();
+                std::shared_ptr<Box> sidx2 = sidxs.back();
+                unsigned int firstMediaRange = sidx1->getOffset();
+                unsigned int secondMediaRange = sidx2->getOffset() - 1;
+                QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
+                unsigned int secondIndexRange = sidx1->getOffset() + sidx1->getSize();
+                QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
+                slist->addSegmentURL(mediaRange, indexRange);
+            }
+        }
+    }
+    else {
+        init->setSourceURL("dash_init_" + originalFileName); //setting initalization
+        slist->setInitialization(init);
+        unsigned int index = 0;
+        QString str("dash_" + QString::number(index) + "_" + originalFileName + "s");
+        while(QFile(dashPath + str).exists()) {//setting SegmentList
+            Analyzer* an = new Analyzer(dashPath + str);
+            dashModel = new TreeModel(an);
+            slist->addSegmentURL(str);
+            ++ index;
+            str = QString("dash_" + QString::number(index) + "_" + originalFileName + "s");
+        }
+    }
+    return slist;
 }

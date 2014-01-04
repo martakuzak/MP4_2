@@ -50,35 +50,10 @@ void Controller::searchBox(const QString &boxType) {
                                              QVariant::fromValue(QString(boxType)),
                                              -1,
                                              Qt::MatchRecursive);
-    //    treeView->clearSelection();
-    //    //no box found
     if(Items.size()==0) {
         window->showWarningDialog("No box found.");
         return;
     }
-    //    //selects found boxes and expands their predecessors
-    //    QModelIndex tmpId;
-    //    while (!Items.isEmpty()) {
-    //        QModelIndex backId = Items.back();
-    //        tmpId = backId;
-    //        QModelIndex tmpParent = tmpId.parent();
-    //        while(tmpParent.isValid()) {
-    //            treeView->setExpanded(tmpParent, true);
-    //            tmpParent = tmpParent.parent();
-    //        }
-    //        treeView->selectionModel()->select(backId, QItemSelectionModel::Select | QItemSelectionModel::Rows);
-    //        Items.pop_back();
-    //    }
-    //    QModelIndex child = model->index(tmpId.row(), 2, tmpId.parent());
-    //    boxNameLabel->setText(model->getChild(model->data(child,
-    //                                                      Qt::DisplayRole).toInt())->fullName());
-    //    QString text= model->getChild(model->data(child,
-    //                                              Qt::DisplayRole).toInt())->fullName();
-    //    if(text!=NULL) {
-    //        boxNameLabel->setText(text);
-    //        //printSelectedBox(false, child);
-    //    }
-    //    mainLayout->update();
     QModelIndex tmpId = Items.front();
     QModelIndex child = model->index(tmpId.row(), 2, tmpId.parent());
     QString textLabel = model->getChild(model->data(child,
@@ -114,7 +89,10 @@ void Controller::dashFilesSelected(QAbstractItemModel* model, const bool& oneFil
                 window->showWarningDialog("Error while writing files");
                 return;
             }
+            dashWrap->initMPD(oneFile);
+            qDebug()<<"before rep";
             dashWrap->addRepresentation(oneFile);
+            qDebug()<<"repr added";
         }
         else {
             result = dashWrap->writeFiles(date, fileName, 50);
@@ -122,10 +100,14 @@ void Controller::dashFilesSelected(QAbstractItemModel* model, const bool& oneFil
                 window->showWarningDialog("Error while writing files");
                 return;
             }
+            dashWrap->initMPD(oneFile);
+
+            dashWrap->addRepresentation(oneFile);
         }
 
 
     }
+    dashWrap->writeMPD(oneFile);
     window->showInfoDialog("Dash files generated.");
 }
 

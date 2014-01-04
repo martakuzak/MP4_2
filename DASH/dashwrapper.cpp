@@ -9,6 +9,7 @@ void DashWrapper::setFileProp(const QString& fullPath) {
         last = fullPath.lastIndexOf("/");
     fileName = fullPath.mid(last + 1);
     path = fullPath.mid(0, last + 1);
+   // mpdWriter->setOriginalFileName(fullPath);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 bool DashWrapper::writeFile(const QString& date, const QString& name, const unsigned int &maxSampleNum/*, QFile* dashFile*/) {
@@ -47,8 +48,17 @@ bool DashWrapper::writeFiles(const QString &date, const QString& name, const uns
 }
 
 void DashWrapper::addRepresentation(const bool &oneFile) {
+    qDebug()<<"dw addrepr";
     return mpdWriter->addRepresentation(fileName, oneFile);
 }
+void DashWrapper::writeMPD(const bool& oneFile) {
+    mpdWriter->writeMPD(oneFile);
+}
+
+void DashWrapper::initMPD(const bool& oneFile) {
+    mpdWriter->init(oneFile);
+}
+
 //DashWrapper::DashWrapper(const QString& fileName, TreeModel* model, const QString& date) {
 //    int last = fileName.lastIndexOf("\\");
 //    if(last == -1)

@@ -81,8 +81,16 @@ public:
 class MPDWriter {
 private:
     QList<Representation*> representations;
+    QString dashPath;
+    TreeModel* dashModel;
+    QString originalFileName;
 public:
     void addRepresentation(const QString &fn, const bool &oneFile);
+    void setDashPath(const QString& dashPath);
+    SegmentList* setSegmentList(bool oneFile);
+    void init(bool oneFile);
+    void writeMPD(bool oneFile);
+
 //private:
 //    QString xmlHeader;// = "<?xml version=\"1.0\"?>";
 //    QXmlStreamWriter* stream;
@@ -128,6 +136,8 @@ public:
 //     */
 //    void writeMPD(QFile* file, bool oneFile);
 //    void addRepresentation(const QString& fn, const bool& oneFile);
+    QString getOriginalFileName() const;
+    void setOriginalFileName(const QString &value);
 };
 
 
