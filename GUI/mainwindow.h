@@ -59,6 +59,7 @@ private:
     //Actions - MPEG-DASH
     QAction *dashOneFileAct;
     QAction *dashSeparatedFilesAct;
+    QAction* dashAct;
     //Actions- Help
     QAction * helpAct;
     /*!
@@ -90,7 +91,7 @@ private:
     /*!
      * \brief model
      */
-    TreeModel *model;
+    //TreeModel *model;
     /*!
      * \brief fileMenu
      */
@@ -106,7 +107,7 @@ private:
     /*!
      * \brief analyzer
      */
-    Analyzer * analyzer;
+    //Analyzer * analyzer;
     /*!
      * \brief dashProxy
      */
@@ -142,7 +143,7 @@ public:
     ~MainWindow();
     void fileAnalyzed(TreeModel *mod, const QString &fileName);
     void printSelectedBox(QStandardItemModel* mod, TreeItem *item);
-    void boxesFound(QModelIndexList& Items);
+    void boxesFound(QModelIndexList& Items, const QString& textLabel);
     void showWarningDialog(const QString &mes);
 
 private slots:
@@ -177,6 +178,7 @@ private slots:
     void generateDash();
     void selectionChanged();
     void searchButtonClicked();
+    void switchToDashMenu();
 signals:
     void fileSelected(const QString& fileName);
     void boxSelected(QItemSelectionModel* selection);

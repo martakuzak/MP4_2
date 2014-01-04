@@ -73,7 +73,17 @@ void Controller::searchBox(const QString &boxType) {
     //        //printSelectedBox(false, child);
     //    }
     //    mainLayout->update();
-
-    window->boxesFound(Items);
+    QModelIndex tmpId = Items.front();
+    QModelIndex child = model->index(tmpId.row(), 2, tmpId.parent());
+    QString textLabel = model->getChild(model->data(child,
+                                                    Qt::DisplayRole).toInt())->fullName();
+    TreeItem* item = model->getChild(model->data(child, Qt::DisplayRole).toInt());
+    QStandardItemModel* mod = item->getModel();
+    mod->setHeaderData(0, Qt::Horizontal, tr(""));
+    mod->setHeaderData(1, Qt::Horizontal, tr(""));
+    window->boxesFound(Items, textLabel);
+    qDebug()<<"gowno";
+    window->printSelectedBox(mod, item);
+    qDebug()<<"i co";
 }
 

@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     fileLayout = new QHBoxLayout();
     rightLayout = new QVBoxLayout();
 
-    analyzer = new Analyzer();
+    //analyzer = new Analyzer();
 
     QWidget *window = new QWidget();
     setWindowIcon(QIcon("D://PDI//Code//Images//pear.png"));
@@ -43,7 +43,7 @@ MainWindow::~MainWindow()
     delete dashMenu;
     delete dashOneFileAct;
     delete dashSeparatedFilesAct;
-    delete model;
+    //delete model;
     delete nextSearchButton;
     delete typeBoxType;
     delete searchLabel;
@@ -54,7 +54,7 @@ MainWindow::~MainWindow()
     delete mainLayout;
     delete boxParseLayout;
     delete searchBoxLayout;
-    delete analyzer;
+    //delete analyzer;
     delete dashProxy;
     delete dashDialog;
     delete fileList;
@@ -87,6 +87,9 @@ void MainWindow::createActions()
     dashSeparatedFilesAct = new QAction(tr("&Split with each segment in separated file"), this);
     connect(dashSeparatedFilesAct, SIGNAL(triggered()), this, SLOT(splitIntoMoreFiles()));
 
+    dashAct = new QAction(tr("&Switch to DASH menu"), this);
+    connect(dashAct, SIGNAL(triggered()), this, SLOT(switchToDashMenu()));
+
     addFileAct = new QAction(tr("&Add file"), this);
 
     removeFileAct = new QAction(tr("&Remove file"), this);
@@ -104,6 +107,7 @@ void MainWindow::createMenu()
     //dashMenu->addMenu(tr("&Create"));
     dashMenu->addAction(dashOneFileAct);
     dashMenu->addAction(dashSeparatedFilesAct);
+    dashMenu->addAction(dashAct);
 
     helpMenu = menuBar()->addMenu(tr("&Help"));
     helpMenu->addAction(helpAct);
@@ -191,7 +195,7 @@ void MainWindow::setBoxInfoSection(const QString& fileName, TreeModel *model) {
     vSplitter->setOrientation(Qt::Vertical);
 
     emit selectionChanged();
-    mainLayout->update();
+    //mainLayout->update();
     title = QString("MP4 " + fileName);
     setWindowTitle(title);
 }
@@ -212,6 +216,7 @@ void MainWindow::openFile()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::printSelectedBox(QStandardItemModel* mod, TreeItem* item) {
+    qDebug()<<"koniec "<<item->fullName();
     boxInfoLayout->removeWidget(tableView);
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     tableView->setModel(mod);
@@ -229,7 +234,7 @@ void MainWindow::printSelectedBox(QStandardItemModel* mod, TreeItem* item) {
     }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::boxesFound(QModelIndexList &Items) {
+void MainWindow::boxesFound(QModelIndexList &Items, const QString &textLabel) {
     treeView->clearSelection();
 
     QModelIndex tmpId;
@@ -244,163 +249,106 @@ void MainWindow::boxesFound(QModelIndexList &Items) {
         treeView->selectionModel()->select(backId, QItemSelectionModel::Select | QItemSelectionModel::Rows);
         Items.pop_back();
     }
-    emit selectionChanged();
-//    if(text!=NULL) {
-//        boxNameLabel->setText(text);
+    boxNameLabel->setText(textLabel);
+    qDebug()<<"pieprz sie";
 //        //printSelectedBox(false, child);
 //    }
-    mainLayout->update();
+    //mainLayout->update();
 }
-////////////////////////////////////////////////////////////////////////////////////////////
-//void MainWindow::searchBox() {
-
-//    //otherwise application looks for boxes
-//    QModelIndex index = treeView->selectionModel()->currentIndex();
-//    int row;
-//    int col;
-////    if(index.isValid()) {
-////        row = index.row();
-////        col = 0;
-////    }
-////    else { //no selection
-//        row = 0;
-//        col = 0;
-//    //}
-
-//    QModelIndexList Items = model->match(model->index(row,col),
-//                                         Qt::DisplayRole,
-//                                         QVariant::fromValue(QString(boxType)),
-//                                         -1,
-//                                         Qt::MatchRecursive);
-//    treeView->clearSelection();
-//    //no box found
-//    if(Items.size()==0) {
-//        treeView->clearSelection();
+////////////////////////////////////////////////////////////
+void MainWindow::splitOneFile() {
+//    QString fileName = title.mid(4);
+//    if(fileName.isEmpty()) {
 //        QMessageBox *infoBox = new QMessageBox(this);
 //        infoBox->setIcon(QMessageBox::Warning);
-//        infoBox->setText("No box found");
+//        infoBox->setText("No file specified");
 //        infoBox->show();
 //        return;
 //    }
-//    //selects found boxes and expands their predecessors
-//    QModelIndex tmpId;
-//    while (!Items.isEmpty()) {
-//        QModelIndex backId = Items.back();
-//        tmpId = backId;
-//        QModelIndex tmpParent = tmpId.parent();
-//        while(tmpParent.isValid()) {
-//            treeView->setExpanded(tmpParent, true);
-//            tmpParent = tmpParent.parent();
+//    QDateTime local(QDateTime::currentDateTime());
+//    QString date = local.toString();
+//    date.replace(QString(":"), QString("_"));
+//    dashProxy = new DashWrapper(fileName, model, date);
+//    if(dashProxy->writeFile(50/*, dashFile*/)) {
+//        int last = fileName.lastIndexOf("\\");
+//        if(last == -1)
+//            last = fileName.lastIndexOf("/");
+//        QString name = fileName.mid(last + 1);
+//        QString path = fileName.mid(0, last + 1);
+//        path.append("DASH " + date + "/");
+//        name.replace(".mp4", ".mpd");
+//        QString mpdName = QString(path + "dash_" + name);
+//        QFile* mpdFile = new QFile(mpdName);
+//        if(mpdFile->open(QIODevice::ReadWrite)) {
+//            dashProxy->writeMPD(mpdFile, true);
+//            dashProxy->closeFileStream();
 //        }
-//        treeView->selectionModel()->select(backId, QItemSelectionModel::Select | QItemSelectionModel::Rows);
-//        Items.pop_back();
+//        else {
+//            delete dashProxy;
+//            return;
+//        }
+//        mpdFile->close();
 //    }
-//    QModelIndex child = model->index(tmpId.row(), 2, tmpId.parent());
-//    boxNameLabel->setText(model->getChild(model->data(child,
-//                                                      Qt::DisplayRole).toInt())->fullName());
-//    QString text= model->getChild(model->data(child,
-//                                              Qt::DisplayRole).toInt())->fullName();
-//    if(text!=NULL) {
-//        boxNameLabel->setText(text);
-//        //printSelectedBox(false, child);
+//    else {
+//        QMessageBox *infoBox = new QMessageBox(this);
+//        infoBox->setIcon(QMessageBox::Warning);
+//        infoBox->setText("Could not write file.");
+//        infoBox->show();
+//        return;
 //    }
-//    mainLayout->update();
-
-//}
-////////////////////////////////////////////////////////////
-void MainWindow::splitOneFile() {
-    QString fileName = title.mid(4);
-    if(fileName.isEmpty()) {
-        QMessageBox *infoBox = new QMessageBox(this);
-        infoBox->setIcon(QMessageBox::Warning);
-        infoBox->setText("No file specified");
-        infoBox->show();
-        return;
-    }
-    QDateTime local(QDateTime::currentDateTime());
-    QString date = local.toString();
-    date.replace(QString(":"), QString("_"));
-    dashProxy = new DashWrapper(fileName, model, date);
-    if(dashProxy->writeFile(50/*, dashFile*/)) {
-        int last = fileName.lastIndexOf("\\");
-        if(last == -1)
-            last = fileName.lastIndexOf("/");
-        QString name = fileName.mid(last + 1);
-        QString path = fileName.mid(0, last + 1);
-        path.append("DASH " + date + "/");
-        name.replace(".mp4", ".mpd");
-        QString mpdName = QString(path + "dash_" + name);
-        QFile* mpdFile = new QFile(mpdName);
-        if(mpdFile->open(QIODevice::ReadWrite)) {
-            dashProxy->writeMPD(mpdFile, true);
-            dashProxy->closeFileStream();
-        }
-        else {
-            delete dashProxy;
-            return;
-        }
-        mpdFile->close();
-    }
-    else {
-        QMessageBox *infoBox = new QMessageBox(this);
-        infoBox->setIcon(QMessageBox::Warning);
-        infoBox->setText("Could not write file.");
-        infoBox->show();
-        return;
-    }
-    QMessageBox *infoBox = new QMessageBox(this);
-    infoBox->setIcon(QMessageBox::Information);
-    infoBox->setText("Dash files prepared.");
-    infoBox->show();
-    delete dashProxy;
+//    QMessageBox *infoBox = new QMessageBox(this);
+//    infoBox->setIcon(QMessageBox::Information);
+//    infoBox->setText("Dash files prepared.");
+//    infoBox->show();
+//    delete dashProxy;
 }
 ////////////////////////////////////////////////////////////
 void MainWindow::splitIntoMoreFiles() {
-    QString fileName = title.mid(4);
-    if(fileName.isEmpty()) {
-        QMessageBox *infoBox = new QMessageBox(this);
-        infoBox->setIcon(QMessageBox::Warning);
-        infoBox->setText("No file specified");
-        infoBox->show();
-        return;
-    }
-    QDateTime local(QDateTime::currentDateTime());
-    QString date = local.toString();
-    date.replace(QString(":"), QString("_"));
-    dashProxy = new DashWrapper(fileName, model, date);
-    if(dashProxy->writeFiles(50/*, dashFile*/)) {
-        //return;
-        int last = fileName.lastIndexOf("\\");
-        if(last == -1)
-            last = fileName.lastIndexOf("/");
-        QString name = fileName.mid(last + 1);
-        QString path = fileName.mid(0, last + 1);
-        path.append("DASH " + date + "/");
-        name.replace(".mp4", ".mpd");
-        QString mpdName = QString(path + "dash_" + name);
-        QFile* mpdFile = new QFile(mpdName);
-        if(mpdFile->open(QIODevice::ReadWrite)) {
-            dashProxy->writeMPD(mpdFile, false);
-        }
-        else {
-            dashProxy->closeFileStream();
-            delete dashProxy;
-            return;
-        }
-        mpdFile->close();
-    }
-    else {
-        QMessageBox *infoBox = new QMessageBox(this);
-        infoBox->setIcon(QMessageBox::Warning);
-        infoBox->setText("Could not write file.");
-        infoBox->show();
-        return;
-    }
-    QMessageBox *infoBox = new QMessageBox(this);
-    infoBox->setIcon(QMessageBox::Information);
-    infoBox->setText("Dash files prepared.");
-    infoBox->show();
-    delete dashProxy;
+//    QString fileName = title.mid(4);
+//    if(fileName.isEmpty()) {
+//        QMessageBox *infoBox = new QMessageBox(this);
+//        infoBox->setIcon(QMessageBox::Warning);
+//        infoBox->setText("No file specified");
+//        infoBox->show();
+//        return;
+//    }
+//    QDateTime local(QDateTime::currentDateTime());
+//    QString date = local.toString();
+//    date.replace(QString(":"), QString("_"));
+//    dashProxy = new DashWrapper(fileName, model, date);
+//    if(dashProxy->writeFiles(50/*, dashFile*/)) {
+//        //return;
+//        int last = fileName.lastIndexOf("\\");
+//        if(last == -1)
+//            last = fileName.lastIndexOf("/");
+//        QString name = fileName.mid(last + 1);
+//        QString path = fileName.mid(0, last + 1);
+//        path.append("DASH " + date + "/");
+//        name.replace(".mp4", ".mpd");
+//        QString mpdName = QString(path + "dash_" + name);
+//        QFile* mpdFile = new QFile(mpdName);
+//        if(mpdFile->open(QIODevice::ReadWrite)) {
+//            dashProxy->writeMPD(mpdFile, false);
+//        }
+//        else {
+//            dashProxy->closeFileStream();
+//            delete dashProxy;
+//            return;
+//        }
+//        mpdFile->close();
+//    }
+//    else {
+//        QMessageBox *infoBox = new QMessageBox(this);
+//        infoBox->setIcon(QMessageBox::Warning);
+//        infoBox->setText("Could not write file.");
+//        infoBox->show();
+//        return;
+//    }
+//    QMessageBox *infoBox = new QMessageBox(this);
+//    infoBox->setIcon(QMessageBox::Information);
+//    infoBox->setText("Dash files prepared.");
+//    infoBox->show();
+//    delete dashProxy;
 }
 ////////////////////////////////////////////////////////////
 void MainWindow::generateDash() {
@@ -420,6 +368,79 @@ void MainWindow::setDashDialog() {
 ////////////////////////////////////////////////////////////
 void MainWindow::launchHelp() {
     //QDesktopServices::openUrl(QUrl("D://PDI//Code//help.html"));
+
+}
+void MainWindow::addFileToDash() {
+    QString directoryName = QFileDialog::getExistingDirectory(this, tr("Select directory"), "/");
+    if(directoryName.length()) {
+        QDir* dir = new QDir(directoryName);
+        QStringList files;
+        files = dir->entryList(QStringList("*.mp4"),
+                               QDir::Files | QDir::NoSymLinks);
+        while(!files.empty()) {
+            QList<QStandardItem*> list;
+            QStandardItem* tmpItem = new QStandardItem();
+            tmpItem->setText(files.back());
+            list.append(tmpItem);
+            fileModel->appendRow(list);
+            files.pop_back();
+        }
+        fileLayout->removeWidget(rightGroup);
+        fileLayout->removeWidget(fileList);
+        fileList->setModel(fileModel);
+        fileLayout->addWidget(fileList);
+        fileLayout->addWidget(rightGroup);
+        addFile->setDisabled(true);
+        //fileLayout->update();
+    }
+
+    //mainLayout->update();
+}
+
+void MainWindow::removeFileFromDash() {
+    int row = fileList->currentIndex().row();
+    if(row >= 0 && row < ( fileList->model()->rowCount())) {
+        fileList->model()->removeRow(row);
+        fileList->setModel(fileModel);
+    }
+    if(!fileList->model()->rowCount())
+        addFile->setDisabled(false);
+    //mainLayout->update();
+
+}
+///////////////////////////////////
+void MainWindow::fileAnalyzed(TreeModel* mod, const QString& fileName) {
+    if(fileLayout->count()) {
+        delete dash;
+        dash = new QWidget();
+
+        fileLayout = new QHBoxLayout();
+        rightLayout = new QVBoxLayout();
+    }
+    if(!searchBoxLayout->count()) {
+        setSearchBoxSection();
+    }
+    setBoxInfoSection(fileName, mod);
+}
+/////////////////////////////////
+void MainWindow::selectionChanged() {
+    QItemSelectionModel* selection = treeView->selectionModel();
+    emit boxSelected(selection);
+}
+//////////////////////////////////
+void MainWindow::showWarningDialog(const QString& mes) {
+    QMessageBox *infoBox = new QMessageBox(this);
+    infoBox->setIcon(QMessageBox::Warning);
+    infoBox->setText(mes);
+    infoBox->show();
+}
+///////////////////////////////////
+void MainWindow::searchButtonClicked() {
+    QString boxType = typeBoxType->text();
+    emit searchBox(boxType);
+}
+
+void MainWindow::switchToDashMenu() {
     setWindowTitle("MP4 MPEG-DASH");
     if(boxParseLayout->count()) {
         delete vSplitter;
@@ -427,7 +448,7 @@ void MainWindow::launchHelp() {
         boxParseLayout = new QHBoxLayout();
         searchBoxLayout = new QGridLayout();
         boxInfoLayout = new QVBoxLayout();
-        mainLayout->update();
+        //mainLayout->update();
     }
     else if(rightLayout->count()) {
         return;
@@ -481,74 +502,5 @@ void MainWindow::launchHelp() {
     mainLayout->addWidget(dash);
 
     //mainLayout->addStretch(1);
-    mainLayout->update();
-}
-void MainWindow::addFileToDash() {
-    QString directoryName = QFileDialog::getExistingDirectory(this, tr("Select directory"), "/");
-    if(directoryName.length()) {
-        QDir* dir = new QDir(directoryName);
-        QStringList files;
-        files = dir->entryList(QStringList("*.mp4"),
-                               QDir::Files | QDir::NoSymLinks);
-        while(!files.empty()) {
-            QList<QStandardItem*> list;
-            QStandardItem* tmpItem = new QStandardItem();
-            tmpItem->setText(files.back());
-            list.append(tmpItem);
-            fileModel->appendRow(list);
-            files.pop_back();
-        }
-        fileLayout->removeWidget(rightGroup);
-        fileLayout->removeWidget(fileList);
-        fileList->setModel(fileModel);
-        fileLayout->addWidget(fileList);
-        fileLayout->addWidget(rightGroup);
-        addFile->setDisabled(true);
-        fileLayout->update();
-    }
-
-    mainLayout->update();
-}
-
-void MainWindow::removeFileFromDash() {
-    int row = fileList->currentIndex().row();
-    if(row >= 0 && row < ( fileList->model()->rowCount())) {
-        fileList->model()->removeRow(row);
-        fileList->setModel(fileModel);
-    }
-    if(!fileList->model()->rowCount())
-        addFile->setDisabled(false);
-    mainLayout->update();
-
-}
-///////////////////////////////////
-void MainWindow::fileAnalyzed(TreeModel* mod, const QString& fileName) {
-    if(fileLayout->count()) {
-        delete dash;
-        dash = new QWidget();
-
-        fileLayout = new QHBoxLayout();
-        rightLayout = new QVBoxLayout();
-    }
-    if(!searchBoxLayout->count()) {
-        setSearchBoxSection();
-    }
-    setBoxInfoSection(fileName, mod);
-}
-/////////////////////////////////
-void MainWindow::selectionChanged() {
-    QItemSelectionModel* selection = treeView->selectionModel();
-    emit boxSelected(selection);
-}
-//////////////////////////////////
-void MainWindow::showWarningDialog(const QString& mes) {
-    QMessageBox *infoBox = new QMessageBox(this);
-    infoBox->setIcon(QMessageBox::Warning);
-    infoBox->setText(mes);
-    infoBox->show();
-}
-///////////////////////////////////
-void MainWindow::searchButtonClicked() {
-    QString boxType = typeBoxType->text();
-    emit searchBox(boxType);
+    //mainLayout->update();
 }
