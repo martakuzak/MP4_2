@@ -340,4 +340,26 @@ void MPD::write(QXmlStreamWriter* stream ) {
 //}
 
 
+void MPDWriter::addRepresentation(const QString& fn, const bool& oneFile) {
+    QString fileName = fn;
+    qDebug()<<fn;
+    Representation* repr = new Representation();
 
+    QString dashName;
+    if(oneFile) {
+        dashName = "dash_" + fileName;/*
+            Analyzer* an = new Analyzer(fileName);
+            TreeModel* mod = new TreeModel(an);*/
+    }
+    else
+        dashName = "dash_init_" + fileName;
+
+    //repr->setBaseurl(setBaseURL(dashName));
+    //repr->setSegmentList(setSegmentList(oneFile));
+    //unsigned int* dim = getDimensions();
+    //repr->setHeight(dim[0]);
+    //repr->setWidth(dim[1]);
+    repr->setMimeType("video/mp4");
+    repr->setStartsWithSAP(1);
+    representations.append(repr);
+}

@@ -107,17 +107,25 @@ void Controller::dashFilesSelected(QAbstractItemModel* model, const bool& oneFil
     }
     for ( int i = 0 ; i < model->rowCount() ; ++i ) {
         QString fileName = model->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
-        //qDbug()<<fileName<<"asd";
-        //dashWrap->setDashCreator(fileName);
         bool result;
-        if(oneFile)
+        if(oneFile) {
             result = dashWrap->writeFile(date, fileName, 50);
-        else
-            result = dashWrap->writeFiles(date, fileName, 50);
-        if(!result) {
-            window->showWarningDialog("Error while writing files");
-            return;
+            if(!result) {
+                window->showWarningDialog("Error while writing files");
+                return;
+            }
+            dashWrap->addRepresentation(oneFile);
         }
+        else {
+            result = dashWrap->writeFiles(date, fileName, 50);
+            if(!result) {
+                window->showWarningDialog("Error while writing files");
+                return;
+            }
+        }
+
+
     }
+    window->showInfoDialog("Dash files generated.");
 }
 

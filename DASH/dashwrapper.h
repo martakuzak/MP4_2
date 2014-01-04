@@ -35,6 +35,7 @@ public:
     void setFileProp(const QString& fullPath);
     bool writeFile(const QString& date, const QString& name, const unsigned int& maxSampleNum);
     bool writeFiles(const QString& date, const QString& name, const unsigned int& maxSampleNum);
+    void addRepresentation(const bool& oneFile);
 //public:
 //    /*!
 //     * \brief DashProxy

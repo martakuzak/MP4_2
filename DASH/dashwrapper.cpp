@@ -45,6 +45,10 @@ bool DashWrapper::writeFiles(const QString &date, const QString& name, const uns
     //return dashCreator->writeFiles(date, fileName, maxSampleNum/*, dashFile*/);
     return dashCreator->writeFiles(maxSampleNum);
 }
+
+void DashWrapper::addRepresentation(const bool &oneFile) {
+    return mpdWriter->addRepresentation(fileName, oneFile);
+}
 //DashWrapper::DashWrapper(const QString& fileName, TreeModel* model, const QString& date) {
 //    int last = fileName.lastIndexOf("\\");
 //    if(last == -1)

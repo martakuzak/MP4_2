@@ -145,6 +145,7 @@ public:
     void printSelectedBox(QStandardItemModel* mod, TreeItem *item);
     void boxesFound(QModelIndexList& Items, const QString& textLabel);
     void showWarningDialog(const QString &mes);
+    void showInfoDialog(const QString &mes);
 
 private slots:
     /*!

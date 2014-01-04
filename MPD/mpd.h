@@ -79,6 +79,10 @@ public:
  * \brief The MPDWriter class
  */
 class MPDWriter {
+private:
+    QList<Representation*> representations;
+public:
+    void addRepresentation(const QString &fn, const bool &oneFile);
 //private:
 //    QString xmlHeader;// = "<?xml version=\"1.0\"?>";
 //    QXmlStreamWriter* stream;

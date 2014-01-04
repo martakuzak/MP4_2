@@ -216,7 +216,7 @@ void MainWindow::openFile()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::printSelectedBox(QStandardItemModel* mod, TreeItem* item) {
-    qDebug()<<"koniec "<<item->fullName();
+    //qDebug()<<"koniec "<<item->fullName();
     boxInfoLayout->removeWidget(tableView);
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     tableView->setModel(mod);
@@ -434,6 +434,13 @@ void MainWindow::showWarningDialog(const QString& mes) {
     infoBox->setText(mes);
     infoBox->show();
 }
+void MainWindow::showInfoDialog(const QString &mes) {
+    QMessageBox *infoBox = new QMessageBox(this);
+    infoBox->setIcon(QMessageBox::Information);
+    infoBox->setText(mes);
+    infoBox->show();
+}
+
 ///////////////////////////////////
 void MainWindow::searchButtonClicked() {
     QString boxType = typeBoxType->text();
