@@ -183,6 +183,7 @@ signals:
     void fileSelected(const QString& fileName);
     void boxSelected(QItemSelectionModel* selection);
     void searchBox(const QString& boxType);
+    void dashFilesSelected();
 private:
     /*!
      * \brief createActions create actions and adds slots to the widgets

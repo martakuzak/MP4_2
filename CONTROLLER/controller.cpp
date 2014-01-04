@@ -5,6 +5,7 @@ Controller::Controller(MainWindow *mw): window(mw) {
     connect(window, SIGNAL(boxSelected(QItemSelectionModel*)), this,
             SLOT(boxSelected(QItemSelectionModel*)), Qt::QueuedConnection);
     connect(window, SIGNAL(searchBox(QString)), this, SLOT(searchBox(QString)), Qt::QueuedConnection);
+    connect(window, SIGNAL(), this, SLOT(dashFilesSelected(QList<QString>)), Qt::QueuedConnection);
 }
 ////////////////////
 void Controller::fileSelected(const QString& fileName) {
@@ -85,5 +86,9 @@ void Controller::searchBox(const QString &boxType) {
     qDebug()<<"gowno";
     window->printSelectedBox(mod, item);
     qDebug()<<"i co";
+}
+////////////////////////////////////////////
+void Controller::dashFilesSelected(const QList<QString>& fileList) {
+
 }
 

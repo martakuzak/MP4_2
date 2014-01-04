@@ -439,6 +439,10 @@ void MainWindow::searchButtonClicked() {
     QString boxType = typeBoxType->text();
     emit searchBox(boxType);
 }
+///////////////////////////////////
+void MainWindow::dashFilesSelected() {
+
+}
 
 void MainWindow::switchToDashMenu() {
     setWindowTitle("MP4 MPEG-DASH");
