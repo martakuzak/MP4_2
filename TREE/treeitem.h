@@ -42,6 +42,7 @@ public:
      * \param off offset
      */
     explicit TreeItem(Analyzer *an,const QList<QVariant> &data, TreeItem *parent = 0, const long int& off=0);
+    explicit TreeItem();
     //!Destructor
     ~TreeItem();
     /*!
@@ -117,6 +118,8 @@ public:
      * \return full name of the box
      */
     QString fullName() {
+        if(box == NULL)
+            return "";
         return box->getFullName();
     }
 

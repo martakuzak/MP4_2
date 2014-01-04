@@ -12,6 +12,7 @@ private:
     TreeModel* model;
 private slots:
     void fileSelected(const QString& fileName);
+    void boxSelected(QItemSelectionModel* selection);
 public:
     Controller(MainWindow* mw);
 };

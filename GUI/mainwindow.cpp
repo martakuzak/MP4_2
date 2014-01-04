@@ -139,11 +139,11 @@ void MainWindow::setSearchBoxSection() {
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::setBoxInfoSection(const QString& fileName) {
+void MainWindow::setBoxInfoSection(const QString& fileName, TreeModel *model) {
     if(!boxParseLayout->count()) {
         boxParseGroupBox = new QGroupBox();
         boxInfoGroupBox = new QGroupBox();
-        boxInfoGroupBox->setTitle("Box details");
+        //boxInfoGroupBox->setTitle("Box details");
         treeView = new QTreeView(this);
         tableView = new QTableView();
         hSplitter = new QSplitter();
@@ -151,16 +151,14 @@ void MainWindow::setBoxInfoSection(const QString& fileName) {
         boxNameLabel->setMaximumHeight(20);
         boxNameLabel->setFont(QFont("Arial", 13));
     }
-    delete analyzer;
-    analyzer = new Analyzer(fileName);
-    model = new TreeModel(analyzer);
+
     treeView->setModel(model);
     treeView->setSizePolicy(QSizePolicy::Expanding,
                             QSizePolicy::Expanding);
     connect(treeView->selectionModel(),
             SIGNAL(selectionChanged(const QItemSelection &,
                                     const QItemSelection &)),
-            this, SLOT(printSelectedBox()));
+            this, SLOT(selectionChanged()));
 
     boxNameLabel->setSizePolicy(QSizePolicy::Expanding,
                                 QSizePolicy::Expanding);
@@ -192,6 +190,7 @@ void MainWindow::setBoxInfoSection(const QString& fileName) {
     vSplitter->addWidget(boxParseGroupBox);
     vSplitter->setOrientation(Qt::Vertical);
 
+    emit selectionChanged();
     mainLayout->update();
     title = QString("MP4 " + fileName);
     setWindowTitle(title);
@@ -208,29 +207,17 @@ void MainWindow::openFile()
     //                                                    tr("Open File"), "/", tr("MP4 Files (*.mp4)"));
     QString fileName = QFileDialog::getOpenFileName(this,
                                                     tr("Open File"), "/");
-    if(fileName.length()) {
+    if(fileName.length())
         emit fileSelected(fileName);
-
-    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::printSelectedBox(const bool& b, const QModelIndex& id) {
-    QModelIndex index;
-    if(b)
-        index = treeView->selectionModel()->currentIndex();
-    else
-        index = id;
-    QModelIndex child = model->index(index.row(), 2, index.parent());
-    TreeItem* item = model->getChild(model->data(child, Qt::DisplayRole).toInt());
-    QStandardItemModel* model = item->getModel();
-    model->setHeaderData(0, Qt::Horizontal, tr(""));
-    model->setHeaderData(1, Qt::Horizontal, tr(""));
+void MainWindow::printSelectedBox(QStandardItemModel* mod, TreeItem* item) {
     boxInfoLayout->removeWidget(tableView);
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    tableView->setModel(model);
+    tableView->setModel(mod);
     tableView->setSizePolicy(QSizePolicy::Expanding,
                              QSizePolicy::Expanding);
-    if(model->columnCount() > 1) {
+    if(mod->columnCount() > 1) {
         tableView->horizontalHeader()->resizeSection(1, 300);
         tableView->resizeColumnsToContents();
         tableView->horizontalHeader()->setStretchLastSection(true);
@@ -302,7 +289,7 @@ void MainWindow::searchBox() {
     qDebug()<<text;
     if(text!=NULL) {
         boxNameLabel->setText(text);
-        printSelectedBox(false, child);
+        //printSelectedBox(false, child);
     }
     mainLayout->update();
 
@@ -522,8 +509,7 @@ void MainWindow::removeFileFromDash() {
 
 }
 ///////////////////////////////////
-void MainWindow::fileAnalyzed(const TreeModel* mod, const QString& fileName) {
-    qDebug()<<"Marcin";
+void MainWindow::fileAnalyzed(TreeModel* mod, const QString& fileName) {
     if(fileLayout->count()) {
         delete dash;
         dash = new QWidget();
@@ -531,9 +517,13 @@ void MainWindow::fileAnalyzed(const TreeModel* mod, const QString& fileName) {
         fileLayout = new QHBoxLayout();
         rightLayout = new QVBoxLayout();
     }
-
     if(!searchBoxLayout->count()) {
         setSearchBoxSection();
     }
-    setBoxInfoSection(fileName);
+    setBoxInfoSection(fileName, mod);
+}
+/////////////////////////////////
+void MainWindow::selectionChanged() {
+    QItemSelectionModel* selection = treeView->selectionModel();
+    emit boxSelected(selection);
 }

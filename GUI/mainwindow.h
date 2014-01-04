@@ -140,7 +140,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     //!Destructor
     ~MainWindow();
-    void fileAnalyzed(const TreeModel* mod, const QString &fileName);
+    void fileAnalyzed(TreeModel *mod, const QString &fileName);
+    void printSelectedBox(QStandardItemModel* mod, TreeItem *item);
 
 private slots:
     /*!
@@ -152,7 +153,6 @@ private slots:
     /*!
      * \brief printSelectedBox prints info about selected Box in boxInfo->
      */
-    void printSelectedBox(const bool &b = true, const QModelIndex &id = QModelIndex());
     /*!
      * \brief searchBox searches for all boxes with type given in typeBoxType .
      * \info Found boxes are selected and all their predecessors are expanded. Application launches QMessageBox when:
@@ -173,8 +173,10 @@ private slots:
     void addFileToDash();
     void removeFileFromDash();
     void generateDash();
+    void selectionChanged();
 signals:
     void fileSelected(const QString& fileName);
+    void boxSelected(QItemSelectionModel* selection);
 private:
     /*!
      * \brief createActions create actions and adds slots to the widgets
@@ -188,7 +190,7 @@ private:
      * \brief setBoxInfoSection creates treeView and boxInfo and adds it to window
      * \param fileName name of the currently analyzed file
      */
-    void setBoxInfoSection(const QString& fileName);
+    void setBoxInfoSection(const QString& fileName, TreeModel* model);
     /*!
      * \brief setSearchBoxSection creates search box section.
      * \info search box section enables searching for boxes by typing typename
