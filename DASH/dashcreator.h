@@ -18,12 +18,13 @@ private:
     //name of analyzed file
     QString fileName;
     TreeModel* model;
+    QFile* initFile;
     QFile* dashFile;
     QFile* file;
 public:
     DashCreator(const QString& path, const QString& name, TreeModel* mod);
     bool writeFile(const unsigned int & maxSampleNum);
-
+    bool writeFiles(const unsigned int & maxSampleNum);
 //public:
 //    /*!
 //     * \brief DashCreator manages stream to newly created dash file

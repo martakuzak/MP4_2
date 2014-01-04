@@ -35,6 +35,42 @@ bool DashCreator::writeFile(const unsigned int & maxSampleNum) {
     return false;
 }
 
+
+bool DashCreator::writeFiles(const unsigned int & maxSampleNum) {
+//    if(file != NULL)
+//        delete file;
+    int last = fileName.lastIndexOf("\\");
+    if(last == -1)
+        last = fileName.lastIndexOf("/");
+    QString name = fileName.mid(last + 1);
+    file = new QFile(fileName);
+    qDebug()<<"writefile dc"<<fileName;
+    if(file->open(QIODevice::ReadOnly)) {
+        QDir().mkdir(dashPath);
+        QString initName = QString(dashPath + "dash_init_" + name);
+//        if(dashFile != NULL)
+//            delete dashFile;
+         qDebug()<<"dc write file 4";
+        initFile = new QFile(initName);
+        if(initFile->open(QIODevice::ReadWrite)) {
+            writeFtyp(initFile);
+            writeFree(initFile);
+            writeMoov(initFile);
+            return writeSegments(maxSampleNum, initFile, dashPath, name);
+        }
+    }
+    return false;
+
+            //    QString initName = QString(path + "dash_init_" + name);
+            //    initFile = new QFile(initName);
+            //    if(initFile->open(QIODevice::ReadWrite)) {
+            //        writeFtyp(initFile);
+            //        writeFree(initFile);
+            //        writeMoov(initFile);
+            //        return writeSegments(maxSampleNum, initFile, path, name);
+            //    }
+            //    return false;
+}
 //DashCreator::DashCreator(const QString &fn, TreeModel* m): fileName(fn), model(m) {
 //    file = new QFile(fileName);
 //    if (!file->open(QIODevice::ReadOnly)) {
