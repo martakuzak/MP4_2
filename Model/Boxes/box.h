@@ -106,7 +106,7 @@ public:
       *\param id
       *\return
      */
-    virtual unsigned long int getSampleSize(const unsigned long int& id) {
+/*    virtual unsigned long int getSampleSize(const unsigned long int& id) {
         return id*0;
     }
     /*!
@@ -142,31 +142,31 @@ public:
       *\param id
       *\return
      */
-    virtual unsigned long int getMediaTimeScale() {
-        return 0;
-    }
-    /*!
-      *\brief getTrackID()
-      *This method is overwritten in MediaHeaderBox, TrackHeaderBox, TrackExtendsBox and TrackFragmentHeaderBox.
-      *It should not be used while dealing with other boxes.
-      *When called on other boxes it returns 0.
-      *\see virtual unsigned long int MediaHeaderBox::getTrackID);
-      *\see virtual unsigned long int TrackHeaderBox::getTrackID);
-      *\see virtual unsigned long int TrackExtendsBox::getTrackID);
-      *\see virtual unsigned long int TrackFragmentHeaderBox::getTrackID);
-      *\param id
-      *\return
-     */
-    virtual unsigned int getTrackID() {
-        return 0;
-    }
-    /*!
-      *\brief getVersion
-      *\return version of the box or 2 if box is not FullBox
-     */
-    virtual unsigned int getVersion() {
-        return 2;
-    }
+//    virtual unsigned long int getMediaTimeScale() {
+//        return 0;
+//    }
+//    /**/!
+//      *\brief getTrackID()
+//      *This method is overwritten in MediaHeaderBox, TrackHeaderBox, TrackExtendsBox and TrackFragmentHeaderBox.
+//      *It should not be used while dealing with other boxes.
+//      *When called on other boxes it returns 0.
+//      *\see virtual unsigned long int MediaHeaderBox::getTrackID);
+//      *\see virtual unsigned long int TrackHeaderBox::getTrackID);
+//      *\see virtual unsigned long int TrackExtendsBox::getTrackID);
+//      *\see virtual unsigned long int TrackFragmentHeaderBox::getTrackID);
+//      *\param id
+//      *\return
+//     */
+//    virtual unsigned int getTrackID() {
+//        return 0;
+//    }
+//    /*!
+//      *\brief getVersion
+//      *\return version of the box or 2 if box is not FullBox
+//     */
+//    virtual unsigned int getVersion() {
+//        return 2;
+//    }
     /*!
       *\brief getDuration
       *This method is overwritten in MovieHeaderBox.
@@ -175,20 +175,20 @@ public:
       *\see virtual unsigned long int MovieHeaderBox::getDuration()
       *\return
      */
-    virtual unsigned long int getDuration() {
-        return 0;
-    }
-    /*!
-      *\brief getSampleSize
-      *This method is overwritten in SampleSizeBox.
-      *It should not be used while dealing with other boxes.
-      *When called on other boxes it returns 0.
-      *\see virtual unsigned long int SampelSizeBox::getSampleSize()
-      *\return
-     */
-    virtual unsigned long int getSampleSize() {
-        return 0;
-    }
+//    virtual unsigned long int getDuration() {
+//        return 0;
+//    }
+//    /*!
+//      *\brief getSampleSize
+//      *This method is overwritten in SampleSizeBox.
+//      *It should not be used while dealing with other boxes.
+//      *When called on other boxes it returns 0.
+//      *\see virtual unsigned long int SampelSizeBox::getSampleSize()
+//      *\return
+//     */
+//    virtual unsigned long int getSampleSize() {
+//        return 0;
+//    }
     /*!
       *\brief getTimeScale
       *This method is overwritten in MovieHeaderBox.
@@ -197,15 +197,15 @@ public:
       *\see virtual unsigned long int MovieHeaderBox::getTimeScale()
       *\return
      */
-    virtual unsigned long int getTimeScale() {
-        return 0;
-    }
-    virtual unsigned int getHeight() {
-        return 0;
-    }
-    virtual unsigned int getWidth() {
-        return 0;
-    }
+//    virtual unsigned long int getTimeScale() {
+//        return 0;
+//    }
+//    virtual unsigned int getHeight() {
+//        return 0;
+//    }
+//    virtual unsigned int getWidth() {
+//        return 0;
+//    }
 
     /*!
       *\brief operator <

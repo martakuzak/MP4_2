@@ -65,7 +65,7 @@ public:
       *\param stsz Sample Size Box that defines samples size of meta data
       *\return size in bytes of sampleNumber samples from firstSample index
      */
-    unsigned long int mdatSize(const unsigned long int& firstSample, const unsigned int& sampleNumber, std::shared_ptr<Box>& stsz);
+    unsigned long int mdatSize(const unsigned long int& firstSample, const unsigned int& sampleNumber, SampleSizeBox *stsz);
     /*!
       *\brief writeAvc1
       *Writes avc1 box and returns size of it. If dashFile is NULL, method only returns size of potentially written box.
@@ -118,7 +118,7 @@ public:
       *\param dashFile
       *\return size in bytes of written mdat box
      */
-    unsigned int writeMdat(const unsigned long int& firstSample, const unsigned int& sampleNumber, std::shared_ptr<Box>& stsz,
+    unsigned int writeMdat(const unsigned long int& firstSample, const unsigned int& sampleNumber, SampleSizeBox *stsz,
                            QFile *dashFile = NULL);
     /*!
       *\brief writeMdhd
@@ -170,7 +170,7 @@ public:
      */
     unsigned int writeMoof(const unsigned long int& sequenceNumber, const unsigned int& trackID, const unsigned long &baseMediaDecodeTime,
                            const unsigned int& trunFlag2, const unsigned int& trunFlag3, const unsigned int& sampleCount,
-                           const unsigned int& firstSampleFlags, const unsigned long int& firstSample, std::shared_ptr<Box>& stsz,
+                           const unsigned int& firstSampleFlags, const unsigned long int& firstSample, SampleSizeBox *stsz,
                            QFile *dashFile = NULL);
     /*!
       *\brief writeMoov
@@ -303,7 +303,7 @@ public:
      */
     unsigned int writeTraf(const unsigned int& trackID, const unsigned long &baseMediaDecodeTime, const unsigned int& trunFlag2,
                            const unsigned int& trunFlag3, const unsigned int& sampleCount, const signed int& dataOffset,
-                           const unsigned int& firstSampleFlags, const unsigned long int& firstSample, std::shared_ptr<Box>& stsz,
+                           const unsigned int& firstSampleFlags, const unsigned long int& firstSample, SampleSizeBox *stsz,
                            QFile *dashFile = NULL);
     /*!
       *\brief writeTrack
@@ -329,7 +329,7 @@ public:
      */
     unsigned int writeTrun(const unsigned int& flag2, const unsigned int& flag3, const unsigned int& sampleCount,
                            const signed int& dataOffset, const unsigned int& firstSampleFlags, const unsigned long int& firstSample,
-                           std::shared_ptr<Box>& stsz, QFile *dashFile = NULL);
+                           SampleSizeBox *stsz, QFile *dashFile = NULL);
     /*!
       *\brief writeTrex
       *Writes trex box and returns size of it. If dashFile is NULL, method only returns size of potentially written box.
