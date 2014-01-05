@@ -66,7 +66,7 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class AudioSampleEntry: public SampleEntry{
+class AudioSampleEntry: public SampleEntry {
 protected:
     QList<unsigned int> reserved1;
     unsigned int channelCount;
@@ -84,8 +84,7 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class MP4VisualSampleEntry : public VisualSampleEntry
-{
+class MP4VisualSampleEntry : public VisualSampleEntry {
 public:
     MP4VisualSampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
                          const QList<unsigned int>& res, const unsigned int &dri, const unsigned int &pd, const unsigned int& r2,
@@ -97,8 +96,7 @@ public:
     virtual QString getFullName() { return QString("MP4 Visual Sample Entry"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class MP4AudioSampleEntry : public AudioSampleEntry
-{
+class MP4AudioSampleEntry : public AudioSampleEntry {
 public:
     MP4AudioSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e,
                         const QList<unsigned int>& res, const unsigned int &dri, const QList<unsigned int> &res1,
@@ -109,8 +107,7 @@ public:
     virtual QString getFullName() { return QString("MP4 Audio Sample Entry"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class MpegSampleEntry : public SampleEntry
-{
+class MpegSampleEntry : public SampleEntry {
 public:
     MpegSampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int & e,
                     const QList<unsigned int> &res, const unsigned  int& dri);
@@ -118,8 +115,7 @@ public:
     virtual QString getFullName() { return QString("Mpeg Sample Entry"); }
 };
 //////////////MP4//////
-class ObjectDescriptorBox : public FullBox
-{
+class ObjectDescriptorBox : public FullBox {
 private:
     unsigned int version;
 
@@ -128,8 +124,7 @@ public:
     virtual QString getFullName() { return QString("Object Descriptor Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class ESDBox : public FullBox
-{
+class ESDBox : public FullBox {
 private:
     unsigned int version;
 
@@ -139,8 +134,7 @@ public:
     virtual QString getFullName() { return QString("ESD Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class AVCSampleEntry: public VisualSampleEntry
-{
+class AVCSampleEntry: public VisualSampleEntry {
 public:
     AVCSampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
                    const QList<unsigned int>& res, const unsigned int &dri, const unsigned int &pd, const unsigned int& r2,
@@ -152,8 +146,7 @@ public:
     virtual QString getFullName() { return QString("AVC Sample Entry"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class AVCConfigurationBox: public Box
-{
+class AVCConfigurationBox: public Box {
     unsigned int configurationVersion;
     unsigned int AVCProfileIndication;
     unsigned int profileCompability;

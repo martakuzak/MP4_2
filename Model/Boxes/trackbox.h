@@ -18,8 +18,7 @@
 #include "box.h"
 class MainWindow;
 
-class TrackBox : public Box
-{
+class TrackBox : public Box {
 public:
     TrackBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e);
     virtual bool isContainer() { return true; }
@@ -31,11 +30,8 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class TrackHeaderBox : public FullBox
-{
-private:
-
-
+class TrackHeaderBox : public FullBox {
+protected:
     unsigned long int creationTime;
     unsigned long int modificationTime;
     unsigned int trackID;
@@ -63,18 +59,14 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class TrackReferenceBox : public Box
-{
+class TrackReferenceBox : public Box {
 public:
     TrackReferenceBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e);
     virtual QString getFullName() { return QString("Track Reference Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class TrackExtendsBox : public FullBox
-{
-private:
-
-
+class TrackExtendsBox : public FullBox {
+protected:
     unsigned int getTrackID;
     unsigned int defaultSampleDescriptionIndex;
     unsigned int defaultSampleDuration;
@@ -89,8 +81,7 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class TrackFragmentBox : public Box
-{
+class TrackFragmentBox : public Box {
 public:
     TrackFragmentBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e);
     virtual bool isContainer() { return true; }
@@ -102,11 +93,8 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class TrackFragmentHeaderBox : public FullBox
-{
-private:
-
-
+class TrackFragmentHeaderBox : public FullBox {
+protected:
     unsigned long int getTrackID;
     unsigned long int baseDataOffset;
     unsigned long int sampleDescriptionIndex;
@@ -123,11 +111,8 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class TrackRunBox : public FullBox
-{
-private:
-
-
+class TrackRunBox : public FullBox {
+protected:
     unsigned long int sampleCount;
     long int dataOffset;
     unsigned int firstSampleFlags;
@@ -146,21 +131,14 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class TrackFragmentRandomAccessBox : public FullBox
-{
-private:
-
-
+class TrackFragmentRandomAccessBox : public FullBox {
 public:
     TrackFragmentRandomAccessBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Track Fragment Random Access Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class TrackFragmentBaseMediaDecodeTimeBox : public FullBox
-{
-private:
-
-
+class TrackFragmentBaseMediaDecodeTimeBox : public FullBox {
+protected:
     unsigned long int baseMediaDecodeTime;
 public:
     TrackFragmentBaseMediaDecodeTimeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
@@ -170,9 +148,8 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class HandlerBox : public FullBox
-{
-private:
+class HandlerBox : public FullBox {
+protected:
     unsigned  int version;
 
     unsigned int predefined;

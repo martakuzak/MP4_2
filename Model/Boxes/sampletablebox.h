@@ -22,8 +22,7 @@
 #include "box.h"
 class MainWindow;
 
-class SampleTableBox : public Box
-{
+class SampleTableBox : public Box {
 public:
     SampleTableBox(const unsigned int& s=0, const QString& t="", const unsigned long int& off=0, const unsigned int& e=0);
     virtual bool isContainer() { return true; }
@@ -35,11 +34,8 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class TimeToSampleBox : public FullBox
-{
+class TimeToSampleBox : public FullBox {
 private:
-
-
     unsigned int entryCount;
     QList<unsigned int> sampleCount;
     QList<unsigned int> sampleDelta;
@@ -50,11 +46,8 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class CompositionOffsetBox : public FullBox
-{
+class CompositionOffsetBox : public FullBox {
 private:
-
-
     unsigned int entryCount;
     QList<unsigned int> sampleCount;
     QList<unsigned int> sampleOffset;
@@ -75,11 +68,8 @@ public:
   *   - Mandatory: Yes
   *   - Quantity: Exactly one
 */
-class SampleDescriptionBox : public FullBox
-{
+class SampleDescriptionBox : public FullBox {
 private:
-
-
     unsigned int entryCount;
 public:
     SampleDescriptionBox(const unsigned int &s, const QString& t, const unsigned long int& off, const unsigned int &e, const unsigned int& v,
@@ -96,11 +86,8 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class SampleSizeBox : public FullBox
-{
+class SampleSizeBox : public FullBox {
 private:
-
-
     unsigned long int sampleSize;
     unsigned long int sampleCount;
     QList<unsigned long int> entrySize;
@@ -122,21 +109,14 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class CompactSampleSizeBox : public FullBox
-{
-private:
-
-
+class CompactSampleSizeBox : public FullBox {
 public:
     CompactSampleSizeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Compact Sample Size Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class SampleToChunkBox : public FullBox
-{
+class SampleToChunkBox : public FullBox {
 private:
-
-
     unsigned long int entryCount;
     QList<unsigned long int> firstChunk;
     QList<unsigned long int> samplesPerChunk;
@@ -150,12 +130,9 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class ChunkOffsetBox : public FullBox
-{
+class ChunkOffsetBox : public FullBox {
 private:
-
-
-    unsigned long int entryCount;
+     unsigned long int entryCount;
     QList<unsigned long int> chunkOffset;
 public:
     ChunkOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v,
@@ -165,11 +142,8 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class ChunkLargeOffsetBox : public FullBox
-{
+class ChunkLargeOffsetBox : public FullBox {
 private:
-
-
     unsigned long int entryCount;
     QList<unsigned long int> chunkOffset;
 public:
@@ -180,11 +154,8 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class SyncSampleBox : public FullBox
-{
+class SyncSampleBox : public FullBox {
 private:
-
-
     unsigned long int entryCount;
     QList<unsigned long int> sampleNumber;
 public:
@@ -201,31 +172,19 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class ShadowSyncSampleBox : public FullBox
-{
-private:
-
-
+class ShadowSyncSampleBox : public FullBox{
 public:
     ShadowSyncSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Shadow Sync Sample Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class DegradationPriorityBox : public FullBox
-{
-private:
-
-
+class DegradationPriorityBox : public FullBox {
 public:
     DegradationPriorityBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Degradation Priority Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-class PaddingBitsBox : public FullBox
-{
-private:
-
-
+class PaddingBitsBox : public FullBox {
 public:
     PaddingBitsBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Padding Bits Box"); }
