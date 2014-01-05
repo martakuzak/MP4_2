@@ -55,7 +55,7 @@ MainWindow::~MainWindow()
     delete boxParseLayout;
     delete searchBoxLayout;
     //delete analyzer;
-    delete dashProxy;
+    //delete dashProxy;
     delete dashDialog;
     delete fileList;
     delete addFile;
@@ -90,7 +90,7 @@ void MainWindow::createActions()
     dashAct = new QAction(tr("&Switch to DASH menu"), this);
     connect(dashAct, SIGNAL(triggered()), this, SLOT(switchToDashMenu()));
 
-    addFileAct = new QAction(tr("&Add file"), this);
+    addFileAct = new QAction(tr("&Add files"), this);
 
     removeFileAct = new QAction(tr("&Remove file"), this);
 
@@ -464,7 +464,7 @@ void MainWindow::switchToDashMenu() {
     fileModel = new QStandardItemModel;
     addFile = new QPushButton("Add file");
     addFile->addAction(addFileAct);
-    connect(addFile, SIGNAL(clicked()), this, SLOT(addFileToDash()));
+    connect(addFile, SIGNAL(clicked()), this, SLOT(filesToDashSelected()));
 
     removeFile = new QPushButton("Remove");
     removeFile->addAction(removeFileAct);
@@ -517,4 +517,7 @@ void MainWindow::dashFilesSelected() {
     QAbstractItemModel* model = fileList->model();
 
     emit dashFilesSelectedSignal(model, (dashOption->currentIndex() == 0));
+}
+void MainWindow::filesToDashSelected() {
+
 }

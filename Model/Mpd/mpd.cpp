@@ -129,6 +129,7 @@ void MPD::write(QXmlStreamWriter* stream ) {
         stream->writeAttribute("mediaPresentationDuration", mediaPresentationDuration);
     if(baseURL != NULL)
         baseURL->write(stream);
+    qDebug()<<"mpdwrite2";
     if(periods.size()) {
         int size = periods.size();
         for(int i = 0; i < size; ++i) {
@@ -138,23 +139,23 @@ void MPD::write(QXmlStreamWriter* stream ) {
     stream->writeEndElement();
 }
 /////////////////////////////////////////////////////////////////////////////////////////
-//QString MPDWriter::getDuration() {
-//    QList<std::shared_ptr <Box> > mvhds = model->getBoxes("mvhd");
-//    if(mvhds.empty())
-//        return QString("");
-//    std::shared_ptr <Box> mvhd = mvhds.back();
-//    unsigned long int timescale = mvhd->getTimeScale();
-//    unsigned long int duration = mvhd->getDuration();
-//    return getHMSFormat(duration/timescale);
-//}
+QString MPDWriter::getDuration() {
+    QList<std::shared_ptr <Box> > mvhds = originalModel->getBoxes("mvhd");
+    if(mvhds.empty())
+        return QString("");
+    MovieHeaderBox* mvhd = dynamic_cast <MovieHeaderBox*> (mvhds.back().get());
+    unsigned long int timescale = mvhd->getTimeScale();
+    unsigned long int duration = mvhd->getDuration();
+    return getHMSFormat(duration/timescale);
+}
 ///////////////////////////////////////////////////////////////////////////////////////////
 unsigned int* MPDWriter::getDimensions() {
     unsigned int* ret = new unsigned int[2];
-    QList<std::shared_ptr <Box> > visualEntries = dashModel->getBoxes("avc1");
+    QList<std::shared_ptr <Box> > visualEntries = originalModel->getBoxes("avc1");
     if(visualEntries.empty()) {
-        visualEntries = dashModel->getBoxes("mp4v");
+        visualEntries = originalModel->getBoxes("mp4v");
         if(visualEntries.empty()) {
-            QList<std::shared_ptr <Box> > a = dashModel->getBoxes("ftyp");
+            QList<std::shared_ptr <Box> > a = originalModel->getBoxes("ftyp");
             qDebug()<<"no visual"<<QString::number(a.size());
             ret[0] = 0;
             ret[1] = 0;
@@ -168,14 +169,14 @@ unsigned int* MPDWriter::getDimensions() {
     return ret;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-//QString MPDWriter::getHMSFormat(const double& value) {
-//    double durationInSec = value;
-//    unsigned int hours = durationInSec/3600;
-//    durationInSec -= 3600*hours;
-//    unsigned int minutes = durationInSec/60;
-//    durationInSec -= 60*minutes;
-//    return QString("PT" + QString::number(hours) + "H" + QString::number(minutes) + "M" + QString::number(durationInSec) + "S");
-//}
+QString MPDWriter::getHMSFormat(const double& value) {
+    double durationInSec = value;
+    unsigned int hours = durationInSec/3600;
+    durationInSec -= 3600*hours;
+    unsigned int minutes = durationInSec/60;
+    durationInSec -= 60*minutes;
+    return QString("PT" + QString::number(hours) + "H" + QString::number(minutes) + "M" + QString::number(durationInSec) + "S");
+}
 ////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 //MPDWriter::MPDWriter(const QString& pth, const QString &fn, TreeModel *mod, const QString& dt): path(pth),
@@ -195,46 +196,42 @@ void MPDWriter::init(bool oneFile) {
     dashModel = new TreeModel(an);
 }
 
-//void MPDWriter::setMPD(bool oneFile) {
-//    //MPD
-//    mpd = new MPD();
-//    //mpd->setId(unisgned int); //nieobowiazkowe, poza tym bedzie jedno mpd, wiec bez tego
-//    mpd->setProfiles(QString("urn:mpeg:dash:profile:full:2011")); //obowiązkowe; urn:mpeg:dash:profil:isoff-main:2011?
-//    mpd->setType("static"); //static jest domyślne, dynamic (MPD może być zmieniane); typowo dynamic przy live streamach
-//    //mpd->setAvailibilityStartTime(); //obowiazkowe przy dynamic
-//    //mpd->setAvailibilityEndTime(); //nieobowiazkowe
-//    mpd->setMediaPresentationDuration(getDuration()); //obowiazkowe dla static
-//    //mpd->setMinimumUpdatePeriod(); //w static zakazane
-//    mpd->setMinBufferTime("10229"); //obowiązkowe - jak to ustawić?
-//    //mpd->getTimeShitBufferDepth(); //w staticu zbędne
-//    //mpd->getSuggestedPresentationDelay();//w staticu ignorowane
-//    //mpd->getMaxSegmentDuration(); //nieobowiązkowe
-//    //mpd->getMaxSubsegmentDuration(); //nieobowiązkowe
-//    mpd->addPeriod(setPeriod(oneFile));
-//    mpd->setBaseURL(path);
-//}
+void MPDWriter::setMPD(bool oneFile) {
+    //MPD
+    mpd = new MPD();
+    //mpd->setId(unisgned int); //nieobowiazkowe, poza tym bedzie jedno mpd, wiec bez tego
+    mpd->setProfiles(QString("urn:mpeg:dash:profile:full:2011")); //obowiązkowe; urn:mpeg:dash:profil:isoff-main:2011?
+    mpd->setType("static"); //static jest domyślne, dynamic (MPD może być zmieniane); typowo dynamic przy live streamach
+    //mpd->setAvailibilityStartTime(); //obowiazkowe przy dynamic
+    //mpd->setAvailibilityEndTime(); //nieobowiazkowe
+    mpd->setMediaPresentationDuration(getDuration()); //obowiazkowe dla static
+    //mpd->setMinimumUpdatePeriod(); //w static zakazane
+    mpd->setMinBufferTime("10229"); //obowiązkowe - jak to ustawić?
+    //mpd->getTimeShitBufferDepth(); //w staticu zbędne
+    //mpd->getSuggestedPresentationDelay();//w staticu ignorowane
+    //mpd->getMaxSegmentDuration(); //nieobowiązkowe
+    //mpd->getMaxSubsegmentDuration(); //nieobowiązkowe
+    mpd->addPeriod(setPeriod(oneFile));
+    mpd->setBaseURL(dashPath);
+}
 //////////////////////////
 void MPDWriter::writeMPD(/*QFile* file, */bool oneFile) {
     qDebug()<<"WRITEMPD1";
     QString mpdName = originalFileName;
     mpdName.replace(".mp4", ".mpd");
-    QFile* mpd = new QFile(dashPath + "/" + mpdName);
-    if(mpd->open(QIODevice::ReadWrite)) {
-        //setMPD(oneFile);
-        QXmlStreamWriter* stream = new QXmlStreamWriter(mpd);
+    QFile* mpdFile = new QFile(dashPath + "/" + mpdName);
+    if(mpdFile->open(QIODevice::ReadWrite)) {
+        setMPD(oneFile);
+        QXmlStreamWriter* stream = new QXmlStreamWriter(mpdFile);
         stream->setAutoFormatting(true);
         stream->writeStartDocument();
         qDebug()<<"WRITEMPD2";
         //return;
-        //mpd->write(stream);
-        for(int i = 0; i<representations.size(); ++i) {
-            qDebug()<<"WRITEMPD3"<<QString::number(i);
-            representations.at(i)->write(stream);
-        }
+        mpd->write(stream);
         stream->writeEndDocument();
     }
     
-    mpd->close();
+    mpdFile->close();
 }
 //////////////////////////
 ////void MPDWriter::setProgramInformation() {
@@ -316,22 +313,22 @@ void MPDWriter::writeMPD(/*QFile* file, */bool oneFile) {
 //    return repr;
 //}
 ///////////////
-//AdaptationSet* MPDWriter::setAdaptationSet(bool oneFile) {
-//    AdaptationSet* adapt = new AdaptationSet();
-//    adapt->addRepresentation(setRepresentation(oneFile));
-//    /*unsigned int* dim = getDimensions();
-//    adapt->setMaxHeight(dim[0]);
-//    adapt->setMaxWidth(dim[1]);*/
-//    return adapt;
-//}
+AdaptationSet* MPDWriter::setAdaptationSet(bool oneFile) {
+    AdaptationSet* adapt = new AdaptationSet();
+    adapt->addRepresentations(representations);
+    /*unsigned int* dim = getDimensions();
+    adapt->setMaxHeight(dim[0]);
+    adapt->setMaxWidth(dim[1]);*/
+    return adapt;
+}
 //////////////////
-//Period* MPDWriter::setPeriod(bool oneFile) {
-//    Period* period = new Period();
-//    period->setStart(QString("PT0S"));
-//    period->setDuration(getDuration());
-//    period->addAdaptationSet(setAdaptationSet(oneFile));
-//    return period;
-//}
+Period* MPDWriter::setPeriod(bool oneFile) {
+    Period* period = new Period();
+    period->setStart(QString("PT0S"));
+    period->setDuration(getDuration());
+    period->addAdaptationSet(setAdaptationSet(oneFile));
+    return period;
+}
 ///////////////////
 //void MPDWriter::addRepresentation(const QString& fn, const bool& oneFile) {
 //    fileName = fn;
@@ -367,9 +364,11 @@ void MPDWriter::setOriginalFileName(const QString &value)
     originalFileName = value;
 }
 void MPDWriter::addRepresentation(const QString& fn, const bool& oneFile) {
+    Analyzer *an = new Analyzer(fn);
+    originalModel = new TreeModel(an);
     //qDebug()<<"mpd addrepr";
     //originalFileName = fn;
-    //qDebug()<<fn;
+    qDebug()<<"funffun"<<fn;
     Representation* repr = new Representation();
     //qDebug()<<"mpd addrepr 2";
     QString dashName;

@@ -49,7 +49,7 @@ bool DashWrapper::writeFiles(const QString &date, const QString& name, const uns
 
 void DashWrapper::addRepresentation(const bool &oneFile) {
     qDebug()<<"dw addrepr";
-    return mpdWriter->addRepresentation(fileName, oneFile);
+    return mpdWriter->addRepresentation(path + fileName, oneFile);
 }
 void DashWrapper::writeMPD(const bool& oneFile) {
     mpdWriter->writeMPD(oneFile);

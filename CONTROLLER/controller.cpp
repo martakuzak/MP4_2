@@ -91,6 +91,7 @@ void Controller::dashFilesSelected(QAbstractItemModel* model, const bool& oneFil
         dashWrap->initMPD(oneFile);
         dashWrap->addRepresentation(oneFile);
     }
+
     dashWrap->writeMPD(oneFile);
     window->showInfoDialog("Dash files generated.");
 }

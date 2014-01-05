@@ -153,7 +153,8 @@ public:
      * Writes AdaptationSet vertex into Media Presentation Description file
      * \param stream stream of the MPD file
      */
-    void write(QXmlStreamWriter *stream);void addRepresentation();
+    void write(QXmlStreamWriter *stream);
+    void addRepresentations(const QList<Representation*>& repr);
     void addRepresentation(Representation* repr);
     bool getSegmentAlignment() const;
     void setSegmentAlignment(bool value);

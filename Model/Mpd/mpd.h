@@ -83,7 +83,9 @@ private:
     QList<Representation*> representations;
     QString dashPath;
     TreeModel* dashModel;
+    TreeModel* originalModel;
     QString originalFileName;
+    MPD* mpd;
 public:
     void addRepresentation(const QString &fn, const bool &oneFile);
     void setDashPath(const QString& dashPath);
@@ -107,16 +109,16 @@ public:
 //    TreeModel* model;
 //    QList<Representation*> representations;
 
-//    QString getDuration();
+    QString getDuration();
     unsigned int* getDimensions();
-//    QString getHMSFormat(const double& value);
-//    void setMPD(bool oneFile);
+    QString getHMSFormat(const double& value);
+    void setMPD(bool oneFile);
 //    //void setProgramInformation();
 //    SegmentList *setSegmentList(bool oneFile);
 //    BaseURL* setBaseURL(const QString &url);
 //    Representation* setRepresentation(bool oneFile);
-//    AdaptationSet* setAdaptationSet(bool oneFile);
-//    Period* setPeriod(bool oneFile);
+    AdaptationSet* setAdaptationSet(bool oneFile);
+    Period* setPeriod(bool oneFile);
 //public:
 //    /*!
 //     * \brief MPDWriter

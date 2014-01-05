@@ -137,11 +137,7 @@ void AdaptationSet::write(QXmlStreamWriter *stream) {
     }
     stream->writeEndElement();
 }
-void AdaptationSet::addRepresentation() {
-    Representation* repr = new Representation();
-    int newId = representations.size();
-    repr->setId(newId);
-    repr->setBandwidth(2000); //skąd?
+void AdaptationSet::addRepresentations(const QList<Representation*>& repr) {
     representations.append(repr);
 }
 void AdaptationSet::addRepresentation(Representation *repr) {

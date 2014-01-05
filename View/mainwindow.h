@@ -111,11 +111,11 @@ private:
     /*!
      * \brief dashProxy
      */
-    DashWrapper * dashProxy;
+    //DashWrapper * dashProxy;
     //////////
     ////////
     QListView* fileList;
-    QStandardItemModel* fileModel;
+    //QStandardItemModel* fileModel;
     QPushButton* addFile;
     QPushButton* removeFile;
     QComboBox* dashOption;
@@ -180,7 +180,10 @@ private slots:
     void selectionChanged();
     void searchButtonClicked();
     void switchToDashMenu();
+    //kliknieto przycisk ready
     void dashFilesSelected();
+    //kliknieto przycisk Add files
+    void filesToDashSelected();
 signals:
     void fileSelected(const QString& fileName);
     void boxSelected(QItemSelectionModel* selection);
