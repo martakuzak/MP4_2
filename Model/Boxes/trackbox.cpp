@@ -25,8 +25,8 @@ TrackHeaderBox::TrackHeaderBox(const unsigned  int& s, const QString& t, const u
     matrix(mx)
 {}
 
-QStandardItemModel* TrackHeaderBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(15, 2, 0);
+QStandardItemModel *TrackHeaderBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(15, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -90,8 +90,8 @@ HandlerBox::HandlerBox(const unsigned  int& s, const QString& t, const unsigned 
     name(nam)
 {}
 
-QStandardItemModel* HandlerBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(6, 2, 0);
+QStandardItemModel *HandlerBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(6, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -132,8 +132,8 @@ TrackExtendsBox::TrackExtendsBox(const unsigned  int& s, const QString& t, const
     defaultSampleFlags(dsf)
 {}
 
-QStandardItemModel* TrackExtendsBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(7, 2, 0);
+QStandardItemModel *TrackExtendsBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(7, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -173,7 +173,7 @@ TrackFragmentHeaderBox::TrackFragmentHeaderBox(const unsigned  int& s, const QSt
     defaultSampleFlags(dsf)
 {}
 
-QStandardItemModel* TrackFragmentHeaderBox::getModel() {
+QStandardItemModel *TrackFragmentHeaderBox::getModel() {
     int row = 0;
     if(getSize() < 24)
         row = 3;
@@ -187,7 +187,7 @@ QStandardItemModel* TrackFragmentHeaderBox::getModel() {
         row = 5;
     else
         row = 6;
-    QStandardItemModel* model = new QStandardItemModel(row, 2, 0);
+    QStandardItemModel *model = new QStandardItemModel(row, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -240,8 +240,8 @@ TrackRunBox::TrackRunBox(const unsigned  int& s, const QString& t, const unsigne
     sampleCompositionTimeOffset(scto)
 {}
 
-QStandardItemModel* TrackRunBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(5 + sampleDuration.size() + sampleSize.size() +
+QStandardItemModel *TrackRunBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(5 + sampleDuration.size() + sampleSize.size() +
                                                        sampleFlags.size() + sampleCompositionTimeOffset.size(),
                                                        2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
@@ -329,8 +329,8 @@ TrackFragmentBaseMediaDecodeTimeBox::TrackFragmentBaseMediaDecodeTimeBox(const u
     baseMediaDecodeTime(bmdt)
 {}
 
-QStandardItemModel* TrackFragmentBaseMediaDecodeTimeBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
+QStandardItemModel *TrackFragmentBaseMediaDecodeTimeBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");

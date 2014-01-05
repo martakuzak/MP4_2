@@ -2,6 +2,7 @@
 
 Controller::Controller(MainWindow *mw): window(mw) {
     dashWrap = new DashWrapper();
+    fileModel = new QStandardItemModel();
     makeConnection();
 }
 void Controller::makeConnection() {
@@ -9,14 +10,17 @@ void Controller::makeConnection() {
     connect(window, SIGNAL(boxSelected(QItemSelectionModel*)), this,
             SLOT(boxSelected(QItemSelectionModel*)), Qt::QueuedConnection);
     connect(window, SIGNAL(searchBox(QString)), this, SLOT(searchBox(QString)), Qt::QueuedConnection);
-    connect(window, SIGNAL(dashFilesSelectedSignal(QAbstractItemModel*, bool)), this,
-            SLOT(dashFilesSelected(QAbstractItemModel*, bool)), Qt::QueuedConnection);
+    connect(window, SIGNAL(dashFilesSelectedSignal(bool)), this,
+            SLOT(dashFilesSelected(bool)), Qt::QueuedConnection);
+    connect(window, SIGNAL(dashDirSelectedSig(QString)), this,
+            SLOT(dashDirSelected(QString)), Qt::QueuedConnection);
+    connect(window, SIGNAL(removeFileSig(int)), this, SLOT(removeFile(int)), Qt::QueuedConnection);
 }
 ////////////////////
 void Controller::fileSelected(const QString& fileName) {
     if(model == NULL)
         delete model;
-    Analyzer* analyzer = new Analyzer(fileName);
+    Analyzer *analyzer = new Analyzer(fileName);
     model = new TreeModel(analyzer);
     window->fileAnalyzed(model, fileName);
 }
@@ -24,20 +28,18 @@ void Controller::fileSelected(const QString& fileName) {
 void Controller::boxSelected(QItemSelectionModel *selection) {
     if(selection->hasSelection()) {
         QModelIndex id = selection->currentIndex();
-        //qDbug()<<"wust"<<QString::number(id.row());
         QModelIndex child = model->index(id.row(), 2, id.parent());
-        TreeItem* item = model->getChild(model->data(child, Qt::DisplayRole).toInt());
-        QStandardItemModel* mod = item->getModel();
+        TreeItem *item = model->getChild(model->data(child, Qt::DisplayRole).toInt());
+        QStandardItemModel *mod = item->getModel();
         mod->setHeaderData(0, Qt::Horizontal, tr(""));
         mod->setHeaderData(1, Qt::Horizontal, tr(""));
         window->printSelectedBox(mod, item);
     }
     else {
-        //qDbug()<<"wut";
         window->printSelectedBox(new QStandardItemModel(), new TreeItem());
     }
 }
-
+/////////////////////////////////////////
 void Controller::searchBox(const QString &boxType) {
     if(boxType.length() != 4) {
         window->showWarningDialog("Box type should has at least 4 characters.");
@@ -58,8 +60,8 @@ void Controller::searchBox(const QString &boxType) {
     QModelIndex child = model->index(tmpId.row(), 2, tmpId.parent());
     QString textLabel = model->getChild(model->data(child,
                                                     Qt::DisplayRole).toInt())->fullName();
-    TreeItem* item = model->getChild(model->data(child, Qt::DisplayRole).toInt());
-    QStandardItemModel* mod = item->getModel();
+    TreeItem *item = model->getChild(model->data(child, Qt::DisplayRole).toInt());
+    QStandardItemModel *mod = item->getModel();
     mod->setHeaderData(0, Qt::Horizontal, tr(""));
     mod->setHeaderData(1, Qt::Horizontal, tr(""));
     window->boxesFound(Items, textLabel);
@@ -68,16 +70,16 @@ void Controller::searchBox(const QString &boxType) {
     //qDbug()<<"i co";
 }
 ////////////////////////////////////////////
-void Controller::dashFilesSelected(QAbstractItemModel* model, const bool& oneFile) {
+void Controller::dashFilesSelected(const bool& oneFile) {
     QDateTime local(QDateTime::currentDateTime());
     QString date = local.toString();
     date.replace(QString(":"), QString("_"));
     dashWrap->clear();
-    if(model->rowCount()) {
-        dashWrap->setFileProp(model->index(0,0).data(Qt::DisplayRole).toString());
+    if(fileModel->rowCount()) {
+        dashWrap->setFileProp(fileModel->index(0,0).data(Qt::DisplayRole).toString());
     }
-    for ( int i = 0 ; i < model->rowCount() ; ++i ) {
-        QString fileName = model->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
+    for ( int i = 0 ; i < fileModel->rowCount() ; ++i ) {
+        QString fileName = fileModel->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
         bool result;
         if(oneFile)
             result = dashWrap->writeFile(date, fileName, 50);        
@@ -95,4 +97,31 @@ void Controller::dashFilesSelected(QAbstractItemModel* model, const bool& oneFil
     dashWrap->writeMPD(oneFile);
     window->showInfoDialog("Dash files generated.");
 }
-
+//////////////////////////////////////////////////////
+void Controller::dashDirSelected(const QString &dir) {
+    if(dir.length()) {
+        QDir *directory = new QDir(dir);
+        QStringList files;
+        files = directory->entryList(QStringList("*.mp4"),
+                               QDir::Files | QDir::NoSymLinks);
+        if(!files.empty()) {
+            fileModel->clear();
+            while(!files.empty()) {
+                QList<QStandardItem*> list;
+                QStandardItem *tmpItem = new QStandardItem();
+                tmpItem->setText(dir + "/" + files.back());
+                list.append(tmpItem);
+                fileModel->appendRow(list);
+                files.pop_back();
+            }
+            window->addFileToDash(fileModel);
+        }
+    }
+}
+////////////////////////////////////////////////////
+void Controller::removeFile(const int &row) {
+        if(row >= 0 && row < (fileModel->rowCount())) {
+            fileModel->removeRow(row);
+            window->dashRowRemoved(fileModel);
+        }
+}

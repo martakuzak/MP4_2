@@ -48,17 +48,17 @@ private:
     QString mediaPresentationDuration;
     QString profiles;
     QList <Period*> periods;
-    BaseURL* baseURL;
+    BaseURL *baseURL;
 public:
     MPD();
     /*!
-     * \brief write
-     * Writes MPD vertex into Media Presentation Description file
-     * \param stream stream of the MPD file
+      *\brief write
+      *Writes MPD vertex into Media Presentation Description file
+      *\param stream stream of the MPD file
      */
     void write(QXmlStreamWriter *stream);
     void addPeriod();
-    void addPeriod(Period* period);
+    void addPeriod(Period *period);
     QString getType() const;
     void setType(const QString &value);
     QString getXmlns() const;
@@ -76,67 +76,67 @@ public:
 };
 
 /*!
- * \brief The MPDWriter class
+  *\brief The MPDWriter class
  */
 class MPDWriter {
 private:
     QList<Representation*> representations;
     QString dashPath;
-    TreeModel* dashModel;
-    TreeModel* originalModel;
+    TreeModel *dashModel;
+    TreeModel *originalModel;
     QString originalFileName;
-    MPD* mpd;
+    MPD *mpd;
 public:
     void addRepresentation(const QString &fn, const bool &oneFile);
     void setDashPath(const QString& dashPath);
-    SegmentList* setSegmentList(bool oneFile);
+    SegmentList *setSegmentList(bool oneFile);
     void init(bool oneFile);
     void writeMPD(bool oneFile);
 
 //private:
 //    QString xmlHeader;// = "<?xml version=\"1.0\"?>";
-//    QXmlStreamWriter* stream;
+//    QXmlStreamWriter *stream;
 //    /*!
-//     * \brief fileName
+//      *\brief fileName
 //     */
 //    QString fileName;
 //    QString path;
 //    unsigned int segmentsNum;
-//    QFile* mpdFile;
-//    //TreeModel* model;
-//    MPD* mpd;
-//    TreeModel* dashModel;
-//    TreeModel* model;
+//    QFile *mpdFile;
+//    //TreeModel *model;
+//    MPD *mpd;
+//    TreeModel *dashModel;
+//    TreeModel *model;
 //    QList<Representation*> representations;
 
     QString getDuration();
-    unsigned int* getDimensions();
+    unsigned int *getDimensions();
     QString getHMSFormat(const double& value);
     void setMPD(bool oneFile);
 //    //void setProgramInformation();
 //    SegmentList *setSegmentList(bool oneFile);
-//    BaseURL* setBaseURL(const QString &url);
-//    Representation* setRepresentation(bool oneFile);
-    AdaptationSet* setAdaptationSet(bool oneFile);
-    Period* setPeriod(bool oneFile);
+//    BaseURL *setBaseURL(const QString &url);
+//    Representation *setRepresentation(bool oneFile);
+    AdaptationSet *setAdaptationSet(bool oneFile);
+    Period *setPeriod(bool oneFile);
 //public:
 //    /*!
-//     * \brief MPDWriter
-//     * \param fn name of mp4 dash file
-//     * \param mod model of mp4 original file
+//      *\brief MPDWriter
+//      *\param fn name of mp4 dash file
+//      *\param mod model of mp4 original file
 //     */
 //    MPDWriter(const QString &path, const QString& fn, TreeModel *mod, const QString& dt);
 //    /*!
-//     * \brief init
-//     * Creates tree model of mp4 dash file
+//      *\brief init
+//      *Creates tree model of mp4 dash file
 //     */
 //    void init(bool b);
 //    /*!
-//     * \brief writeMPD
-//     * Writes Media Description File
-//     * \param file Media Presentation Description file that is created
+//      *\brief writeMPD
+//      *Writes Media Description File
+//      *\param file Media Presentation Description file that is created
 //     */
-//    void writeMPD(QFile* file, bool oneFile);
+//    void writeMPD(QFile *file, bool oneFile);
 //    void addRepresentation(const QString& fn, const bool& oneFile);
     QString getOriginalFileName() const;
     void setOriginalFileName(const QString &value);

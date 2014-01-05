@@ -52,11 +52,11 @@ void Period::setDuration(const QString &value)
     duration = value;
 }
 void Period::addAdaptationSet() {
-    AdaptationSet* adaptSet = new AdaptationSet();
+    AdaptationSet *adaptSet = new AdaptationSet();
     //nic nie jest obowiazkowe niby
     adaptationSets.append(adaptSet);
 }
-void Period::addAdaptationSet(AdaptationSet* adaptSet) {
+void Period::addAdaptationSet(AdaptationSet *adaptSet) {
     adaptationSets.append(adaptSet);
 }
 ////////////////////////////////////////////////////////////////////////////
@@ -132,7 +132,7 @@ void AdaptationSet::write(QXmlStreamWriter *stream) {
         stream->writeAttribute("lang", lang);
     int size = representations.size();
     for (int i = 0; i < size; ++i) {
-        Representation* r = representations.at(i);
+        Representation *r = representations.at(i);
         r->write(stream);
     }
     stream->writeEndElement();
@@ -370,7 +370,7 @@ SegmentList *Representation::getSegmentList() const
     return segmentList;
 }
 /////////////
-void Representation::setSegmentList(SegmentList* value)
+void Representation::setSegmentList(SegmentList *value)
 {
     qDebug()<<"repr setsegmentlist";
     segmentList = value;
@@ -381,7 +381,7 @@ BaseURL *Representation::getBaseurl() const
     return baseurl;
 }
 /////////////
-void Representation::setBaseurl(BaseURL* value)
+void Representation::setBaseurl(BaseURL *value)
 {
     baseurl = value;
 }

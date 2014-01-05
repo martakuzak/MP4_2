@@ -5,10 +5,10 @@
 #include "segmentlist.h"
 
 /*!
- * \brief The BaseURL class describes URL
- *  - atrributes:
- *      -# serviceLocation(optional)
- *      -# byteRange (optional)
+  *\brief The BaseURL class describes URL
+  * - atrributes:
+  *     -# serviceLocation(optional)
+  *     -# byteRange (optional)
  */
 class BaseURL {
 private:
@@ -19,9 +19,9 @@ private:
 public:
     BaseURL();
     /*!
-     * \brief write
-     * Writes BaseURL vertex into Media Presentation Description file
-     * \param stream stream of the MPD file
+      *\brief write
+      *Writes BaseURL vertex into Media Presentation Description file
+      *\param stream stream of the MPD file
      */
     void write(QXmlStreamWriter *stream);
     QString getContent() const;
@@ -33,20 +33,20 @@ public:
 };
 ///////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The Representation class contains a description of a Representation.
- *  - atrributes:
- *      -# id (optional)
- *      -# bandwidith (optional)
- *      -# qualityRanking (optional)
- *      -# dependencyId (optional)
- *      -# mediaStreamStructureId (optional)
- *      -# CommonAttributesElements
- *  - elements:
- *      -# BaseURL (0..N)
- *      -# SubRepresentation (0..N)
- *      -# SegmentBase (0..1)
- *      -# SegmentList (0..1)
- *      -# SegmentTemplate (0..1)
+  *\brief The Representation class contains a description of a Representation.
+  * - atrributes:
+  *     -# id (optional)
+  *     -# bandwidith (optional)
+  *     -# qualityRanking (optional)
+  *     -# dependencyId (optional)
+  *     -# mediaStreamStructureId (optional)
+  *     -# CommonAttributesElements
+  * - elements:
+  *     -# BaseURL (0..N)
+  *     -# SubRepresentation (0..N)
+  *     -# SegmentBase (0..1)
+  *     -# SegmentList (0..1)
+  *     -# SegmentTemplate (0..1)
  */
 class Representation {
 private:
@@ -60,14 +60,14 @@ private:
     unsigned short int startsWithSAP;
     unsigned int bandwidth;
     //
-    BaseURL* baseurl;
-    SegmentList* segmentList;
+    BaseURL *baseurl;
+    SegmentList *segmentList;
 public:
     Representation();
     /*!
-     * \brief write
-     * Writes Representation vertex into Media Presentation Description file
-     * \param stream stream of the MPD file
+      *\brief write
+      *Writes Representation vertex into Media Presentation Description file
+      *\param stream stream of the MPD file
      */
     void write(QXmlStreamWriter *stream);
     unsigned int getId() const;
@@ -88,44 +88,44 @@ public:
     void setStartsWithSAP(unsigned short value);
     unsigned int getBandwidth() const;
     void setBandwidth(unsigned int value);
-    BaseURL* getBaseurl() const;
-    void setBaseurl(BaseURL* value);
-    SegmentList* getSegmentList() const;
-    void setSegmentList(SegmentList* value);
+    BaseURL *getBaseurl() const;
+    void setBaseurl(BaseURL *value);
+    SegmentList *getSegmentList() const;
+    void setSegmentList(SegmentList *value);
 };
 ///////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The AdaptationSet class specifies the information of a AdaptationSet.
- *  - atrributes:
- *      -# id (optional)
- *      -# group (optional)
- *      -# CommonAttributesElements
- *      -# lang (optional)
- *      -# contentType (optional)
- *      -# par (optional)
- *      -# minBandwidth (optional)
- *      -# maxBandwidth (optional)
- *      -# minWidth (optional)
- *      -# maxWidth (optional)
- *      -# minHeight (optional)
- *      -# maxHeight (optional)
- *      -# minFrameRate (optional)
- *      -# maxFrameRate (optional)
- *      -# SegmentAlignment (optional with default value: false)
- *      -# bitstreamSwitching (optional)
- *      -# subsegmentAlignment (optional with default value: false)
- *      -# subsegmentStartsWithSAP (optional with default value: 0)
- *  - elements:
- *      -# Accessibility (0..N)
- *      -# Role (0..N)
- *      -# Rating (0..N)
- *      -# Viewpoint (0..N)
- *      -# ContentComponent (0..N)
- *      -# BaseURL (0..N)
- *      -# SegmentBase (0..1)
- *      -# SegmentList (0..1)
- *      -# SegmentTemplate (0..1)
- *      -# Representation (0..N)
+  *\brief The AdaptationSet class specifies the information of a AdaptationSet.
+  * - atrributes:
+  *     -# id (optional)
+  *     -# group (optional)
+  *     -# CommonAttributesElements
+  *     -# lang (optional)
+  *     -# contentType (optional)
+  *     -# par (optional)
+  *     -# minBandwidth (optional)
+  *     -# maxBandwidth (optional)
+  *     -# minWidth (optional)
+  *     -# maxWidth (optional)
+  *     -# minHeight (optional)
+  *     -# maxHeight (optional)
+  *     -# minFrameRate (optional)
+  *     -# maxFrameRate (optional)
+  *     -# SegmentAlignment (optional with default value: false)
+  *     -# bitstreamSwitching (optional)
+  *     -# subsegmentAlignment (optional with default value: false)
+  *     -# subsegmentStartsWithSAP (optional with default value: 0)
+  * - elements:
+  *     -# Accessibility (0..N)
+  *     -# Role (0..N)
+  *     -# Rating (0..N)
+  *     -# Viewpoint (0..N)
+  *     -# ContentComponent (0..N)
+  *     -# BaseURL (0..N)
+  *     -# SegmentBase (0..1)
+  *     -# SegmentList (0..1)
+  *     -# SegmentTemplate (0..1)
+  *     -# Representation (0..N)
  */
 
 class AdaptationSet {
@@ -149,13 +149,13 @@ private:
 public:
     AdaptationSet();
     /*!
-     * \brief write
-     * Writes AdaptationSet vertex into Media Presentation Description file
-     * \param stream stream of the MPD file
+      *\brief write
+      *Writes AdaptationSet vertex into Media Presentation Description file
+      *\param stream stream of the MPD file
      */
     void write(QXmlStreamWriter *stream);
     void addRepresentations(const QList<Representation*>& repr);
-    void addRepresentation(Representation* repr);
+    void addRepresentation(Representation *repr);
     bool getSegmentAlignment() const;
     void setSegmentAlignment(bool value);
     bool getSubsegmentAlignment() const;
@@ -185,19 +185,19 @@ public:
 };
 /////////////////////////////////
 /*!
- * \brief The Period class specifies the information of a Period.
- *  - atrributes:
- *      -# id (optional)
- *      -# start (optional)
- *      -# duration (optional)
- *      -# bitstreamswitching (optional with default value: false)
- *  - elements:
- *      -# BaseURL (0..N)
- *      -# SegmentBase (0..1)
- *      -# SegmentList (0..1)
- *      -# SegmentTemplate (0..1)
- *      -# AdaptationSet (0..N)
- *      -# Subset (0..N)
+  *\brief The Period class specifies the information of a Period.
+  * - atrributes:
+  *     -# id (optional)
+  *     -# start (optional)
+  *     -# duration (optional)
+  *     -# bitstreamswitching (optional with default value: false)
+  * - elements:
+  *     -# BaseURL (0..N)
+  *     -# SegmentBase (0..1)
+  *     -# SegmentList (0..1)
+  *     -# SegmentTemplate (0..1)
+  *     -# AdaptationSet (0..N)
+  *     -# Subset (0..N)
 */
 
 class Period {
@@ -209,9 +209,9 @@ private:
 public:
     Period();
     /*!
-     * \brief write
-     * Writes Period vertex into Media Presentation Description file
-     * \param stream stream of the MPD file
+      *\brief write
+      *Writes Period vertex into Media Presentation Description file
+      *\param stream stream of the MPD file
      */
     void write(QXmlStreamWriter *stream);
     unsigned int getId() const;
@@ -221,7 +221,7 @@ public:
     QString getStart() const;
     void setStart(const QString &value);
     void addAdaptationSet();
-    void addAdaptationSet(AdaptationSet* adaptSet);
+    void addAdaptationSet(AdaptationSet *adaptSet);
 };
 ///////////////////////////////////////////////////////////////////////////////////
 

@@ -1,20 +1,20 @@
 /*!
- * \file SampleTableBox
- * \details
- * ChunkLargeOffsetBox
- * ChunkOffsetBox
- * CompactSampleSizeBox
- * CompositionOffsetBox
- * DegradationPriorityBox
- * SampleDescriptionBox
- * SampleScaleBox
- * SampleSizeBox
- * SampleTableBox
- * SampleToChunkBox
- * ShadowSyncSampleBox
- * SyncSampleBox
- * TimeToSampleBox
- * PaddingBitsBox
+  *\file SampleTableBox
+  *\details
+  *ChunkLargeOffsetBox
+  *ChunkOffsetBox
+  *CompactSampleSizeBox
+  *CompositionOffsetBox
+  *DegradationPriorityBox
+  *SampleDescriptionBox
+  *SampleScaleBox
+  *SampleSizeBox
+  *SampleTableBox
+  *SampleToChunkBox
+  *ShadowSyncSampleBox
+  *SyncSampleBox
+  *TimeToSampleBox
+  *PaddingBitsBox
  */
 #ifndef SAMPLETABLEBOX_H
 #define SAMPLETABLEBOX_H
@@ -28,8 +28,8 @@ public:
     SampleTableBox(const unsigned int& s=0, const QString& t="", const unsigned long int& off=0, const unsigned int& e=0);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Sample Table Box "); }
-    virtual QStandardItemModel* getModel() {
-        QStandardItemModel* model = new QStandardItemModel(1,1,0);
+    virtual QStandardItemModel *getModel() {
+        QStandardItemModel *model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Sample Table Box is a container for all the time and data indexing of the media samples in the track.");
         return model;
     }
@@ -47,7 +47,7 @@ public:
     TimeToSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v,
                     const QList<unsigned int>& f, unsigned int ec, QList<unsigned int> sc, QList<unsigned int> sd);
     virtual QString getFullName() { return QString("Time To Sample Box"); }  
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class CompositionOffsetBox : public FullBox
@@ -63,17 +63,17 @@ public:
                          const QList<unsigned int>& f,unsigned int ec, QList<unsigned int> sc, QList<unsigned int> sd);
     virtual QString getFullName() { return QString("Composition Offset Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SampleDescriptionBox class
+  *\brief The SampleDescriptionBox class
  *
- *    -
- *    - Box Types: 'stsd'
- *    - Container: Sample Table Box('stbl')
- *    - Mandatory: Yes
- *    - Quantity: Exactly one
+  *   -
+  *   - Box Types: 'stsd'
+  *   - Container: Sample Table Box('stbl')
+  *   - Mandatory: Yes
+  *   - Quantity: Exactly one
 */
 class SampleDescriptionBox : public FullBox
 {
@@ -88,12 +88,12 @@ public:
     virtual unsigned int getContainerOffset() { return (16); }
     virtual QString getFullName() { return QString("Sample Description Box"); }
     /*!
-     * \brief getEntryCount
-     * \return entry_count
+      *\brief getEntryCount
+      *\return entry_count
      */
     unsigned long int getEntryCount() { return entryCount; }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SampleSizeBox : public FullBox
@@ -110,7 +110,7 @@ public:
                   const QList<unsigned long int> & es);
     virtual QString getFullName() { return QString("Sample Size Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
     virtual unsigned long int getSampleSize(const unsigned long int& id) {
         return entrySize.at(id);
     }
@@ -147,7 +147,7 @@ public:
                      const QList<unsigned long int>& spc, const QList<unsigned long int>& sdi);
     virtual QString getFullName() { return QString("Sample To Chunk Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class ChunkOffsetBox : public FullBox
@@ -162,7 +162,7 @@ public:
                    const QList<unsigned int>& f, const unsigned long int& ec, const QList<unsigned long int>& co);
     virtual QString getFullName() { return QString("Chunk Offset Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class ChunkLargeOffsetBox : public FullBox
@@ -177,7 +177,7 @@ public:
                         const QList<unsigned int>& f, const unsigned long int& ec, const QList<unsigned long int>& co);
     virtual QString getFullName() { return QString("Chunk Large Offset Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SyncSampleBox : public FullBox
@@ -192,7 +192,7 @@ public:
                   const QList<unsigned int>& f, const unsigned long int&ec, const QList<unsigned long int> sn);
     virtual QString getFullName() { return QString("Sync Sample Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
     virtual unsigned long int getEntryCount() {
         return entryCount;
     }

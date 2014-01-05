@@ -1,15 +1,15 @@
 /*!
- * \file SampleEntry
- * \details
- * SampleEntry
- * HintSampleEntry
- * VisualSampleEntry
- * AudioSampleEntry
- * MP4AudioSampleEntry
- * MP4VisualSampleEntry
- * MpegSampleEntry
- * ObjectDescriptorBox
- * ESDBox
+  *\file SampleEntry
+  *\details
+  *SampleEntry
+  *HintSampleEntry
+  *VisualSampleEntry
+  *AudioSampleEntry
+  *MP4AudioSampleEntry
+  *MP4VisualSampleEntry
+  *MpegSampleEntry
+  *ObjectDescriptorBox
+  *ESDBox
  */
 #ifndef SAMPLEENTRY_H
 #define SAMPLEENTRY_H
@@ -26,7 +26,7 @@ public:
                 const unsigned int &dri);
     virtual QString getFullName() { return QString("Sample Entry"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class HintSampleEntry: public SampleEntry {
@@ -63,7 +63,7 @@ public:
     unsigned int hResolution() { return horizontalResolution; }
     unsigned int vResolution() { return verticalResolution; }
     virtual QString getFullName() { return QString("Visual Sample Entry"); }
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class AudioSampleEntry: public SampleEntry{
@@ -81,7 +81,7 @@ public:
                      const unsigned int & srate);
     virtual QString getFullName() { return QString("Audio Sample Entry"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class MP4VisualSampleEntry : public VisualSampleEntry
@@ -176,7 +176,7 @@ public:
     virtual bool isContainer() { return false; }
     virtual QString getFullName() { return QString("AVC Configuration box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -190,6 +190,6 @@ public:
     virtual bool isContainer() { return false; }
     virtual QString getFullName() { return QString("MPEG4 Bitrate Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 #endif // SAMPLEENTRY_H

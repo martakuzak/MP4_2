@@ -45,7 +45,7 @@ class TreeModel;
 class DashWrapper;
 
 /*!
- * \brief The MainWindow class defines a mind window of the application
+ *\brief The MainWindow class defines a mind window of the application
  */
 class MainWindow : public QMainWindow
 {
@@ -55,127 +55,129 @@ private:
     //Actions- File
     QAction *openAct;
     QAction *exitAct;
-    QAction * searchBoxAct;
+    QAction *searchBoxAct;
     //Actions - MPEG-DASH
     QAction *dashOneFileAct;
     QAction *dashSeparatedFilesAct;
-    QAction* dashAct;
+    QAction *dashAct;
     //Actions- Help
-    QAction * helpAct;
+    QAction *helpAct;
     /*!
-     * \brief title
-     */
+     *\brief title
+    */
     QString title;
     //Layouts
-    QHBoxLayout * boxParseLayout;
-    QGridLayout * searchBoxLayout;
-    QVBoxLayout * mainLayout;
-    QVBoxLayout * boxInfoLayout;
+    QHBoxLayout *boxParseLayout;
+    QGridLayout *searchBoxLayout;
+    QVBoxLayout *mainLayout;
+    QVBoxLayout *boxInfoLayout;
     //Splitters
-    QSplitter * vSplitter;
-    QSplitter * hSplitter;
+    QSplitter *vSplitter;
+    QSplitter *hSplitter;
     //Group boxes
-    QGroupBox * boxParseGroupBox;
-    QGroupBox * searchBoxGroupBox;
-    QGroupBox * boxInfoGroupBox;
+    QGroupBox *boxParseGroupBox;
+    QGroupBox *searchBoxGroupBox;
+    QGroupBox *boxInfoGroupBox;
     //search box content
-    QLabel * searchLabel;
-    QLineEdit * typeBoxType;
-    QPushButton * nextSearchButton;
-   // QProgressBar * boxParsingProgress;
-   // QProgressDialog * boxParsingProgressDialog;
+    QLabel *searchLabel;
+    QLineEdit *typeBoxType;
+    QPushButton *nextSearchButton;
+   // QProgressBar *boxParsingProgress;
+   // QProgressDialog *boxParsingProgressDialog;
     //info box content
-    QLabel * boxNameLabel;
-    QTableView* tableView;
+    QLabel *boxNameLabel;
+    QTableView *tableView;
     QTreeView *treeView;
     /*!
-     * \brief model
-     */
+     *\brief model
+    */
     //TreeModel *model;
     /*!
-     * \brief fileMenu
-     */
+     *\brief fileMenu
+    */
     QMenu *fileMenu;
     /*!
-     * \brief dashMenu
-     */
+     *\brief dashMenu
+    */
     QMenu *dashMenu;
     /*!
-     * \brief helpMenu
-     */
+     *\brief helpMenu
+    */
     QMenu *helpMenu;
     /*!
-     * \brief analyzer
-     */
-    //Analyzer * analyzer;
+     *\brief analyzer
+    */
+    //Analyzer *analyzer;
     /*!
-     * \brief dashProxy
-     */
-    //DashWrapper * dashProxy;
+     *\brief dashProxy
+    */
+    //DashWrapper *dashProxy;
     //////////
     ////////
-    QListView* fileList;
-    //QStandardItemModel* fileModel;
-    QPushButton* addFile;
-    QPushButton* removeFile;
-    QComboBox* dashOption;
-    QDialog* dashDialog;
-    QAction* addFileAct;
-    QAction* removeFileAct;
-    QGroupBox* rightGroup;
-    QGroupBox* fileGroup;
-    QGroupBox* readyGroup;
-    QHBoxLayout* fileLayout;
-    QVBoxLayout* rightLayout;
-    QPushButton* readyButton;
-    QLabel* oneFile;
-    QLabel* moreFile;
-    QWidget* dash;
+    QListView *fileList;
+    //QStandardItemModel *fileModel;
+    QPushButton *addFile;
+    QPushButton *removeFile;
+    QComboBox *dashOption;
+    QDialog *dashDialog;
+    QAction *addFileAct;
+    QAction *removeFileAct;
+    QGroupBox *rightGroup;
+    QGroupBox *fileGroup;
+    QGroupBox *readyGroup;
+    QHBoxLayout *fileLayout;
+    QVBoxLayout *rightLayout;
+    QPushButton *readyButton;
+    QLineEdit *baseURL;
+    QLabel *oneFile;
+    QLabel *moreFile;
+    QWidget *dash;
     //////////////
     ////////////////
 public:
     //!Constructor
     /*!
-     * \param parent
-     */
+     *\param parent
+    */
     explicit MainWindow(QWidget *parent = 0);
     //!Destructor
     ~MainWindow();
     void fileAnalyzed(TreeModel *mod, const QString &fileName);
-    void printSelectedBox(QStandardItemModel* mod, TreeItem *item);
+    void printSelectedBox(QStandardItemModel *mod, TreeItem *item);
     void boxesFound(QModelIndexList& Items, const QString& textLabel);
     void showWarningDialog(const QString &mes);
     void showInfoDialog(const QString &mes);
+    void addFileToDash(QAbstractItemModel *fileModel);
+    void dashRowRemoved(QAbstractItemModel *fileModel, const bool empty = false);
 
 private slots:
     /*!
-     * \brief openFile opens QFileDialog to choose file that is to analyzed.
-     * \info After choosing apropiate file, file is analyzed and treemodel is built. Application creates infoBox section
-     * (and searchBox section, if it doesn't exist).
-     */
+     *\brief openFile opens QFileDialog to choose file that is to analyzed.
+     *\info After choosing apropiate file, file is analyzed and treemodel is built. Application creates infoBox section
+     *(and searchBox section, if it doesn't exist).
+    */
     void openFile();
     /*!
-     * \brief printSelectedBox prints info about selected Box in boxInfo->
-     */
+     *\brief printSelectedBox prints info about selected Box in boxInfo->
+    */
     /*!
-     * \brief searchBox searches for all boxes with type given in typeBoxType .
-     * \info Found boxes are selected and all their predecessors are expanded. Application launches QMessageBox when:
-     * - typed boxType hasn't 4 characters
-     * - no box was found
-     */
+     *\brief searchBox searches for all boxes with type given in typeBoxType .
+     *\info Found boxes are selected and all their predecessors are expanded. Application launches QMessageBox when:
+     *- typed boxType hasn't 4 characters
+     *- no box was found
+    */
     //void searchBox();
     /*!
-     * \brief launchHelp launches help html site.
-     */
+     *\brief launchHelp launches help html site.
+    */
     void launchHelp();
     /*!
-     * \brief splitOneFile
-     * Creates mp4 dash file and appropiate .mpd file according to currently open mp4 file
-     */
+     *\brief splitOneFile
+     *Creates mp4 dash file and appropiate .mpd file according to currently open mp4 file
+    */
     void splitOneFile();
     void splitIntoMoreFiles();
-    void addFileToDash();
-    void removeFileFromDash();
+    void removeFileFromDash(QAbstractItemModel *fileModel);
     void generateDash();
     void selectionChanged();
     void searchButtonClicked();
@@ -183,30 +185,33 @@ private slots:
     //kliknieto przycisk ready
     void dashFilesSelected();
     //kliknieto przycisk Add files
-    void filesToDashSelected();
+    void dashDirSelected();
+    void removedButtonClicked();
 signals:
     void fileSelected(const QString& fileName);
-    void boxSelected(QItemSelectionModel* selection);
+    void boxSelected(QItemSelectionModel *selection);
     void searchBox(const QString& boxType);
-    void dashFilesSelectedSignal(QAbstractItemModel* model, const bool& oneFile);
+    void dashFilesSelectedSignal(const bool& oneFile);
+    void dashDirSelectedSig(const QString &dir);
+    void removeFileSig(const int& row);
 private:
     /*!
-     * \brief createActions create actions and adds slots to the widgets
-     */
+     *\brief createActions create actions and adds slots to the widgets
+    */
     void createActions();
     /*!
-     * \brief createMenu creates menu
-     */
+     *\brief createMenu creates menu
+    */
     void createMenu();
     /*!
-     * \brief setBoxInfoSection creates treeView and boxInfo and adds it to window
-     * \param fileName name of the currently analyzed file
-     */
-    void setBoxInfoSection(const QString& fileName, TreeModel* model);
+     *\brief setBoxInfoSection creates treeView and boxInfo and adds it to window
+     *\param fileName name of the currently analyzed file
+    */
+    void setBoxInfoSection(const QString& fileName, TreeModel *model);
     /*!
-     * \brief setSearchBoxSection creates search box section.
-     * \info search box section enables searching for boxes by typing typename
-     */
+     *\brief setSearchBoxSection creates search box section.
+     *\info search box section enables searching for boxes by typing typename
+    */
     void setSearchBoxSection();
     void setDashDialog();
 };
@@ -215,14 +220,14 @@ private:
 
 //class DashPage: public QWidget {
 //public:
-//    DashPage(QPushButton* addFile, QComboBox* option, QPushButton* remove,
+//    DashPage(QPushButton *addFile, QComboBox *option, QPushButton *remove,
 //             QListView *fileList, QHBoxLayout *fileLayout, QGroupBox *rightGroup, QWidget *parent = 0);
 //    void addFile();
 //private:
-//    QVBoxLayout* mainLayout;
-//    QPushButton* readyButton;
-//    QLabel* oneFile;
-//    QLabel* moreFile;
+//    QVBoxLayout *mainLayout;
+//    QPushButton *readyButton;
+//    QLabel *oneFile;
+//    QLabel *moreFile;
 //};
 
 #endif // MAINWINDOW_H

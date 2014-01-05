@@ -80,7 +80,7 @@ QString Analyzer:: qstringValue(const unsigned int& length, const unsigned int& 
 Analyzer::~Analyzer() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void Analyzer::setData(TreeItem* parent, QHash<long, TreeItem *>* items) {
+void Analyzer::setData(TreeItem *parent, QHash<long, TreeItem *> *items) {
     file = new QFile(fileName);
     if (!file->open(QIODevice::ReadOnly)) {
         return ;
@@ -90,7 +90,7 @@ void Analyzer::setData(TreeItem* parent, QHash<long, TreeItem *>* items) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *>* items, const unsigned long &off, unsigned long int maxOff) {
+void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const unsigned long &off, unsigned long int maxOff) {
     //qDebug()<<"setData wywołanie!"<<maxOff;
     unsigned long int offset= off;//offset w pliku
     bool progress= true;

@@ -14,8 +14,8 @@ TimeToSampleBox::TimeToSampleBox(const unsigned int& s, const QString& t, const 
     sampleDelta(sd)
 {}
 
-QStandardItemModel* TimeToSampleBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(5, 2, 0);
+QStandardItemModel *TimeToSampleBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(5, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -57,8 +57,8 @@ CompositionOffsetBox::CompositionOffsetBox(const unsigned int& s, const QString&
     sampleOffset(sd)
 {}
 
-QStandardItemModel* CompositionOffsetBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(5, 2, 0);
+QStandardItemModel *CompositionOffsetBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(5, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -97,8 +97,8 @@ SampleDescriptionBox::SampleDescriptionBox(const unsigned int &s, const QString&
     entryCount(ec)
 {}
 
-QStandardItemModel* SampleDescriptionBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
+QStandardItemModel *SampleDescriptionBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -126,8 +126,8 @@ SampleSizeBox::SampleSizeBox(const unsigned int& s, const QString& t, const unsi
     entrySize(es)
 {}
 
-QStandardItemModel* SampleSizeBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3 + (sampleSize == 0)*sampleCount - 1, 2, 0);
+QStandardItemModel *SampleSizeBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3 + (sampleSize == 0)*sampleCount - 1, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -165,8 +165,8 @@ SampleToChunkBox::SampleToChunkBox(const unsigned int& s, const QString& t, cons
     sampleDescriptionIndex(sdi)
 {}
 
-QStandardItemModel* SampleToChunkBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3 + entryCount*3, 2, 0);
+QStandardItemModel *SampleToChunkBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3 + entryCount*3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -200,8 +200,8 @@ ChunkOffsetBox::ChunkOffsetBox(const unsigned int& s, const QString& t, const un
     chunkOffset(co)
 {}
 
-QStandardItemModel* ChunkOffsetBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3 + entryCount, 2, 0);
+QStandardItemModel *ChunkOffsetBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3 + entryCount, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -232,8 +232,8 @@ ChunkLargeOffsetBox::ChunkLargeOffsetBox(const unsigned int& s, const QString& t
     chunkOffset(co)
 {}
 
-QStandardItemModel* ChunkLargeOffsetBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3 + entryCount, 2, 0);
+QStandardItemModel *ChunkLargeOffsetBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3 + entryCount, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -263,8 +263,8 @@ SyncSampleBox::SyncSampleBox(const unsigned int& s, const QString& t, const unsi
     sampleNumber(sn)
 {}
 
-QStandardItemModel* SyncSampleBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3 + entryCount*3, 2, 0);
+QStandardItemModel *SyncSampleBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3 + entryCount*3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");

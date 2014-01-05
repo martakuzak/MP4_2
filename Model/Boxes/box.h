@@ -1,22 +1,22 @@
 /*!
- * \file Box
- * \details
- * Box
- * FullBox
- * FileTypeBox
- * MovieBox
- * MovieExtendsBox
- * MovieExtendsHeaderBox
- * MovieFragmentBox
- * MovieFragmentHeaderBox
- * MovieFragmentRandomAccessBox
- * MovieFragmentRandomAccessOffsetBox
- * MovieHeaderBox
- * MovieHintInformation
- * MediaBox
- * MediaDataBox
- * MediaHeaderBox
- * MediaInformationBox
+  *\file Box
+  *\details
+  *Box
+  *FullBox
+  *FileTypeBox
+  *MovieBox
+  *MovieExtendsBox
+  *MovieExtendsHeaderBox
+  *MovieFragmentBox
+  *MovieFragmentHeaderBox
+  *MovieFragmentRandomAccessBox
+  *MovieFragmentRandomAccessOffsetBox
+  *MovieHeaderBox
+  *MovieHintInformation
+  *MediaBox
+  *MediaDataBox
+  *MediaHeaderBox
+  *MediaInformationBox
  */
 
 #ifndef BOX_H
@@ -30,173 +30,173 @@
 
 class MainWindow;
 /*!
- * \brief The Box class
- * is represantion of MP4 Box
+  *\brief The Box class
+  *is represantion of MP4 Box
  */
 
 class Box
 {
 protected:
     /*!
-     * \brief size size of the box
+      *\brief size size of the box
      */
     unsigned  int size;
     /*!
-     * \brief type type of the box
+      *\brief type type of the box
      */
     QString type;
     /*!
-     * \brief offset bit offset of the box location
+      *\brief offset bit offset of the box location
      */
     unsigned long int offset;
     /*!
-     * \brief extended_type indicates whether the box has extended type (1) or not (0)
+      *\brief extended_type indicates whether the box has extended type (1) or not (0)
      */
     unsigned  int extended_type;
     /*!
-     * \brief otherBoxOffset bit byte distance between begin of box and the begin of boxes from the box
-     * (for boxes who are containers)
+      *\brief otherBoxOffset bit byte distance between begin of box and the begin of boxes from the box
+      *(for boxes who are containers)
      */
     unsigned long int otherBoxOffset;
 public:
     /*!
-     * \brief Box
-     * constructor
-     * \param s size of box in bytes
-     * \param t type of box (created from reading bytes in ASCII code)
-     * \param off offset of box in bytes
-     * \param e extended_type
+      *\brief Box
+      *constructor
+      *\param s size of box in bytes
+      *\param t type of box (created from reading bytes in ASCII code)
+      *\param off offset of box in bytes
+      *\param e extended_type
      */
     Box(const unsigned  int &s, const QString& t, const unsigned long &off, const unsigned  int &e);
     /*!
-     * \brief isContainer
-     * \return true when box contains other boxes, false otherwise
+      *\brief isContainer
+      *\return true when box contains other boxes, false otherwise
      */
     virtual bool isContainer() { return false; }
     /*!
-     * \brief getContainetOffset
-     * \return offset of child boxes in the box (in bytes)
+      *\brief getContainetOffset
+      *\return offset of child boxes in the box (in bytes)
      */
     virtual unsigned int getContainerOffset() { return 8; }
     /*!
-     * \brief getType
-     * \return type of the box
+      *\brief getType
+      *\return type of the box
      */
     virtual QString getType() { return type; }
     /*!
-     * \brief getFullName
-     * \return fullName of the box, e.g. "Media Data Box"
+      *\brief getFullName
+      *\return fullName of the box, e.g. "Media Data Box"
      */
     virtual QString getFullName() { return QString(" "); }
-    virtual QStandardItemModel* getModel() { return new QStandardItemModel(); }
+    virtual QStandardItemModel *getModel() { return new QStandardItemModel(); }
     /*!
-     * \brief getSize
-     * \return size in bytes
+      *\brief getSize
+      *\return size in bytes
      */
     virtual unsigned long int getSize() { return size; }
     /*!
-     * \brief getOffset
-     * \return offset of the box in bytes
+      *\brief getOffset
+      *\return offset of the box in bytes
      */
     virtual unsigned long int getOffset() const { return offset; }
     /*!
-     * \brief getSampleSize
-     * This method is overwritten in SampleSizeBox. It should not be used while dealing with other boxes.
-     * When called on other boxes it returns 0.
-     * \see virtual unsigned long int SampleSizeBox::getSampleSize(const unsigned long int& id);
-     * \param id
-     * \return
+      *\brief getSampleSize
+      *This method is overwritten in SampleSizeBox. It should not be used while dealing with other boxes.
+      *When called on other boxes it returns 0.
+      *\see virtual unsigned long int SampleSizeBox::getSampleSize(const unsigned long int& id);
+      *\param id
+      *\return
      */
     virtual unsigned long int getSampleSize(const unsigned long int& id) {
         return id*0;
     }
     /*!
-     * \brief getEntryCount
-     * This method is overwritten in SampleSizeBox, SyncSampleBox and SampleDescriptionBox. It should not be used while dealing with
-     * other boxes.
-     * When called on other boxes it returns 0.
-     * \see virtual unsigned long int SampleSizeBox::getEntryCount();
-     * \see virtual unsigned long int SyncSampleBox::getEntryCount();
-     * \see virtual unsigned long int SampleDescriptionBox::getEntryCount();
-     * \param id
-     * \return
+      *\brief getEntryCount
+      *This method is overwritten in SampleSizeBox, SyncSampleBox and SampleDescriptionBox. It should not be used while dealing with
+      *other boxes.
+      *When called on other boxes it returns 0.
+      *\see virtual unsigned long int SampleSizeBox::getEntryCount();
+      *\see virtual unsigned long int SyncSampleBox::getEntryCount();
+      *\see virtual unsigned long int SampleDescriptionBox::getEntryCount();
+      *\param id
+      *\return
      */
     virtual unsigned long int getEntryCount() {
         return 0;
     }
     /*!
-     * \brief getSyncSample
-     * This method is overwritten in SyncSampleBox. It should not be used while dealing with other boxes.
-     * When called on other boxes it returns 0.
-     * \see virtual unsigned long int SyncSampleBox::getSyncSample(const unsigned long int& id);
-     * \param id
-     * \return
+      *\brief getSyncSample
+      *This method is overwritten in SyncSampleBox. It should not be used while dealing with other boxes.
+      *When called on other boxes it returns 0.
+      *\see virtual unsigned long int SyncSampleBox::getSyncSample(const unsigned long int& id);
+      *\param id
+      *\return
      */
     virtual unsigned long int getSyncSample(const int& id) {
         return 0*id;
     }
     /*!
-     * \brief getMediaTimeScale()
-     * This method is overwritten in MediaHeaderBox. It should not be used while dealing with other boxes.
-     * When called on other boxes it returns 0.
-     * \see virtual unsigned long int MediaHeaderBox::getMediaTimeScale();
-     * \param id
-     * \return
+      *\brief getMediaTimeScale()
+      *This method is overwritten in MediaHeaderBox. It should not be used while dealing with other boxes.
+      *When called on other boxes it returns 0.
+      *\see virtual unsigned long int MediaHeaderBox::getMediaTimeScale();
+      *\param id
+      *\return
      */
     virtual unsigned long int getMediaTimeScale() {
         return 0;
     }
     /*!
-     * \brief getTrackID()
-     * This method is overwritten in MediaHeaderBox, TrackHeaderBox, TrackExtendsBox and TrackFragmentHeaderBox.
-     * It should not be used while dealing with other boxes.
-     * When called on other boxes it returns 0.
-     * \see virtual unsigned long int MediaHeaderBox::getTrackID);
-     * \see virtual unsigned long int TrackHeaderBox::getTrackID);
-     * \see virtual unsigned long int TrackExtendsBox::getTrackID);
-     * \see virtual unsigned long int TrackFragmentHeaderBox::getTrackID);
-     * \param id
-     * \return
+      *\brief getTrackID()
+      *This method is overwritten in MediaHeaderBox, TrackHeaderBox, TrackExtendsBox and TrackFragmentHeaderBox.
+      *It should not be used while dealing with other boxes.
+      *When called on other boxes it returns 0.
+      *\see virtual unsigned long int MediaHeaderBox::getTrackID);
+      *\see virtual unsigned long int TrackHeaderBox::getTrackID);
+      *\see virtual unsigned long int TrackExtendsBox::getTrackID);
+      *\see virtual unsigned long int TrackFragmentHeaderBox::getTrackID);
+      *\param id
+      *\return
      */
     virtual unsigned int getTrackID() {
         return 0;
     }
     /*!
-     * \brief getVersion
-     * \return version of the box or 2 if box is not FullBox
+      *\brief getVersion
+      *\return version of the box or 2 if box is not FullBox
      */
     virtual unsigned int getVersion() {
         return 2;
     }
     /*!
-     * \brief getDuration
-     * This method is overwritten in MovieHeaderBox.
-     * It should not be used while dealing with other boxes.
-     * When called on other boxes it returns 0.
-     * \see virtual unsigned long int MovieHeaderBox::getDuration()
-     * \return
+      *\brief getDuration
+      *This method is overwritten in MovieHeaderBox.
+      *It should not be used while dealing with other boxes.
+      *When called on other boxes it returns 0.
+      *\see virtual unsigned long int MovieHeaderBox::getDuration()
+      *\return
      */
     virtual unsigned long int getDuration() {
         return 0;
     }
     /*!
-     * \brief getSampleSize
-     * This method is overwritten in SampleSizeBox.
-     * It should not be used while dealing with other boxes.
-     * When called on other boxes it returns 0.
-     * \see virtual unsigned long int SampelSizeBox::getSampleSize()
-     * \return
+      *\brief getSampleSize
+      *This method is overwritten in SampleSizeBox.
+      *It should not be used while dealing with other boxes.
+      *When called on other boxes it returns 0.
+      *\see virtual unsigned long int SampelSizeBox::getSampleSize()
+      *\return
      */
     virtual unsigned long int getSampleSize() {
         return 0;
     }
     /*!
-     * \brief getTimeScale
-     * This method is overwritten in MovieHeaderBox.
-     * It should not be used while dealing with other boxes.
-     * When called on other boxes it returns 0.
-     * \see virtual unsigned long int MovieHeaderBox::getTimeScale()
-     * \return
+      *\brief getTimeScale
+      *This method is overwritten in MovieHeaderBox.
+      *It should not be used while dealing with other boxes.
+      *When called on other boxes it returns 0.
+      *\see virtual unsigned long int MovieHeaderBox::getTimeScale()
+      *\return
      */
     virtual unsigned long int getTimeScale() {
         return 0;
@@ -209,9 +209,9 @@ public:
     }
 
     /*!
-     * \brief operator <
-     * \param b
-     * \return true if offset of the box is smaller than offset of box b
+      *\brief operator <
+      *\param b
+      *\return true if offset of the box is smaller than offset of box b
      */
     bool operator < (const Box &b) const {
         return offset < b.getOffset();
@@ -222,7 +222,7 @@ class FullBox : public Box
 {
 protected:
     /*!
-     * \brief version
+      *\brief version
      */
     unsigned int version;
     QList<unsigned int> flags;
@@ -246,7 +246,7 @@ public:
                 const unsigned int& mv, const QList<QString>& cb);
     virtual QString getFullName() { return QString("File Type Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////
 class SegmentTypeBox : public Box
@@ -260,7 +260,7 @@ public:
                    const unsigned int& mv, const QList<QString>& cb);
     virtual QString getFullName() { return QString("Segment Type Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 class MediaBox : public Box
@@ -269,8 +269,8 @@ public:
     MediaBox(const unsigned  int &s, const QString& t, const unsigned long &off, const unsigned  int &e);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Media Box"); }
-    virtual QStandardItemModel* getModel() {
-         QStandardItemModel* model = new QStandardItemModel(1,1,0);
+    virtual QStandardItemModel *getModel() {
+         QStandardItemModel *model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Media Box is a container for all objects that declare information about the media data within a track.");
         return model;
     }
@@ -281,8 +281,8 @@ class MediaDataBox : public Box
 public:
     MediaDataBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e);
     virtual QString getFullName() { return QString("Media Data Box"); }
-    virtual QStandardItemModel* getModel() {
-         QStandardItemModel* model = new QStandardItemModel(1,1,0);
+    virtual QStandardItemModel *getModel() {
+         QStandardItemModel *model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Media Box contains the media data.");
         return model;
     }
@@ -303,7 +303,7 @@ public:
                    const QList<unsigned int>& f, const unsigned long int& ct, const unsigned long int& mt, const unsigned int & ts,
                    const unsigned long int & dur, const bool & pad, const QList<unsigned int> & lan, const unsigned int & pd);
     virtual QString getFullName() { return QString("Media Header Box"); }
-     virtual QStandardItemModel* getModel();
+     virtual QStandardItemModel *getModel();
     virtual unsigned long int getMediaTimeScale() {
         return timescale;
     }
@@ -315,8 +315,8 @@ public:
     MovieBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Movie Box"); }
-    virtual QStandardItemModel* getModel() {
-         QStandardItemModel* model = new QStandardItemModel(1,1,0);
+    virtual QStandardItemModel *getModel() {
+         QStandardItemModel *model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Movie Box is container box for all meta-data.");
         return model;
     }
@@ -346,7 +346,7 @@ public:
                    const QList<unsigned long int>& pr, const unsigned long int& nextTrackId);
     virtual QString getFullName() { return QString("Movie Header Box "); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
     virtual unsigned long int getDuration() {
         return duration;
     }
@@ -376,7 +376,7 @@ public:
                         const QList <unsigned int> & opcolor);
     virtual QString getFullName() { return QString("Video Media Header Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SoundMediaHeaderBox : public FullBox
@@ -390,7 +390,7 @@ public:
     SoundMediaHeaderBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& e,
                         const unsigned  int& v, const QList<unsigned int>& f, const unsigned int& bl, const unsigned int&res);
     virtual QString getFullName() { return QString("Sound Media Header Box"); }
-     virtual QStandardItemModel* getModel();
+     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class HintMediaHeaderBox : public FullBox
@@ -445,7 +445,7 @@ public:
                     const QList<unsigned int>& f, const QString& location);
     virtual QString getFullName() { return QString("Data Entry URL Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class DataReferenceBox : public FullBox
@@ -459,7 +459,7 @@ public:
                      const QList<unsigned int>& f, const unsigned long int& ec);
     virtual QString getFullName() { return QString("Data Reference Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
     virtual bool isContainer() { return true; }
     virtual unsigned int getContainerOffset() { return 16; }
 };
@@ -497,7 +497,7 @@ public:
                 const QList<unsigned long int>&medT, const QList<unsigned int>& mri, const QList<unsigned int>& mrf);
     virtual QString getFullName() { return QString("Edit List Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class UserDataBox : public Box
@@ -538,7 +538,7 @@ public:
                           const unsigned  int& v, const QList<unsigned int>& f, const unsigned long int& fd);
     virtual QString getFullName() { return QString("Movie Extends Header Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class MovieFragmentBox : public Box
@@ -559,7 +559,7 @@ public:
     MovieFragmentHeaderBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const long& sn, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Movie Fragment Header Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -893,7 +893,7 @@ public:
                     const QList<bool> & startsWithSAP, const QList<unsigned  int>& SAPType, const QList<unsigned  int>& SAPDeltaTime);
     virtual QString getFullName() { return QString("Segment Index Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SubsegmentIndexBox : public FullBox

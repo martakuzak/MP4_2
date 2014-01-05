@@ -88,14 +88,14 @@ void SegmentList::write(QXmlStreamWriter *stream) {
 }
 //////
 void SegmentList::addSegmentURL(const QString& mediaRange, const QString& indexRange) {
-    SegmentURL* surl = new SegmentURL();
+    SegmentURL *surl = new SegmentURL();
     surl->setMediaRange(mediaRange);
     surl->setIndexRange(indexRange);
     segmentURLs.append(surl);
 }
 ////////
 void SegmentList::addSegmentURL(const QString &media) {
-    SegmentURL* surl = new SegmentURL();
+    SegmentURL *surl = new SegmentURL();
     surl->setMedia(media);
     segmentURLs.append(surl);
 }

@@ -11,111 +11,111 @@
 class Analyzer;
 class MainWindow;
 /*!
- * \brief The TreeItem class represent single element of the tree model
+  *\brief The TreeItem class represent single element of the tree model
  */
 class TreeItem
 {
 
 private:
     /*!
-     * \brief childItems children of the item
+      *\brief childItems children of the item
      */
     QList<TreeItem*> childItems;
     /*!
-     * \brief itemData data of the item
+      *\brief itemData data of the item
      */
     QList<QVariant> itemData;
     /*!
-     * \brief parentItem parent of the item
+      *\brief parentItem parent of the item
      */
     TreeItem *parentItem;
     /*!
-     * \brief box corresponding box
+      *\brief box corresponding box
      */
     std::shared_ptr<Box> box;
 public:
     /*!
-     * \brief TreeItem
-     *  constructor
-     * \param data data of the parent item
-     * \param parent parent of the item
-     * \param off offset
+      *\brief TreeItem
+      * constructor
+      *\param data data of the parent item
+      *\param parent parent of the item
+      *\param off offset
      */
     explicit TreeItem(Analyzer *an,const QList<QVariant> &data, TreeItem *parent = 0, const long int& off=0);
     explicit TreeItem();
     //!Destructor
     ~TreeItem();
     /*!
-     * \brief appendChild appends child item to the parent
-     * \param child pointer to the child that is to be appended
+      *\brief appendChild appends child item to the parent
+      *\param child pointer to the child that is to be appended
      */
     void appendChild(TreeItem *child);
     /*!
-     * \brief child
-     * \param row
-     * \return child from given row
+      *\brief child
+      *\param row
+      *\return child from given row
      */
     TreeItem *child(int row);
     /*!
-     * \brief childCount
-     * \return number of children of the item
+      *\brief childCount
+      *\return number of children of the item
      */
     int childCount() const;
     /*!
-     * \brief columnCount
-     * \return number of columns
+      *\brief columnCount
+      *\return number of columns
      */
     int columnCount() const;
     /*!
-     * \brief data
-     * \param column
-     * \return data from given column
+      *\brief data
+      *\param column
+      *\return data from given column
      */
     QVariant data(int column) const;
     /*!
-     * \brief row
-     * \return number of rows
+      *\brief row
+      *\return number of rows
      */
     int row() const;
     /*!
-     * \brief parent
-     * \return parent of the item
+      *\brief parent
+      *\return parent of the item
      */
     TreeItem *parent();
     /*!
-     * \brief isContainer Tests if represented box is container
-     * \return If box is container.
+      *\brief isContainer Tests if represented box is container
+      *\return If box is container.
      */
     bool isContainer() {
         if(box) return box->isContainer();
         else return false;
     }
     /*!
-     * \brief getOffset
-     * \return
+      *\brief getOffset
+      *\return
      */
     int unsigned getOffset() {
         if(box) return box->getContainerOffset();
         else return 8;
     }
     /*!
-     * \brief isNull
-     * \return true if box was unknown
+      *\brief isNull
+      *\return true if box was unknown
      */
     bool isNull() {
         if(box) return false;
         else return true;
     }
     /*!
-     * \brief getType
-     * \return type of the box
+      *\brief getType
+      *\return type of the box
      */
     QString getType() {
         return box->getType();
     }
     /*!
-     * \brief fullName
-     * \return full name of the box
+      *\brief fullName
+      *\return full name of the box
      */
     QString fullName() {
         if(box == NULL)
@@ -123,13 +123,13 @@ public:
         return box->getFullName();
     }
 
-    QStandardItemModel* getModel() {
+    QStandardItemModel *getModel() {
         return box->getModel();
     }
 
     /*!
-     * \brief getBox
-     * \return box
+      *\brief getBox
+      *\return box
      */
     std::shared_ptr<Box> getBox() {
         return box;

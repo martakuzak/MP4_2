@@ -5,7 +5,7 @@ BoxFactory::BoxFactory(Analyzer *an): analyzer(an)
 {}
 
 std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, unsigned long int off, const unsigned int&  e) {
-    qDebug()<<type;
+    //qDebug()<<type;
     if(type.at(0)==QChar('m'))
         return this->getMBox(size, type, off, e);
     else if(type.at(0)==QChar('t'))
@@ -1260,7 +1260,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         for(unsigned int i = 0; i<referenceCount; i++) {
             //referenceType.append(analyzer->bitValue(offset +32,0));
             referenceType.append(analyzer->valueOfGroupOfBits(1, (off + offset + 32)*8));
-            //int referenceSizeBitOffset = (offset + 31) * 8;
+            //int referenceSizeBitOffset = (offset + 31)  *8;
             //referenceSize.append(analyzer->valueOfBits(referenceSizeBitOffset+249, referenceSizeBitOffset+279));
             //            if (referenceType.at(i)) {
             //                referenceSize.append(analyzer->valueOfGroupOfBytes(4, off + offset + 32) - pow(2.0,31) );
@@ -1289,7 +1289,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
             //            SAPDeltaTime.append(qstringSAPDeltaTime.toUInt(0,2));
 
             //            startsWithSAP.append(analyzer->bitValue(offset+40,0));
-            //            int SAPTypeBitOffset = (offset + 39) * 8;
+            //            int SAPTypeBitOffset = (offset + 39)  *8;
             //            SAPType.append(analyzer->valueOfBits(SAPTypeBitOffset+312,SAPTypeBitOffset+314));
             //            SAPDeltaTime.append(analyzer->valueOfBits(SAPTypeBitOffset+315,SAPTypeBitOffset+342));
             offset += 12;

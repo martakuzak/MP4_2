@@ -18,8 +18,8 @@ FileTypeBox::FileTypeBox(const unsigned  int& s, const QString& t, const unsigne
     minorVersion(mv),
     compatibleBrands(cb) {}
 
-QStandardItemModel* FileTypeBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
+QStandardItemModel *FileTypeBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Major brand");
     model->setData(model->index(0, 1, QModelIndex()), majorBrand);
     model->setData(model->index(1, 0, QModelIndex()), "Minor version");
@@ -44,8 +44,8 @@ SegmentTypeBox::SegmentTypeBox(const unsigned  int& s, const QString& t, const u
     minorVersion(mv),
     compatibleBrands(cb) {}
 
-QStandardItemModel* SegmentTypeBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
+QStandardItemModel *SegmentTypeBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Major brand");
     model->setData(model->index(0, 1, QModelIndex()), majorBrand);
     model->setData(model->index(1, 0, QModelIndex()), "Minor version");
@@ -82,8 +82,8 @@ MediaHeaderBox::MediaHeaderBox(const unsigned  int& s, const QString& t, const u
     predefined(prd)
 {}
 
-QStandardItemModel* MediaHeaderBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(8, 2, 0);
+QStandardItemModel *MediaHeaderBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(8, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -140,8 +140,8 @@ MovieHeaderBox::MovieHeaderBox(const unsigned  int& s, const QString& t, const u
     predefined(pr)
 {}
 
-QStandardItemModel* MovieHeaderBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(11, 2, 0);
+QStandardItemModel *MovieHeaderBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(11, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -202,8 +202,8 @@ VideoMediaHeaderBox::VideoMediaHeaderBox(const unsigned  int& s, const QString& 
     opcolor(opc)
 {}
 
-QStandardItemModel* VideoMediaHeaderBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(6, 2, 0);
+QStandardItemModel *VideoMediaHeaderBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(6, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -238,8 +238,8 @@ SoundMediaHeaderBox::SoundMediaHeaderBox(const unsigned  int& s, const QString& 
     reserved(res)
 {}
 
-QStandardItemModel* SoundMediaHeaderBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(6, 2, 0);
+QStandardItemModel *SoundMediaHeaderBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(6, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -277,8 +277,8 @@ DataEntryUrlBox::DataEntryUrlBox(const unsigned  int& s, const QString& t, const
     location(loc)
 {}
 
-QStandardItemModel* DataEntryUrlBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
+QStandardItemModel *DataEntryUrlBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -302,8 +302,8 @@ DataReferenceBox::DataReferenceBox(const unsigned  int& s, const QString& t, con
     entryCount(ec)
 {}
 
-QStandardItemModel* DataReferenceBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
+QStandardItemModel *DataReferenceBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -338,8 +338,8 @@ EditListBox::EditListBox(const unsigned int& s, const QString& t, const unsigned
     mediaRateFraction(mrf)
 {}
 
-QStandardItemModel* EditListBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(6, 2, 0);
+QStandardItemModel *EditListBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(6, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -398,8 +398,8 @@ MovieExtendsHeaderBox::MovieExtendsHeaderBox(const unsigned  int& s, const QStri
     fragmentDuration(fd)
 {}
 
-QStandardItemModel* MovieExtendsHeaderBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
+QStandardItemModel *MovieExtendsHeaderBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -421,8 +421,8 @@ MovieFragmentHeaderBox::MovieFragmentHeaderBox(const unsigned  int& s, const QSt
     FullBox(s,t,off,e, v, f),
     sequenceNumber(sn){}
 
-QStandardItemModel* MovieFragmentHeaderBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
+QStandardItemModel *MovieFragmentHeaderBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -553,8 +553,8 @@ SegmentIndexBox::SegmentIndexBox(const unsigned  int& s, const QString& t, const
     SAPDeltaTime(mySAPDeltaTime)
 {}
 
-QStandardItemModel* SegmentIndexBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(5 + (SAPDeltaTime.size()>0)*6, 2, 0);
+QStandardItemModel *SegmentIndexBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(5 + (SAPDeltaTime.size()>0)*6, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");

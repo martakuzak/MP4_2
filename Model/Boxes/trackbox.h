@@ -1,16 +1,16 @@
 /*!
- * \file TrackBox
- * \details
- * TrackBox
- * TrackExtendsBox
- * TrackFragmentBaseMediaDecodeTimeBox
- * TrackFragmentBox
- * TrackFragmentHeaderBox
- * TrackFragmentRandomAccessBox
- * TrackHeaderBox
- * TrackReferenceBox
- * TrackRunBox
- * HandlerBox
+  *\file TrackBox
+  *\details
+  *TrackBox
+  *TrackExtendsBox
+  *TrackFragmentBaseMediaDecodeTimeBox
+  *TrackFragmentBox
+  *TrackFragmentHeaderBox
+  *TrackFragmentRandomAccessBox
+  *TrackHeaderBox
+  *TrackReferenceBox
+  *TrackRunBox
+  *HandlerBox
  */
 #ifndef TRACKBOX_H
 #define TRACKBOX_H
@@ -24,8 +24,8 @@ public:
     TrackBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Track Box"); }
-    virtual QStandardItemModel* getModel() {
-        QStandardItemModel* model = new QStandardItemModel(1,1,0);
+    virtual QStandardItemModel *getModel() {
+        QStandardItemModel *model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Track Box is a box container for a single track of presentation.");
         return model;
     }
@@ -57,7 +57,7 @@ public:
                    const unsigned int & wdth, const unsigned int & hght);
     virtual QString getFullName() { return QString("Track Header Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
     virtual unsigned int getTrackID() {
         return trackID;
     }
@@ -86,7 +86,7 @@ public:
                     const unsigned int& dss, const unsigned int& dsf);
     virtual QString getFullName() { return QString("Track Extends Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class TrackFragmentBox : public Box
@@ -95,8 +95,8 @@ public:
     TrackFragmentBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Track Fragment Box"); }
-    virtual QStandardItemModel* getModel() {
-         QStandardItemModel* model = new QStandardItemModel(1,1,0);
+    virtual QStandardItemModel *getModel() {
+         QStandardItemModel *model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Track Fragment Box is usefull for defaulting many fields within track fragments structure, it can store the space and complexity of movie fragments default values");
         return model;
     }
@@ -120,7 +120,7 @@ public:
                            const unsigned long int& dsf);
     virtual QString getFullName() { return QString("Track Fragment Header Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class TrackRunBox : public FullBox
@@ -143,7 +143,7 @@ public:
                 const QList<unsigned long int>& scto);
     virtual QString getFullName() { return QString("Track Run Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class TrackFragmentRandomAccessBox : public FullBox
@@ -167,7 +167,7 @@ public:
                                         const unsigned int& v, const QList<unsigned int>& f, const unsigned long int& bmdt);
     virtual QString getFullName() { return QString("Track Fragment Base Media Decode Time Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class HandlerBox : public FullBox
@@ -185,7 +185,7 @@ public:
                const QString & nam);
     virtual QString getFullName() { return QString("Handler Box"); }
 
-    virtual QStandardItemModel* getModel();
+    virtual QStandardItemModel *getModel();
 };
 
 #endif // TRACKBOX_H

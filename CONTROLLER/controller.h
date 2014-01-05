@@ -9,16 +9,19 @@
 class Controller: public QObject {
     Q_OBJECT
 private:
-    MainWindow* window;
-    TreeModel* model;
-    DashWrapper* dashWrap;
+    MainWindow *window;
+    TreeModel *model;
+    QStandardItemModel *fileModel;
+    DashWrapper *dashWrap;
 private slots:
     void fileSelected(const QString& fileName);
-    void boxSelected(QItemSelectionModel* selection);
+    void boxSelected(QItemSelectionModel *selection);
     void searchBox(const QString& boxType);
-    void dashFilesSelected(QAbstractItemModel *model, const bool &oneFile);
+    void dashFilesSelected(const bool &oneFile);
+    void dashDirSelected(const QString &dir);
+    void removeFile(const int &row);
 public:
-    Controller(MainWindow* mw);
+    Controller(MainWindow *mw);
 private:
     void makeConnection();
 };

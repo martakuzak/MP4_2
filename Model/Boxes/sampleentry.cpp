@@ -8,8 +8,8 @@ SampleEntry::SampleEntry(const unsigned int& s, const QString& t, const unsigned
     dataReferenceIndex(dri)
 {}
 
-QStandardItemModel* SampleEntry::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(2, 2, 0);
+QStandardItemModel *SampleEntry::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(2, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Reserved");
     QString tmp("");
     for(int i = 0; i < reserved.size(); ++i) {
@@ -44,8 +44,8 @@ VisualSampleEntry::VisualSampleEntry(const unsigned  int& s, const QString& t, c
     predefined2(pd2)
 {}
 
-QStandardItemModel* VisualSampleEntry::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(14, 2, 0);
+QStandardItemModel *VisualSampleEntry::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(14, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Reserved");
     QString tmp("");
     for(int i = 0; i < reserved.size(); ++i) {
@@ -103,8 +103,8 @@ AudioSampleEntry::AudioSampleEntry(const unsigned  int& s, const QString& t, con
     sampleRate(srate)
 {}
 
-QStandardItemModel* AudioSampleEntry::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(8, 2, 0);
+QStandardItemModel *AudioSampleEntry::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(8, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Reserved");
     QString tmp("");
     for(int i = 0; i < reserved.size(); ++i) {
@@ -199,8 +199,8 @@ AVCConfigurationBox::AVCConfigurationBox(const unsigned int& s, const QString& t
     pictureParameterSetNALUnit(ppsnu)
 {}
 
-QStandardItemModel* AVCConfigurationBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(5 + 2*numOfSequenceParameterSets +
+QStandardItemModel *AVCConfigurationBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(5 + 2*numOfSequenceParameterSets +
                                                        2*numOfPictureParameterSets, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Configuration version");
     model->setData(model->index(0, 1, QModelIndex()), QString::number(configurationVersion));
@@ -251,8 +251,8 @@ MPEG4BitRateBox::MPEG4BitRateBox(const unsigned int& s, const QString& t, const 
     avgBitrate(avgBr)
 {}
 
-QStandardItemModel* MPEG4BitRateBox::getModel() {
-    QStandardItemModel* model = new QStandardItemModel(3, 2, 0);
+QStandardItemModel *MPEG4BitRateBox::getModel() {
+    QStandardItemModel *model = new QStandardItemModel(3, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Buffer size DB");
     model->setData(model->index(0, 1, QModelIndex()), QString::number(bufferSizeDB));
     model->setData(model->index(1, 0, QModelIndex()), "Max bitrate");
