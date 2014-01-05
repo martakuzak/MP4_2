@@ -69,46 +69,27 @@ void Controller::searchBox(const QString &boxType) {
 }
 ////////////////////////////////////////////
 void Controller::dashFilesSelected(QAbstractItemModel* model, const bool& oneFile) {
-    //for each file
-    //create aFile
-    //create mpdRepr
-
-    //createMPD
     QDateTime local(QDateTime::currentDateTime());
     QString date = local.toString();
     date.replace(QString(":"), QString("_"));
+    dashWrap->clear();
     if(model->rowCount()) {
         dashWrap->setFileProp(model->index(0,0).data(Qt::DisplayRole).toString());
     }
     for ( int i = 0 ; i < model->rowCount() ; ++i ) {
-        qDebug()<<"control"<<QString::number(i);
         QString fileName = model->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
         bool result;
-        if(oneFile) {
-            result = dashWrap->writeFile(date, fileName, 50);
-            if(!result) {
-                window->showWarningDialog("Error while writing files");
-                return;
-            }
-            dashWrap->setMpdProps();
-            dashWrap->initMPD(oneFile);
-            qDebug()<<"before rep";
-            dashWrap->addRepresentation(oneFile);
-            qDebug()<<"repr added";
-        }
-        else {
+        if(oneFile)
+            result = dashWrap->writeFile(date, fileName, 50);        
+        else
             result = dashWrap->writeFiles(date, fileName, 50);
-            if(!result) {
-                window->showWarningDialog("Error while writing files");
-                return;
-            }
-            dashWrap->setMpdProps();
-            dashWrap->initMPD(oneFile);
-
-            dashWrap->addRepresentation(oneFile);
+        if(!result) {
+            window->showWarningDialog("Error while writing files");
+            return;
         }
-
-
+        dashWrap->setMpdProps();
+        dashWrap->initMPD(oneFile);
+        dashWrap->addRepresentation(oneFile);
     }
     dashWrap->writeMPD(oneFile);
     window->showInfoDialog("Dash files generated.");

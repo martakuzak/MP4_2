@@ -5,7 +5,7 @@ BoxFactory::BoxFactory(Analyzer *an): analyzer(an)
 {}
 
 std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, unsigned long int off, const unsigned int&  e) {
-    //qDebug()<<type;
+    qDebug()<<type;
     if(type.at(0)==QChar('m'))
         return this->getMBox(size, type, off, e);
     else if(type.at(0)==QChar('t'))

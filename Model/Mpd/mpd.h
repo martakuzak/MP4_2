@@ -108,7 +108,7 @@ public:
 //    QList<Representation*> representations;
 
 //    QString getDuration();
-//    unsigned int* getDimensions();
+    unsigned int* getDimensions();
 //    QString getHMSFormat(const double& value);
 //    void setMPD(bool oneFile);
 //    //void setProgramInformation();

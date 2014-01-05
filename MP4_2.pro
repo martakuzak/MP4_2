@@ -11,45 +11,45 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = MP4_2
 TEMPLATE = app
 
-INCLUDEPATH += ./DASH \
-               ./GUI \
-               ./MPD \
-               ./TREE \
-               ./CONTROLLER
+INCLUDEPATH += ./Model\Dash \
+               ./View \
+               ./Model\Mpd \
+               ./Model\Boxes \
+               ./Controller
 
 SOURCES += main.cpp\
-        GUI\mainwindow.cpp \
-    TREE\analyzer.cpp \
-    TREE\box.cpp \
-    TREE\boxfactory.cpp \
-    DASH\dashcreator.cpp \
-    DASH\dashwrapper.cpp \
-    TREE\exceptions.cpp \
-    MPD\mpd.cpp \
-    MPD\period.cpp \
-    TREE\sampleentry.cpp \
-    TREE\sampletablebox.cpp \
-    MPD\segmentlist.cpp \
-    TREE\trackbox.cpp \
-    TREE\treeitem.cpp \
-    TREE\treemodel.cpp \
-    CONTROLLER\controller.cpp
+        View\mainwindow.cpp \
+    Model\Boxes\analyzer.cpp \
+    Model\Boxes\box.cpp \
+    Model\Boxes\boxfactory.cpp \
+    Model\Dash\dashcreator.cpp \
+    Model\Dash\dashwrapper.cpp \
+    Model\Boxes\exceptions.cpp \
+    Model\Mpd\mpd.cpp \
+    Model\Mpd\period.cpp \
+    Model\Boxes\sampleentry.cpp \
+    Model\Boxes\sampletablebox.cpp \
+    Model\Mpd\segmentlist.cpp \
+    Model\Boxes\trackbox.cpp \
+    Model\Boxes\treeitem.cpp \
+    Model\Boxes\treemodel.cpp \
+    Controller\controller.cpp
 
-HEADERS  += GUI\mainwindow.h \
-    TREE\analyzer.h \
-    TREE\box.h \
-    TREE\boxfactory.h \
-    DASH\dashcreator.h \
-    DASH\dashwrapper.h \
-    TREE\exceptions.h \
-    MPD\mpd.h \
-    MPD\period.h \
-    TREE\sampleentry.h \
-    TREE\sampletablebox.h \
-    MPD\segmentlist.h \
-    TREE\trackbox.h \
-    TREE\treeitem.h \
-    TREE\treemodel.h \
-    CONTROLLER\controller.h
+HEADERS  += View\mainwindow.h \
+    Model\Boxes\analyzer.h \
+    Model\Boxes\box.h \
+    Model\Boxes\boxfactory.h \
+    Model\Dash\dashcreator.h \
+    Model\Dash\\dashwrapper.h \
+    Model\Boxes\exceptions.h \
+    Model\Mpd\mpd.h \
+    Model\Mpd\period.h \
+    Model\Boxes\sampleentry.h \
+    Model\Boxes\sampletablebox.h \
+    Model\Mpd\segmentlist.h \
+    Model\Boxes\trackbox.h \
+    Model\Boxes\treeitem.h \
+    Model\Boxes\treemodel.h \
+    Controller\controller.h
 
 FORMS

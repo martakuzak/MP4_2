@@ -81,7 +81,6 @@ void SegmentList::write(QXmlStreamWriter *stream) {
         stream->writeAttribute("duration", QString::number(duration));
     initialization->write(stream);
     while(!segmentURLs.empty()) {
-        qDebug()<<"not empty";
         segmentURLs.front()->write(stream);
         segmentURLs.pop_front();
     }

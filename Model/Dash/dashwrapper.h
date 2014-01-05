@@ -39,6 +39,7 @@ public:
     void writeMPD(const bool& oneFile);
     void initMPD(const bool& oneFile);
     void setMpdProps();
+    void clear();
 //public:
 //    /*!
 //     * \brief DashProxy
