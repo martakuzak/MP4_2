@@ -195,7 +195,7 @@ void MPDWriter::init(bool oneFile) {
     dashModel = new TreeModel(an);
 }
 
-void MPDWriter::setMPD(bool oneFile) {
+void MPDWriter::setMPD(bool oneFile, const QString &url) {
     //MPD
     mpd = new MPD();
     //mpd->setId(unisgned int); //nieobowiazkowe, poza tym bedzie jedno mpd, wiec bez tego
@@ -211,16 +211,16 @@ void MPDWriter::setMPD(bool oneFile) {
     //mpd->getMaxSegmentDuration(); //nieobowiązkowe
     //mpd->getMaxSubsegmentDuration(); //nieobowiązkowe
     mpd->addPeriod(setPeriod(oneFile));
-    mpd->setBaseURL(dashPath);
+    mpd->setBaseURL(url);
 }
 //////////////////////////
-void MPDWriter::writeMPD(/*QFile *file, */bool oneFile) {
+void MPDWriter::writeMPD(/*QFile *file, */bool oneFile, const QString &url) {
     //qDebug()<<"WRITEMPD1";
     QString mpdName = originalFileName;
     mpdName.replace(".mp4", ".mpd");
     QFile *mpdFile = new QFile(dashPath + "/" + mpdName);
     if(mpdFile->open(QIODevice::ReadWrite)) {
-        setMPD(oneFile);
+        setMPD(oneFile, url);
         QXmlStreamWriter *stream = new QXmlStreamWriter(mpdFile);
         stream->setAutoFormatting(true);
         stream->writeStartDocument();

@@ -40,7 +40,7 @@ HEADERS  += View\mainwindow.h \
     Model\Boxes\box.h \
     Model\Boxes\boxfactory.h \
     Model\Dash\dashcreator.h \
-    Model\Dash\\dashwrapper.h \
+    Model\Dash\dashwrapper.h \
     Model\Boxes\exceptions.h \
     Model\Mpd\mpd.h \
     Model\Mpd\period.h \

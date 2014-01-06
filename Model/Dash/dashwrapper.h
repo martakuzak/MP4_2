@@ -36,7 +36,7 @@ public:
     bool writeFile(const QString& date, const QString& name, const unsigned int& maxSampleNum);
     bool writeFiles(const QString& date, const QString& name, const unsigned int& maxSampleNum);
     void addRepresentation(const bool& oneFile);
-    void writeMPD(const bool& oneFile);
+    void writeMPD(const bool& oneFile, const QString &url);
     void initMPD(const bool& oneFile);
     void setMpdProps();
     void clear();

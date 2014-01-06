@@ -91,7 +91,7 @@ public:
     void setDashPath(const QString& dashPath);
     SegmentList *setSegmentList(bool oneFile);
     void init(bool oneFile);
-    void writeMPD(bool oneFile);
+    void writeMPD(bool oneFile, const QString &url);
 
 //private:
 //    QString xmlHeader;// = "<?xml version=\"1.0\"?>";
@@ -112,7 +112,7 @@ public:
     QString getDuration();
     unsigned int *getDimensions();
     QString getHMSFormat(const double& value);
-    void setMPD(bool oneFile);
+    void setMPD(bool oneFile, const QString &url);
 //    //void setProgramInformation();
 //    SegmentList *setSegmentList(bool oneFile);
 //    BaseURL *setBaseURL(const QString &url);

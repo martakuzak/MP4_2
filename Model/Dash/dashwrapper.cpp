@@ -24,6 +24,9 @@ bool DashWrapper::writeFile(const QString& date, const QString& name, const unsi
     Analyzer *an = new Analyzer(name);
     ////qDebug()<<"dw write file 2";
     TreeModel *model = new TreeModel(an);
+    QList<std::shared_ptr<Box>> mdats = model->getBoxes("mdat");
+    if(mdats.size() != 1)
+        return false;
     //qDebug()<<"dw write file 3"<<path<<fileName;
     DashCreator *dashCreator = new DashCreator(dashPath, path + fileName, model);
     //qDebug()<<"dw write file 4";
@@ -51,8 +54,8 @@ void DashWrapper::addRepresentation(const bool &oneFile) {
     //qDebug()<<"dw addrepr";
     return mpdWriter->addRepresentation(path + fileName, oneFile);
 }
-void DashWrapper::writeMPD(const bool& oneFile) {
-    mpdWriter->writeMPD(oneFile);
+void DashWrapper::writeMPD(const bool& oneFile, const QString &url) {
+    mpdWriter->writeMPD(oneFile, url);
 }
 
 void DashWrapper::initMPD(const bool& oneFile) {
