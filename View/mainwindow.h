@@ -191,7 +191,7 @@ signals:
     void fileSelected(const QString& fileName);
     void boxSelected(QItemSelectionModel *selection);
     void searchBox(const QString& boxType);
-    void dashFilesSelectedSignal(const bool& oneFile);
+    void dashFilesSelectedSignal(const bool& oneFile, const QString &url);
     void dashDirSelectedSig(const QString &dir);
     void removeFileSig(const int& row);
 private:
@@ -218,16 +218,5 @@ private:
 
 ///////////////////////////////////////////////////////////////
 
-//class DashPage: public QWidget {
-//public:
-//    DashPage(QPushButton *addFile, QComboBox *option, QPushButton *remove,
-//             QListView *fileList, QHBoxLayout *fileLayout, QGroupBox *rightGroup, QWidget *parent = 0);
-//    void addFile();
-//private:
-//    QVBoxLayout *mainLayout;
-//    QPushButton *readyButton;
-//    QLabel *oneFile;
-//    QLabel *moreFile;
-//};
 
 #endif // MAINWINDOW_H

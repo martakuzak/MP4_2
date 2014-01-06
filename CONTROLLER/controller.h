@@ -17,7 +17,7 @@ private slots:
     void fileSelected(const QString& fileName);
     void boxSelected(QItemSelectionModel *selection);
     void searchBox(const QString& boxType);
-    void dashFilesSelected(const bool &oneFile);
+    void dashFilesSelected(const bool &oneFile, const QString &url);
     void dashDirSelected(const QString &dir);
     void removeFile(const int &row);
 public:

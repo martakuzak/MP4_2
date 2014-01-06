@@ -76,7 +76,7 @@ QStandardItemModel *VisualSampleEntry::getModel() {
     model->setData(model->index(7, 1, QModelIndex()), QString::number(horizontalResolution));
     model->setData(model->index(8, 0, QModelIndex()), "Vertical resolution");
     model->setData(model->index(8, 1, QModelIndex()), QString::number(verticalResolution));
-    model->setData(model->index(9, 0, QModelIndex()), "Reseserved3");
+    model->setData(model->index(9, 0, QModelIndex()), "Reserved3");
     model->setData(model->index(9, 1, QModelIndex()), QString::number(reserved3));
     model->setData(model->index(10, 0, QModelIndex()), "Frame count");
     model->setData(model->index(10, 1, QModelIndex()), QString::number(frameCount));

@@ -73,7 +73,7 @@ SegmentList::SegmentList() {
 }
 /////////////
 void SegmentList::write(QXmlStreamWriter *stream) {
-    qDebug()<<"segmentlist write";
+    //qDebug()<<"segmentlist write";
     stream->writeStartElement("SegmentList");
     if(timescale != NULL)
         stream->writeAttribute("timescale", QString::number(timescale));

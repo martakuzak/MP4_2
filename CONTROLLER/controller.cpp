@@ -5,13 +5,14 @@ Controller::Controller(MainWindow *mw): window(mw) {
     fileModel = new QStandardItemModel();
     makeConnection();
 }
+///////////////////////////////////////////////////////////
 void Controller::makeConnection() {
     connect(window, SIGNAL(fileSelected(QString)), this, SLOT(fileSelected(QString)), Qt::QueuedConnection);
     connect(window, SIGNAL(boxSelected(QItemSelectionModel*)), this,
             SLOT(boxSelected(QItemSelectionModel*)), Qt::QueuedConnection);
     connect(window, SIGNAL(searchBox(QString)), this, SLOT(searchBox(QString)), Qt::QueuedConnection);
-    connect(window, SIGNAL(dashFilesSelectedSignal(bool)), this,
-            SLOT(dashFilesSelected(bool)), Qt::QueuedConnection);
+    connect(window, SIGNAL(dashFilesSelectedSignal(bool, QString)), this,
+            SLOT(dashFilesSelected(bool, QString)), Qt::QueuedConnection);
     connect(window, SIGNAL(dashDirSelectedSig(QString)), this,
             SLOT(dashDirSelected(QString)), Qt::QueuedConnection);
     connect(window, SIGNAL(removeFileSig(int)), this, SLOT(removeFile(int)), Qt::QueuedConnection);
@@ -70,7 +71,7 @@ void Controller::searchBox(const QString &boxType) {
     //qDbug()<<"i co";
 }
 ////////////////////////////////////////////
-void Controller::dashFilesSelected(const bool& oneFile) {
+void Controller::dashFilesSelected(const bool& oneFile, const QString &url) {
     QDateTime local(QDateTime::currentDateTime());
     QString date = local.toString();
     date.replace(QString(":"), QString("_"));

@@ -341,7 +341,7 @@ Representation::Representation() {
 //{}
 
 void Representation::write(QXmlStreamWriter *stream) {
-    qDebug()<<"repr wr 1";
+    //qDebug()<<"repr wr 1";
     stream->writeStartElement("Representation");
     if(id != NULL)
         stream->writeAttribute("id", QString::number(id));
@@ -365,74 +365,60 @@ void Representation::write(QXmlStreamWriter *stream) {
 }
 
 /////////////
-SegmentList *Representation::getSegmentList() const
-{
+SegmentList *Representation::getSegmentList() const {
     return segmentList;
 }
 /////////////
-void Representation::setSegmentList(SegmentList *value)
-{
-    qDebug()<<"repr setsegmentlist";
+void Representation::setSegmentList(SegmentList *value) {
+    //qDebug()<<"repr setsegmentlist";
     segmentList = value;
 }
 /////////////
-BaseURL *Representation::getBaseurl() const
-{
+BaseURL *Representation::getBaseurl() const {
     return baseurl;
 }
 /////////////
-void Representation::setBaseurl(BaseURL *value)
-{
+void Representation::setBaseurl(BaseURL *value) {
     baseurl = value;
 }
 /////////////
-unsigned int Representation::getBandwidth() const
-{
+unsigned int Representation::getBandwidth() const {
     return bandwidth;
 }
 /////////////
-void Representation::setBandwidth(unsigned int value)
-{
+void Representation::setBandwidth(unsigned int value) {
     bandwidth = value;
 }
 /////////////
-unsigned short Representation::getStartsWithSAP() const
-{
+unsigned short Representation::getStartsWithSAP() const {
     return startsWithSAP;
 }
 /////////////
-void Representation::setStartsWithSAP(unsigned short value)
-{
+void Representation::setStartsWithSAP(unsigned short value) {
     startsWithSAP = value;
 }
 /////////////
-QString Representation::getSar() const
-{
+QString Representation::getSar() const {
     return sar;
 }
 /////////////
-void Representation::setSar(const QString &value)
-{
+void Representation::setSar(const QString &value) {
     sar = value;
 }
 /////////////
-unsigned int Representation::getFrameRate() const
-{
+unsigned int Representation::getFrameRate() const {
     return frameRate;
 }
 /////////////
-void Representation::setFrameRate(unsigned int value)
-{
+void Representation::setFrameRate(unsigned int value) {
     frameRate = value;
 }
 /////////////
-unsigned int Representation::getHeight() const
-{
+unsigned int Representation::getHeight() const {
     return height;
 }
 /////////////
-void Representation::setHeight(unsigned int value)
-{
+void Representation::setHeight(unsigned int value) {
     height = value;
 }
 /////////////

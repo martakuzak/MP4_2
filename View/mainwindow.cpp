@@ -517,7 +517,7 @@ void MainWindow::switchToDashMenu() {
 void MainWindow::dashFilesSelected() {
     //QAbstractItemModel *model = fileList->model();
 
-    emit dashFilesSelectedSignal(dashOption->currentIndex() == 0);
+    emit dashFilesSelectedSignal((dashOption->currentIndex() == 0), baseURL->text());
 }
 void MainWindow::dashDirSelected() {
     QString directoryName = QFileDialog::getExistingDirectory(this, tr("Select directory"), "/");

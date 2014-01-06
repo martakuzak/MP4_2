@@ -52,9 +52,8 @@ public:
                    const unsigned int & ag, const unsigned int & vol, const unsigned int & r3, const QList<unsigned long int> mx,
                    const unsigned int & wdth, const unsigned int & hght);
     virtual QString getFullName() { return QString("Track Header Box"); }
-
     virtual QStandardItemModel *getModel();
-    virtual unsigned int getTrackID() {
+    unsigned int getTrackID() {
         return trackID;
     }
 };
@@ -77,7 +76,6 @@ public:
                     const QList<unsigned int>& f, const unsigned int& tid, const unsigned int& dsdi, const unsigned int& dsd,
                     const unsigned int& dss, const unsigned int& dsf);
     virtual QString getFullName() { return QString("Track Extends Box"); }
-
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,7 +105,6 @@ public:
                            const unsigned long int& dsdi, const unsigned long int& dsd, const unsigned long int& dss,
                            const unsigned long int& dsf);
     virtual QString getFullName() { return QString("Track Fragment Header Box"); }
-
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,7 +124,6 @@ public:
                 const QList<unsigned long int>& sd, const QList<unsigned long int>& ss, const QList<unsigned int>& sf,
                 const QList<unsigned long int>& scto);
     virtual QString getFullName() { return QString("Track Run Box"); }
-
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,7 +140,6 @@ public:
     TrackFragmentBaseMediaDecodeTimeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
                                         const unsigned int& v, const QList<unsigned int>& f, const unsigned long int& bmdt);
     virtual QString getFullName() { return QString("Track Fragment Base Media Decode Time Box"); }
-
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -161,7 +156,6 @@ public:
                const QList<unsigned int>& f, const unsigned int & pred, const unsigned int & hand, const QList<unsigned int> & res,
                const QString & nam);
     virtual QString getFullName() { return QString("Handler Box"); }
-
     virtual QStandardItemModel *getModel();
 };
 
