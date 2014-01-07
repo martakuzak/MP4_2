@@ -31,7 +31,7 @@
 class MainWindow;
 /*!
   *\brief The Box class
-  *is represantion of MP4 Box
+  *is represention of MP4 Box
  */
 
 class Box {
@@ -52,11 +52,6 @@ protected:
       *\brief extended_type indicates whether the box has extended type (1) or not (0)
      */
     //unsigned int extendedType;
-    /*!
-      *\brief otherBoxOffset bit byte distance between begin of box and the begin of boxes from the box
-      *(for boxes who are containers)
-     */
-    unsigned long int otherBoxOffset;
 public:
     /*!
       *\brief Box

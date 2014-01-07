@@ -251,10 +251,7 @@ void MainWindow::boxesFound(QModelIndexList &Items, const QString &textLabel) {
         Items.pop_back();
     }
     boxNameLabel->setText(textLabel);
-    qDebug()<<"pieprz sie";
-//        //printSelectedBox(false, child);
-//    }
-    //mainLayout->update();
+
 }
 ////////////////////////////////////////////////////////////
 void MainWindow::splitOneFile() {
