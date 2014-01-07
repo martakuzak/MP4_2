@@ -1,9 +1,9 @@
 #include "sampleentry.h"
 
 /////////////
-SampleEntry::SampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int & e,
+SampleEntry::SampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off,
                          const QList<unsigned int> &res, const unsigned  int& dri):
-    Box(s,t,off,e),
+    Box(s,t,off),
     reserved(res),
     dataReferenceIndex(dri)
 {}
@@ -24,12 +24,12 @@ QStandardItemModel *SampleEntry::getModel() {
     return model;
 }
 /////////////
-VisualSampleEntry::VisualSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e,
+VisualSampleEntry::VisualSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                      const QList<unsigned int>& res, const unsigned int &dri, const unsigned int &pd, const unsigned int& r2,
                                      const QList<unsigned int> &pd1, const unsigned int& wdth, const unsigned int& hght, const unsigned  int& hr,
                                      const unsigned int& vr, const unsigned int& r3, const unsigned int& fc, const QString & csn,
                                      const unsigned int& dpth, const int &pd2):
-    SampleEntry(s,t,off,e, res, dri),
+    SampleEntry(s,t,off, res, dri),
     predefined(pd),
     reserved2(r2),
     predefined1(pd1),
@@ -90,11 +90,11 @@ QStandardItemModel *VisualSampleEntry::getModel() {
     return model;
 }
 /////////////
-AudioSampleEntry::AudioSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e,
+AudioSampleEntry::AudioSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                    const QList<unsigned int>& res, const unsigned int &dri, const QList<unsigned int> &res1,
                                    const unsigned int &chc, const unsigned int &ss, const unsigned int &pred, const unsigned int &res2,
                                    const unsigned int &srate):
-    SampleEntry(s,t,off,e,res,dri),
+    SampleEntry(s,t,off,res,dri),
     reserved1(res1),
     channelCount(chc),
     sampleSize(ss),
@@ -137,53 +137,53 @@ QStandardItemModel *AudioSampleEntry::getModel() {
     return model;
 }
 /////////////
-HintSampleEntry::HintSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned int &e,
+HintSampleEntry::HintSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                  const QList<unsigned int>& res, const unsigned int &dri):
-    SampleEntry(s,t,off,e, res, dri)
+    SampleEntry(s,t,off, res, dri)
 {}
 /////////////
-MP4VisualSampleEntry::MP4VisualSampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+MP4VisualSampleEntry::MP4VisualSampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off,
                                            const QList<unsigned int>& res, const unsigned int &dri, const unsigned int &pd,
                                            const unsigned int& r2,const QList<unsigned int>& pd1,const unsigned int& wdth,
                                            const unsigned int& hght, const unsigned  int& hr, const unsigned int& vr, const unsigned int& r3,
                                            const unsigned int& fc, const QString & csn, const unsigned int& dpth, const unsigned int &pd2):
-    VisualSampleEntry(s,t,off,e,res, dri,pd,r2,pd1, wdth,hght, hr,vr, r3, fc, csn, dpth, pd2)
+    VisualSampleEntry(s,t,off,res, dri,pd,r2,pd1, wdth,hght, hr,vr, r3, fc, csn, dpth, pd2)
 {}
 ///////////////
-MP4AudioSampleEntry::MP4AudioSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e,
+MP4AudioSampleEntry::MP4AudioSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                          const QList<unsigned int>& res, const unsigned int &dri, const QList<unsigned int> &res1,
                                          const unsigned int &chc, const unsigned int &ss, const unsigned int &pred, const unsigned int &res2,
                                          const unsigned int &srate):
-    AudioSampleEntry(s,t,off,e,res,dri,res1,chc,ss,pred,res2,srate)
+    AudioSampleEntry(s,t,off,res,dri,res1,chc,ss,pred,res2,srate)
 {}
 ///////////////
-MpegSampleEntry::MpegSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e,
+MpegSampleEntry::MpegSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                  const QList<unsigned int> &res, const unsigned int &dri):
-    SampleEntry(s,t,off,e,res,dri) {}
+    SampleEntry(s,t,off,res,dri) {}
 ///////////////
 /////MP4///////
-ObjectDescriptorBox::ObjectDescriptorBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v,const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f)
+ObjectDescriptorBox::ObjectDescriptorBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& v,const QList<unsigned int>& f):
+    FullBox(s,t,off,v, f)
 {}
 ///////////////
-ESDBox::ESDBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int &  e, const unsigned  int& v,const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f)
+ESDBox::ESDBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& v,const QList<unsigned int>& f):
+    FullBox(s,t,off,v, f)
 {}
 ///////////////
-AVCSampleEntry::AVCSampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+AVCSampleEntry::AVCSampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off,
                                const QList<unsigned int>& res, const unsigned int &dri, const unsigned int &pd,
                                const unsigned int& r2,const QList<unsigned int>& pd1,const unsigned int& wdth,
                                const unsigned int& hght, const unsigned  int& hr, const unsigned int& vr, const unsigned int& r3,
                                const unsigned int& fc, const QString & csn, const unsigned int& dpth, const unsigned int &pd2):
-    VisualSampleEntry(s,t,off,e,res, dri,pd,r2,pd1, wdth,hght, hr,vr, r3, fc, csn, dpth, pd2)
+    VisualSampleEntry(s,t,off,res, dri,pd,r2,pd1, wdth,hght, hr,vr, r3, fc, csn, dpth, pd2)
 {}
 ///////////////
-AVCConfigurationBox::AVCConfigurationBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+AVCConfigurationBox::AVCConfigurationBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                                          const unsigned int& cv, const unsigned int& avcpi, const unsigned int& pc, const unsigned int& avcli,
                                          const unsigned int& r1, const unsigned int& lsmo, const unsigned int& r2, const unsigned int& nosps,
                                          const QList<unsigned int>& spsl, const QList<unsigned long int>& spsnu, const unsigned int& nopps,
                                          const QList<unsigned int>& ppsl, const QList<unsigned long int>& ppsnu):
-    Box(s, t, off, e),
+    Box(s, t, off),
     configurationVersion(cv),
     AVCProfileIndication(avcpi),
     profileCompability(pc),
@@ -243,9 +243,9 @@ QStandardItemModel *AVCConfigurationBox::getModel() {
     return model;
 }
 ///////////////
-MPEG4BitRateBox::MPEG4BitRateBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+MPEG4BitRateBox::MPEG4BitRateBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                                  const unsigned long int& bsDB, const unsigned long int& maxbr, const unsigned long int& avgBr):
-    Box(s, t, off, e),
+    Box(s, t, off),
     bufferSizeDB(bsDB),
     maxBitrate(maxbr),
     avgBitrate(avgBr)

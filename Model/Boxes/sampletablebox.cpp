@@ -1,12 +1,12 @@
 #include "sampletablebox.h"
 
-SampleTableBox::SampleTableBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e): Box(s,t,off,e) {}
+SampleTableBox::SampleTableBox(const unsigned int& s, const QString& t, const unsigned long int& off): Box(s,t,off) {}
 /////////////
 /////////////
-TimeToSampleBox::TimeToSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+TimeToSampleBox::TimeToSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                                  const unsigned int& v, const QList<unsigned int>& f,unsigned int ec, QList<unsigned int> sc,
                                  QList<unsigned int> sd):
-    FullBox(s,t,off,e, v, f) ,
+    FullBox(s,t,off,v, f) ,
 
 
     entryCount(ec),
@@ -46,10 +46,10 @@ QStandardItemModel *TimeToSampleBox::getModel() {
     return model;
 }
 /////////////
-CompositionOffsetBox::CompositionOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+CompositionOffsetBox::CompositionOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                                            const unsigned int& v, const QList<unsigned int>& f, unsigned int ec, QList<unsigned int> sc,
                                            QList<unsigned int> sd):
-    FullBox(s,t,off,e, v, f) ,
+    FullBox(s,t,off,v, f) ,
 
 
     entryCount(ec),
@@ -89,9 +89,9 @@ QStandardItemModel *CompositionOffsetBox::getModel() {
     return model;
 }
 /////////////
-SampleDescriptionBox::SampleDescriptionBox(const unsigned int &s, const QString& t, const unsigned long int& off, const unsigned int &e,
-                                           const unsigned int& v,const QList<unsigned int>& f, const unsigned int &ec):
-    FullBox(s,t,off,e, v, f) ,
+SampleDescriptionBox::SampleDescriptionBox(const unsigned int &s, const QString& t, const unsigned long int& off,
+                                           const unsigned int& v, const QList<unsigned int>& f, const unsigned int &ec):
+    FullBox(s,t,off,v, f) ,
 
 
     entryCount(ec)
@@ -115,10 +115,10 @@ QStandardItemModel *SampleDescriptionBox::getModel() {
     return model;
 }
 /////////////
-SampleSizeBox::SampleSizeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+SampleSizeBox::SampleSizeBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                              const unsigned int& v, const QList<unsigned int>& f, const unsigned long &sz, const unsigned long &sc,
                              const QList<unsigned long> &es):
-    FullBox(s,t,off,e, v, f) ,
+    FullBox(s,t,off,v, f) ,
 
 
     sampleSize(sz),
@@ -151,14 +151,14 @@ QStandardItemModel *SampleSizeBox::getModel() {
     return model;
 }
 /////////////
-CompactSampleSizeBox::CompactSampleSizeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e, const unsigned int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f)
+CompactSampleSizeBox::CompactSampleSizeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f):
+    FullBox(s,t,off,v, f)
 {}
 /////////////
-SampleToChunkBox::SampleToChunkBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+SampleToChunkBox::SampleToChunkBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                                    const unsigned int& v, const QList<unsigned int>& f, const unsigned long &ec,
                                    const QList<unsigned long> &fc, const QList<unsigned long> &spc, const QList<unsigned long> &sdi):
-    FullBox(s,t,off,e, v, f),
+    FullBox(s,t,off,v, f),
     entryCount(ec),
     firstChunk(fc),
     samplesPerChunk(spc),
@@ -191,9 +191,9 @@ QStandardItemModel *SampleToChunkBox::getModel() {
     return model;
 }
 /////////////
-ChunkOffsetBox::ChunkOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+ChunkOffsetBox::ChunkOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                                const unsigned int& v, const QList<unsigned int>& f, const unsigned long &ec, const QList<unsigned long> &co):
-    FullBox(s,t,off,e, v, f) ,
+    FullBox(s,t,off,v, f) ,
 
 
     entryCount(ec),
@@ -222,10 +222,10 @@ QStandardItemModel *ChunkOffsetBox::getModel() {
     return model;
 }
 /////////////
-ChunkLargeOffsetBox::ChunkLargeOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+ChunkLargeOffsetBox::ChunkLargeOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                                          const unsigned int& v, const QList<unsigned int>& f, const unsigned long int &ec,
                                          const QList<unsigned long int> &co):
-    FullBox(s,t,off,e, v, f) ,
+    FullBox(s,t,off,v, f) ,
 
 
     entryCount(ec),
@@ -254,9 +254,9 @@ QStandardItemModel *ChunkLargeOffsetBox::getModel() {
     return model;
 }
 /////////////
-SyncSampleBox::SyncSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+SyncSampleBox::SyncSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                              const unsigned int& v, const QList<unsigned int>& f, const unsigned long &ec, const QList<unsigned long> sn):
-    FullBox(s,t,off,e, v, f) ,
+    FullBox(s,t,off,v, f) ,
 
 
     entryCount(ec),
@@ -285,14 +285,14 @@ QStandardItemModel *SyncSampleBox::getModel() {
     return model;
 }
 /////////////
-ShadowSyncSampleBox::ShadowSyncSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e, const unsigned int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f)
+ShadowSyncSampleBox::ShadowSyncSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f):
+    FullBox(s,t,off,v, f)
 {}
 ////////////
-DegradationPriorityBox::DegradationPriorityBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e, const unsigned int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f)
+DegradationPriorityBox::DegradationPriorityBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f):
+    FullBox(s,t,off,v, f)
 {}
 ///////////////
-PaddingBitsBox::PaddingBitsBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e, const unsigned int& v, const QList<unsigned int>& f):
-    FullBox(s,t,off,e, v, f)
+PaddingBitsBox::PaddingBitsBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f):
+    FullBox(s,t,off,v, f)
 {}

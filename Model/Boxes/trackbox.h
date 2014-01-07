@@ -20,7 +20,7 @@ class MainWindow;
 
 class TrackBox : public Box {
 public:
-    TrackBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e);
+    TrackBox(const unsigned int& s, const QString& t, const unsigned long int& off);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Track Box"); }
     virtual QStandardItemModel *getModel() {
@@ -46,7 +46,7 @@ protected:
     unsigned int width;
     unsigned int height;
 public:
-    TrackHeaderBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e, const unsigned int& v,
+    TrackHeaderBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
                    const QList<unsigned int>& f, const unsigned long int& ct, const unsigned long int & mt, const unsigned int & tid,
                    const unsigned int & r1, const unsigned long int & dur, const QList<unsigned int> & r2, const unsigned int & lay,
                    const unsigned int & ag, const unsigned int & vol, const unsigned int & r3, const QList<unsigned long int> mx,
@@ -60,7 +60,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class TrackReferenceBox : public Box {
 public:
-    TrackReferenceBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e);
+    TrackReferenceBox(const unsigned int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("Track Reference Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -72,7 +72,7 @@ protected:
     unsigned int defaultSampleSize;
     unsigned int defaultSampleFlags;
 public:
-    TrackExtendsBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e, const unsigned int& v,
+    TrackExtendsBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
                     const QList<unsigned int>& f, const unsigned int& tid, const unsigned int& dsdi, const unsigned int& dsd,
                     const unsigned int& dss, const unsigned int& dsf);
     virtual QString getFullName() { return QString("Track Extends Box"); }
@@ -81,7 +81,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class TrackFragmentBox : public Box {
 public:
-    TrackFragmentBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e);
+    TrackFragmentBox(const unsigned int& s, const QString& t, const unsigned long int& off);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Track Fragment Box"); }
     virtual QStandardItemModel *getModel() {
@@ -100,7 +100,7 @@ protected:
     unsigned long int defaultSampleSize;
     unsigned long int defaultSampleFlags;
 public:
-    TrackFragmentHeaderBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+    TrackFragmentHeaderBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                            const unsigned int& v, const QList<unsigned int>& f, const unsigned long int& tid, const unsigned long int& bdo,
                            const unsigned long int& dsdi, const unsigned long int& dsd, const unsigned long int& dss,
                            const unsigned long int& dsf);
@@ -119,7 +119,7 @@ protected:
     QList<unsigned long int> sampleCompositionTimeOffset;
 
 public:
-    TrackRunBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e, const unsigned int& v,
+    TrackRunBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
                 const QList<unsigned int>& f, const unsigned long int& sc, const long int& dof, const unsigned int& fsf,
                 const QList<unsigned long int>& sd, const QList<unsigned long int>& ss, const QList<unsigned int>& sf,
                 const QList<unsigned long int>& scto);
@@ -129,7 +129,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class TrackFragmentRandomAccessBox : public FullBox {
 public:
-    TrackFragmentRandomAccessBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e, const unsigned int& v, const QList<unsigned int>& f);
+    TrackFragmentRandomAccessBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Track Fragment Random Access Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,7 +137,7 @@ class TrackFragmentBaseMediaDecodeTimeBox : public FullBox {
 protected:
     unsigned long int baseMediaDecodeTime;
 public:
-    TrackFragmentBaseMediaDecodeTimeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int &  e,
+    TrackFragmentBaseMediaDecodeTimeBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                                         const unsigned int& v, const QList<unsigned int>& f, const unsigned long int& bmdt);
     virtual QString getFullName() { return QString("Track Fragment Base Media Decode Time Box"); }
     virtual QStandardItemModel *getModel();
@@ -152,7 +152,7 @@ protected:
     QList<unsigned int> reserved;
     QString name;
 public:
-    HandlerBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& e, const unsigned  int& v,
+    HandlerBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& v,
                const QList<unsigned int>& f, const unsigned int & pred, const unsigned int & hand, const QList<unsigned int> & res,
                const QString & nam);
     virtual QString getFullName() { return QString("Handler Box"); }

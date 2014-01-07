@@ -24,7 +24,7 @@ class MainWindow;
 
 class SampleTableBox : public Box {
 public:
-    SampleTableBox(const unsigned int& s=0, const QString& t="", const unsigned long int& off=0, const unsigned int& e=0);
+    SampleTableBox(const unsigned int& s=0, const QString& t="", const unsigned long int& off=0);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Sample Table Box "); }
     virtual QStandardItemModel *getModel() {
@@ -40,7 +40,7 @@ private:
     QList<unsigned int> sampleCount;
     QList<unsigned int> sampleDelta;
 public:
-    TimeToSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v,
+    TimeToSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v,
                     const QList<unsigned int>& f, unsigned int ec, QList<unsigned int> sc, QList<unsigned int> sd);
     virtual QString getFullName() { return QString("Time To Sample Box"); }  
     virtual QStandardItemModel *getModel();
@@ -52,7 +52,7 @@ private:
     QList<unsigned int> sampleCount;
     QList<unsigned int> sampleOffset;
 public:
-    CompositionOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v,
+    CompositionOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v,
                          const QList<unsigned int>& f,unsigned int ec, QList<unsigned int> sc, QList<unsigned int> sd);
     virtual QString getFullName() { return QString("Composition Offset Box"); }
     virtual QStandardItemModel *getModel();
@@ -71,7 +71,7 @@ class SampleDescriptionBox : public FullBox {
 private:
     unsigned int entryCount;
 public:
-    SampleDescriptionBox(const unsigned int &s, const QString& t, const unsigned long int& off, const unsigned int &e, const unsigned int& v,
+    SampleDescriptionBox(const unsigned int &s, const QString& t, const unsigned long int& off, const unsigned int& v,
                          const QList<unsigned int>& f, const unsigned int &ec);
     virtual bool isContainer() { return true; }
     virtual unsigned int getContainerOffset() { return (16); }
@@ -90,7 +90,7 @@ private:
     unsigned long int sampleCount;
     QList<unsigned long int> entrySize;
 public:
-    SampleSizeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v,
+    SampleSizeBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v,
                   const QList<unsigned int>& f, const unsigned long int &sz, const unsigned long int & sc,
                   const QList<unsigned long int> & es);
     virtual QString getFullName() { return QString("Sample Size Box"); }
@@ -108,7 +108,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class CompactSampleSizeBox : public FullBox {
 public:
-    CompactSampleSizeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v, const QList<unsigned int>& f);
+    CompactSampleSizeBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Compact Sample Size Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -119,7 +119,7 @@ private:
     QList<unsigned long int> samplesPerChunk;
     QList<unsigned long int> sampleDescriptionIndex;
 public:
-    SampleToChunkBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v,
+    SampleToChunkBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v,
                      const QList<unsigned int>& f, const unsigned long int &entryCount, const QList<unsigned long int>& fc,
                      const QList<unsigned long int>& spc, const QList<unsigned long int>& sdi);
     virtual QString getFullName() { return QString("Sample To Chunk Box"); }
@@ -131,7 +131,7 @@ private:
      unsigned long int entryCount;
     QList<unsigned long int> chunkOffset;
 public:
-    ChunkOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v,
+    ChunkOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v,
                    const QList<unsigned int>& f, const unsigned long int& ec, const QList<unsigned long int>& co);
     virtual QString getFullName() { return QString("Chunk Offset Box"); }
     virtual QStandardItemModel *getModel();
@@ -142,7 +142,7 @@ private:
     unsigned long int entryCount;
     QList<unsigned long int> chunkOffset;
 public:
-    ChunkLargeOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v,
+    ChunkLargeOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v,
                         const QList<unsigned int>& f, const unsigned long int& ec, const QList<unsigned long int>& co);
     virtual QString getFullName() { return QString("Chunk Large Offset Box"); }
     virtual QStandardItemModel *getModel();
@@ -153,7 +153,7 @@ private:
     unsigned long int entryCount;
     QList<unsigned long int> sampleNumber;
 public:
-    SyncSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v,
+    SyncSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v,
                   const QList<unsigned int>& f, const unsigned long int&ec, const QList<unsigned long int> sn);
     virtual QString getFullName() { return QString("Sync Sample Box"); }
     virtual QStandardItemModel *getModel();
@@ -167,19 +167,19 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class ShadowSyncSampleBox : public FullBox{
 public:
-    ShadowSyncSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v, const QList<unsigned int>& f);
+    ShadowSyncSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Shadow Sync Sample Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class DegradationPriorityBox : public FullBox {
 public:
-    DegradationPriorityBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v, const QList<unsigned int>& f);
+    DegradationPriorityBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Degradation Priority Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PaddingBitsBox : public FullBox {
 public:
-    PaddingBitsBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& e, const unsigned int& v, const QList<unsigned int>& f);
+    PaddingBitsBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Padding Bits Box"); }
 };
 #endif // SAMPLETABLEBOX_H
