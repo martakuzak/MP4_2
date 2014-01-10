@@ -123,6 +123,9 @@ void Controller::dashDirSelected(const QString &dir) {
 void Controller::removeFile(const int &row) {
         if(row >= 0 && row < (fileModel->rowCount())) {
             fileModel->removeRow(row);
-            window->dashRowRemoved(fileModel);
+            if(fileModel->rowCount())
+                window->dashRowRemoved(fileModel, true);
+            else
+                window->dashRowRemoved(fileModel);
         }
 }

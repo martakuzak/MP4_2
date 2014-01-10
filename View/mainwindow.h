@@ -181,7 +181,7 @@ private slots:
     void searchButtonClicked();
     void switchToDashMenu();
     //kliknieto przycisk ready
-    void dashFilesSelected();
+    void dashFilesSelected(const bool &oneFile, const QString &url);
     //kliknieto przycisk Add files
     void dashDirSelected(const QString &directoryName);
     void removedButtonClicked(const int &row);

@@ -3,13 +3,13 @@
 DashSection::DashSection(QWidget *parent):
     QGroupBox(parent){
 
-    setActions();
+    //setActions();
     addFileButton = new QPushButton("Add file");
-    addFileButton->addAction(addFileAct);
+    //addFileButton->addAction(addFileAct);
     connect(addFileButton, SIGNAL(clicked()), this, SLOT(dashDirSelected()));
 
     removeButton = new QPushButton("Remove");
-    removeButton->addAction(removeAct);
+    //removeButton->addAction(removeAct);
     connect(removeButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
 
     fileList = new QListView();
@@ -85,12 +85,36 @@ void DashSection::removeButtonClicked() {
 }
 
 void DashSection::dashFilesSelected() {
-    emit dashFilesSelectedSig((dashOptions->currentIndex() == 0), urlLine->text());
+    emit dashFilesSelectedSignal((dashOptions->currentIndex() == 0), urlLine->text());
 }
 
 void DashSection::setActions() {
     addFileAct = new QAction(tr("&Add files"), this);
     removeAct = new QAction(tr("&Remove file"), this);
 }
+
+void DashSection::removeFileFromDash(QAbstractItemModel *fileModel, const bool &empty) {
+    fileList->setModel(fileModel);
+    addFileButton->setDisabled(empty);
+//    int row = fileList->currentIndex().row();
+//    if(row >= 0 && row < ( fileList->model()->rowCount())) {
+//        fileList->model()->removeRow(row);
+//        fileList->setModel(fileModel);
+//    }
+//    if(!fileList->model()->rowCount())
+    //        addFile->setDisabled(false);
+}
+
+void DashSection::addFileToDash(QAbstractItemModel *fileModel) {
+    qDebug()<<"dashsection addFileToDash";
+    fileLayout->removeWidget(rightGroup);
+    fileLayout->removeWidget(fileList);
+    fileList->setModel(fileModel);
+    fileLayout->addWidget(fileList);
+    fileLayout->addWidget(rightGroup);
+    addFileButton->setDisabled(true);
+}
+
+
 
 

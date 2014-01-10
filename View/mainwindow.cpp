@@ -69,7 +69,7 @@ void MainWindow::makeConnection() {
             SLOT(dashDirSelected(QString)), Qt::QueuedConnection);
     connect(dashSection, SIGNAL(dashFilesSelectedSignal(bool, QString)), this,
             SLOT(dashFilesSelected(bool, QString)), Qt::QueuedConnection);
-    connect(dashSection, SIGNAL(removeFileSig(int)), this, SLOT(removeFile(int)), Qt::QueuedConnection);
+    connect(dashSection, SIGNAL(removeFileSig(int)), this, SLOT(removedButtonClicked(int)), Qt::QueuedConnection);
     //connect(dashSection, SIGNAL(remo))
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -220,7 +220,6 @@ void MainWindow::openFile() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::printSelectedBox(QStandardItemModel *mod, TreeItem *item) {
-    //qDebug()<<"koniec "<<item->fullName();
     boxInfoLayout->removeWidget(tableView);
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     tableView->setModel(mod);
@@ -372,43 +371,21 @@ void MainWindow::launchHelp() {
 
 }
 void MainWindow::addFileToDash(QAbstractItemModel *fileModel) {
-        fileLayout->removeWidget(rightGroup);
-        fileLayout->removeWidget(fileList);
-        fileList->setModel(fileModel);
-        fileLayout->addWidget(fileList);
-        fileLayout->addWidget(rightGroup);
-        addFile->setDisabled(true);
-        //fileLayout->update();
-        //mainLayout->update();
+    dashSection->addFileToDash(fileModel);
+    mainLayout->update();
 }
 
 void MainWindow::dashRowRemoved(QAbstractItemModel *fileModel, const bool empty) {
-    fileList->setModel(fileModel);
-    addFile->setDisabled(empty);
+    dashSection->removeFileFromDash(fileModel, empty);
 }
 
 void MainWindow::removeFileFromDash(QAbstractItemModel *fileModel) {
-    int row = fileList->currentIndex().row();
-    if(row >= 0 && row < ( fileList->model()->rowCount())) {
-        fileList->model()->removeRow(row);
-        fileList->setModel(fileModel);
-    }
-    if(!fileList->model()->rowCount())
-        addFile->setDisabled(false);
-    //mainLayout->update();
-
+    dashSection->removeFileFromDash(fileModel);
 }
 ///////////////////////////////////
 void MainWindow::fileAnalyzed(TreeModel *mod, const QString& fileName) {
     if(dashSection != NULL)
         delete dashSection;
-//    if(fileLayout->count()) {
-//        delete dash;
-//        dash = new QWidget();
-
-//        fileLayout = new QHBoxLayout();
-//        rightLayout = new QVBoxLayout();
-//    }
     if(!searchBoxLayout->count()) {
         setSearchBoxSection();
     }
@@ -444,98 +421,17 @@ void MainWindow::switchToDashMenu() {
     setWindowTitle("MP4 MPEG-DASH");
     if(dashSection == NULL) {
         dashSection = new DashSection();
+        makeConnection();
         mainLayout->addWidget(dashSection);
     }
-    /*if(boxParseLayout->count()) {
-        delete vSplitter;
-        vSplitter = new QSplitter();
-        boxParseLayout = new QHBoxLayout();
-        searchBoxLayout = new QGridLayout();
-        boxInfoLayout = new QVBoxLayout();
-        //mainLayout->update();
-    }
-    else if(rightLayout->count()) {
-        return;
-    }
-    //fileModel = new QStandardItemModel;
-    addFile = new QPushButton("Add file");
-    addFile->addAction(addFileAct);
-    connect(addFile, SIGNAL(clicked()), this, SLOT(dashDirSelected()));
-
-    removeFile = new QPushButton("Remove");
-    removeFile->addAction(removeFileAct);
-    connect(removeFile, SIGNAL(clicked()), this, SLOT(removedButtonClicked()));
-
-    fileList = new QListView();
-    //fileList->setModel(fileModel);
-    fileList->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    dashOption = new QComboBox();
-    dashOption->addItem("One file for all segments");
-    dashOption->addItem("Each segment has its own file");
-
-    QGroupBox *urlBox = new QGroupBox();
-    urlBox->setTitle("Type URL of files");
-    baseURL = new QLineEdit();
-    baseURL->setMaximumWidth(195);
-    QVBoxLayout *urlLayout = new QVBoxLayout();
-    urlLayout->addWidget(baseURL);
-    urlBox->setLayout(urlLayout);
-    urlBox->setMaximumHeight(50);
-
-    readyButton = new QPushButton("Ready");
-    connect(readyButton, SIGNAL(clicked()), this, SLOT(dashFilesSelected()), Qt::QueuedConnection);
-    oneFile = new QLabel("All segments in one file");
-    moreFile = new QLabel("Each segment in seperated file");
-    rightLayout = new QVBoxLayout;
-    rightLayout->addWidget(dashOption);
-    rightLayout->addWidget(urlBox);
-    rightLayout->addWidget(addFile);
-    rightLayout->addWidget(removeFile);
-    rightGroup = new QGroupBox;
-    rightGroup->setMaximumWidth(200);
-    rightGroup->setLayout(rightLayout);
-    fileLayout = new QHBoxLayout;
-    fileLayout->addWidget(fileList);
-    fileLayout->addWidget(rightGroup);
-    fileGroup = new QGroupBox();
-    fileGroup->setLayout(fileLayout);
-
-    readyGroup = new QGroupBox;
-    readyGroup->setMaximumHeight(50);
-    readyGroup->setMinimumHeight(40);
-
-    QGridLayout *downLayout = new QGridLayout();
-    downLayout->addWidget(readyButton, 1, 0);
-    downLayout->setColumnStretch(10, 1);
-    readyGroup->setLayout(downLayout);
-
-    QVBoxLayout *dashLayout = new QVBoxLayout;
-    dashLayout->addWidget(fileGroup);
-    dashLayout->addWidget(readyGroup);
-
-    dash = new QWidget();
-    dash->setLayout(dashLayout);
-    mainLayout->addWidget(dash);*/
-
-    //mainLayout->addStretch(1);
-    //mainLayout->update();
 }
-void MainWindow::dashFilesSelected() {
-    //QAbstractItemModel *model = fileList->model();
-
-    emit dashFilesSelectedSignal((dashOption->currentIndex() == 0), baseURL->text());
+void MainWindow::dashFilesSelected(const bool &oneFile, const QString &url) {
+    emit dashFilesSelectedSignal(oneFile, url);
 }
 void MainWindow::dashDirSelected(const QString &directoryName) {
+    qDebug()<<"mainwindow dashdirselected";
     emit dashDirSelectedSig(directoryName);
 }
 void MainWindow::removedButtonClicked(const int &row) {
-   // int row = fileList->currentIndex().row();
-//    if(row >= 0 && row < ( fileList->model()->rowCount())) {
-//        fileList->model()->removeRow(row);
-//        fileList->setModel(fileModel);
-//    }
-//    if(!fileList->model()->rowCount())
-//        addFile->setDisabled(false);
-    //mainLayout->update();
     emit removeFileSig(row);
 }
