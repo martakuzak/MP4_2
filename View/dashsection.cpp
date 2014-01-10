@@ -1,6 +1,7 @@
 #include "dashsection.h"
 
-DashSection::DashSection(QWidget *parent) {
+DashSection::DashSection(QWidget *parent):
+    QGroupBox(parent){
 
     setActions();
     addFileButton = new QPushButton("Add file");
@@ -74,15 +75,17 @@ DashSection::~DashSection() {
 }
 
 void DashSection::dashDirSelected() {
-
+    QString directoryName = QFileDialog::getExistingDirectory(this, tr("Select directory"), "/");
+    emit dashDirSig(directoryName);
 }
 
 void DashSection::removeButtonClicked() {
-
+    int row = fileList->currentIndex().row();
+    emit removeFileSig(row);
 }
 
 void DashSection::dashFilesSelected() {
-
+    emit dashFilesSelectedSig((dashOptions->currentIndex() == 0), urlLine->text());
 }
 
 void DashSection::setActions() {

@@ -183,8 +183,8 @@ private slots:
     //kliknieto przycisk ready
     void dashFilesSelected();
     //kliknieto przycisk Add files
-    void dashDirSelected();
-    void removedButtonClicked();
+    void dashDirSelected(const QString &directoryName);
+    void removedButtonClicked(const int &row);
 signals:
     void fileSelected(const QString& fileName);
     void boxSelected(QItemSelectionModel *selection);
@@ -212,6 +212,7 @@ private:
     */
     void setSearchBoxSection();
     void setDashDialog();
+    void makeConnection();
 };
 
 ///////////////////////////////////////////////////////////////

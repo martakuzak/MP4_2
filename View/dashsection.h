@@ -11,6 +11,7 @@
 #include <QGroupBox>
 #include <QLineEdit>
 #include <QGroupBox>
+#include <QFileDialog>
 
 class DashSection : public QGroupBox {
     Q_OBJECT
@@ -34,8 +35,9 @@ public:
     explicit DashSection(QWidget *parent = 0);
     ~DashSection();
 signals:
-    void dashDirSig();
-    void removeFileSig();
+    void dashDirSig(const QString &dir);
+    void dashFilesSelectedSig(const bool& oneFile, const QString &url);
+    void removeFileSig(const int &row);
     void dashFilesSig();
 private slots:
     void dashDirSelected();

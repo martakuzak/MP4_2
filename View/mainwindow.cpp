@@ -64,6 +64,15 @@ MainWindow::~MainWindow() {
     delete dashSection;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
+void MainWindow::makeConnection() {
+    connect(dashSection, SIGNAL(dashDirSig(QString)), this,
+            SLOT(dashDirSelected(QString)), Qt::QueuedConnection);
+    connect(dashSection, SIGNAL(dashFilesSelectedSignal(bool, QString)), this,
+            SLOT(dashFilesSelected(bool, QString)), Qt::QueuedConnection);
+    connect(dashSection, SIGNAL(removeFileSig(int)), this, SLOT(removeFile(int)), Qt::QueuedConnection);
+    //connect(dashSection, SIGNAL(remo))
+}
+////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::createActions() {
     openAct = new QAction(tr("&Open..."), this);
     openAct->setShortcuts(QKeySequence::Open);
@@ -199,8 +208,7 @@ void MainWindow::setBoxInfoSection(const QString& fileName, TreeModel *model) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 ///Slots
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::openFile()
-{
+void MainWindow::openFile() {
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::AnyFile);
     //    QString fileName = QFileDialog::getOpenFileName(this,
@@ -392,13 +400,15 @@ void MainWindow::removeFileFromDash(QAbstractItemModel *fileModel) {
 }
 ///////////////////////////////////
 void MainWindow::fileAnalyzed(TreeModel *mod, const QString& fileName) {
-    if(fileLayout->count()) {
-        delete dash;
-        dash = new QWidget();
+    if(dashSection != NULL)
+        delete dashSection;
+//    if(fileLayout->count()) {
+//        delete dash;
+//        dash = new QWidget();
 
-        fileLayout = new QHBoxLayout();
-        rightLayout = new QVBoxLayout();
-    }
+//        fileLayout = new QHBoxLayout();
+//        rightLayout = new QVBoxLayout();
+//    }
     if(!searchBoxLayout->count()) {
         setSearchBoxSection();
     }
@@ -432,8 +442,10 @@ void MainWindow::searchButtonClicked() {
 
 void MainWindow::switchToDashMenu() {
     setWindowTitle("MP4 MPEG-DASH");
-    DashSection *d = new DashSection();
-    mainLayout->addWidget(d);
+    if(dashSection == NULL) {
+        dashSection = new DashSection();
+        mainLayout->addWidget(dashSection);
+    }
     /*if(boxParseLayout->count()) {
         delete vSplitter;
         vSplitter = new QSplitter();
@@ -513,12 +525,11 @@ void MainWindow::dashFilesSelected() {
 
     emit dashFilesSelectedSignal((dashOption->currentIndex() == 0), baseURL->text());
 }
-void MainWindow::dashDirSelected() {
-    QString directoryName = QFileDialog::getExistingDirectory(this, tr("Select directory"), "/");
+void MainWindow::dashDirSelected(const QString &directoryName) {
     emit dashDirSelectedSig(directoryName);
 }
-void MainWindow::removedButtonClicked() {
-    int row = fileList->currentIndex().row();
+void MainWindow::removedButtonClicked(const int &row) {
+   // int row = fileList->currentIndex().row();
 //    if(row >= 0 && row < ( fileList->model()->rowCount())) {
 //        fileList->model()->removeRow(row);
 //        fileList->setModel(fileModel);
