@@ -37,10 +37,12 @@ signals:
     void dashDirSig();
     void removeFileSig();
     void dashFilesSig();
-public slots:
+private slots:
     void dashDirSelected();
     void removeButtonClicked();
     void dashFilesSelected();
+private:
+    void setActions();
 };
 
 #endif // DASHSECTION_H

@@ -2,13 +2,14 @@
 
 DashSection::DashSection(QWidget *parent) {
 
+    setActions();
     addFileButton = new QPushButton("Add file");
     addFileButton->addAction(addFileAct);
     connect(addFileButton, SIGNAL(clicked()), this, SLOT(dashDirSelected()));
 
     removeButton = new QPushButton("Remove");
     removeButton->addAction(removeAct);
-    connect(removeButton, SIGNAL(clicked()), this, SLOT(removedButtonClicked()));
+    connect(removeButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
 
     fileList = new QListView();
     //fileList->setModel(fileModel);
@@ -84,5 +85,9 @@ void DashSection::dashFilesSelected() {
 
 }
 
+void DashSection::setActions() {
+    addFileAct = new QAction(tr("&Add files"), this);
+    removeAct = new QAction(tr("&Remove file"), this);
+}
 
 

@@ -7,8 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     createActions();
     createMenu();
 
-    title = QString("MP4 ");
-    setWindowTitle(title);
+    setWindowTitle("MP4 ");
 
     setMinimumSize(160, 160);
     const int m_width = QApplication::desktop()->width();
@@ -62,10 +61,10 @@ MainWindow::~MainWindow() {
     delete removeFileAct;
     delete dashOption;
     delete baseURL;
+    delete dashSection;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::createActions()
-{
+void MainWindow::createActions() {
     openAct = new QAction(tr("&Open..."), this);
     openAct->setShortcuts(QKeySequence::Open);
     connect(openAct, SIGNAL(triggered()), this, SLOT(openFile()));
@@ -194,9 +193,7 @@ void MainWindow::setBoxInfoSection(const QString& fileName, TreeModel *model) {
     vSplitter->setOrientation(Qt::Vertical);
 
     emit selectionChanged();
-    //mainLayout->update();
-    title = QString("MP4 " + fileName);
-    setWindowTitle(title);
+    setWindowTitle("MP4 " + fileName);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////

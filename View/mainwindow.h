@@ -62,10 +62,7 @@ private:
     QAction *dashAct;
     //Actions- Help
     QAction *helpAct;
-    /*!
-     *\brief title
-    */
-    QString title;
+    //QString title;
     //Layouts
     QHBoxLayout *boxParseLayout;
     QGridLayout *searchBoxLayout;
@@ -88,6 +85,7 @@ private:
     QLabel *boxNameLabel;
     QTableView *tableView;
     QTreeView *treeView;
+    DashSection *dashSection;
     /*!
      *\brief model
     */
