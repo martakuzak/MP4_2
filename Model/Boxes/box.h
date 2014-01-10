@@ -31,7 +31,7 @@
 class MainWindow;
 /*!
   *\brief The Box class
-  *is represention of MP4 Box
+  * is represention of MP4 box. It contains parameters that all the classes should have.
  */
 
 class Box {
@@ -48,10 +48,6 @@ protected:
       *\brief offset bit offset of the box location
      */
     unsigned long int offset;
-    /*!
-      *\brief extended_type indicates whether the box has extended type (1) or not (0)
-     */
-    //unsigned int extendedType;
 public:
     /*!
       *\brief Box
@@ -59,9 +55,23 @@ public:
       *\param s size of box in bytes
       *\param t type of box (created from reading bytes in ASCII code)
       *\param off offset of box in bytes
-      *\param e extended_type
      */
     Box(const unsigned int &s, const QString& t, const unsigned long &off);
+    /*!
+      *\brief getType
+      *\return type of the box
+     */
+    virtual QString getType() { return type; }
+    /*!
+      *\brief getSize
+      *\return size in bytes
+     */
+    virtual unsigned int getSize() { return size; }
+    /*!
+      *\brief getOffset
+      *\return offset of the box in bytes
+     */
+    virtual unsigned long int getOffset() const { return offset; }
     /*!
       *\brief isContainer
       *\return true when box contains other boxes, false otherwise
@@ -73,38 +83,44 @@ public:
      */
     virtual unsigned int getContainerOffset() { return 8; }
     /*!
-      *\brief getType
-      *\return type of the box
-     */
-    virtual QString getType() { return type; }
-    /*!
       *\brief getFullName
       *\return fullName of the box, e.g. "Media Data Box"
      */
     virtual QString getFullName() { return QString(" "); }
+    /*!
+     * \brief getModel
+     * Constructs and return QStandardItemModel object that is appropriate for graphical representation
+     * (for elements like QTreeView, QTableView etc.). Returned model contains names of the box attributes
+     * and their value. Each pair it's in its own row. Name of the attribute is in column 0, value - column 1.
+     * \return model of Box attributes
+     */
     virtual QStandardItemModel *getModel() { return new QStandardItemModel(); }
-    /*!
-      *\brief getSize
-      *\return size in bytes
-     */
-    virtual unsigned int getSize() { return size; }
-    /*!
-      *\brief getOffset
-      *\return offset of the box in bytes
-     */
-    virtual unsigned long int getOffset() const { return offset; }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////
 class FullBox : public Box {
 protected:
     /*!
-      *\brief version indicates version of FullBox. When set to 1, some of the paramaters can have bigger size (64-bit instead of 32-bit)
+      *\brief version indicates version of FullBox. When set to 1, some of the paramaters can have bigger
+      * size (64-bit instead of 32-bit)
      */
     unsigned int version;
+    /*!
+     * \brief flags 3 unsigned int numbers that can determine forward content of the box or meaning of
+     * the other attributes.
+     */
     QList<unsigned int> flags;
 
 public:
-    FullBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    /*!
+     * \brief FullBox
+     * \param s size \see size
+     * \param t type \see type
+     * \param off offset \see offset
+     * \param v version \see version
+     * \param f flags \see flags
+     */
+    FullBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
+            const QList<unsigned int>& f);
     virtual QString getFullName() { return QString(" "); }
     unsigned int getVersion() { return version; }
     QList<unsigned int> getFlags() { return flags; }
@@ -119,6 +135,11 @@ public:
     FileTypeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const QString& mb,
                 const unsigned int& mv, const QList<QString>& cb);
     virtual QString getFullName() { return QString("File Type Box"); }
+    /*!
+     *
+     * \brief getModel
+     * \return
+     */
     virtual QStandardItemModel *getModel();
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////

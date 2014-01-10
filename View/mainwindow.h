@@ -39,6 +39,7 @@
 #include "treeitem.h"
 #include "analyzer.h"
 #include "dashwrapper.h"
+#include "dashsection.h"
 
 class Analyzer;
 class TreeModel;
@@ -47,8 +48,7 @@ class DashWrapper;
 /*!
  *\brief The MainWindow class defines a mind window of the application
  */
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 private:

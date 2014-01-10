@@ -3,8 +3,7 @@
 
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent)
-{
+    QMainWindow(parent) {
     createActions();
     createMenu();
 
@@ -32,8 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     window->setLayout(mainLayout);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete fileMenu;
     delete treeView;
     delete openAct;
@@ -437,7 +435,9 @@ void MainWindow::searchButtonClicked() {
 
 void MainWindow::switchToDashMenu() {
     setWindowTitle("MP4 MPEG-DASH");
-    if(boxParseLayout->count()) {
+    DashSection *d = new DashSection();
+    mainLayout->addWidget(d);
+    /*if(boxParseLayout->count()) {
         delete vSplitter;
         vSplitter = new QSplitter();
         boxParseLayout = new QHBoxLayout();
@@ -506,7 +506,7 @@ void MainWindow::switchToDashMenu() {
 
     dash = new QWidget();
     dash->setLayout(dashLayout);
-    mainLayout->addWidget(dash);
+    mainLayout->addWidget(dash);*/
 
     //mainLayout->addStretch(1);
     //mainLayout->update();
