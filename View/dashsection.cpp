@@ -115,6 +115,16 @@ void DashSection::addFileToDash(QAbstractItemModel *fileModel) {
     addFileButton->setDisabled(true);
 }
 
+void DashSection::generateDash() {
+    bool oneFile = (dashOptions->currentIndex() == 0);
+    QAbstractItemModel *model = fileList->model();
+    //QStringList strings ;
+    for ( int i = 0 ; i < model->rowCount() ; ++i ) {
+      // Get item at row i, col 0.
+      //strings << model->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
+        QString fileName = model->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
+    }
+}
 
 
 

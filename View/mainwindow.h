@@ -102,34 +102,11 @@ private:
      *\brief helpMenu
     */
     QMenu *helpMenu;
-    /*!
-     *\brief analyzer
-    */
-    //Analyzer *analyzer;
-    /*!
-     *\brief dashProxy
-    */
-    //DashWrapper *dashProxy;
     //////////
     ////////
     QListView *fileList;
     //QStandardItemModel *fileModel;
-    QPushButton *addFile;
-    QPushButton *removeFile;
-    QComboBox *dashOption;
-    QDialog *dashDialog;
-    QAction *addFileAct;
-    QAction *removeFileAct;
-    QGroupBox *rightGroup;
-    QGroupBox *fileGroup;
-    QGroupBox *readyGroup;
-    QHBoxLayout *fileLayout;
-    QVBoxLayout *rightLayout;
-    QPushButton *readyButton;
-    QLineEdit *baseURL;
-    QLabel *oneFile;
-    QLabel *moreFile;
-    QWidget *dash;
+
     //////////////
     ////////////////
 public:
@@ -147,7 +124,7 @@ public:
     void showInfoDialog(const QString &mes);
     void addFileToDash(QAbstractItemModel *fileModel);
     void dashRowRemoved(QAbstractItemModel *fileModel, const bool empty = false);
-
+    void initializePointers();
 private slots:
     /*!
      *\brief openFile opens QFileDialog to choose file that is to analyzed.

@@ -38,6 +38,7 @@ public:
     ~DashSection();
     void removeFileFromDash(QAbstractItemModel *fileModel, const bool &empty = false);
     void addFileToDash(QAbstractItemModel *fileModel);
+    void generateDash();
 signals:
     void dashDirSig(const QString &dir);
     void dashFilesSelectedSignal(const bool& oneFile, const QString &url);
