@@ -61,17 +61,19 @@ DashSection::DashSection(QWidget *parent):
 }
 
 DashSection::~DashSection() {
-    delete rightLayout;
-    delete fileLayout;
-    delete addFileButton;
-    delete removeButton;
-    delete readyButton;
-    delete fileList;
-    delete dashOptions;
-    delete urlLine;
     delete fileGroup;
     delete readyGroup;
-    delete addFileAct;
+//    delete rightLayout;
+//    delete fileLayout;
+//    delete addFileButton;
+//    delete removeButton;
+//    delete readyButton;
+//    delete fileList;
+//    delete dashOptions;
+//    delete urlLine;
+//    delete fileGroup;
+//    delete readyGroup;
+//    delete addFileAct;
 }
 
 void DashSection::dashDirSelected() {

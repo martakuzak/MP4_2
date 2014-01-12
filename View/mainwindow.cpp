@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     boxInfoLayout = new QVBoxLayout();
 
     initializePointers();
+    //AnalyzeSection *as = new AnalyzeSection();
 
     QWidget *window = new QWidget();
     setWindowIcon(QIcon("D://PDI//Code//Images//pear.png"));
@@ -30,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 ////////////////////////////////////////////////////////////////////////////////////////////
 MainWindow::~MainWindow() {
     delete fileMenu;
-    delete treeView;
+    //delete treeView;
     delete openAct;
     delete exitAct;
     delete helpMenu;
@@ -38,26 +39,33 @@ MainWindow::~MainWindow() {
     delete dashMenu;
     delete dashOneFileAct;
     delete dashSeparatedFilesAct;
-    delete nextSearchButton;
-    delete typeBoxType;
-    delete searchLabel;
-    delete searchBoxGroupBox;
-    delete boxParseGroupBox;
-    delete hSplitter;
-    delete vSplitter;
+    //delete nextSearchButton;
+    //delete typeBoxType;
+    //delete searchLabel;
+    //delete searchBoxGroupBox;
+    //delete boxParseGroupBox;
+    //delete hSplitter;
+    //delete vSplitter;
     delete mainLayout;
-    delete boxParseLayout;
-    delete searchBoxLayout;
-    delete fileList;
-    delete dashSection;
+    //delete boxParseLayout;
+    //delete searchBoxLayout;
+    //delete fileList;
+    //delete dashSection;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::makeConnection() {
+void MainWindow::makeDashConnection() {
     connect(dashSection, SIGNAL(dashDirSig(QString)), this,
             SLOT(dashDirSelected(QString)), Qt::QueuedConnection);
     connect(dashSection, SIGNAL(dashFilesSelectedSignal(bool, QString)), this,
             SLOT(dashFilesSelected(bool, QString)), Qt::QueuedConnection);
     connect(dashSection, SIGNAL(removeFileSig(int)), this, SLOT(removedButtonClicked(int)), Qt::QueuedConnection);
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+void MainWindow::makeAnalyzeConnection() {
+    connect(analyzeSection, SIGNAL(boxSelected(QItemSelectionModel*)), this,
+            SLOT(selectionChanged(QItemSelectionModel*)), Qt::QueuedConnection);
+    connect(analyzeSection, SIGNAL(searchBox(QString)), this,
+            SLOT(searchButtonClicked(QString)), Qt::QueuedConnection);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::createActions() {
@@ -70,7 +78,7 @@ void MainWindow::createActions() {
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
     searchBoxAct = new QAction(tr("&Search"), this);
-    connect(searchBoxAct, SIGNAL(triggered()), this, SLOT(searchButtonClicked()));
+    //connect(searchBoxAct, SIGNAL(triggered()), this, SLOT(searchButtonClicked()));
 
     helpAct = new QAction(tr("&Help"), this);
     connect(helpAct, SIGNAL(triggered()), this, SLOT(launchHelp()));
@@ -112,9 +120,9 @@ void MainWindow::setSearchBoxSection() {
     typeBoxType->setMaxLength(4);
     nextSearchButton = new QPushButton("Find");
     nextSearchButton->addAction(searchBoxAct);
-    connect(nextSearchButton,
-            SIGNAL(clicked()),
-            this, SLOT(searchButtonClicked()));
+   // connect(nextSearchButton,
+     //       SIGNAL(clicked()),
+       //     this, SLOT(searchButtonClicked()));
 
     searchBoxGroupBox->setMaximumHeight(50);
     searchBoxGroupBox->setMinimumHeight(40);
@@ -180,7 +188,7 @@ void MainWindow::setBoxInfoSection(const QString& fileName, TreeModel *model) {
     vSplitter->addWidget(boxParseGroupBox);
     vSplitter->setOrientation(Qt::Vertical);
 
-    emit selectionChanged();
+    //emit selectionChanged();
     setWindowTitle("MP4 " + fileName);
 }
 
@@ -192,46 +200,52 @@ void MainWindow::openFile() {
     dialog.setFileMode(QFileDialog::AnyFile);
     QString fileName = QFileDialog::getOpenFileName(this,
                                                     tr("Open File"), "/");
-    delete dashSection;
-    dashSection = NULL;
-    if(fileName.length())
+    if(fileName.length()) {
+        //delete dashSection;
+        //dashSection = NULL;
         emit fileSelected(fileName);
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::printSelectedBox(QStandardItemModel *mod, TreeItem *item) {
-    boxInfoLayout->removeWidget(tableView);
-    tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    tableView->setModel(mod);
-    tableView->setSizePolicy(QSizePolicy::Expanding,
-                             QSizePolicy::Expanding);
-    if(mod->columnCount() > 1) {
-        tableView->horizontalHeader()->resizeSection(1, 300);
-        tableView->resizeColumnsToContents();
-        tableView->horizontalHeader()->setStretchLastSection(true);
-    }
-    boxInfoLayout->addWidget(tableView);
-    QString text = item->fullName();
-    if(text!=NULL) {
-        boxNameLabel->setText(text);
-    }
+//    boxInfoLayout->removeWidget(tableView);
+//    tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+//    tableView->setModel(mod);
+//    tableView->setSizePolicy(QSizePolicy::Expanding,
+//                             QSizePolicy::Expanding);
+//    if(mod->columnCount() > 1) {
+//        tableView->horizontalHeader()->resizeSection(1, 300);
+//        tableView->resizeColumnsToContents();
+//        tableView->horizontalHeader()->setStretchLastSection(true);
+//    }
+//    boxInfoLayout->addWidget(tableView);
+//    QString text = item->fullName();
+//    if(text!=NULL) {
+//        boxNameLabel->setText(text);
+//    }
+    qDebug()<<"printselectedbox mw1";
+    mainLayout->removeWidget(analyzeSection);
+    analyzeSection->printSelectedBox(mod, item);
+    mainLayout->addWidget(analyzeSection);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::boxesFound(QModelIndexList &Items, const QString &textLabel) {
-    treeView->clearSelection();
+    analyzeSection->boxesFound(Items, textLabel);
+//    treeView->clearSelection();
 
-    QModelIndex tmpId;
-    while (!Items.isEmpty()) {
-        QModelIndex backId = Items.back();
-        tmpId = backId;
-        QModelIndex tmpParent = tmpId.parent();
-        while(tmpParent.isValid()) {
-            treeView->setExpanded(tmpParent, true);
-            tmpParent = tmpParent.parent();
-        }
-        treeView->selectionModel()->select(backId, QItemSelectionModel::Select | QItemSelectionModel::Rows);
-        Items.pop_back();
-    }
-    boxNameLabel->setText(textLabel);
+//    QModelIndex tmpId;
+//    while (!Items.isEmpty()) {
+//        QModelIndex backId = Items.back();
+//        tmpId = backId;
+//        QModelIndex tmpParent = tmpId.parent();
+//        while(tmpParent.isValid()) {
+//            treeView->setExpanded(tmpParent, true);
+//            tmpParent = tmpParent.parent();
+//        }
+//        treeView->selectionModel()->select(backId, QItemSelectionModel::Select | QItemSelectionModel::Rows);
+//        Items.pop_back();
+//    }
+//    boxNameLabel->setText(textLabel);
 
 }
 ////////////////////////////////////////////////////////////
@@ -370,6 +384,7 @@ void MainWindow::initializePointers() {
     vSplitter = NULL;
     fileList = NULL;
     dashSection = NULL;
+    analyzeSection = NULL;
 }
 
 void MainWindow::removeFileFromDash(QAbstractItemModel *fileModel) {
@@ -377,16 +392,23 @@ void MainWindow::removeFileFromDash(QAbstractItemModel *fileModel) {
 }
 ///////////////////////////////////
 void MainWindow::fileAnalyzed(TreeModel *mod, const QString& fileName) {
-    if(dashSection != NULL)
+    if(dashSection != NULL) {
         delete dashSection;
-    if(!searchBoxLayout->count()) {
-        setSearchBoxSection();
+        dashSection = NULL;
     }
-    setBoxInfoSection(fileName, mod);
+   if(analyzeSection != NULL) {
+        delete analyzeSection;
+        analyzeSection = NULL;
+   }
+    analyzeSection = new AnalyzeSection(fileName, mod);
+    makeAnalyzeConnection();
+    mainLayout->addWidget(analyzeSection);
+    setWindowTitle("MP4 " + fileName);
 }
 /////////////////////////////////
-void MainWindow::selectionChanged() {
-    QItemSelectionModel *selection = treeView->selectionModel();
+void MainWindow::selectionChanged(QItemSelectionModel *selection) {
+    //QItemSelectionModel *selection = treeView->selectionModel();
+    qDebug()<<"selectionchanged";
     emit boxSelected(selection);
 }
 //////////////////////////////////
@@ -404,25 +426,29 @@ void MainWindow::showInfoDialog(const QString &mes) {
 }
 
 ///////////////////////////////////
-void MainWindow::searchButtonClicked() {
-    QString boxType = typeBoxType->text();
+void MainWindow::searchButtonClicked(const QString& boxType) {
+    //QString boxType = typeBoxType->text();
     emit searchBox(boxType);
 }
 ////////////////////////////////////
 
 void MainWindow::switchToDashMenu() {
     setWindowTitle("MP4 MPEG-DASH");
-    if(boxInfoLayout->count()) {
-        delete vSplitter;
-        vSplitter = NULL;
+//    if(boxInfoLayout->count()) {
+//        delete vSplitter;
+//        vSplitter = NULL;
 
-        boxParseLayout = new QHBoxLayout();
-        searchBoxLayout = new QGridLayout();
-        boxInfoLayout = new QVBoxLayout();
+//        boxParseLayout = new QHBoxLayout();
+//        searchBoxLayout = new QGridLayout();
+//        boxInfoLayout = new QVBoxLayout();
+//    }
+    if(analyzeSection != NULL) {
+        delete analyzeSection;
+        analyzeSection = NULL;
     }
     if(dashSection == NULL) {
         dashSection = new DashSection();
-        makeConnection();
+        makeDashConnection();
         mainLayout->addWidget(dashSection);
     }
 }

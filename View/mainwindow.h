@@ -29,7 +29,7 @@
 #include <QLineEdit>
 #include <QDesktopServices>
 #include <QLayoutItem>
-#include <QUrl>
+//#include <QUrl>
 #include <QString>
 #include <QStringList>
 #include <QDateTime>
@@ -38,12 +38,14 @@
 #include "treemodel.h"
 #include "treeitem.h"
 #include "analyzer.h"
-#include "dashwrapper.h"
+//#include "dashwrapper.h"
 #include "dashsection.h"
+#include "analyzesection.h"
 
 class Analyzer;
 class TreeModel;
 class DashWrapper;
+class AnalyzeSection;
 
 /*!
  *\brief The MainWindow class defines a mind window of the application
@@ -66,8 +68,8 @@ private:
     //Layouts
     QHBoxLayout *boxParseLayout;
     QGridLayout *searchBoxLayout;
-    QVBoxLayout *mainLayout;
     QVBoxLayout *boxInfoLayout;
+    QVBoxLayout *mainLayout;
     //Splitters
     QSplitter *vSplitter;
     QSplitter *hSplitter;
@@ -86,6 +88,7 @@ private:
     QTableView *tableView;
     QTreeView *treeView;
     DashSection *dashSection;
+    AnalyzeSection *analyzeSection;
     /*!
      *\brief model
     */
@@ -154,14 +157,14 @@ private slots:
     void splitIntoMoreFiles();
     void removeFileFromDash(QAbstractItemModel *fileModel);
     void generateDash();
-    void selectionChanged();
-    void searchButtonClicked();
+    void selectionChanged(QItemSelectionModel *selection);
     void switchToDashMenu();
     //kliknieto przycisk ready
     void dashFilesSelected(const bool &oneFile, const QString &url);
     //kliknieto przycisk Add files
     void dashDirSelected(const QString &directoryName);
     void removedButtonClicked(const int &row);
+    void searchButtonClicked(const QString &boxType);
 signals:
     void fileSelected(const QString& fileName);
     void boxSelected(QItemSelectionModel *selection);
@@ -189,7 +192,8 @@ private:
     */
     void setSearchBoxSection();
     void setDashDialog();
-    void makeConnection();
+    void makeDashConnection();
+    void makeAnalyzeConnection();
 };
 
 ///////////////////////////////////////////////////////////////

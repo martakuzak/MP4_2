@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     Model\Boxes\treeitem.cpp \
     Model\Boxes\treemodel.cpp \
     Controller\controller.cpp \
-    View/dashsection.cpp
+    View/dashsection.cpp \
+    View/analyzesection.cpp
 
 HEADERS  += View\mainwindow.h \
     Model\Boxes\analyzer.h \
@@ -52,6 +53,7 @@ HEADERS  += View\mainwindow.h \
     Model\Boxes\treeitem.h \
     Model\Boxes\treemodel.h \
     Controller\controller.h \
-    View/dashsection.h
+    View/dashsection.h \
+    View/analyzesection.h
 
 FORMS
