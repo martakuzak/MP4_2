@@ -2,6 +2,7 @@
 #define CONTROLLER_H
 
 #include <QObject>
+#include <QDateTime>
 #include "mainwindow.h"
 #include "treemodel.h"
 #include "dashwrapper.h"

@@ -11,6 +11,7 @@
 #include <QGroupBox>
 #include <QTableView>
 #include <QTreeView>
+#include <QHeaderView>
 #include <QAction>
 #include <QDebug>
 
@@ -46,7 +47,6 @@ public:
     void printSelectedBox(QStandardItemModel *mod, TreeItem *item);
     void boxesFound(QModelIndexList& Items, const QString& textLabel);
 signals:
-    //void fileSelected(const QString& fileName);
     void boxSelected(QItemSelectionModel *selection);
     void searchBox(const QString& boxType);
 private slots:

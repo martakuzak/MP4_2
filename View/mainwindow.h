@@ -6,39 +6,17 @@
 #include <QDesktopWidget>
 #include <QAction>
 #include <QMenu>
-#include <QTreeView>
-#include <QTableView>
-#include <QHeaderView>
-#include <QAbstractItemView>
-#include <QListView>
 #include <QMenuBar>
 #include <QLabel>
-#include <QTextEdit>
 #include <QPushButton>
-#include <QGroupBox>
-#include <QSplitter>
-#include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QGridLayout>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QProgressBar>
-#include <QProgressDialog>
-#include <QComboBox>
-#include <QDirModel>
-#include <QLineEdit>
 #include <QDesktopServices>
-#include <QLayoutItem>
-//#include <QUrl>
 #include <QString>
-#include <QStringList>
-#include <QDateTime>
-#include <QDir>
 #include <qDebug>
+
 #include "treemodel.h"
-#include "treeitem.h"
-#include "analyzer.h"
-//#include "dashwrapper.h"
 #include "dashsection.h"
 #include "analyzesection.h"
 
@@ -57,42 +35,13 @@ private:
     //Actions- File
     QAction *openAct;
     QAction *exitAct;
-    QAction *searchBoxAct;
     //Actions - MPEG-DASH
-    QAction *dashOneFileAct;
-    QAction *dashSeparatedFilesAct;
     QAction *dashAct;
     //Actions- Help
     QAction *helpAct;
-    //QString title;
-    //Layouts
-    QHBoxLayout *boxParseLayout;
-    QGridLayout *searchBoxLayout;
-    QVBoxLayout *boxInfoLayout;
     QVBoxLayout *mainLayout;
-    //Splitters
-    QSplitter *vSplitter;
-    QSplitter *hSplitter;
-    //Group boxes
-    QGroupBox *boxParseGroupBox;
-    QGroupBox *searchBoxGroupBox;
-    QGroupBox *boxInfoGroupBox;
-    //search box content
-    QLabel *searchLabel;
-    QLineEdit *typeBoxType;
-    QPushButton *nextSearchButton;
-   // QProgressBar *boxParsingProgress;
-   // QProgressDialog *boxParsingProgressDialog;
-    //info box content
-    QLabel *boxNameLabel;
-    QTableView *tableView;
-    QTreeView *treeView;
     DashSection *dashSection;
     AnalyzeSection *analyzeSection;
-    /*!
-     *\brief model
-    */
-    //TreeModel *model;
     /*!
      *\brief fileMenu
     */
@@ -105,13 +54,6 @@ private:
      *\brief helpMenu
     */
     QMenu *helpMenu;
-    //////////
-    ////////
-    QListView *fileList;
-    //QStandardItemModel *fileModel;
-
-    //////////////
-    ////////////////
 public:
     //!Constructor
     /*!
@@ -136,27 +78,10 @@ private slots:
     */
     void openFile();
     /*!
-     *\brief printSelectedBox prints info about selected Box in boxInfo->
-    */
-    /*!
-     *\brief searchBox searches for all boxes with type given in typeBoxType .
-     *\info Found boxes are selected and all their predecessors are expanded. Application launches QMessageBox when:
-     *- typed boxType hasn't 4 characters
-     *- no box was found
-    */
-    //void searchBox();
-    /*!
      *\brief launchHelp launches help html site.
     */
     void launchHelp();
-    /*!
-     *\brief splitOneFile
-     *Creates mp4 dash file and appropiate .mpd file according to currently open mp4 file
-    */
-    void splitOneFile();
-    void splitIntoMoreFiles();
     void removeFileFromDash(QAbstractItemModel *fileModel);
-    void generateDash();
     void selectionChanged(QItemSelectionModel *selection);
     void switchToDashMenu();
     //kliknieto przycisk ready
@@ -181,17 +106,6 @@ private:
      *\brief createMenu creates menu
     */
     void createMenu();
-    /*!
-     *\brief setBoxInfoSection creates treeView and boxInfo and adds it to window
-     *\param fileName name of the currently analyzed file
-    */
-    void setBoxInfoSection(const QString& fileName, TreeModel *model);
-    /*!
-     *\brief setSearchBoxSection creates search box section.
-     *\info search box section enables searching for boxes by typing typename
-    */
-    void setSearchBoxSection();
-    void setDashDialog();
     void makeDashConnection();
     void makeAnalyzeConnection();
 };

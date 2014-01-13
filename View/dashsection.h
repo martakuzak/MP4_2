@@ -5,7 +5,6 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
-#include <QAction>
 #include <QListView>
 #include <QComboBox>
 #include <QGroupBox>
@@ -15,6 +14,10 @@
 #include <QAbstractItemModel>
 #include <QDebug>
 
+/**
+ * @brief The DashSection class
+ * DashSection contains and displays widgets that build view of dash section of the application.
+ */
 class DashSection : public QGroupBox {
     Q_OBJECT
 private:
@@ -29,16 +32,11 @@ private:
     QGroupBox *fileGroup;
     QGroupBox *readyGroup;
     QGroupBox *rightGroup;
-    //QLabel
-    //actions
-    QAction *addFileAct;
-    QAction *removeAct;
 public:
     explicit DashSection(QWidget *parent = 0);
     ~DashSection();
     void removeFileFromDash(QAbstractItemModel *fileModel, const bool &empty = false);
     void addFileToDash(QAbstractItemModel *fileModel);
-    void generateDash();
 signals:
     void dashDirSig(const QString &dir);
     void dashFilesSelectedSignal(const bool& oneFile, const QString &url);
@@ -48,8 +46,6 @@ private slots:
     void dashDirSelected();
     void removeButtonClicked();
     void dashFilesSelected();
-private:
-    void setActions();
 };
 
 #endif // DASHSECTION_H

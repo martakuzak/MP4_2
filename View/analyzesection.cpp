@@ -89,13 +89,9 @@ void AnalyzeSection::setBoxInfoSection(const QString& fileName, TreeModel *model
 
     addWidget(boxParseGroupBox);
     setOrientation(Qt::Vertical);
-
-    //emit selectionChanged();
-    //setWindowTitle("MP4 " + fileName);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void AnalyzeSection::printSelectedBox(QStandardItemModel *mod, TreeItem *item) {
-    qDebug()<<"printselectedbox as1";
     boxInfoLayout->removeWidget(tableView);
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     tableView->setModel(mod);
@@ -138,7 +134,6 @@ void AnalyzeSection::searchButtonClicked() {
 }
 /////////////////////////////////
 void AnalyzeSection::selectionChanged() {
-    qDebug()<<"selectionchanges as";
     QItemSelectionModel *selection = treeView->selectionModel();
     emit boxSelected(selection);
 }

@@ -3,9 +3,7 @@
 DashSection::DashSection(QWidget *parent):
     QGroupBox(parent){
 
-    //setActions();
     addFileButton = new QPushButton("Add file");
-    //addFileButton->addAction(addFileAct);
     connect(addFileButton, SIGNAL(clicked()), this, SLOT(dashDirSelected()));
 
     removeButton = new QPushButton("Remove");
@@ -13,7 +11,6 @@ DashSection::DashSection(QWidget *parent):
     connect(removeButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
 
     fileList = new QListView();
-    //fileList->setModel(fileModel);
     fileList->setEditTriggers(QAbstractItemView::NoEditTriggers);
     dashOptions = new QComboBox();
     dashOptions->addItem("One file for all segments");
@@ -63,17 +60,6 @@ DashSection::DashSection(QWidget *parent):
 DashSection::~DashSection() {
     delete fileGroup;
     delete readyGroup;
-//    delete rightLayout;
-//    delete fileLayout;
-//    delete addFileButton;
-//    delete removeButton;
-//    delete readyButton;
-//    delete fileList;
-//    delete dashOptions;
-//    delete urlLine;
-//    delete fileGroup;
-//    delete readyGroup;
-//    delete addFileAct;
 }
 
 void DashSection::dashDirSelected() {
@@ -90,25 +76,12 @@ void DashSection::dashFilesSelected() {
     emit dashFilesSelectedSignal((dashOptions->currentIndex() == 0), urlLine->text());
 }
 
-void DashSection::setActions() {
-    addFileAct = new QAction(tr("&Add files"), this);
-    removeAct = new QAction(tr("&Remove file"), this);
-}
-
 void DashSection::removeFileFromDash(QAbstractItemModel *fileModel, const bool &empty) {
     fileList->setModel(fileModel);
     addFileButton->setDisabled(empty);
-//    int row = fileList->currentIndex().row();
-//    if(row >= 0 && row < ( fileList->model()->rowCount())) {
-//        fileList->model()->removeRow(row);
-//        fileList->setModel(fileModel);
-//    }
-//    if(!fileList->model()->rowCount())
-    //        addFile->setDisabled(false);
 }
 
 void DashSection::addFileToDash(QAbstractItemModel *fileModel) {
-    qDebug()<<"dashsection addFileToDash";
     fileLayout->removeWidget(rightGroup);
     fileLayout->removeWidget(fileList);
     fileList->setModel(fileModel);
@@ -117,16 +90,6 @@ void DashSection::addFileToDash(QAbstractItemModel *fileModel) {
     addFileButton->setDisabled(true);
 }
 
-void DashSection::generateDash() {
-    bool oneFile = (dashOptions->currentIndex() == 0);
-    QAbstractItemModel *model = fileList->model();
-    //QStringList strings ;
-    for ( int i = 0 ; i < model->rowCount() ; ++i ) {
-      // Get item at row i, col 0.
-      //strings << model->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
-        QString fileName = model->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
-    }
-}
 
 
 
