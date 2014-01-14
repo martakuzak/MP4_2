@@ -31,7 +31,7 @@ private:
       *value: TreeItem
      */
     QHash<long,TreeItem*> *treeItems;
-    Analyzer *analyzer;
+    //Analyzer *analyzer;
 
 public:
 

@@ -1,11 +1,14 @@
 #include "analyzesection.h"
 
-AnalyzeSection:: AnalyzeSection(const QString& fileName, TreeModel *model, QWidget *parent) :
+////////////////////////////////////////////////////////////////////////////////////////////
+///Public
+////////////////////////////////////////////////////////////////////////////////////////////
+AnalyzeSection:: AnalyzeSection(TreeModel *model, QWidget *parent) :
     QSplitter(parent) {
     searchBoxAct = new QAction(tr("&Search"), this);
     connect(searchBoxAct, SIGNAL(triggered()), this, SLOT(searchButtonClicked()));
     setSearchBoxSection();
-    setBoxInfoSection(fileName, model);
+    setBoxInfoSection(model);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 AnalyzeSection::~AnalyzeSection() {
@@ -14,33 +17,54 @@ AnalyzeSection::~AnalyzeSection() {
     delete searchBoxAct;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void AnalyzeSection::setSearchBoxSection() {
-    searchBoxLayout = new QGridLayout();
-    searchBoxGroupBox = new QGroupBox();
-    searchBoxGroupBox->setTitle("Search for box");
-    searchLabel = new QLabel("Type box type: ");
-    searchLabel->setMaximumSize(200,40);
-    typeBoxType = new QLineEdit();
-    typeBoxType->setMaximumWidth(50);
-    typeBoxType->setMaxLength(4);
-    nextSearchButton = new QPushButton("Find");
-    nextSearchButton->addAction(searchBoxAct);
-    connect(nextSearchButton,
-            SIGNAL(clicked()),
-            this, SLOT(searchButtonClicked()));
-
-    searchBoxGroupBox->setMaximumHeight(50);
-    searchBoxGroupBox->setMinimumHeight(40);
-    searchBoxLayout->addWidget(searchLabel, 1, 0);
-    searchBoxLayout->addWidget(typeBoxType, 1, 1);
-    searchBoxLayout->addWidget(nextSearchButton, 1, 2);
-    searchBoxLayout->setColumnStretch(10, 1);
-    searchBoxGroupBox->setLayout(searchBoxLayout);
-
-    addWidget(searchBoxGroupBox);
+void AnalyzeSection::printSelectedBox(QStandardItemModel *model, TreeItem *item) {
+    tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    tableView->setModel(model);
+    tableView->setSizePolicy(QSizePolicy::Expanding,
+                             QSizePolicy::Expanding);
+    if(model->columnCount() > 1) {
+        tableView->horizontalHeader()->resizeSection(1, 300);
+        tableView->resizeColumnsToContents();
+        tableView->horizontalHeader()->setStretchLastSection(true);
+    }
+    QString text = item->fullName();
+    if(text!=NULL) {
+        boxNameLabel->setText(text);
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////////
+void AnalyzeSection::selectFoundBoxes(QModelIndexList &boxes, const QString &fullName) {
+    treeView->clearSelection();
+    QModelIndex tmpId;
+    while (!boxes.isEmpty()) {
+        QModelIndex backId = boxes.back();
+        tmpId = backId;
+        QModelIndex tmpParent = tmpId.parent();
+        while(tmpParent.isValid()) {
+            treeView->setExpanded(tmpParent, true);
+            tmpParent = tmpParent.parent();
+        }
+        treeView->selectionModel()->select(backId, QItemSelectionModel::Select | QItemSelectionModel::Rows);
+        boxes.pop_back();
+    }
+    boxNameLabel->setText(fullName);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void AnalyzeSection::setBoxInfoSection(const QString& fileName, TreeModel *model) {
+///Slots
+////////////////////////////////////////////////////////////////////////////////////////////
+void AnalyzeSection::searchButtonClicked() {
+    QString boxType = typeBoxType->text();
+    emit searchButtonClicked(boxType);
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+void AnalyzeSection::selectionChanged() {
+    QItemSelectionModel *selection = treeView->selectionModel();
+    emit boxSelected(selection);
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+///Private
+////////////////////////////////////////////////////////////////////////////////////////////
+void AnalyzeSection::setBoxInfoSection(TreeModel *model) {
     boxParseLayout = new QHBoxLayout();
     boxInfoLayout = new QVBoxLayout();
 
@@ -91,49 +115,29 @@ void AnalyzeSection::setBoxInfoSection(const QString& fileName, TreeModel *model
     setOrientation(Qt::Vertical);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void AnalyzeSection::printSelectedBox(QStandardItemModel *mod, TreeItem *item) {
-    boxInfoLayout->removeWidget(tableView);
-    tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    tableView->setModel(mod);
-    tableView->setSizePolicy(QSizePolicy::Expanding,
-                             QSizePolicy::Expanding);
-    if(mod->columnCount() > 1) {
-        tableView->horizontalHeader()->resizeSection(1, 300);
-        tableView->resizeColumnsToContents();
-        tableView->horizontalHeader()->setStretchLastSection(true);
-    }
-    boxInfoLayout->addWidget(tableView);
-    QString text = item->fullName();
-    if(text!=NULL) {
-        boxNameLabel->setText(text);
-    }
-}
-///////////////////////////////////////////////////////////////////////////////////////////
-void AnalyzeSection::boxesFound(QModelIndexList &Items, const QString &textLabel) {
-    treeView->clearSelection();
+void AnalyzeSection::setSearchBoxSection() {
+    searchBoxLayout = new QGridLayout();
+    searchBoxGroupBox = new QGroupBox();
+    searchBoxGroupBox->setTitle("Search for box");
+    searchLabel = new QLabel("Type box type: ");
+    searchLabel->setMaximumSize(200,40);
+    typeBoxType = new QLineEdit();
+    typeBoxType->setMaximumWidth(50);
+    typeBoxType->setMaxLength(4);
+    nextSearchButton = new QPushButton("Find");
+    nextSearchButton->addAction(searchBoxAct);
+    connect(nextSearchButton,
+            SIGNAL(clicked()),
+            this, SLOT(searchButtonClicked()));
 
-    QModelIndex tmpId;
-    while (!Items.isEmpty()) {
-        QModelIndex backId = Items.back();
-        tmpId = backId;
-        QModelIndex tmpParent = tmpId.parent();
-        while(tmpParent.isValid()) {
-            treeView->setExpanded(tmpParent, true);
-            tmpParent = tmpParent.parent();
-        }
-        treeView->selectionModel()->select(backId, QItemSelectionModel::Select | QItemSelectionModel::Rows);
-        Items.pop_back();
-    }
-    boxNameLabel->setText(textLabel);
+    searchBoxGroupBox->setMaximumHeight(50);
+    searchBoxGroupBox->setMinimumHeight(40);
+    searchBoxLayout->addWidget(searchLabel, 1, 0);
+    searchBoxLayout->addWidget(typeBoxType, 1, 1);
+    searchBoxLayout->addWidget(nextSearchButton, 1, 2);
+    searchBoxLayout->setColumnStretch(10, 1);
+    searchBoxGroupBox->setLayout(searchBoxLayout);
 
+    addWidget(searchBoxGroupBox);
 }
-///////////////////////////////////
-void AnalyzeSection::searchButtonClicked() {
-    QString boxType = typeBoxType->text();
-    emit searchBox(boxType);
-}
-/////////////////////////////////
-void AnalyzeSection::selectionChanged() {
-    QItemSelectionModel *selection = treeView->selectionModel();
-    emit boxSelected(selection);
-}
+////////////////////////////////////////////////////////////////////////////////////////////

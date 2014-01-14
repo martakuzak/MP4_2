@@ -65,7 +65,7 @@ void Controller::searchBox(const QString &boxType) {
     QStandardItemModel *mod = item->getModel();
     mod->setHeaderData(0, Qt::Horizontal, tr(""));
     mod->setHeaderData(1, Qt::Horizontal, tr(""));
-    window->boxesFound(Items, textLabel);
+    window->selectFoundBoxes(Items, textLabel);
     //qDbug()<<"gowno";
     window->printSelectedBox(mod, item);
     //qDbug()<<"i co";
@@ -115,7 +115,7 @@ void Controller::dashDirSelected(const QString &dir) {
                 fileModel->appendRow(list);
                 files.pop_back();
             }
-            window->addFileToDash(fileModel);
+            window->setDashFileList(fileModel);
         }
     }
 }
@@ -124,8 +124,8 @@ void Controller::removeFile(const int &row) {
         if(row >= 0 && row < (fileModel->rowCount())) {
             fileModel->removeRow(row);
             if(fileModel->rowCount())
-                window->dashRowRemoved(fileModel, true);
+                window->setDashFileList(fileModel);
             else
-                window->dashRowRemoved(fileModel);
+                window->setDashFileList(fileModel, false);
         }
 }

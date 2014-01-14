@@ -1,5 +1,8 @@
 #include "dashsection.h"
 
+////////////////////////////////////////////////////////////////////////////////////////////
+///Public
+////////////////////////////////////////////////////////////////////////////////////////////
 DashSection::DashSection(QWidget *parent):
     QGroupBox(parent){
 
@@ -56,38 +59,31 @@ DashSection::DashSection(QWidget *parent):
 
     setLayout(dashLayout);
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////
 DashSection::~DashSection() {
     delete fileGroup;
     delete readyGroup;
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////
+void DashSection::setDashFileList(QAbstractItemModel *fileModel, const bool &disabled) {
+    fileList->setModel(fileModel);
+    addFileButton->setDisabled(disabled);
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+///Slots
+////////////////////////////////////////////////////////////////////////////////////////////
 void DashSection::dashDirSelected() {
     QString directoryName = QFileDialog::getExistingDirectory(this, tr("Select directory"), "/");
     emit dashDirSig(directoryName);
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////
 void DashSection::removeButtonClicked() {
     int row = fileList->currentIndex().row();
     emit removeFileSig(row);
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////
 void DashSection::dashFilesSelected() {
     emit dashFilesSelectedSignal((dashOptions->currentIndex() == 0), urlLine->text());
-}
-
-void DashSection::removeFileFromDash(QAbstractItemModel *fileModel, const bool &empty) {
-    fileList->setModel(fileModel);
-    addFileButton->setDisabled(empty);
-}
-
-void DashSection::addFileToDash(QAbstractItemModel *fileModel) {
-    fileLayout->removeWidget(rightGroup);
-    fileLayout->removeWidget(fileList);
-    fileList->setModel(fileModel);
-    fileLayout->addWidget(fileList);
-    fileLayout->addWidget(rightGroup);
-    addFileButton->setDisabled(true);
 }
 
 

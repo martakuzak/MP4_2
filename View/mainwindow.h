@@ -20,93 +20,193 @@
 #include "dashsection.h"
 #include "analyzesection.h"
 
-class Analyzer;
 class TreeModel;
 class DashWrapper;
 class AnalyzeSection;
 
 /*!
- *\brief The MainWindow class defines a mind window of the application
+ *\brief The MainWindow class defines a main window of the application.
  */
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
 private:
     //Actions- File
+    //when user clicks "open file" in the menu
     QAction *openAct;
+    //when user clicks "close" in the menu
     QAction *exitAct;
     //Actions - MPEG-DASH
+    //when user clicks "switch to dash section"
     QAction *dashAct;
     //Actions- Help
-    QAction *helpAct;
+    //when user clicks "help" in the menu
+    QAction *helpAct; 
+    //Menus
+    QMenu *fileMenu;
+    QMenu *dashMenu;
+    QMenu *helpMenu;
+    //Layout of the whole window
     QVBoxLayout *mainLayout;
     DashSection *dashSection;
-    AnalyzeSection *analyzeSection;
-    /*!
-     *\brief fileMenu
-    */
-    QMenu *fileMenu;
-    /*!
-     *\brief dashMenu
-    */
-    QMenu *dashMenu;
-    /*!
-     *\brief helpMenu
-    */
-    QMenu *helpMenu;
+    AnalyzeSection *analyzeSection;   
 public:
-    //!Constructor
     /*!
-     *\param parent
-    */
+     * \brief MainWindow Constructor of MainWindow
+     * \param parent
+     * Creates window only with menus.
+     */
     explicit MainWindow(QWidget *parent = 0);
-    //!Destructor
     ~MainWindow();
-    void fileAnalyzed(TreeModel *mod, const QString &fileName);
-    void printSelectedBox(QStandardItemModel *mod, TreeItem *item);
-    void boxesFound(QModelIndexList& Items, const QString& textLabel);
+    /*!
+     * \brief fileAnalyzed
+     * \param model pointer to TreeModel of anylazed MP4 file
+     * \param fileName name of the analyzed MP4 file
+     * The method creates appropriate AnalyzeSection to display tree of boxes and table of contents.
+     */
+    void fileAnalyzed(TreeModel *model, const QString &fileName);
+    /*!
+     * \brief printSelectedBox
+     * \param model Model of contents of the selected box.
+     * \param item TreeItem object that represents selected box
+     * Prints content of the selected box in the table of AnalyzeSection.
+     */
+    void printSelectedBox(QStandardItemModel *model, TreeItem *item);
+    /*!
+     * \brief selectFoundBoxes
+     * \param boxes list of boxes that shall be selected
+     * \param fullName full name of the boxes
+     * The method is called by Controller after searching for boxes having given type. It selects box records given and exapands tree
+     * so that selected records are visible.
+     */
+    void selectFoundBoxes(QModelIndexList& boxes, const QString& fullName);
+    /*!
+     * \brief showWarningDialog
+     * \param mes message to display
+     * Shows warning dialog with given message.
+     */
     void showWarningDialog(const QString &mes);
+    /*!
+     * \brief showInfoDialog
+     * \param mes message to display
+     * Shows info dialog with given message.
+     */
     void showInfoDialog(const QString &mes);
-    void addFileToDash(QAbstractItemModel *fileModel);
-    void dashRowRemoved(QAbstractItemModel *fileModel, const bool empty = false);
-    void initializePointers();
+    /*!
+     * \brief setDashFileList
+     * \param fileModel model of filenames list that shall be display in dash listview
+     * \param empty indicates wheteher the "open files" button shall be disabled.
+     */
+    void setDashFileList(QAbstractItemModel *fileModel, const bool disabled = true);
 private slots:
     /*!
-     *\brief openFile opens QFileDialog to choose file that is to analyzed.
-     *\info After choosing apropiate file, file is analyzed and treemodel is built. Application creates infoBox section
-     *(and searchBox section, if it doesn't exist).
-    */
-    void openFile();
+     * \brief openFileSelected
+     * Launches filedialog and sends name and emits fileSelected() signal after selecting file
+     * \see fileSelected();
+     */
+    void openFileSelected();
     /*!
-     *\brief launchHelp launches help html site.
-    */
-    void launchHelp();
-    void removeFileFromDash(QAbstractItemModel *fileModel);
+     * \brief selectionChanged
+     * \param selection QItemSelectionModel with selected record of the box tree
+     * Emits boxSelected() signal
+     * \see boxSelected()
+     */
     void selectionChanged(QItemSelectionModel *selection);
-    void switchToDashMenu();
-    //kliknieto przycisk ready
-    void dashFilesSelected(const bool &oneFile, const QString &url);
-    //kliknieto przycisk Add files
-    void dashDirSelected(const QString &directoryName);
-    void removedButtonClicked(const int &row);
+    /*!
+     * \brief searchButtonClicked
+     * \param boxType typed box type
+     * Called as a response to clicking Search button. It emits searchBox() signal
+     * \see searchBox()
+     */
     void searchButtonClicked(const QString &boxType);
+    /*!
+     * \brief switchToDashMenuSelected
+     * Called as a response to choosing Switch to dash section option in the menu. It displays analyze section.
+     */
+    void switchToDashMenuSelected();
+    /*!
+     * \brief dashFilesSelected
+     * \param oneFile indicates whether all segments of each presentation should be gathered in one file
+     * \param url URL address where generated files will be available. It is inserted into MPD file.
+     * Called after clicking Ready button. It emits dashFilesSelectedSignal() signal
+     * \see dashFilesSelectedSignal()
+     */
+    void dashFilesSelected(const bool &oneFile, const QString &url);
+    /*!
+     * \brief dashDirSelected
+     * \param directoryName selected directory
+     * Called after clicking Add files button. It emits dashDirSelectedSig() signal
+     * \see dashDirSelectedSig()
+     */
+    void dashDirSelected(const QString &directoryName);
+    /*!
+     * \brief removeButtonClicked
+     * \param row row id of file that shall be removed
+     * Called after clicking Remove button. It emits removeFileSig()
+     * \see removeFileSig()
+     */
+    void removeButtonClicked(const int &row);
+    /*!
+     * \brief launchHelpSelected
+     * Launches help.html file
+     */
+    void launchHelpSelected();
 signals:
+    /*!
+     * \brief fileSelected
+     * \param fileName full name (with path) of the selected file
+     */
     void fileSelected(const QString& fileName);
+    /*!
+     * \brief boxSelected
+     * \param selection model of selected record in box tree
+     */
     void boxSelected(QItemSelectionModel *selection);
+    /*!
+     * \brief searchBox
+     * \param boxType typed box type
+     */
     void searchBox(const QString& boxType);
+    /*!
+     * \brief dashFilesSelectedSignal
+     * \param oneFile indicates whether all segments of each presentation should be gathered in one file
+     * \param url URL address where generated files will be available. It is inserted into MPD file.
+     */
     void dashFilesSelectedSignal(const bool& oneFile, const QString &url);
+    /*!
+     * \brief dashDirSelectedSig
+     * \param dir selected directory
+     */
     void dashDirSelectedSig(const QString &dir);
+    /*!
+     * \brief removeFileSig
+     * \param row row id of file that shall be removed
+     */
     void removeFileSig(const int& row);
 private:
     /*!
-     *\brief createActions create actions and adds slots to the widgets
-    */
+     * \brief initPointers Sets dashSection and analyzeSection attributes to NULL.
+     */
+    void initPointers();
+    /*!
+     * \brief createMenu
+     * Creates menu
+     */
+    void createMenu();
+    /*!
+     * \brief createActions
+     * Creates menu actions (openAct, closeAct, dashAct, helpAct) and connects it to menu items.
+     */
     void createActions();
     /*!
-     *\brief createMenu creates menu
-    */
-    void createMenu();
+     * \brief makeDashConnection
+     * connects dashSection signals to this slots
+     */
     void makeDashConnection();
+    /*!
+     * \brief makeAnalyzeConnection
+     * connects analyzeSection signals to this slots
+     */
     void makeAnalyzeConnection();
 };
 
