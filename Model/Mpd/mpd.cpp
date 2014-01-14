@@ -261,9 +261,7 @@ void MPDWriter::addRepresentation(const QString& fn, const bool& oneFile) {
     Analyzer *an = new Analyzer(fn);
     originalModel = new TreeModel(an);
     Representation *repr = new Representation();
-    //qDebug()<<"mpd addrepr 2";
     QString dashName;
-    //qDebug()<<"mpd addrepr 3";
     if(oneFile)
         dashName = "dash_" + originalFileName;
     else
@@ -275,11 +273,10 @@ void MPDWriter::addRepresentation(const QString& fn, const bool& oneFile) {
     repr->setBaseurl(baseURL);
     //qDebug()<<"mpd addrepr 6";
     repr->setSegmentList(setSegmentList(oneFile));
-    //qDebug()<<"mpd addrepr 7";
     unsigned int *dim = getDimensions();
     repr->setHeight(dim[0]);
     repr->setWidth(dim[1]);
-    qDebug()<<"heighwid"<<QString::number(dim[0])<<QString::number(dim[1]);
+    //qDebug()<<"heighwid"<<QString::number(dim[0])<<QString::number(dim[1]);
     repr->setMimeType("video/mp4");
     repr->setStartsWithSAP(1);
     representations.append(repr);

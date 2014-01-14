@@ -31,8 +31,6 @@ private:
       *value: TreeItem
      */
     QHash<long,TreeItem*> *treeItems;
-    //Analyzer *analyzer;
-
 public:
 
     explicit TreeModel(Analyzer *analyzer, QObject *parent = 0);

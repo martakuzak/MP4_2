@@ -5,7 +5,7 @@ Controller::Controller(MainWindow *mw): window(mw) {
     fileModel = new QStandardItemModel();
     makeConnection();
 }
-///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::makeConnection() {
     connect(window, SIGNAL(fileSelected(QString)), this, SLOT(fileSelected(QString)), Qt::QueuedConnection);
     connect(window, SIGNAL(boxSelected(QItemSelectionModel*)), this,
@@ -17,7 +17,7 @@ void Controller::makeConnection() {
             SLOT(dashDirSelected(QString)), Qt::QueuedConnection);
     connect(window, SIGNAL(removeFileSig(int)), this, SLOT(removeFile(int)), Qt::QueuedConnection);
 }
-////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::fileSelected(const QString& fileName) {
     if(model == NULL)
         delete model;
@@ -25,7 +25,7 @@ void Controller::fileSelected(const QString& fileName) {
     model = new TreeModel(analyzer);
     window->fileAnalyzed(model, fileName);
 }
-//////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::boxSelected(QItemSelectionModel *selection) {
     if(selection->hasSelection()) {
         QModelIndex id = selection->currentIndex();
@@ -40,7 +40,7 @@ void Controller::boxSelected(QItemSelectionModel *selection) {
         window->printSelectedBox(new QStandardItemModel(), new TreeItem());
     }
 }
-/////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::searchBox(const QString &boxType) {
     if(boxType.length() != 4) {
         window->showWarningDialog("Box type should has at least 4 characters.");
@@ -66,11 +66,9 @@ void Controller::searchBox(const QString &boxType) {
     mod->setHeaderData(0, Qt::Horizontal, tr(""));
     mod->setHeaderData(1, Qt::Horizontal, tr(""));
     window->selectFoundBoxes(Items, textLabel);
-    //qDbug()<<"gowno";
     window->printSelectedBox(mod, item);
-    //qDbug()<<"i co";
 }
-////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::dashFilesSelected(const bool& oneFile, const QString &url) {
     QDateTime local(QDateTime::currentDateTime());
     QString date = local.toString();
@@ -98,7 +96,7 @@ void Controller::dashFilesSelected(const bool& oneFile, const QString &url) {
     dashWrap->writeMPD(oneFile, url);
     window->showInfoDialog("Dash files generated.");
 }
-//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::dashDirSelected(const QString &dir) {
     if(dir.length()) {
         QDir *directory = new QDir(dir);
@@ -119,7 +117,7 @@ void Controller::dashDirSelected(const QString &dir) {
         }
     }
 }
-////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::removeFile(const int &row) {
         if(row >= 0 && row < (fileModel->rowCount())) {
             fileModel->removeRow(row);

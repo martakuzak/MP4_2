@@ -10,7 +10,9 @@ class DashCreator;
 class MPDWriter;
 
 /*!
-  *\brief The DashProxy class
+  *\brief The DashWrapper class provides methods that adapts DashCreator and MPDWriter to Controller interface.
+  * Using this class MP4 files can be easily converted to forms appropriate to DASH streaming and MPD file
+  * can easily generated.
  */
 class DashWrapper {
 private:
@@ -32,54 +34,59 @@ private:
     MPDWriter *mpdWriter;
 public:
     DashWrapper();
+    ~DashWrapper();
+    /*!
+     * \brief setFileProp
+     * \param fullPath
+     */
     void setFileProp(const QString& fullPath);
+    /*!
+     * \brief writeFile generates one file with all the segments of the presentation
+     * \param date date - used to name catalof for generated file
+     * \param name full name of the original file which contains presentation (with path)
+     * \param maxSampleNum max sample number in the segment
+     * \return true if file was successfully written
+     */
     bool writeFile(const QString& date, const QString& name, const unsigned int& maxSampleNum);
+    /*!
+     * \brief writeFiles generates files each with one segment of the presentation
+     * \param date date - used to name catalof for generated file
+     * \param name full name of the original file which contains presentation (with path)
+     * \param maxSampleNum max sample number in the segment
+     * \return true if files were successfully written
+     */
     bool writeFiles(const QString& date, const QString& name, const unsigned int& maxSampleNum);
-    void addRepresentation(const bool& oneFile);
-    void writeMPD(const bool& oneFile, const QString &url);
-    void initMPD(const bool& oneFile);
+    /*!
+     * \brief setMpdProps
+     * Sets some MPDWriter attributes that are necessary to generate MPD:
+     * - name of the original file (wihout path)
+     * - path to generated dash files
+     */
     void setMpdProps();
+    /*!
+     * \brief initMPD
+     * \param oneFile indicates wheter all the segments of presentation shall be placed in one file
+     * sets box tree model of original file in mpdWriter
+     */
+    void initMPD(const bool& oneFile);
+    /*!
+     * \brief addRepresentation adds representation of presentation to MPD model
+     * \param oneFile indicates wheter all the segments of presentation shall be placed in one file
+     */
+    void addRepresentation(const bool& oneFile);
+    /*!
+     * \brief writeMPD
+     * \param oneFile indicates wheter all the segments of presentation shall be placed in one file
+     * \param url URL address where all the dash files will be place
+     * Writes Media Presentation File with earlier set parameters. The file is located in the same catalog
+     * as files with segments
+     */
+    void writeMPD(const bool& oneFile, const QString &url);
+    /*!
+     * \brief clear
+     * clear all the attributes (deletes mpdWriter and sets to NULL, all QString are set to "")
+     */
     void clear();
-//public:
-//    /*!
-//      *\brief DashProxy
-//      *\param fileName name of mp4 file that is transformed into dash mp4 file
-//      *\param model model of boxes of mp4 file that is transformed into dash mp4 file
-//     */
-//    DashWrapper(const QString& fileName, TreeModel *model, const QString &date);
-//    DashWrapper();
-//    ~DashWrapper();
-//    /*!
-//      *\brief closeFileStream
-//      *closes file stream
-//     */
-//    void closeFileStream();
-//    /*!
-//      *\brief writeFile
-//      *Writes dash file
-//      *\param maxSampleNum maximum number of samples in one mdat
-//      *\return true, if file was successfully written
-//     */
-//    bool writeFile(const QString& date, const QString &fileName, const unsigned int &maxSampleNum/*, QFile *dashFile*/);
-//    /*!
-//      *\brief writeFiles
-//      *Writes dash files - each segment has its own file
-//      *\param maxSampleNum maximum number of samples in one mdat
-//      *\return true, if all files were successfully written
-//     */
-//    bool writeFiles(const QString& date, const QString& fileName, const unsigned int& maxSampleNum);
-//    /*!
-//      *\brief writeMPD
-//      *Writes Media Presentation Description File
-//      *\param mpdFile Media Presentation Description file that is created
-//     */
-//    void writeMPD(QFile *mpdFile, bool oneFile);
-
-//private:
-//    void setDashCreator(const QString &fileName);
-
-//    DashCreator *dashCreator;
-//    MPDWriter *mpdWriter;
 };
 
 #endif // DASHPROXY_H

@@ -31,7 +31,7 @@
 class MainWindow;
 /*!
   *\brief The Box class
-  * is represention of MP4 box. It contains parameters that all the classes should have.
+  * is representation of MP4 box. It contains parameters that all the classes should have.
  */
 
 class Box {
@@ -45,7 +45,7 @@ protected:
      */
     QString type;
     /*!
-      *\brief offset bit offset of the box location
+      *\brief offset byte offset of the box location
      */
     unsigned long int offset;
 public:
@@ -135,11 +135,6 @@ public:
     FileTypeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const QString& mb,
                 const unsigned int& mv, const QList<QString>& cb);
     virtual QString getFullName() { return QString("File Type Box"); }
-    /*!
-     *
-     * \brief getModel
-     * \return
-     */
     virtual QStandardItemModel *getModel();
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////
