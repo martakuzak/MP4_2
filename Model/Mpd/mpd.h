@@ -117,8 +117,8 @@ public:
 //    SegmentList *setSegmentList(bool oneFile);
 //    BaseURL *setBaseURL(const QString &url);
 //    Representation *setRepresentation(bool oneFile);
-    AdaptationSet *setAdaptationSet(bool oneFile);
-    Period *setPeriod(bool oneFile);
+    AdaptationSet *setAdaptationSet();
+    Period *setPeriod();
 //public:
 //    /*!
 //      *\brief MPDWriter

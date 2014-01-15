@@ -210,7 +210,7 @@ void MPDWriter::setMPD(bool oneFile, const QString &url) {
     //mpd->getSuggestedPresentationDelay();//w staticu ignorowane
     //mpd->getMaxSegmentDuration(); //nieobowiązkowe
     //mpd->getMaxSubsegmentDuration(); //nieobowiązkowe
-    mpd->addPeriod(setPeriod(oneFile));
+    mpd->addPeriod(setPeriod());
     mpd->setBaseURL(url);
 }
 //////////////////////////
@@ -233,7 +233,7 @@ void MPDWriter::writeMPD(/*QFile *file, */bool oneFile, const QString &url) {
     mpdFile->close();
 }
 ///////////////
-AdaptationSet *MPDWriter::setAdaptationSet(bool oneFile) {
+AdaptationSet *MPDWriter::setAdaptationSet() {
     AdaptationSet *adapt = new AdaptationSet();
     adapt->addRepresentations(representations);
     /*unsigned int *dim = getDimensions();
@@ -242,11 +242,11 @@ AdaptationSet *MPDWriter::setAdaptationSet(bool oneFile) {
     return adapt;
 }
 //////////////////
-Period *MPDWriter::setPeriod(bool oneFile) {
+Period *MPDWriter::setPeriod() {
     Period *period = new Period();
     period->setStart(QString("PT0S"));
     period->setDuration(getDuration());
-    period->addAdaptationSet(setAdaptationSet(oneFile));
+    period->addAdaptationSet(setAdaptationSet());
     return period;
 }
 ///////////////////
@@ -334,8 +334,8 @@ SegmentList *MPDWriter::setSegmentList(bool oneFile) {
         unsigned int index = 0;
         QString str("dash_" + QString::number(index) + "_" + originalFileName + "s");
         while(QFile(dashPath + "/" + str).exists()) {//setting SegmentList
-            Analyzer *an = new Analyzer(dashPath + str);
-            TreeModel *segmentModel = new TreeModel(an);
+            //Analyzer *an = new Analyzer(dashPath + str);
+            //TreeModel *segmentModel = new TreeModel(an);
             slist->addSegmentURL(str);
             ++ index;
             str = QString("dash_" + QString::number(index) + "_" + originalFileName + "s");

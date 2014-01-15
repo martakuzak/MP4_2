@@ -569,52 +569,53 @@ QStandardItemModel *SegmentIndexBox::getModel() {
     model->setData(model->index(3, 1, QModelIndex()), QString::number(timescale));
     model->setData(model->index(4, 0, QModelIndex()), "Earliest presentation time");
     model->setData(model->index(4, 1, QModelIndex()), QString::number(earliestPresentationTime));
-    model->setData(model->index(3, 0, QModelIndex()), "First offset");
-    model->setData(model->index(3, 1, QModelIndex()), QString::number(firstOffset));
-    model->setData(model->index(4, 0, QModelIndex()), "Reserved");
-    model->setData(model->index(4, 1, QModelIndex()), QString::number(reserved));
+    model->setData(model->index(5, 0, QModelIndex()), "First offset");
+    model->setData(model->index(5, 1, QModelIndex()), QString::number(firstOffset));
+    model->setData(model->index(6, 0, QModelIndex()), "Reserved");
+    model->setData(model->index(6, 1, QModelIndex()), QString::number(reserved));
     unsigned int size = referenceType.size();
     if(size>0) {
-        model->setData(model->index(5, 0, QModelIndex()), "Reference type");
+        model->setData(model->index(7, 0, QModelIndex()), "Reference type");
         tmp.clear();
         for(unsigned int i=0; i<size; i++) {
             tmp.append(QString::number(referenceType.at(i)));
             tmp.append(" |");
         }
-        model->setData(model->index(6, 0, QModelIndex()), "Reference size");
+        model->setData(model->index(7, 1, QModelIndex()), tmp);
+        model->setData(model->index(8, 0, QModelIndex()), "Reference size");
         tmp.clear();
         for(unsigned int i=0; i<size; i++) {
             tmp.append(QString::number(referenceSize.at(i)));
             tmp.append(" |");
         }
-        model->setData(model->index(6, 1, QModelIndex()), tmp);
-        model->setData(model->index(7, 0, QModelIndex()), "Subsegment duration");
+        model->setData(model->index(8, 1, QModelIndex()), tmp);
+        model->setData(model->index(9, 0, QModelIndex()), "Subsegment duration");
         tmp.clear();
         for(unsigned int i=0; i<size; i++) {
             tmp.append(QString::number(subsegmentDuration.at(i)));
             tmp.append(" |");
         }
-        model->setData(model->index(7, 1, QModelIndex()), tmp);
-        model->setData(model->index(8, 0, QModelIndex()), "Starts with SAP");
+        model->setData(model->index(9, 1, QModelIndex()), tmp);
+        model->setData(model->index(10, 0, QModelIndex()), "Starts with SAP");
         tmp.clear();
         for(unsigned int i=0; i<size; i++) {
             tmp.append(QString::number(startsWithSAP.at(i)));
             tmp.append(" |");
         }
-        model->setData(model->index(8, 1, QModelIndex()), tmp);
-        model->setData(model->index(9, 0, QModelIndex()), "SAP Type");
+        model->setData(model->index(10, 1, QModelIndex()), tmp);
+        model->setData(model->index(11, 0, QModelIndex()), "SAP Type");
         tmp.clear();
         for(unsigned int i=0; i<size; i++) {
             tmp.append(QString::number(SAPType.at(i)));
             tmp.append(" |");
         }
-        model->setData(model->index(9, 1, QModelIndex()), tmp);
-        model->setData(model->index(10, 0, QModelIndex()), "SAP Delta Time");
+        model->setData(model->index(11, 1, QModelIndex()), tmp);
+        model->setData(model->index(12, 0, QModelIndex()), "SAP Delta Time");
         for(unsigned int i=0; i<size; i++) {
             tmp.append(QString::number(SAPDeltaTime.at(i)));
             tmp.append(" |");
         }
-        model->setData(model->index(10, 1, QModelIndex()), tmp);
+        model->setData(model->index(12, 1, QModelIndex()), tmp);
     }
     return model;
 }
