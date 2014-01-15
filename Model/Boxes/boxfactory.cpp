@@ -32,9 +32,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "vmhd"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -51,9 +49,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "nmhd"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -126,8 +122,6 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -145,9 +139,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "urn "){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -159,9 +151,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "dref"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -174,9 +164,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "ctts"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -200,9 +188,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "co64"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;   
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -226,9 +212,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "padb"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -248,9 +232,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "elst"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -288,9 +270,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "cprt"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -302,9 +282,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "pdin"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -316,9 +294,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "xml "){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -331,8 +307,6 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -344,9 +318,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "iloc"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;   
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -358,9 +330,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "pitm"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -372,9 +342,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "ipro"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8; 
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -387,9 +355,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "infe"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -401,9 +367,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "iinf"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -419,9 +383,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "imif"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -433,9 +395,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "ipmc"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -451,9 +411,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "iods"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -464,9 +422,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "esds"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -474,16 +430,10 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         }
         return std::shared_ptr<Box>(new ESDBox(size, type, off, v, f));
     }
-    /*else if(type == "avc1"){
-        return std::shared_ptr<Box>(new VisualSampleEntry(size, type, off,0,0,0,0,analyzer->valueOfGroupOfFields(2, off + 33),analyzer->valueOfGroupOfFields(34,35)));
-
-    }*/
     else if(type == "leva"){
         unsigned int offset = 0;
         if(size == 1)
             offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -494,15 +444,17 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type == "prft"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
             f.append(analyzer->valueOfGroupOfBytes(1, off + offset + i + 9));
         }
         return std::shared_ptr<Box>(new ProducerReferenceTimeBox(size, type, off, v, f));
+    }
+    else if(type == "uuid") {
+        unsigned long long int extendedType = analyzer->valueOfGroupOfBytes(16, off + 8);
+        return std::shared_ptr<Box>(new UniversalUniqueIdentifier(size, type, off, extendedType));
     }
     else{
         return std::shared_ptr<Box>(new Box(size, type, off));
@@ -522,9 +474,7 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
     else if(type == "mvhd"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int version = analyzer->valueOfGroupOfBytes(1, off + offset + 9);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -571,9 +521,7 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
     else if(type == "mdhd"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -615,12 +563,6 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         }
         QString qstringPred = tmpValue.mid(16, 16);
         unsigned int predefined = qstringPred.toUInt(0,2);
-        //        QString qstringStarsWithSAP = tmpValue.mid(0,1);
-        //        startsWithSAP.append(qstringStarsWithSAP.toUInt(0,2));
-        //        QString qstringSAPType = tmpValue.mid(1,3);
-        //        SAPType.append(qstringSAPType.toUInt(0,2));
-        //        QString qstringSAPDeltaTime = tmpValue.mid(4,28);
-        //        SAPDeltaTime.append(qstringSAPDeltaTime.toUInt(0,2))
 
         std::shared_ptr<Box> ret(new MediaHeaderBox(size, type, off, v, f, creationTime, modificationTime, timescale, duration,
                                                     pad, language, predefined));
@@ -637,9 +579,7 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
     else if(type == "mfhd"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -709,9 +649,7 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
     else if(type == "mehd"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -736,9 +674,7 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
     else if(type == "meta"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -750,9 +686,7 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
     else if(type == "mfro"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -772,9 +706,7 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
     else if(type == "tkhd"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -826,9 +758,7 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
     else if(type == "trex"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -850,9 +780,7 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
     else if(type == "tfhd"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -884,9 +812,7 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
     else if(type == "trun"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -920,9 +846,7 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
     else if(type == "tfra"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -943,9 +867,7 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
     else if(type == "tfdt"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;      
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -965,9 +887,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     if(type == "smhd"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -985,9 +905,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "stts"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1011,9 +929,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "stsd"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1026,9 +942,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "stsz"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1048,9 +962,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "stz2"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1062,9 +974,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "stsc"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1086,9 +996,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "stco"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1105,9 +1013,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "stss"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1125,7 +1031,6 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         QString majorBrand = analyzer->qstringValue(4, off + 8);
         unsigned int minorVersion = analyzer->valueOfGroupOfBytes(4, off + 12);
         //QString minorVersion = analyzer->qstringValue(4, off + 12);
-
         QList<QString> compatibleBrands;
         unsigned int index = 16;
         while(index <= (size-4)) {
@@ -1139,9 +1044,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "stsh"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1153,9 +1056,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "stdp"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1171,9 +1072,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "sdtp"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;   
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1185,9 +1084,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "sbgp"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1199,9 +1096,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "sgpd"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1213,9 +1108,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "stsl"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8; 
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1227,9 +1120,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "sidx"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int version = analyzer->valueOfGroupOfBytes(1, off + offset + 9);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1258,40 +1149,12 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         QList <unsigned int> SAPType;
         QList <unsigned int> SAPDeltaTime;
         for(unsigned int i = 0; i<referenceCount; i++) {
-            //referenceType.append(analyzer->bitValue(offset +32,0));
             referenceType.append(analyzer->valueOfGroupOfBits(1, (off + offset + 32)*8));
-            //int referenceSizeBitOffset = (offset + 31)  *8;
-            //referenceSize.append(analyzer->valueOfBits(referenceSizeBitOffset+249, referenceSizeBitOffset+279));
-            //            if (referenceType.at(i)) {
-            //                referenceSize.append(analyzer->valueOfGroupOfBytes(4, off + offset + 32) - pow(2.0,31) );
-            //            }
-            //            else
-            //                referenceSize.append(analyzer->valueOfGroupOfBytes(4, off + offset + 32));
             referenceSize.append(analyzer->valueOfGroupOfBits(31, (off + offset + 32)*8 + 1));
             subsegmentDuration.append(analyzer->valueOfGroupOfBytes(4, off + offset + 36));
             startsWithSAP.append(analyzer->valueOfGroupOfBits(1, (off + offset + 40)*8));
             SAPType.append(analyzer->valueOfGroupOfBits(3, (off + offset + 40)*8 + 1));
             SAPDeltaTime.append(analyzer->valueOfGroupOfBits(28, (off + offset + 40)*8 + 4));
-            //unsigned long int byteValue = analyzer->valueOfGroupOfBytes(4, off + offset + 40);
-            //            QString tmpValue = QString::number(byteValue,2);
-            //            int tmpSize = tmpValue.size();
-            //            if(tmpSize < 32) {
-            //                int delta = 32 - tmpSize;
-            //                for (int i = 0; i<delta; ++i) {
-            //                    tmpValue = tmpValue.insert(0, "0");
-            //                }
-            //            }
-            //            QString qstringStarsWithSAP = tmpValue.mid(0,1);
-            //            startsWithSAP.append(qstringStarsWithSAP.toUInt(0,2));
-            //            QString qstringSAPType = tmpValue.mid(1,3);
-            //            SAPType.append(qstringSAPType.toUInt(0,2));
-            //            QString qstringSAPDeltaTime = tmpValue.mid(4,28);
-            //            SAPDeltaTime.append(qstringSAPDeltaTime.toUInt(0,2));
-
-            //            startsWithSAP.append(analyzer->bitValue(offset+40,0));
-            //            int SAPTypeBitOffset = (offset + 39)  *8;
-            //            SAPType.append(analyzer->valueOfBits(SAPTypeBitOffset+312,SAPTypeBitOffset+314));
-            //            SAPDeltaTime.append(analyzer->valueOfBits(SAPTypeBitOffset+315,SAPTypeBitOffset+342));
             offset += 12;
         }
         return std::shared_ptr<Box>(new SegmentIndexBox(size, type, off, version, f, referenceId, timescale, earliestPresentationTime,
@@ -1301,9 +1164,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "ssix"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;   
         unsigned int version = analyzer->valueOfGroupOfBytes(1, off + offset + 9);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1314,9 +1175,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "subs"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;      
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1332,9 +1191,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "schm"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1354,9 +1211,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "srpp"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;   
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1372,9 +1227,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "saiz"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1385,9 +1238,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
     else if(type == "saio"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;     
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1402,9 +1253,7 @@ std::shared_ptr<Box> BoxFactory::getHBox(const unsigned int& size, QString type,
     if(type == "hdlr"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {
@@ -1417,30 +1266,13 @@ std::shared_ptr<Box> BoxFactory::getHBox(const unsigned int& size, QString type,
             reserved.append(analyzer->valueOfGroupOfBytes(4 , off + offset + 20 + 4*i ));
         }
         QString name = analyzer->qstringValue(size - offset - 32, off + offset + 32);
-        /*int nameLength = size - offset - 32;
-        int i = 0;
-        while(i < nameLength) {
-            unsigned long int intName;
-            if((nameLength-i)>=4) {
-                intName = analyzer->valueOfGroupOfBytes(4, off + offset + 32 + i);
-                name.append(analyzer->toQString(intName, 4));
-            }
-            else {
-                int newLen = nameLength - i;
-                intName = analyzer->valueOfGroupOfBytes(newLen + i, offset + 32 + newLen + i);
-                name.append(analyzer->toQString(intName, newLen));
-            }
-            i+=4;
-        }*/
         std::shared_ptr<Box> ret(new HandlerBox(size, type, off, v, f, predefined, handlerType, reserved, name));
         return ret;
     }
     else if(type == "hmhd"){
         unsigned int offset = 0;
         if(size == 1)
-            offset+=8;
-        if(type == QString("uuid"))
-            offset+=16;
+            offset+=8;    
         unsigned int v = analyzer->valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i<3; ++i) {

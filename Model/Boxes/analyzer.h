@@ -16,8 +16,7 @@ class TreeModel;
 /*!
   *\brief The Analyzer class - provides tools to analyze MP4 file.
  */
-class Analyzer
-{
+class Analyzer {
 public:
     Analyzer();
     /*!

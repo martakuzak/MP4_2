@@ -1,6 +1,6 @@
 #include "sampleentry.h"
 
-/////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 SampleEntry::SampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off,
                          const QList<unsigned int> &res, const unsigned  int& dri):
     Box(s,t,off),
@@ -23,7 +23,7 @@ QStandardItemModel *SampleEntry::getModel() {
 
     return model;
 }
-/////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 VisualSampleEntry::VisualSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                      const QList<unsigned int>& res, const unsigned int &dri, const unsigned int &pd, const unsigned int& r2,
                                      const QList<unsigned int> &pd1, const unsigned int& wdth, const unsigned int& hght, const unsigned  int& hr,
@@ -89,7 +89,7 @@ QStandardItemModel *VisualSampleEntry::getModel() {
 
     return model;
 }
-/////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 AudioSampleEntry::AudioSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                    const QList<unsigned int>& res, const unsigned int &dri, const QList<unsigned int> &res1,
                                    const unsigned int &chc, const unsigned int &ss, const unsigned int &pred, const unsigned int &res2,
@@ -136,12 +136,12 @@ QStandardItemModel *AudioSampleEntry::getModel() {
 
     return model;
 }
-/////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 HintSampleEntry::HintSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                  const QList<unsigned int>& res, const unsigned int &dri):
     SampleEntry(s,t,off, res, dri)
 {}
-/////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 MP4VisualSampleEntry::MP4VisualSampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off,
                                            const QList<unsigned int>& res, const unsigned int &dri, const unsigned int &pd,
                                            const unsigned int& r2,const QList<unsigned int>& pd1,const unsigned int& wdth,
@@ -149,27 +149,27 @@ MP4VisualSampleEntry::MP4VisualSampleEntry(const unsigned int& s, const QString&
                                            const unsigned int& fc, const QString & csn, const unsigned int& dpth, const unsigned int &pd2):
     VisualSampleEntry(s,t,off,res, dri,pd,r2,pd1, wdth,hght, hr,vr, r3, fc, csn, dpth, pd2)
 {}
-///////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 MP4AudioSampleEntry::MP4AudioSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                          const QList<unsigned int>& res, const unsigned int &dri, const QList<unsigned int> &res1,
                                          const unsigned int &chc, const unsigned int &ss, const unsigned int &pred, const unsigned int &res2,
                                          const unsigned int &srate):
     AudioSampleEntry(s,t,off,res,dri,res1,chc,ss,pred,res2,srate)
 {}
-///////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 MpegSampleEntry::MpegSampleEntry(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                  const QList<unsigned int> &res, const unsigned int &dri):
     SampleEntry(s,t,off,res,dri) {}
-///////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 /////MP4///////
 ObjectDescriptorBox::ObjectDescriptorBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& v,const QList<unsigned int>& f):
     FullBox(s,t,off,v, f)
 {}
-///////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 ESDBox::ESDBox(const unsigned  int& s, const QString& t, const unsigned long int& off, const unsigned  int& v,const QList<unsigned int>& f):
     FullBox(s,t,off,v, f)
 {}
-///////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 AVCSampleEntry::AVCSampleEntry(const unsigned int& s, const QString& t, const unsigned long int& off,
                                const QList<unsigned int>& res, const unsigned int &dri, const unsigned int &pd,
                                const unsigned int& r2,const QList<unsigned int>& pd1,const unsigned int& wdth,
@@ -177,7 +177,7 @@ AVCSampleEntry::AVCSampleEntry(const unsigned int& s, const QString& t, const un
                                const unsigned int& fc, const QString & csn, const unsigned int& dpth, const unsigned int &pd2):
     VisualSampleEntry(s,t,off,res, dri,pd,r2,pd1, wdth,hght, hr,vr, r3, fc, csn, dpth, pd2)
 {}
-///////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 AVCConfigurationBox::AVCConfigurationBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                                          const unsigned int& cv, const unsigned int& avcpi, const unsigned int& pc, const unsigned int& avcli,
                                          const unsigned int& r1, const unsigned int& lsmo, const unsigned int& r2, const unsigned int& nosps,
@@ -242,7 +242,7 @@ QStandardItemModel *AVCConfigurationBox::getModel() {
 
     return model;
 }
-///////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 MPEG4BitRateBox::MPEG4BitRateBox(const unsigned int& s, const QString& t, const unsigned long int& off,
                                  const unsigned long int& bsDB, const unsigned long int& maxbr, const unsigned long int& avgBr):
     Box(s, t, off),

@@ -1,5 +1,5 @@
 #include "trackbox.h"
-///////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 TrackBox::TrackBox(const unsigned  int& s, const QString& t, const unsigned long int& off): Box(s,t,off) {}
 /////////////
 TrackHeaderBox::TrackHeaderBox(const unsigned  int& s, const QString& t, const unsigned long int& off,
@@ -157,9 +157,9 @@ QStandardItemModel *TrackExtendsBox::getModel() {
 
     return model;
 }
-///////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 TrackFragmentBox::TrackFragmentBox(const unsigned  int& s, const QString& t, const unsigned long int& off): Box(s,t,off) {}
-///////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 TrackFragmentHeaderBox::TrackFragmentHeaderBox(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                                const unsigned  int& v, const QList<unsigned int>& f,
                                                const unsigned long int& tid, const unsigned long &bdo, const unsigned long &dsdi,
@@ -223,7 +223,7 @@ QStandardItemModel *TrackFragmentHeaderBox::getModel() {
 
     return model;
 }
-///////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 TrackRunBox::TrackRunBox(const unsigned  int& s, const QString& t, const unsigned long int& off,
                          const unsigned  int& v, const QList<unsigned int>& f, const unsigned long &sc, const long &dof,
                          const unsigned int &fsf, const QList<unsigned long> &sd, const QList<unsigned long> &ss,
@@ -316,12 +316,12 @@ QStandardItemModel *TrackRunBox::getModel() {
 
     return model;
 }
-///////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 TrackFragmentRandomAccessBox::TrackFragmentRandomAccessBox(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                                            const unsigned  int& v, const QList<unsigned int>& f):
     FullBox(s,t,off,v, f)
 {}
-///////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 TrackFragmentBaseMediaDecodeTimeBox::TrackFragmentBaseMediaDecodeTimeBox(const unsigned  int& s, const QString& t, const unsigned long int& off,
                                                                          const unsigned  int& v,
                                                                          const QList<unsigned int>& f, const unsigned long &bmdt):

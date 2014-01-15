@@ -636,6 +636,14 @@ public:
     virtual QString getFullName() { return QString("Producer Reference Time Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+class UniversalUniqueIdentifier : public Box {
+private:
+    unsigned long long int extendedType;
+public:
+    UniversalUniqueIdentifier(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned long long int& eType);
+    virtual QString getFullName() { return QString("Universal Unique Identifier"); }
+};
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #endif // BOX_H
 
