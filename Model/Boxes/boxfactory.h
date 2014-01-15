@@ -14,8 +14,7 @@
 
 class Analyzer;
 
-class BoxFactory
-{
+class BoxFactory {
 private:
     /*!
       *\brief analyzer

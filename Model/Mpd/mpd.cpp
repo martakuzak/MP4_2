@@ -195,7 +195,7 @@ void MPDWriter::init(bool oneFile) {
     dashModel = new TreeModel(an);
 }
 
-void MPDWriter::setMPD(bool oneFile, const QString &url) {
+void MPDWriter::setMPD(const QString &url) {
     //MPD
     mpd = new MPD();
     //mpd->setId(unisgned int); //nieobowiazkowe, poza tym bedzie jedno mpd, wiec bez tego
@@ -220,7 +220,7 @@ void MPDWriter::writeMPD(/*QFile *file, */bool oneFile, const QString &url) {
     mpdName.replace(".mp4", ".mpd");
     QFile *mpdFile = new QFile(dashPath + "/" + mpdName);
     if(mpdFile->open(QIODevice::ReadWrite)) {
-        setMPD(oneFile, url);
+        setMPD(url);
         QXmlStreamWriter *stream = new QXmlStreamWriter(mpdFile);
         stream->setAutoFormatting(true);
         stream->writeStartDocument();

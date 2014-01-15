@@ -174,7 +174,7 @@ void MainWindow::makeDashConnection() {
 void MainWindow::makeAnalyzeConnection() {
     connect(analyzeSection, SIGNAL(boxSelected(QItemSelectionModel*)), this,
             SLOT(selectionChanged(QItemSelectionModel*)), Qt::QueuedConnection);
-    connect(analyzeSection, SIGNAL(searchBox(QString)), this,
+    connect(analyzeSection, SIGNAL(searchButtonClicked(QString)), this,
             SLOT(searchButtonClicked(QString)), Qt::QueuedConnection);
 }
 

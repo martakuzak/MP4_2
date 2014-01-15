@@ -9,13 +9,10 @@
 #include "exceptions.h"
 
 class Analyzer;
-class MainWindow;
 /*!
   *\brief The TreeItem class represent single element of the tree model
  */
-class TreeItem
-{
-
+class TreeItem {
 private:
     /*!
       *\brief childItems children of the item
@@ -122,11 +119,9 @@ public:
             return "";
         return box->getFullName();
     }
-
     QStandardItemModel *getModel() {
         return box->getModel();
     }
-
     /*!
       *\brief getBox
       *\return box
@@ -134,7 +129,6 @@ public:
     std::shared_ptr<Box> getBox() {
         return box;
     }
-
 };
 
 #endif // TREEITEM_H

@@ -36,9 +36,8 @@ void Controller::boxSelected(QItemSelectionModel *selection) {
         mod->setHeaderData(1, Qt::Horizontal, tr(""));
         window->printSelectedBox(mod, item);
     }
-    else {
+    else
         window->printSelectedBox(new QStandardItemModel(), new TreeItem());
-    }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::searchBox(const QString &boxType) {

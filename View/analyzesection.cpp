@@ -35,6 +35,7 @@ void AnalyzeSection::printSelectedBox(QStandardItemModel *model, TreeItem *item)
 ///////////////////////////////////////////////////////////////////////////////////////////
 void AnalyzeSection::selectFoundBoxes(QModelIndexList &boxes, const QString &fullName) {
     treeView->clearSelection();
+    treeView->selectionModel()->clearCurrentIndex();
     QModelIndex tmpId;
     while (!boxes.isEmpty()) {
         QModelIndex backId = boxes.back();
@@ -44,9 +45,10 @@ void AnalyzeSection::selectFoundBoxes(QModelIndexList &boxes, const QString &ful
             treeView->setExpanded(tmpParent, true);
             tmpParent = tmpParent.parent();
         }
-        treeView->selectionModel()->select(backId, QItemSelectionModel::Select | QItemSelectionModel::Rows);
+        treeView->selectionModel()->select(backId, QItemSelectionModel::Rows | QItemSelectionModel::Select);
         boxes.pop_back();
     }
+    treeView->selectionModel()->setCurrentIndex(tmpId, QItemSelectionModel::NoUpdate);
     boxNameLabel->setText(fullName);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////

@@ -28,12 +28,10 @@
 #include <QStandardItem>
 #include <qDebug>
 
-class MainWindow;
 /*!
   *\brief The Box class
   * is representation of MP4 box. It contains parameters that all the classes should have.
  */
-
 class Box {
 protected:
     /*!

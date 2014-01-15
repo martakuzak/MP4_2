@@ -112,7 +112,7 @@ public:
     QString getDuration();
     unsigned int *getDimensions();
     QString getHMSFormat(const double& value);
-    void setMPD(bool oneFile, const QString &url);
+    void setMPD(const QString &url);
 //    //void setProgramInformation();
 //    SegmentList *setSegmentList(bool oneFile);
 //    BaseURL *setBaseURL(const QString &url);
