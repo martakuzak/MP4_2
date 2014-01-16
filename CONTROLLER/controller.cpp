@@ -87,8 +87,10 @@ void Controller::dashFilesSelected(const bool& oneFile, const QString &url) {
             window->showWarningDialog("Error while writing files");
             return;
         }
-        dashWrap->setMpdProps();
-        dashWrap->initMPD(oneFile);
+        if(!i) {
+            dashWrap->setMpdProps();
+            dashWrap->initMPD(oneFile);
+        }
         dashWrap->addRepresentation(oneFile);
     }
 

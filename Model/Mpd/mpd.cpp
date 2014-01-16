@@ -178,19 +178,12 @@ QString MPDWriter::getHMSFormat(const double& value) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-//MPDWriter::MPDWriter(const QString& pth, const QString &fn, TreeModel *mod, const QString& dt): path(pth),
-//    fileName(fn), model(mod) {
-//    path.append("DASH " + dt + "/");
-//}
 void MPDWriter::init(bool oneFile) {
-    //qDebug()<<"mpdw init";
     if(oneFile) {
         Analyzer *an = new Analyzer(dashPath + "/dash_" + originalFileName);
-        //qDebug()<<"init"<<(dashPath + "/dash_" + originalFileName);
         dashModel = new TreeModel(an);
         return;
     }
-    //qDebug()<<"bdbf"<<(dashPath + "/dash_init_" + originalFileName);
     Analyzer *an = new Analyzer(dashPath + "/dash_init_" + originalFileName);
     dashModel = new TreeModel(an);
 }
@@ -215,7 +208,6 @@ void MPDWriter::setMPD(const QString &url) {
 }
 //////////////////////////
 void MPDWriter::writeMPD(/*QFile *file, */bool oneFile, const QString &url) {
-    //qDebug()<<"WRITEMPD1";
     QString mpdName = originalFileName;
     mpdName.replace(".mp4", ".mpd");
     QFile *mpdFile = new QFile(dashPath + "/" + mpdName);
@@ -224,8 +216,6 @@ void MPDWriter::writeMPD(/*QFile *file, */bool oneFile, const QString &url) {
         QXmlStreamWriter *stream = new QXmlStreamWriter(mpdFile);
         stream->setAutoFormatting(true);
         stream->writeStartDocument();
-        //qDebug()<<"WRITEMPD2";
-        //return;
         mpd->write(stream);
         stream->writeEndDocument();
     }
@@ -266,17 +256,14 @@ void MPDWriter::addRepresentation(const QString& fn, const bool& oneFile) {
         dashName = "dash_" + originalFileName;
     else
         dashName = "dash_init_" + originalFileName;
-    //qDebug()<<"mpd addrepr 5"<<originalFileName;
 
     BaseURL *baseURL = new BaseURL();
     baseURL->setContent(dashPath + "/" + dashName);
     repr->setBaseurl(baseURL);
-    //qDebug()<<"mpd addrepr 6";
     repr->setSegmentList(setSegmentList(oneFile));
     unsigned int *dim = getDimensions();
     repr->setHeight(dim[0]);
     repr->setWidth(dim[1]);
-    //qDebug()<<"heighwid"<<QString::number(dim[0])<<QString::number(dim[1]);
     repr->setMimeType("video/mp4");
     repr->setStartsWithSAP(1);
     representations.append(repr);
@@ -287,25 +274,16 @@ void MPDWriter::setDashPath(const QString &dPath) {
 }
 
 SegmentList *MPDWriter::setSegmentList(bool oneFile) {
-    //qDebug()<<"setsegmn 1";
     SegmentList *slist = new SegmentList();
     Initialization *init = new Initialization();
-    //qDebug()<<"setsegmn 2";
     if(oneFile) {
-        //qDebug()<<"setsegmn 2.01"<<originalFileName;
         QList< std::shared_ptr<Box> > mdats = dashModel->getBoxes("mdat");
-        //qDebug()<<"setsegmn 2.1";
         QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
-        //qDebug()<<"setsegmn 3";
         init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
-        //qDebug()<<"setsegmn 3.1";
         slist->setInitialization(init);
-        //qDebug()<<"setsegmn 4";
         while(!sidxs.empty()) {
-            //qDebug()<<"setsegmn 5";
             if(sidxs.size() == 1) {
                 std::shared_ptr<Box> sidx = sidxs.back();
-                //qDebug()<<"setsegmn 6";
                 std::shared_ptr<Box> mdat = mdats.front();
                 unsigned int firstMediaRange = sidx->getOffset();
                 unsigned int secondMediaRange = mdat->getOffset() + mdat->getSize() - 1;
@@ -334,8 +312,6 @@ SegmentList *MPDWriter::setSegmentList(bool oneFile) {
         unsigned int index = 0;
         QString str("dash_" + QString::number(index) + "_" + originalFileName + "s");
         while(QFile(dashPath + "/" + str).exists()) {//setting SegmentList
-            //Analyzer *an = new Analyzer(dashPath + str);
-            //TreeModel *segmentModel = new TreeModel(an);
             slist->addSegmentURL(str);
             ++ index;
             str = QString("dash_" + QString::number(index) + "_" + originalFileName + "s");
