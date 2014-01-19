@@ -101,7 +101,7 @@ public:
       *\param mediaRange defines byte range of the segment like this: 'first_byte-last_byte', for example '841-693308'
       *\param indexRange defines byte range of segment index like this: 'first_byte-last_byte', for example '841-897'
      */
-    void addSegmentURL(const QString &mediaRange, const QString &indexRange);
+    void addSegmentURL(const QString &mediaRange, const QString &indexRange, const QString &media="");
     void addSegmentURL(const QString &media);
    // void addSegmentsURL();
     Initialization *getInitialization() const;
