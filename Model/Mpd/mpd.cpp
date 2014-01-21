@@ -283,7 +283,7 @@ void MPDWriter::addRepresentation(const QString& fn, const bool& oneFile) {
     repr->setHeight(dim[0]);
     repr->setWidth(dim[1]);
     repr->setMimeType("video/mp4");
-    repr->setStartsWithSAP(1);
+    repr->setStartWithSAP(1);
     representations.append(repr);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////

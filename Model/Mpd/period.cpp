@@ -285,7 +285,7 @@ Representation::Representation() {
     height = NULL;
     frameRate = NULL;
     sar = "";
-    startsWithSAP = NULL;
+    startWithSAP = NULL;
     bandwidth = NULL;
     baseurl = NULL;
     segmentList = NULL;
@@ -305,8 +305,8 @@ void Representation::write(QXmlStreamWriter *stream) {
         stream->writeAttribute("height", QString::number(height));
     if(sar.size())
         stream->writeAttribute("sar", sar);
-    if(startsWithSAP != NULL)
-        stream->writeAttribute("startsWithSAP", QString::number(startsWithSAP));
+    if(startWithSAP != NULL)
+        stream->writeAttribute("startWithSAP", QString::number(startWithSAP));
     if(bandwidth != NULL)
         stream->writeAttribute("bandwidth", QString::number(bandwidth));
     if(baseurl != NULL)
@@ -340,12 +340,12 @@ void Representation::setBandwidth(unsigned int value) {
     bandwidth = value;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-unsigned short Representation::getStartsWithSAP() const {
-    return startsWithSAP;
+unsigned short Representation::getStartWithSAP() const {
+    return startWithSAP;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-void Representation::setStartsWithSAP(unsigned short value) {
-    startsWithSAP = value;
+void Representation::setStartWithSAP(unsigned short value) {
+    startWithSAP = value;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 QString Representation::getSar() const {

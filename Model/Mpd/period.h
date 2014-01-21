@@ -57,7 +57,7 @@ private:
     unsigned int height;
     unsigned int frameRate;
     QString sar;
-    unsigned short int startsWithSAP;
+    unsigned short int startWithSAP;
     unsigned int bandwidth;
     //
     BaseURL *baseurl;
@@ -84,8 +84,8 @@ public:
     void setFrameRate(unsigned int value);
     QString getSar() const;
     void setSar(const QString &value);
-    unsigned short getStartsWithSAP() const;
-    void setStartsWithSAP(unsigned short value);
+    unsigned short getStartWithSAP() const;
+    void setStartWithSAP(unsigned short value);
     unsigned int getBandwidth() const;
     void setBandwidth(unsigned int value);
     BaseURL *getBaseurl() const;

@@ -90,20 +90,22 @@ private:
 public:
     MPDWriter();
     void addRepresentation(const QString &fn, const bool &oneFile);
-    void setDashPath(const QString& dashPath);
-    SegmentList *setSegmentList(bool oneFile, const QString &uri ="");
     void init(bool oneFile);
     void writeMPD(bool oneFile, const QString &url);
 
-    QString getDuration();
-    unsigned int *getDimensions();
-    QString getHMSFormat(const double& value);
-    void setMPD(const QString &url);
     AdaptationSet *setAdaptationSet();
     Period *setPeriod();
 
     QString getOriginalFileName() const;
     void setOriginalFileName(const QString &value);
+
+    void setDashPath(const QString& dashPath);
+private:
+    QString getHMSFormat(const double& value);
+    QString getDuration();
+    unsigned int *getDimensions();
+    void setMPD(const QString &url);
+    SegmentList *setSegmentList(bool oneFile, const QString &uri ="");
 };
 
 

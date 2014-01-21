@@ -25,6 +25,7 @@ public:
     DashCreator(const QString& path, const QString& name, TreeModel *mod);
     bool writeFile(const unsigned int & maxSampleNum);
     bool writeFiles(const unsigned int & maxSampleNum);
+private:
     unsigned int copyBox(const QString& type, QFile *dashFile = NULL, const unsigned long int& maxSize = 0);
     /*!
       *\brief copyBox
