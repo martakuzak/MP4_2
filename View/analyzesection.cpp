@@ -33,7 +33,7 @@ void AnalyzeSection::printSelectedBox(QStandardItemModel *model, TreeItem *item)
     }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-void AnalyzeSection::selectFoundBoxes(QModelIndexList &boxes, const QString &fullName) {
+void AnalyzeSection::selectBoxesFound(QModelIndexList &boxes, const QString &fullName) {
     treeView->clearSelection();
     treeView->selectionModel()->clearCurrentIndex();
     QModelIndex tmpId;
@@ -55,7 +55,7 @@ void AnalyzeSection::selectFoundBoxes(QModelIndexList &boxes, const QString &ful
 ///Slots
 ////////////////////////////////////////////////////////////////////////////////////////////
 void AnalyzeSection::searchButtonClicked() {
-    QString boxType = typeBoxType->text();
+    QString boxType = typeBox->text();
     emit searchButtonClicked(boxType);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -123,20 +123,20 @@ void AnalyzeSection::setSearchBoxSection() {
     searchBoxGroupBox->setTitle("Search for box");
     searchLabel = new QLabel("Type box type: ");
     searchLabel->setMaximumSize(200,40);
-    typeBoxType = new QLineEdit();
-    typeBoxType->setMaximumWidth(50);
-    typeBoxType->setMaxLength(4);
-    nextSearchButton = new QPushButton("Find");
-    nextSearchButton->addAction(searchBoxAct);
-    connect(nextSearchButton,
+    typeBox = new QLineEdit();
+    typeBox->setMaximumWidth(50);
+    typeBox->setMaxLength(4);
+    searchButton = new QPushButton("Find");
+    searchButton->addAction(searchBoxAct);
+    connect(searchButton,
             SIGNAL(clicked()),
             this, SLOT(searchButtonClicked()));
 
     searchBoxGroupBox->setMaximumHeight(50);
     searchBoxGroupBox->setMinimumHeight(40);
     searchBoxLayout->addWidget(searchLabel, 1, 0);
-    searchBoxLayout->addWidget(typeBoxType, 1, 1);
-    searchBoxLayout->addWidget(nextSearchButton, 1, 2);
+    searchBoxLayout->addWidget(typeBox, 1, 1);
+    searchBoxLayout->addWidget(searchButton, 1, 2);
     searchBoxLayout->setColumnStretch(10, 1);
     searchBoxGroupBox->setLayout(searchBoxLayout);
 

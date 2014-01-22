@@ -64,7 +64,7 @@ void Controller::searchBox(const QString &boxType) {
     QStandardItemModel *mod = item->getModel();
     mod->setHeaderData(0, Qt::Horizontal, tr(""));
     mod->setHeaderData(1, Qt::Horizontal, tr(""));
-    window->selectFoundBoxes(Items, textLabel);
+    window->selectBoxesFound(Items, textLabel);
     window->printSelectedBox(mod, item);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////

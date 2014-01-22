@@ -6,8 +6,8 @@
 DashSection::DashSection(QWidget *parent):
     QGroupBox(parent){
 
-    addFileButton = new QPushButton("Add file");
-    connect(addFileButton, SIGNAL(clicked()), this, SLOT(dashDirSelected()));
+    addFilesButton = new QPushButton("Add files");
+    connect(addFilesButton, SIGNAL(clicked()), this, SLOT(dashDirSelected()));
 
     removeButton = new QPushButton("Remove");
     //removeButton->addAction(removeAct);
@@ -33,7 +33,7 @@ DashSection::DashSection(QWidget *parent):
     rightLayout = new QVBoxLayout;
     rightLayout->addWidget(dashOptions);
     rightLayout->addWidget(urlBox);
-    rightLayout->addWidget(addFileButton);
+    rightLayout->addWidget(addFilesButton);
     rightLayout->addWidget(removeButton);
     rightGroup = new QGroupBox;
     rightGroup->setMaximumWidth(200);
@@ -67,7 +67,7 @@ DashSection::~DashSection() {
 ////////////////////////////////////////////////////////////////////////////////////////////
 void DashSection::setDashFileList(QAbstractItemModel *fileModel, const bool &disabled) {
     fileList->setModel(fileModel);
-    addFileButton->setDisabled(disabled);
+    addFilesButton->setDisabled(disabled);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 ///Slots

@@ -23,7 +23,7 @@ class DashSection : public QGroupBox {
 private:
     QVBoxLayout *rightLayout;
     QHBoxLayout *fileLayout;
-    QPushButton *addFileButton;
+    QPushButton *addFilesButton;
     QPushButton *removeButton;
     QPushButton *readyButton;
     QListView *fileList;

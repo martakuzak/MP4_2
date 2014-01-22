@@ -27,12 +27,12 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 MainWindow::~MainWindow() {
-    delete fileMenu;
+    //delete fileMenu;
     delete openAct;
     delete exitAct;
-    delete helpMenu;
+    //delete helpMenu;
     delete helpAct;
-    delete dashMenu;
+    //delete dashMenu;
     delete mainLayout;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,8 +55,8 @@ void MainWindow::printSelectedBox(QStandardItemModel *model, TreeItem *item) {
     analyzeSection->printSelectedBox(model, item);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::selectFoundBoxes(QModelIndexList &boxes, const QString &fullName) {
-    analyzeSection->selectFoundBoxes(boxes, fullName);
+void MainWindow::selectBoxesFound(QModelIndexList &boxes, const QString &fullName) {
+    analyzeSection->selectBoxesFound(boxes, fullName);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::showWarningDialog(const QString& mes) {
@@ -134,15 +134,15 @@ void MainWindow::initPointers() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::createMenu() {
-    fileMenu = menuBar()->addMenu(tr("&File"));
+    QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(openAct);
     fileMenu->addSeparator();
     fileMenu->addAction(exitAct);
 
-    dashMenu = menuBar()->addMenu(tr("&MPEG-DASH"));
+    QMenu *dashMenu = menuBar()->addMenu(tr("&MPEG-DASH"));
     dashMenu->addAction(dashAct);
 
-    helpMenu = menuBar()->addMenu(tr("&Help"));
+    QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
     helpMenu->addAction(helpAct);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////

@@ -36,8 +36,8 @@ private:
     QGroupBox *boxInfoGroupBox;
     //search box content
     QLabel *searchLabel;
-    QLineEdit *typeBoxType;
-    QPushButton *nextSearchButton;
+    QLineEdit *typeBox;
+    QPushButton *searchButton;
     QLabel *boxNameLabel;
     QTableView *tableView;
     QTreeView *treeView;
@@ -59,12 +59,12 @@ public:
      */
     void printSelectedBox(QStandardItemModel *model, TreeItem *item);
     /*!
-     * \brief selectFoundBoxes
+     * \brief selectBoxesFound
      * \param boxes list of boxes that shall be selected
      * \param fullName full name of the boxes
      * It selects box records given and exapands tree so that selected records are visible.
      */
-    void selectFoundBoxes(QModelIndexList& boxes, const QString& fullName);
+    void selectBoxesFound(QModelIndexList& boxes, const QString& fullName);
 signals:
     /*!
      * \brief boxSelected

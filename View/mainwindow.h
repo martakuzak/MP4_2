@@ -43,9 +43,9 @@ private:
     //when user clicks "help" in the menu
     QAction *helpAct; 
     //Menus
-    QMenu *fileMenu;
-    QMenu *dashMenu;
-    QMenu *helpMenu;
+    //QMenu *fileMenu;
+    //QMenu *dashMenu;
+    //QMenu *helpMenu;
     //Layout of the whole window
     QVBoxLayout *mainLayout;
     DashSection *dashSection;
@@ -73,13 +73,13 @@ public:
      */
     void printSelectedBox(QStandardItemModel *model, TreeItem *item);
     /*!
-     * \brief selectFoundBoxes
+     * \brief selectBoxesFound
      * \param boxes list of boxes that shall be selected
      * \param fullName full name of the boxes
      * The method is called by Controller after searching for boxes having given type. It selects box records given and exapands tree
      * so that selected records are visible.
      */
-    void selectFoundBoxes(QModelIndexList& boxes, const QString& fullName);
+    void selectBoxesFound(QModelIndexList& boxes, const QString& fullName);
     /*!
      * \brief showWarningDialog
      * \param mes message to display
