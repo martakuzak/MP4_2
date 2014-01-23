@@ -199,7 +199,8 @@ MPDWriter::MPDWriter() {
     mpd = NULL;
 }
 
-void MPDWriter::init(bool oneFile) {
+void MPDWriter::init(bool oneFile, bool slist) {
+    segmentList = slist;
     if(oneFile) {
         Analyzer *an = new Analyzer(dashPath + "/dash_" + originalFileName);
         dashModel = new TreeModel(an);
@@ -278,6 +279,21 @@ void MPDWriter::addRepresentation(const QString& fn, const bool& oneFile) {
     BaseURL *baseURL = new BaseURL();
     baseURL->setContent(dashPath + "/" + dashName);
     //repr->setBaseurl(baseURL);
+    if(!segmentList) {
+        SegmentBase *segmentBase = new SegmentBase();
+        Initialization *init = new Initialization();
+        QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
+        if(oneFile) {
+            init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
+            init->setSourceURL(dashName);
+            segmentBase->setInitialization(init);
+        }
+        else {
+            init->setSourceURL("dash_init_" + originalFileName); //setting initalization
+            segmentBase->setInitialization(init);
+        }
+        repr->setSegmentBase(segmentBase);
+    }
     repr->setSegmentList(setSegmentList(oneFile, dashName));
     unsigned int *dim = getDimensions();
     repr->setHeight(dim[0]);
@@ -297,9 +313,11 @@ SegmentList *MPDWriter::setSegmentList(bool oneFile, const QString& uri) {
     if(oneFile) {
         QList< std::shared_ptr<Box> > mdats = dashModel->getBoxes("mdat");
         QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
-        init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
-        init->setSourceURL(uri);
-        slist->setInitialization(init);
+        if(segmentList) {
+            init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
+            init->setSourceURL(uri);
+            slist->setInitialization(init);
+        }
         while(!sidxs.empty()) {
             if(sidxs.size() == 1) {
                 std::shared_ptr<Box> sidx = sidxs.back();
@@ -326,8 +344,10 @@ SegmentList *MPDWriter::setSegmentList(bool oneFile, const QString& uri) {
         }
     }
     else {
-        init->setSourceURL("dash_init_" + originalFileName); //setting initalization
-        slist->setInitialization(init);
+        if(segmentList) {
+            init->setSourceURL("dash_init_" + originalFileName); //setting initalization
+            slist->setInitialization(init);
+        }
         unsigned int index = 0;
         QString str("dash_" + QString::number(index) + "_" + originalFileName + "s");
         while(QFile(dashPath + "/" + str).exists()) {//setting SegmentList

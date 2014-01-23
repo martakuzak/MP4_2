@@ -59,11 +59,13 @@ private slots:
      * \brief dashFilesSelected
      * \param oneFile indicates whether all segments of each presentation should be gathered in one file
      * \param url URL address where generated files will be available. It is inserted into MPD file
+     * \param segmentList indicates whether info in MPD about initialization segment shall be located
+     * in SegmentList (true) or SegmentBase (false)
      * The slot is called as a response to MainWindow::dashFilesSelectedSignal(), so when user clicks Ready
      * button in the dash section. It uses DashWrapper object to generate files with splitted segments and
      * appropriate MPD file.
      */
-    void dashFilesSelected(const bool &oneFile, const QString &url);
+    void dashFilesSelected(const bool &oneFile, const QString &url, const bool &slist);
     /*!
      * \brief dashDirSelected
      * \param dir selected directory

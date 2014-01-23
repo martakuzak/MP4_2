@@ -61,8 +61,8 @@ void DashWrapper::setMpdProps() {
     mpdWriter->setOriginalFileName(fileName);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
-void DashWrapper::initMPD(const bool& oneFile) {
-    mpdWriter->init(oneFile);
+void DashWrapper::initMPD(const bool& oneFile, const bool &slist) {
+    mpdWriter->init(oneFile, slist);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 void DashWrapper::addRepresentation(const bool &oneFile) {

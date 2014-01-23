@@ -129,9 +129,11 @@ private slots:
      * \param oneFile indicates whether all segments of each presentation should be gathered in one file
      * \param url URL address where generated files will be available. It is inserted into MPD file.
      * Called after clicking Ready button. It emits dashFilesSelectedSignal() signal
+     * \param segmentList indicates whether info in MPD about initialization segment shall be located
+     * in SegmentList (true) or SegmentBase (false)
      * \see dashFilesSelectedSignal()
      */
-    void dashFilesSelected(const bool &oneFile, const QString &url);
+    void dashFilesSelected(const bool &oneFile, const QString &url, const bool &slist);
     /*!
      * \brief dashDirSelected
      * \param directoryName selected directory
@@ -170,9 +172,11 @@ signals:
     /*!
      * \brief dashFilesSelectedSignal
      * \param oneFile indicates whether all segments of each presentation should be gathered in one file
-     * \param url URL address where generated files will be available. It is inserted into MPD file.
+     * \param url URL address where generated files will be available. It is inserted into MPD file
+     * \param segmentList indicates whether info in MPD about initialization segment shall be located
+     * in SegmentList (true) or SegmentBase (false)
      */
-    void dashFilesSelectedSignal(const bool& oneFile, const QString &url);
+    void dashFilesSelectedSignal(const bool& oneFile, const QString &url, const bool& slist);
     /*!
      * \brief dashDirSelectedSig
      * \param dir selected directory

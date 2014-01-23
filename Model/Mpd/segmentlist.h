@@ -39,6 +39,15 @@ public:
     void setSourceURL(const QString &value);
 };
 ///////////////////////////////////////////////////////////////////////////
+class SegmentBase {
+private:
+    Initialization *init;
+public:
+    SegmentBase();
+    void write(QXmlStreamWriter *stream);
+    void setInitialization(Initialization *ini);
+};
+///////////////////////////////////////////////////////////////////////////
 /*!
   *\brief The SegmentURL class specifies a Media Segment URL and a possibly present Index Segment URL.
   * - atrributes:

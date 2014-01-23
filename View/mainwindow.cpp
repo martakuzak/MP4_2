@@ -110,8 +110,8 @@ void MainWindow::switchToDashMenuSelected() {
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::dashFilesSelected(const bool &oneFile, const QString &url) {
-    emit dashFilesSelectedSignal(oneFile, url);
+void MainWindow::dashFilesSelected(const bool &oneFile, const QString &url, const bool &slist) {
+    emit dashFilesSelectedSignal(oneFile, url, slist);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::dashDirSelected(const QString &directoryName) {
@@ -166,8 +166,8 @@ void MainWindow::createActions() {
 void MainWindow::makeDashConnection() {
     connect(dashSection, SIGNAL(dashDirSig(QString)), this,
             SLOT(dashDirSelected(QString)), Qt::QueuedConnection);
-    connect(dashSection, SIGNAL(dashFilesSelectedSignal(bool, QString)), this,
-            SLOT(dashFilesSelected(bool, QString)), Qt::QueuedConnection);
+    connect(dashSection, SIGNAL(dashFilesSelectedSignal(bool, QString, bool)), this,
+            SLOT(dashFilesSelected(bool, QString, bool)), Qt::QueuedConnection);
     connect(dashSection, SIGNAL(removeFileSig(int)), this, SLOT(removeButtonClicked(int)), Qt::QueuedConnection);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////

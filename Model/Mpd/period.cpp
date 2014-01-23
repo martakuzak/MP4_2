@@ -289,6 +289,7 @@ Representation::Representation() {
     bandwidth = NULL;
     baseurl = NULL;
     segmentList = NULL;
+    segmentBase = NULL;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 void Representation::write(QXmlStreamWriter *stream) {
@@ -311,9 +312,17 @@ void Representation::write(QXmlStreamWriter *stream) {
         stream->writeAttribute("bandwidth", QString::number(bandwidth));
     if(baseurl != NULL)
         baseurl->write(stream);
-    segmentList->write(stream);
+    if(segmentBase != NULL)
+        segmentBase->write(stream);
+    if(segmentList != NULL)
+        segmentList->write(stream);
     stream->writeEndElement();
 }
+///////////////////////////////////////////////////////////////////////////////////////////
+void Representation::setSegmentBase(SegmentBase *value) {
+    segmentBase = value;
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 SegmentList *Representation::getSegmentList() const {
     return segmentList;

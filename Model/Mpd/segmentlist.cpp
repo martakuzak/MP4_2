@@ -30,18 +30,32 @@ void Initialization::write(QXmlStreamWriter *stream) {
     stream->writeEndElement();
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-QString SegmentURL::getMedia() const {
-    return media;
+SegmentBase::SegmentBase() {
+    init = NULL;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-void SegmentURL::setMedia(const QString &value) {
-    media = value;
+void SegmentBase::write(QXmlStreamWriter *stream) {
+    stream->writeStartElement("SegmentBase");
+    init->write(stream);
+    stream->writeEndElement();
+}
+///////////////////////////////////////////////////////////////////////////////////////////
+void SegmentBase::setInitialization(Initialization *ini) {
+    init = ini;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 SegmentURL::SegmentURL() {
     media = "";
     mediaRange = "";
     indexRange = "";
+}
+///////////////////////////////////////////////////////////////////////////////////////////
+QString SegmentURL::getMedia() const {
+    return media;
+}
+///////////////////////////////////////////////////////////////////////////////////////////
+void SegmentURL::setMedia(const QString &value) {
+    media = value;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 QString SegmentURL::getMediaRange() const {
@@ -83,7 +97,8 @@ void SegmentList::write(QXmlStreamWriter *stream) {
         stream->writeAttribute("timescale", QString::number(timescale));
     if(duration != NULL)
         stream->writeAttribute("duration", QString::number(duration));
-    initialization->write(stream);
+    if(initialization != NULL)
+        initialization->write(stream);
     while(!segmentURLs.empty()) {
         segmentURLs.front()->write(stream);
         segmentURLs.pop_front();

@@ -62,6 +62,7 @@ private:
     //
     BaseURL *baseurl;
     SegmentList *segmentList;
+    SegmentBase *segmentBase;
 public:
     Representation();
     /*!
@@ -92,6 +93,7 @@ public:
     void setBaseurl(BaseURL *value);
     SegmentList *getSegmentList() const;
     void setSegmentList(SegmentList *value);
+    void setSegmentBase(SegmentBase *value);
 };
 ///////////////////////////////////////////////////////////////////////////////////
 /*!
