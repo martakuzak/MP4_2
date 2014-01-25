@@ -289,7 +289,7 @@ void MPDWriter::addRepresentation(const QString& path, const QString& fn, const 
             segmentBase->setInitialization(init);
         }
         else {
-            init->setSourceURL("dash_init_" + originalFileName); //setting initalization
+            init->setSourceURL(dashName); //setting initalization
             segmentBase->setInitialization(init);
         }
         repr->setSegmentBase(segmentBase);
