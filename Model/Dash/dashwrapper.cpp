@@ -56,8 +56,10 @@ bool DashWrapper::writeFiles(const QString &date, const QString& name, const uns
 /// MPD
 //////////////////////////////////////////////////////////////////////////////////////////////
 void DashWrapper::setMpdProps() {
-    mpdWriter = new MPDWriter();
-    mpdWriter->setDashPath(path  + catalog);
+    if(mpdWriter == NULL) {
+        mpdWriter = new MPDWriter();
+        mpdWriter->setDashPath(path  + catalog);
+    }
     mpdWriter->setOriginalFileName(fileName);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////

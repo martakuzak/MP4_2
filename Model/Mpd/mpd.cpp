@@ -267,6 +267,7 @@ void MPDWriter::setOriginalFileName(const QString &value) {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 void MPDWriter::addRepresentation(const QString& path, const QString& fn, const bool& oneFile) {
+    qDebug()<<"Addrep"<<path<<fn;
     Analyzer *an = new Analyzer(path + fn);
     originalModel = new TreeModel(an);
     Representation *repr = new Representation();
@@ -289,6 +290,7 @@ void MPDWriter::addRepresentation(const QString& path, const QString& fn, const 
             segmentBase->setInitialization(init);
         }
         else {
+            qDebug()<<"dashnane"<<dashName;
             init->setSourceURL(dashName); //setting initalization
             segmentBase->setInitialization(init);
         }
@@ -307,7 +309,7 @@ void MPDWriter::setDashPath(const QString &dPath) {
     dashPath = dPath;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-SegmentList *MPDWriter::setSegmentList(bool oneFile, const QString& uri) {
+SegmentList *MPDWriter::setSegmentList(bool oneFile, const QString& dashName) {
     SegmentList *slist = new SegmentList();
     Initialization *init = new Initialization();
     if(oneFile) {
@@ -315,7 +317,7 @@ SegmentList *MPDWriter::setSegmentList(bool oneFile, const QString& uri) {
         QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
         if(segmentList) {
             init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
-            init->setSourceURL(uri);
+            init->setSourceURL(dashName);
             slist->setInitialization(init);
         }
         while(!sidxs.empty()) {
@@ -327,7 +329,7 @@ SegmentList *MPDWriter::setSegmentList(bool oneFile, const QString& uri) {
                 QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
                 unsigned int secondIndexRange = sidx->getOffset() + sidx->getSize() - 1;
                 QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
-                slist->addSegmentURL(mediaRange, indexRange, uri);
+                slist->addSegmentURL(mediaRange, indexRange, dashName);
                 sidxs.pop_back();
             }
             else {
@@ -339,13 +341,13 @@ SegmentList *MPDWriter::setSegmentList(bool oneFile, const QString& uri) {
                 QString mediaRange(QString::number(firstMediaRange) + "-" + QString::number(secondMediaRange));
                 unsigned int secondIndexRange = sidx1->getOffset() + sidx1->getSize() - 1;
                 QString indexRange(QString::number(firstMediaRange) + "-" + QString::number(secondIndexRange));
-                slist->addSegmentURL(mediaRange, indexRange, uri);
+                slist->addSegmentURL(mediaRange, indexRange, dashName);
             }
         }
     }
     else {
         if(segmentList) {
-            init->setSourceURL("dash_init_" + originalFileName); //setting initalization
+            init->setSourceURL(dashName); //setting initalization
             slist->setInitialization(init);
         }
         unsigned int index = 0;

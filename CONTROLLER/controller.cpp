@@ -89,8 +89,8 @@ void Controller::dashFilesSelected(const bool& oneFile, const QString &url, cons
         }
         qDebug()<<QString::number(i)<<fileModel->index(i,0).data(Qt::DisplayRole).toString();
         dashWrap->setFileProp(fileModel->index(i,0).data(Qt::DisplayRole).toString());
+        dashWrap->setMpdProps();
         if(!i) {
-            dashWrap->setMpdProps();
             dashWrap->initMPD(oneFile, slist);
         }
         dashWrap->addRepresentation(oneFile);

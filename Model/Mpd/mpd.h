@@ -106,7 +106,7 @@ private:
     QString getDuration();
     unsigned int *getDimensions();
     void setMPD(const QString &url);
-    SegmentList *setSegmentList(bool oneFile, const QString &uri ="");
+    SegmentList *setSegmentList(bool oneFile, const QString &dashName ="");
 };
 
 
