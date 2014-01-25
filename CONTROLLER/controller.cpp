@@ -80,13 +80,15 @@ void Controller::dashFilesSelected(const bool& oneFile, const QString &url, cons
         QString fileName = fileModel->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
         bool result;
         if(oneFile)
-            result = dashWrap->writeFile(date, fileName, 50);        
+            result = dashWrap->writeFile(date, fileName, 50);
         else
             result = dashWrap->writeFiles(date, fileName, 50);
         if(!result) {
             window->showWarningDialog("Error while writing files");
             return;
         }
+        qDebug()<<QString::number(i)<<fileModel->index(i,0).data(Qt::DisplayRole).toString();
+        dashWrap->setFileProp(fileModel->index(i,0).data(Qt::DisplayRole).toString());
         if(!i) {
             dashWrap->setMpdProps();
             dashWrap->initMPD(oneFile, slist);

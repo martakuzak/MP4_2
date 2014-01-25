@@ -203,7 +203,7 @@ VideoMediaHeaderBox::VideoMediaHeaderBox(const unsigned  int& s, const QString& 
 {}
 
 QStandardItemModel *VideoMediaHeaderBox::getModel() {
-    QStandardItemModel *model = new QStandardItemModel(6, 2, 0);
+    QStandardItemModel *model = new QStandardItemModel(4, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -239,7 +239,7 @@ SoundMediaHeaderBox::SoundMediaHeaderBox(const unsigned  int& s, const QString& 
 {}
 
 QStandardItemModel *SoundMediaHeaderBox::getModel() {
-    QStandardItemModel *model = new QStandardItemModel(6, 2, 0);
+    QStandardItemModel *model = new QStandardItemModel(4, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");

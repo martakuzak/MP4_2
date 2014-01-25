@@ -66,7 +66,8 @@ void DashWrapper::initMPD(const bool& oneFile, const bool &slist) {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 void DashWrapper::addRepresentation(const bool &oneFile) {
-    return mpdWriter->addRepresentation(path + fileName, oneFile);
+    qDebug()<<"addr"<<(path + fileName);
+    return mpdWriter->addRepresentation(path, fileName, oneFile);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 void DashWrapper::writeMPD(const bool& oneFile, const QString &url) {

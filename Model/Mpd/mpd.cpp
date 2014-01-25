@@ -266,15 +266,15 @@ void MPDWriter::setOriginalFileName(const QString &value) {
     originalFileName = value;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-void MPDWriter::addRepresentation(const QString& fn, const bool& oneFile) {
-    Analyzer *an = new Analyzer(fn);
+void MPDWriter::addRepresentation(const QString& path, const QString& fn, const bool& oneFile) {
+    Analyzer *an = new Analyzer(path + fn);
     originalModel = new TreeModel(an);
     Representation *repr = new Representation();
     QString dashName;
     if(oneFile)
-        dashName = "dash_" + originalFileName;
+        dashName = "dash_" + fn;
     else
-        dashName = "dash_init_" + originalFileName;
+        dashName = "dash_init_" + fn;
 
     BaseURL *baseURL = new BaseURL();
     baseURL->setContent(dashPath + "/" + dashName);

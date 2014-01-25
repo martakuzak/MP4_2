@@ -90,7 +90,7 @@ private:
     bool segmentList; //InitializationSegment in SegmentList (true), SegmentBase (false)
 public:
     MPDWriter();
-    void addRepresentation(const QString &fn, const bool &oneFile);
+    void addRepresentation(const QString &path, const QString &fn, const bool &oneFile);
     void init(bool oneFile, bool slist);
     void writeMPD(bool oneFile, const QString &url);
 
