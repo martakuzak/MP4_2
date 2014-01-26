@@ -220,7 +220,7 @@ void MPDWriter::setMPD(const QString &url) {
     //mpd->setAvailibilityEndTime(); //nieobowiazkowe
     mpd->setMediaPresentationDuration(getDuration()); //obowiazkowe dla static
     //mpd->setMinimumUpdatePeriod(); //w static zakazane
-    mpd->setMinBufferTime("10229"); //obowiązkowe - jak to ustawić?
+    mpd->setMinBufferTime("PT1.500000S"); //obowiązkowe - jak to ustawić?
     //mpd->getTimeShitBufferDepth(); //w staticu zbędne
     //mpd->getSuggestedPresentationDelay();//w staticu ignorowane
     //mpd->getMaxSegmentDuration(); //nieobowiązkowe
@@ -267,7 +267,6 @@ void MPDWriter::setOriginalFileName(const QString &value) {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 void MPDWriter::addRepresentation(const QString& path, const QString& fn, const bool& oneFile) {
-    qDebug()<<"Addrep"<<path<<fn;
     Analyzer *an = new Analyzer(path + fn);
     originalModel = new TreeModel(an);
     Representation *repr = new Representation();
@@ -290,13 +289,14 @@ void MPDWriter::addRepresentation(const QString& path, const QString& fn, const 
             segmentBase->setInitialization(init);
         }
         else {
-            qDebug()<<"dashnane"<<dashName;
             init->setSourceURL(dashName); //setting initalization
             segmentBase->setInitialization(init);
         }
         repr->setSegmentBase(segmentBase);
     }
-    repr->setSegmentList(setSegmentList(oneFile, dashName));
+    SegmentList *slist = setSegmentList(oneFile, dashName);
+    repr->setBandwidth(getRepBandwidth(oneFile, dashName, slist));
+    repr->setSegmentList(slist);
     unsigned int *dim = getDimensions();
     repr->setHeight(dim[0]);
     repr->setWidth(dim[1]);
@@ -307,6 +307,39 @@ void MPDWriter::addRepresentation(const QString& path, const QString& fn, const 
 ///////////////////////////////////////////////////////////////////////////////////////////
 void MPDWriter::setDashPath(const QString &dPath) {
     dashPath = dPath;
+}
+///////////////////////////////////////////////////////////////////////////////////////////
+unsigned int MPDWriter::getRepBandwidth(bool oneFile, const QString &dashName, SegmentList *slist) {
+    unsigned int mediaSize = 0;
+    QList<std::shared_ptr<Box>> mvhds = originalModel->getBoxes("mvhd");
+    MovieHeaderBox *mvhd = dynamic_cast <MovieHeaderBox*> (mvhds.back().get());
+    unsigned long int duration = mvhd->getDuration();
+    unsigned long int timescale = mvhd->getTimeScale();
+    unsigned long time = duration/timescale;
+    if(oneFile) {
+        SegmentURL *first = slist->getSegmentURL(0);
+        SegmentURL *last = slist->getSegmentURL(-1);
+        QString firstRange = first->getMediaRange();
+        QString lastRange = last->getMediaRange();
+        int flast = firstRange.lastIndexOf("-");
+        unsigned int firstID = firstRange.mid(0, flast).toInt();
+        int llast = lastRange.lastIndexOf("-");
+        unsigned int lastID = lastRange.mid(llast + 1).toInt();
+        mediaSize = lastID - firstID;
+    }
+    else {
+        unsigned int index = 0;
+        QString str("dash_" + QString::number(index) + "_" + originalFileName + "s");
+        while(QFile(dashPath + "/" + str).exists()) {//setting SegmentList
+            QFile *segment = new QFile(dashPath + "/" +str);
+            mediaSize += segment->size();
+            ++ index;
+            str = QString("dash_" + QString::number(index) + "_" + originalFileName + "s");
+        }
+    }
+    if(duration == 0)
+        return 0;
+    return (8*mediaSize)/time;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 SegmentList *MPDWriter::setSegmentList(bool oneFile, const QString& dashName) {

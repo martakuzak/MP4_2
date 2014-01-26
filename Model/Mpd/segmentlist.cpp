@@ -120,6 +120,15 @@ void SegmentList::addSegmentURL(const QString &media) {
     segmentURLs.append(surl);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
+SegmentURL* SegmentList::getSegmentURL(const int &index) {
+    SegmentURL* tmp = NULL;
+    if(index < 0)
+        tmp = segmentURLs.back();
+    else
+        tmp = segmentURLs.at(index);
+    return tmp;
+}
+///////////////////////////////////////////////////////////////////////////////////////////
 Initialization *SegmentList::getInitialization() const {
     return initialization;
 }

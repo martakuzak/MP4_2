@@ -99,14 +99,14 @@ public:
 
     QString getOriginalFileName() const;
     void setOriginalFileName(const QString &value);
-
     void setDashPath(const QString& dashPath);
 private:
+    unsigned int getRepBandwidth(bool oneFile, const QString &dashName = "", SegmentList *slist = new SegmentList());
     QString getHMSFormat(const double& value);
     QString getDuration();
     unsigned int *getDimensions();
     void setMPD(const QString &url);
-    SegmentList *setSegmentList(bool oneFile, const QString &dashName ="");
+    SegmentList *setSegmentList(bool oneFile, const QString &dashName = "");
 };
 
 

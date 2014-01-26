@@ -112,6 +112,7 @@ public:
      */
     void addSegmentURL(const QString &mediaRange, const QString &indexRange, const QString &media="");
     void addSegmentURL(const QString &media);
+    SegmentURL *getSegmentURL(const int& index);
    // void addSegmentsURL();
     Initialization *getInitialization() const;
     void setInitialization(Initialization *value);
