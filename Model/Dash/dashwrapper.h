@@ -67,10 +67,8 @@ public:
      * \brief initMPD
      * \param oneFile indicates wheter all the segments of presentation shall be placed in one file
      * sets box tree model of original file in mpdWriter
-     * \param segmentList indicates whether info in MPD about initialization segment shall be located
-     * in SegmentList (true) or SegmentBase (false)
      */
-    void initMPD(const bool& oneFile, const bool &slist);
+    void initMPD(const bool& oneFile);
     /*!
      * \brief addRepresentation adds representation of presentation to MPD model
      * \param oneFile indicates wheter all the segments of presentation shall be placed in one file

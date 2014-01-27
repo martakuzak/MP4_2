@@ -34,7 +34,7 @@ private:
     QGroupBox *readyGroup;
     QGroupBox *rightGroup;
     //
-    QComboBox *initOptions;
+    //QComboBox *initOptions;
 public:
     /*!
      * \brief DashSection
@@ -66,10 +66,9 @@ signals:
      * \brief dashFilesSelectedSignal
      * \param oneFile indicates whether all segments of each presentation should be gathered in one file
      * \param url URL address where generated files will be available. It is inserted into MPD file.
-     * \param segmentList indicates whether info in MPD about initialization segment shall be located
      * in SegmentList (true) or SegmentBase (false)
      */
-    void dashFilesSelectedSignal(const bool& oneFile, const QString &url, const bool& segmentList);
+    void dashFilesSelectedSignal(const bool& oneFile, const QString &url);
 private slots:
     /*!
      * \brief dashDirSelected

@@ -11,8 +11,8 @@ void Controller::makeConnection() {
     connect(window, SIGNAL(boxSelected(QItemSelectionModel*)), this,
             SLOT(boxSelected(QItemSelectionModel*)), Qt::QueuedConnection);
     connect(window, SIGNAL(searchBox(QString)), this, SLOT(searchBox(QString)), Qt::QueuedConnection);
-    connect(window, SIGNAL(dashFilesSelectedSignal(bool, QString, bool)), this,
-            SLOT(dashFilesSelected(bool, QString, bool)), Qt::QueuedConnection);
+    connect(window, SIGNAL(dashFilesSelectedSignal(bool, QString)), this,
+            SLOT(dashFilesSelected(bool, QString)), Qt::QueuedConnection);
     connect(window, SIGNAL(dashDirSelectedSig(QString)), this,
             SLOT(dashDirSelected(QString)), Qt::QueuedConnection);
     connect(window, SIGNAL(removeFileSig(int)), this, SLOT(removeFile(int)), Qt::QueuedConnection);
@@ -68,7 +68,7 @@ void Controller::searchBox(const QString &boxType) {
     window->printSelectedBox(mod, item);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
-void Controller::dashFilesSelected(const bool& oneFile, const QString &url, const bool &slist) {
+void Controller::dashFilesSelected(const bool& oneFile, const QString &url) {
     QDateTime local(QDateTime::currentDateTime());
     QString date = local.toString();
     date.replace(QString(":"), QString("_"));
@@ -80,17 +80,16 @@ void Controller::dashFilesSelected(const bool& oneFile, const QString &url, cons
         QString fileName = fileModel->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
         bool result;
         if(oneFile)
-            result = dashWrap->writeFile(date, fileName, 1000);
+            result = dashWrap->writeFile(date, fileName, 500);
         else
-            result = dashWrap->writeFiles(date, fileName, 1000);
+            result = dashWrap->writeFiles(date, fileName, 500);
         if(!result) {
             window->showWarningDialog("Error while writing files");
             return;
         }
-        qDebug()<<QString::number(i)<<fileModel->index(i,0).data(Qt::DisplayRole).toString();
         dashWrap->setFileProp(fileModel->index(i,0).data(Qt::DisplayRole).toString());
         dashWrap->setMpdProps();
-        dashWrap->initMPD(oneFile, slist);
+        dashWrap->initMPD(oneFile);
         dashWrap->addRepresentation(oneFile);
     }
 

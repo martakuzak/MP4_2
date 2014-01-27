@@ -347,8 +347,6 @@ class UserDataBox : public Box {
 public:
     UserDataBox(const unsigned int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("User Data Box"); }
-    virtual bool isContainer() { return true; }
-    virtual unsigned int getContainerOffset() { return 8;}
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 class CopyRightBox : public FullBox {

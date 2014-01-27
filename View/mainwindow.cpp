@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setMinimumSize(160, 160);
     const int m_width = QApplication::desktop()->width();
     const int m_height = QApplication::desktop()->height();
-    resize(0.8*m_width, 0.65*m_height);
+    resize(0.6*m_width, 0.6*m_height);
 
     mainLayout = new QVBoxLayout();
 
@@ -113,8 +113,8 @@ void MainWindow::switchToDashMenuSelected() {
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::dashFilesSelected(const bool &oneFile, const QString &url, const bool &slist) {
-    emit dashFilesSelectedSignal(oneFile, url, slist);
+void MainWindow::dashFilesSelected(const bool &oneFile, const QString &url) {
+    emit dashFilesSelectedSignal(oneFile, url);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::dashDirSelected(const QString &directoryName) {
@@ -169,8 +169,8 @@ void MainWindow::createActions() {
 void MainWindow::makeDashConnection() {
     connect(dashSection, SIGNAL(dashDirSig(QString)), this,
             SLOT(dashDirSelected(QString)), Qt::QueuedConnection);
-    connect(dashSection, SIGNAL(dashFilesSelectedSignal(bool, QString, bool)), this,
-            SLOT(dashFilesSelected(bool, QString, bool)), Qt::QueuedConnection);
+    connect(dashSection, SIGNAL(dashFilesSelectedSignal(bool, QString)), this,
+            SLOT(dashFilesSelected(bool, QString)), Qt::QueuedConnection);
     connect(dashSection, SIGNAL(removeFileSig(int)), this, SLOT(removeButtonClicked(int)), Qt::QueuedConnection);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////

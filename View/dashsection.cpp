@@ -18,15 +18,15 @@ DashSection::DashSection(QWidget *parent):
     dashOptions->addItem("One file for all segments");
     dashOptions->addItem("Each segment has its own file");
 
-    QGroupBox *initGroup = new QGroupBox();
-    initGroup->setTitle("MPD initialization segment located in:");
-    initOptions = new QComboBox();
-    initOptions->addItem("SegmentList");
-    initOptions->addItem("SegmentBase");
-    QVBoxLayout *initLayout = new QVBoxLayout();
-    initLayout->addWidget(initOptions);
-    initGroup->setLayout(initLayout);
-    initGroup->setMaximumHeight(65);
+//    QGroupBox *initGroup = new QGroupBox();
+//    initGroup->setTitle("MPD initialization segment located in:");
+//    initOptions = new QComboBox();
+//    initOptions->addItem("SegmentList");
+//    initOptions->addItem("SegmentBase");
+//    QVBoxLayout *initLayout = new QVBoxLayout();
+//    initLayout->addWidget(initOptions);
+//    initGroup->setLayout(initLayout);
+//    initGroup->setMaximumHeight(65);
 
     QGroupBox *urlBox = new QGroupBox();
     urlBox->setTitle("Type URL of files");
@@ -41,7 +41,7 @@ DashSection::DashSection(QWidget *parent):
     connect(readyButton, SIGNAL(clicked()), this, SLOT(dashFilesSelected()), Qt::QueuedConnection);
     rightLayout = new QVBoxLayout;
     rightLayout->addWidget(dashOptions);
-    rightLayout->addWidget(initGroup);
+    //rightLayout->addWidget(initGroup);
     rightLayout->addWidget(urlBox);
     rightLayout->addWidget(addFilesButton);
     rightLayout->addWidget(removeButton);
@@ -93,8 +93,7 @@ void DashSection::removeButtonClicked() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void DashSection::dashFilesSelected() {
-    emit dashFilesSelectedSignal((dashOptions->currentIndex() == 0), urlLine->text(),
-                                 (initOptions->currentIndex() == 0));
+    emit dashFilesSelectedSignal((dashOptions->currentIndex() == 0), urlLine->text());
 }
 
 

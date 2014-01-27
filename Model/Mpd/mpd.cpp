@@ -199,8 +199,7 @@ MPDWriter::MPDWriter() {
     mpd = NULL;
 }
 
-void MPDWriter::init(bool oneFile, bool slist) {
-    segmentList = slist;
+void MPDWriter::init(bool oneFile) {
     if(oneFile) {
         Analyzer *an = new Analyzer(dashPath + "/dash_" + originalFileName);
         dashModel = new TreeModel(an);
@@ -279,7 +278,7 @@ void MPDWriter::addRepresentation(const QString& path, const QString& fn, const 
     BaseURL *baseURL = new BaseURL();
     baseURL->setContent(dashPath + "/" + dashName);
     //repr->setBaseurl(baseURL);
-    if(!segmentList) {
+    //if(!segmentList) {
         SegmentBase *segmentBase = new SegmentBase();
         Initialization *init = new Initialization();
         QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
@@ -293,7 +292,7 @@ void MPDWriter::addRepresentation(const QString& path, const QString& fn, const 
             segmentBase->setInitialization(init);
         }
         repr->setSegmentBase(segmentBase);
-    }
+    //}
     SegmentList *slist = setSegmentList(oneFile, dashName);
     repr->setBandwidth(getRepBandwidth(oneFile, dashName, slist));
     repr->setSegmentList(slist);
@@ -348,11 +347,11 @@ SegmentList *MPDWriter::setSegmentList(bool oneFile, const QString& dashName) {
     if(oneFile) {
         QList< std::shared_ptr<Box> > mdats = dashModel->getBoxes("mdat");
         QList< std::shared_ptr<Box> > sidxs = dashModel->getBoxes("sidx");
-        if(segmentList) {
+        //if(segmentList) {
             init->setRange(QString::number(0) + "-" + QString::number(sidxs.back()->getOffset() - 1));
             init->setSourceURL(dashName);
             slist->setInitialization(init);
-        }
+        //}
         while(!sidxs.empty()) {
             if(sidxs.size() == 1) {
                 std::shared_ptr<Box> sidx = sidxs.back();
@@ -379,10 +378,10 @@ SegmentList *MPDWriter::setSegmentList(bool oneFile, const QString& dashName) {
         }
     }
     else {
-        if(segmentList) {
+        //if(segmentList) {
             init->setSourceURL(dashName); //setting initalization
             slist->setInitialization(init);
-        }
+        //}
         unsigned int index = 0;
         QString str("dash_" + QString::number(index) + "_" + originalFileName + "s");
         while(QFile(dashPath + "/" + str).exists()) {//setting SegmentList
