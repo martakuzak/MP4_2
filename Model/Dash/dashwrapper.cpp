@@ -29,9 +29,7 @@ bool DashWrapper::writeFile(const QString& date, const QString& name, const unsi
     fileName = name.mid(last + 1);
     catalog = "DASH_" + date;
     QString dashPath = path + catalog + "/";
-    ////qDebug()<<"dw write file 1";
     Analyzer *an = new Analyzer(name);
-    ////qDebug()<<"dw write file 2";
     TreeModel *model = new TreeModel(an);
     QList<std::shared_ptr<Box>> mdats = model->getBoxes("mdat");
     if(mdats.size() != 1)

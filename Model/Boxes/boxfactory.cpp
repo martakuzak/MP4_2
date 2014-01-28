@@ -5,7 +5,6 @@ BoxFactory::BoxFactory(Analyzer *an): analyzer(an)
 {}
 
 std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, unsigned long int off) {
-    //qDebug()<<type;
     if(type.at(0)==QChar('m'))
         return this->getMBox(size, type, off);
     else if(type.at(0)==QChar('t'))
@@ -16,7 +15,6 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         return this->getHBox(size, type, off);
     else if(type == "ftyp") {
         QString majorBrand = analyzer->qstringValue(4, off + 8);
-        //QString minorVersion = analyzer->qstringValue(4, off + 12);
         unsigned int minorVersion = analyzer->valueOfGroupOfBytes(4, off + 12);
 
         QList<QString> compatibleBrands;
@@ -252,9 +250,6 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
             else if(v == 0) {
                 segmentDuration.append(analyzer->valueOfGroupOfBytes(4, off + offset + 16));
                 mediaTime.append(analyzer->valueOfGroupOfBytes(4, off + offset + 20));
-            }
-            else {
-                qDebug()<<type<<QString::number(v);
             }
             mediaRateInteger.append(analyzer->valueOfGroupOfBytes(2, off + offset + 24));
             mediaRateFraction.append(analyzer->valueOfGroupOfBytes(2, off + offset + 27));

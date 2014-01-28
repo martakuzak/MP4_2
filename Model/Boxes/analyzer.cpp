@@ -90,7 +90,6 @@ void Analyzer::setData(TreeItem *parent, QHash<long, TreeItem *> *items) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const unsigned long &off, unsigned long int maxOff) {
-    //qDebug()<<"setData wywołanie!"<<maxOff;
     unsigned long int offset= off;//offset w pliku
     bool progress= true;
     while(progress) {
@@ -101,21 +100,11 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
         size = valueOfGroupOfBytes(4, 0 + offset);
         //type = valueOfGroupOfBytes(4, 4 + offset);
         type = qstringValue(4, 4 + offset);
-        //qDebug()<<"setData jaki box"<<type<<QString::number(size)<<QString::number(offset);
         if(size == 0) { //gdy size = 0, to box ciągnie się do końca pliku
             size = fileSize - offset;  //nieprzetestowane!
         }
         if(size == 1 ) { //dla size = 1, rozmiar przybiera wartość rozszerzoną int(64), po typie
             size = valueOfGroupOfBytes(8, 8 + offset);
-        }
-
-        if(type == QString("uuid")) {
-            if(size == 1) {
-                //to-do
-            }
-            else {
-
-            }
         }
         if(!type.size())
             return;
@@ -133,8 +122,6 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
         parent->appendChild(newItem);
         items->insert(offset, newItem);
         if(newItem->isContainer()){//gdy treeitem zawiera inne boxy, tworzymy subarray wycinajac offset na atrybuty
-            //qDebug()<<"is container tempSize"<<offset + size;
-
             setData(newItem,
                     items,
                     offset + newItem->getOffset(), offset + size);
@@ -142,14 +129,10 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
 
         offset += size;
 
-        //maxTempOff += size;
-        //qDebug()<<"setData off temps"<<offset<<maxOff;
         if( offset >= fileSize )
             progress = false;
         if( offset >= maxOff ) {
             progress = false;
-            //maxTempOff -= size;
-            // qDebug()<<"setData progress-false";
         }
     }
 }
