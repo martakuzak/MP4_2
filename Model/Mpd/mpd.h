@@ -13,7 +13,10 @@
 
 //profiles="urn:mpeg:dash:profile:isoff-main:2011">
 class TreeModel;
-
+/*!
+ * \brief The ProgramInformation class specifies descriptive information about the program.
+ * It's been not used yet.
+ */
 class ProgramInformation {
 private:
     QString lang;
@@ -40,6 +43,18 @@ public:
     QString getCopyright() const;
     void setCopyright(const QString &value);
 };
+/*!
+ * \brief The MPD class represents main element of MPD document.
+ * - atrributes:
+ *     -# profiles (mandatory)
+ *     -# type (optional, default: static)
+ *     -# mediaPresentationDuration (must be present for static type)
+ *     -# minBufferTime (mandatory)
+ *     -# xmlns
+ * - elements:
+ *     -# Period (1...N)
+ *     -# BaseURL (0...N)
+*/
 
 class MPD {
 private:
@@ -77,7 +92,7 @@ public:
 };
 
 /*!
-  *\brief The MPDWriter class
+  *\brief The MPDWriter class contains methods that create and write MPD file.
  */
 class MPDWriter {
 private:
@@ -89,17 +104,37 @@ private:
     MPD *mpd;
 public:
     MPDWriter();
+    /*!
+     * \brief addRepresentation adds representation to MPD data model
+     * \param path path to original file of representation
+     * \param fn filename (without path) to original representation file
+     * \param oneFile indicated wheter all the media data segments of each representation are located
+     * in one file or not
+     */
     void addRepresentation(const QString &path, const QString &fn, const bool &oneFile);
-    void init(bool oneFile);
+    /*!
+     * \brief init sets init information (about presentation).
+     * The method shall be called before write(...)
+     * \param oneFile indicated wheter all the media data segments of each representation are located
+     * in one file or not
+     */
+    void init(bool oneFile); 
+    /*!
+     * \brief setDashPath
+     * \param dashPath path to created files with media data segments
+     */
+    void setDashPath(const QString& dashPath);
+    /*!
+      *\brief write
+      * Writes MPD file
+      *\param url URL address where all the files will be located during transmission
+     */
     void writeMPD(const QString &url);
-
-    AdaptationSet *setAdaptationSet();
-    Period *setPeriod();
-
     QString getOriginalFileName() const;
     void setOriginalFileName(const QString &value);
-    void setDashPath(const QString& dashPath);
 private:
+    AdaptationSet *setAdaptationSet();
+    Period *setPeriod();
     unsigned int getRepBandwidth(bool oneFile, SegmentList *slist = new SegmentList());
     QString getHMSFormat(const double& value);
     QString getDuration();
@@ -107,6 +142,5 @@ private:
     void setMPD(const QString &url);
     SegmentList *setSegmentList(bool oneFile, const QString &dashName = "");
 };
-
 
 #endif // MPD_H

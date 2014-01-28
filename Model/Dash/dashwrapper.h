@@ -76,7 +76,6 @@ public:
     void addRepresentation(const bool& oneFile);
     /*!
      * \brief writeMPD
-     * \param oneFile indicates wheter all the segments of presentation shall be placed in one file
      * \param url URL address where all the dash files will be place
      * Writes Media Presentation File with earlier set parameters. The file is located in the same catalog
      * as files with segments

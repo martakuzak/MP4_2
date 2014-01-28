@@ -18,16 +18,6 @@ DashSection::DashSection(QWidget *parent):
     dashOptions->addItem("One file for all segments");
     dashOptions->addItem("Each segment has its own file");
 
-//    QGroupBox *initGroup = new QGroupBox();
-//    initGroup->setTitle("MPD initialization segment located in:");
-//    initOptions = new QComboBox();
-//    initOptions->addItem("SegmentList");
-//    initOptions->addItem("SegmentBase");
-//    QVBoxLayout *initLayout = new QVBoxLayout();
-//    initLayout->addWidget(initOptions);
-//    initGroup->setLayout(initLayout);
-//    initGroup->setMaximumHeight(65);
-
     QGroupBox *urlBox = new QGroupBox();
     urlBox->setTitle("Type URL of files");
     urlLine = new QLineEdit();

@@ -20,7 +20,7 @@ public:
     BaseURL();
     /*!
       *\brief write
-      *Writes BaseURL vertex into Media Presentation Description file
+      * Writes BaseURL vertex into Media Presentation Description file
       *\param stream stream of the MPD file
      */
     void write(QXmlStreamWriter *stream);

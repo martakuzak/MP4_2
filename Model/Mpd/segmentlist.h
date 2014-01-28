@@ -39,11 +39,21 @@ public:
     void setSourceURL(const QString &value);
 };
 ///////////////////////////////////////////////////////////////////////////
+/*!
+/*! * \brief The SegmentBase class specifies default settings of segments.
+ * element:
+ *        -# Initialization (0...1)
+/*! */
 class SegmentBase {
 private:
     Initialization *init;
 public:
     SegmentBase();
+    /*!
+      *\brief write
+      *Writes SegmentBase vertex into Media Presentation Description file
+      *\param stream stream of the MPD file
+     */
     void write(QXmlStreamWriter *stream);
     void setInitialization(Initialization *ini);
 };
@@ -113,7 +123,6 @@ public:
     void addSegmentURL(const QString &mediaRange, const QString &indexRange, const QString &media="");
     void addSegmentURL(const QString &media);
     SegmentURL *getSegmentURL(const int& index);
-   // void addSegmentsURL();
     Initialization *getInitialization() const;
     void setInitialization(Initialization *value);
 };
