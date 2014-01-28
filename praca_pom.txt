@@ -1,5 +1,0 @@
-- fabryka obiektów
-- obiektowoœæ
-- sygna³-slot
-- MVC
-- wrapper (proxy?)

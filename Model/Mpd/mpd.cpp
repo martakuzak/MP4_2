@@ -228,7 +228,7 @@ void MPDWriter::setMPD(const QString &url) {
     mpd->setBaseURL(url);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-void MPDWriter::writeMPD(/*QFile *file, */bool oneFile, const QString &url) {
+void MPDWriter::writeMPD(/*QFile *file, *//*bool oneFile,*/ const QString &url) {
     QString mpdName = originalFileName;
     mpdName.replace(".mp4", ".mpd");
     QFile *mpdFile = new QFile(dashPath + "/" + mpdName);
@@ -294,7 +294,7 @@ void MPDWriter::addRepresentation(const QString& path, const QString& fn, const 
         repr->setSegmentBase(segmentBase);
     //}
     SegmentList *slist = setSegmentList(oneFile, dashName);
-    repr->setBandwidth(getRepBandwidth(oneFile, dashName, slist));
+    repr->setBandwidth(getRepBandwidth(oneFile, slist));
     repr->setSegmentList(slist);
     unsigned int *dim = getDimensions();
     repr->setHeight(dim[0]);
@@ -308,7 +308,7 @@ void MPDWriter::setDashPath(const QString &dPath) {
     dashPath = dPath;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-unsigned int MPDWriter::getRepBandwidth(bool oneFile, const QString &dashName, SegmentList *slist) {
+unsigned int MPDWriter::getRepBandwidth(bool oneFile, /*const QString &dashName, */SegmentList *slist) {
     unsigned int mediaSize = 0;
     QList<std::shared_ptr<Box>> mvhds = originalModel->getBoxes("mvhd");
     MovieHeaderBox *mvhd = dynamic_cast <MovieHeaderBox*> (mvhds.back().get());

@@ -93,7 +93,7 @@ void Controller::dashFilesSelected(const bool& oneFile, const QString &url) {
         dashWrap->addRepresentation(oneFile);
     }
 
-    dashWrap->writeMPD(oneFile, url);
+    dashWrap->writeMPD(url);
     window->showInfoDialog("Dash files generated.");
 }
 //////////////////////////////////////////////////////////////////////////////////////////////

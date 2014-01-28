@@ -91,7 +91,7 @@ public:
     MPDWriter();
     void addRepresentation(const QString &path, const QString &fn, const bool &oneFile);
     void init(bool oneFile);
-    void writeMPD(bool oneFile, const QString &url);
+    void writeMPD(const QString &url);
 
     AdaptationSet *setAdaptationSet();
     Period *setPeriod();
@@ -100,7 +100,7 @@ public:
     void setOriginalFileName(const QString &value);
     void setDashPath(const QString& dashPath);
 private:
-    unsigned int getRepBandwidth(bool oneFile, const QString &dashName = "", SegmentList *slist = new SegmentList());
+    unsigned int getRepBandwidth(bool oneFile, SegmentList *slist = new SegmentList());
     QString getHMSFormat(const double& value);
     QString getDuration();
     unsigned int *getDimensions();

@@ -9,7 +9,7 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = MP4_2
-TEMPLATE = app
+TEMPLATE += app
 
 INCLUDEPATH += ./Model\Dash \
                ./View \

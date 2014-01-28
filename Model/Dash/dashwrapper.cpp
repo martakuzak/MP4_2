@@ -69,8 +69,8 @@ void DashWrapper::addRepresentation(const bool &oneFile) {
     return mpdWriter->addRepresentation(path, fileName, oneFile);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
-void DashWrapper::writeMPD(const bool& oneFile, const QString &url) {
-    mpdWriter->writeMPD(oneFile, url);
+void DashWrapper::writeMPD(const QString &url) {
+    mpdWriter->writeMPD(url);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 void DashWrapper::clear() {

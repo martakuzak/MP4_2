@@ -81,7 +81,7 @@ public:
      * Writes Media Presentation File with earlier set parameters. The file is located in the same catalog
      * as files with segments
      */
-    void writeMPD(const bool& oneFile, const QString &url);
+    void writeMPD(const QString &url);
     /*!
      * \brief clear
      * clear all the attributes (deletes mpdWriter and sets to NULL, all QString are set to "")
