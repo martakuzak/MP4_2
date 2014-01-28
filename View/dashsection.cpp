@@ -85,7 +85,3 @@ void DashSection::removeButtonClicked() {
 void DashSection::dashFilesSelected() {
     emit dashFilesSelectedSignal((dashOptions->currentIndex() == 0), urlLine->text());
 }
-
-
-
-
