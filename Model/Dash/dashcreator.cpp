@@ -264,7 +264,6 @@ unsigned int DashCreator::writeMehd(QFile *dashFile) {
     if(duration > 0xFFFFFFFF) {
         if(dashFile == NULL)
             return 20;
-        //qDebug()<<"writeMehd";
         stream<<quint32(20);
         stream.writeRawData("mehd", 4);
         stream<<quint8(1); //version
