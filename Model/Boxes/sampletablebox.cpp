@@ -14,7 +14,7 @@ TimeToSampleBox::TimeToSampleBox(const unsigned int& s, const QString& t, const 
 {}
 
 QStandardItemModel *TimeToSampleBox::getModel() {
-    QStandardItemModel *model = new QStandardItemModel(5, 2, 0);
+    QStandardItemModel *model = new QStandardItemModel(3 + (entryCount)*2, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
@@ -27,20 +27,28 @@ QStandardItemModel *TimeToSampleBox::getModel() {
     model->setData(model->index(1, 1, QModelIndex()), tmp);
     model->setData(model->index(2, 0, QModelIndex()), "Entry count");
     model->setData(model->index(2, 1, QModelIndex()), QString::number(entryCount));
-    model->setData(model->index(3, 0, QModelIndex()), "Sample count");
-    tmp.clear();
+    unsigned int index = 3;
     for(unsigned int i = 0; i < entryCount; ++i) {
-        tmp.append(QString::number(sampleCount.at(i)));
-        tmp.append(" | ");
+        model->setData(model->index(index, 0, QModelIndex()), "SampleCount[" + QString::number(i) + "]");
+        model->setData(model->index(index, 1, QModelIndex()), QString::number(sampleCount.at(i)));
+        model->setData(model->index(index + 1, 0, QModelIndex()), "SampleDelta[" + QString::number(i) + "]");
+        model->setData(model->index(index + 1, 1, QModelIndex()), QString::number(sampleDelta.at(i)));
+        index += 2;
     }
-    model->setData(model->index(3, 1, QModelIndex()), tmp);
-    model->setData(model->index(4, 0, QModelIndex()), "Sample delta");
-    tmp.clear();
-    for(unsigned int i = 0; i < entryCount; ++i) {
-        tmp.append(QString::number(sampleDelta.at(i)));
-        tmp.append(" | ");
-    }
-    model->setData(model->index(4, 1, QModelIndex()), tmp);
+//    model->setData(model->index(3, 0, QModelIndex()), "Sample count");
+//    tmp.clear();
+//    for(unsigned int i = 0; i < entryCount; ++i) {
+//        tmp.append(QString::number(sampleCount.at(i)));
+//        tmp.append(" | ");
+//    }
+//    model->setData(model->index(3, 1, QModelIndex()), tmp);
+//    model->setData(model->index(4, 0, QModelIndex()), "Sample delta");
+//    tmp.clear();
+//    for(unsigned int i = 0; i < entryCount; ++i) {
+//        tmp.append(QString::number(sampleDelta.at(i)));
+//        tmp.append(" | ");
+//    }
+//    model->setData(model->index(4, 1, QModelIndex()), tmp);
 
     return model;
 }
