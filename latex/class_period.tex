@@ -1,0 +1,89 @@
+\hypertarget{class_period}{\section{Period Class Reference}
+\label{class_period}\index{Period@{Period}}
+}
+
+
+The \hyperlink{class_period}{Period} class specifies the information of a \hyperlink{class_period}{Period}.  
+
+
+
+
+{\ttfamily \#include $<$period.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_period_afa22d2b626be153a49ae9194f6027676}{write} (Q\-Xml\-Stream\-Writer $\ast$stream)
+\begin{DoxyCompactList}\small\item\em write Writes \hyperlink{class_period}{Period} vertex into Media Presentation Description file \end{DoxyCompactList}\item 
+\hypertarget{class_period_a8e7139a1e32f58faca736d4162998035}{unsigned int {\bfseries get\-Id} () const }\label{class_period_a8e7139a1e32f58faca736d4162998035}
+
+\item 
+\hypertarget{class_period_ae13d617aa1a99d6aabfe33bb3dff5ead}{void {\bfseries set\-Id} (unsigned int value)}\label{class_period_ae13d617aa1a99d6aabfe33bb3dff5ead}
+
+\item 
+\hypertarget{class_period_a842f7763b3ee02b3196808d7434e83d2}{Q\-String {\bfseries get\-Duration} () const }\label{class_period_a842f7763b3ee02b3196808d7434e83d2}
+
+\item 
+\hypertarget{class_period_a8df6ac7816e627e71561dff34475df5d}{void {\bfseries set\-Duration} (const Q\-String \&value)}\label{class_period_a8df6ac7816e627e71561dff34475df5d}
+
+\item 
+\hypertarget{class_period_a175391b527970b3ccc3a14c1a7d5fd8f}{Q\-String {\bfseries get\-Start} () const }\label{class_period_a175391b527970b3ccc3a14c1a7d5fd8f}
+
+\item 
+\hypertarget{class_period_a7740fb9322048f6def916cae7cbbd5e2}{void {\bfseries set\-Start} (const Q\-String \&value)}\label{class_period_a7740fb9322048f6def916cae7cbbd5e2}
+
+\item 
+\hypertarget{class_period_a68ee6161e16432085d959ece33df3814}{void {\bfseries add\-Adaptation\-Set} ()}\label{class_period_a68ee6161e16432085d959ece33df3814}
+
+\item 
+\hypertarget{class_period_ab92d8a4a57bc1fdd5a40aff266ed476b}{void {\bfseries add\-Adaptation\-Set} (\hyperlink{class_adaptation_set}{Adaptation\-Set} $\ast$adapt\-Set)}\label{class_period_ab92d8a4a57bc1fdd5a40aff266ed476b}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_period}{Period} class specifies the information of a \hyperlink{class_period}{Period}. 
+
+
+\begin{DoxyItemize}
+\item atrributes\-:
+\begin{DoxyEnumerate}
+\item id (optional)
+\item start (optional)
+\item duration (optional)
+\item bitstreamswitching (optional with default value\-: false)
+\end{DoxyEnumerate}
+\item elements\-:
+\begin{DoxyEnumerate}
+\item \hyperlink{class_base_u_r_l}{Base\-U\-R\-L} (0..N)
+\item \hyperlink{class_segment_base}{Segment\-Base} (0..1)
+\item \hyperlink{class_segment_list}{Segment\-List} (0..1)
+\item Segment\-Template (0..1)
+\item \hyperlink{class_adaptation_set}{Adaptation\-Set} (0..N)
+\item Subset (0..N) 
+\end{DoxyEnumerate}
+\end{DoxyItemize}
+
+\subsection{Member Function Documentation}
+\hypertarget{class_period_afa22d2b626be153a49ae9194f6027676}{\index{Period@{Period}!write@{write}}
+\index{write@{write}!Period@{Period}}
+\subsubsection[{write}]{\setlength{\rightskip}{0pt plus 5cm}void Period\-::write (
+\begin{DoxyParamCaption}
+\item[{Q\-Xml\-Stream\-Writer $\ast$}]{stream}
+\end{DoxyParamCaption}
+)}}\label{class_period_afa22d2b626be153a49ae9194f6027676}
+
+
+write Writes \hyperlink{class_period}{Period} vertex into Media Presentation Description file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & stream of the \hyperlink{class_m_p_d}{M\-P\-D} file \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Mpd/period.\-h\item 
+Model/\-Mpd/period.\-cpp\end{DoxyCompactItemize}

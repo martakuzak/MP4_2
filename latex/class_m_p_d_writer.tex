@@ -1,0 +1,111 @@
+\hypertarget{class_m_p_d_writer}{\section{M\-P\-D\-Writer Class Reference}
+\label{class_m_p_d_writer}\index{M\-P\-D\-Writer@{M\-P\-D\-Writer}}
+}
+
+
+The \hyperlink{class_m_p_d_writer}{M\-P\-D\-Writer} class contains methods that create and write \hyperlink{class_m_p_d}{M\-P\-D} file.  
+
+
+
+
+{\ttfamily \#include $<$mpd.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_m_p_d_writer_a6e014465e66d27b34efc52ae6c32fdd9}{add\-Representation} (const Q\-String \&path, const Q\-String \&fn, const bool \&one\-File)
+\begin{DoxyCompactList}\small\item\em add\-Representation adds representation to \hyperlink{class_m_p_d}{M\-P\-D} data model \end{DoxyCompactList}\item 
+void \hyperlink{class_m_p_d_writer_a5aa7772d432aab1eb501fb20f3a1d0af}{init} (bool one\-File)
+\begin{DoxyCompactList}\small\item\em init sets init information (about presentation). The method shall be called before write(...) \end{DoxyCompactList}\item 
+void \hyperlink{class_m_p_d_writer_a4d1fb1b9b816050498f54642b3fac073}{set\-Dash\-Path} (const Q\-String \&dash\-Path)
+\begin{DoxyCompactList}\small\item\em set\-Dash\-Path \end{DoxyCompactList}\item 
+void \hyperlink{class_m_p_d_writer_a366910941d11fd2094b746d91ab00732}{write\-M\-P\-D} (const Q\-String \&url)
+\begin{DoxyCompactList}\small\item\em write Writes \hyperlink{class_m_p_d}{M\-P\-D} file \end{DoxyCompactList}\item 
+\hypertarget{class_m_p_d_writer_a71368fe4d1badbec026e800ba33c846d}{Q\-String {\bfseries get\-Original\-File\-Name} () const }\label{class_m_p_d_writer_a71368fe4d1badbec026e800ba33c846d}
+
+\item 
+\hypertarget{class_m_p_d_writer_abdf037e38bd1d3ea0eb29d901212d78e}{void {\bfseries set\-Original\-File\-Name} (const Q\-String \&value)}\label{class_m_p_d_writer_abdf037e38bd1d3ea0eb29d901212d78e}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_m_p_d_writer}{M\-P\-D\-Writer} class contains methods that create and write \hyperlink{class_m_p_d}{M\-P\-D} file. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_m_p_d_writer_a6e014465e66d27b34efc52ae6c32fdd9}{\index{M\-P\-D\-Writer@{M\-P\-D\-Writer}!add\-Representation@{add\-Representation}}
+\index{add\-Representation@{add\-Representation}!MPDWriter@{M\-P\-D\-Writer}}
+\subsubsection[{add\-Representation}]{\setlength{\rightskip}{0pt plus 5cm}void M\-P\-D\-Writer\-::add\-Representation (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{path, }
+\item[{const Q\-String \&}]{fn, }
+\item[{const bool \&}]{one\-File}
+\end{DoxyParamCaption}
+)}}\label{class_m_p_d_writer_a6e014465e66d27b34efc52ae6c32fdd9}
+
+
+add\-Representation adds representation to \hyperlink{class_m_p_d}{M\-P\-D} data model 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & path to original file of representation \\
+\hline
+{\em fn} & filename (without path) to original representation file \\
+\hline
+{\em one\-File} & indicated wheter all the media data segments of each representation are located in one file or not \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_m_p_d_writer_a5aa7772d432aab1eb501fb20f3a1d0af}{\index{M\-P\-D\-Writer@{M\-P\-D\-Writer}!init@{init}}
+\index{init@{init}!MPDWriter@{M\-P\-D\-Writer}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void M\-P\-D\-Writer\-::init (
+\begin{DoxyParamCaption}
+\item[{bool}]{one\-File}
+\end{DoxyParamCaption}
+)}}\label{class_m_p_d_writer_a5aa7772d432aab1eb501fb20f3a1d0af}
+
+
+init sets init information (about presentation). The method shall be called before write(...) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em one\-File} & indicated wheter all the media data segments of each representation are located in one file or not \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_m_p_d_writer_a4d1fb1b9b816050498f54642b3fac073}{\index{M\-P\-D\-Writer@{M\-P\-D\-Writer}!set\-Dash\-Path@{set\-Dash\-Path}}
+\index{set\-Dash\-Path@{set\-Dash\-Path}!MPDWriter@{M\-P\-D\-Writer}}
+\subsubsection[{set\-Dash\-Path}]{\setlength{\rightskip}{0pt plus 5cm}void M\-P\-D\-Writer\-::set\-Dash\-Path (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{dash\-Path}
+\end{DoxyParamCaption}
+)}}\label{class_m_p_d_writer_a4d1fb1b9b816050498f54642b3fac073}
+
+
+set\-Dash\-Path 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dash\-Path} & path to created files with media data segments \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_m_p_d_writer_a366910941d11fd2094b746d91ab00732}{\index{M\-P\-D\-Writer@{M\-P\-D\-Writer}!write\-M\-P\-D@{write\-M\-P\-D}}
+\index{write\-M\-P\-D@{write\-M\-P\-D}!MPDWriter@{M\-P\-D\-Writer}}
+\subsubsection[{write\-M\-P\-D}]{\setlength{\rightskip}{0pt plus 5cm}void M\-P\-D\-Writer\-::write\-M\-P\-D (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{url}
+\end{DoxyParamCaption}
+)}}\label{class_m_p_d_writer_a366910941d11fd2094b746d91ab00732}
+
+
+write Writes \hyperlink{class_m_p_d}{M\-P\-D} file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em url} & U\-R\-L address where all the files will be located during transmission \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Mpd/mpd.\-h\item 
+Model/\-Mpd/mpd.\-cpp\end{DoxyCompactItemize}

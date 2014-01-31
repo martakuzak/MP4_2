@@ -1,0 +1,102 @@
+\hypertarget{class_movie_box}{\section{Movie\-Box Class Reference}
+\label{class_movie_box}\index{Movie\-Box@{Movie\-Box}}
+}
+
+
+The \hyperlink{class_movie_box}{Movie\-Box} class represents 'moov' box.  
+
+
+
+
+{\ttfamily \#include $<$box.\-h$>$}
+
+Inheritance diagram for Movie\-Box\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_movie_box}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_movie_box_aee45e25c2a711842ae029643d4870c31}{{\bfseries Movie\-Box} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off)}\label{class_movie_box_aee45e25c2a711842ae029643d4870c31}
+
+\item 
+virtual bool \hyperlink{class_movie_box_af75bd55df36733f36e9c9c3bde448d93}{is\-Container} ()
+\begin{DoxyCompactList}\small\item\em is\-Container \end{DoxyCompactList}\item 
+virtual Q\-String \hyperlink{class_movie_box_a68e2952ae634633bbccaf61c749fa33f}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\item 
+virtual Q\-Standard\-Item\-Model $\ast$ \hyperlink{class_movie_box_a48d5f8248231d692efb16c7fdab53b31}{get\-Model} ()
+\begin{DoxyCompactList}\small\item\em get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_movie_box}{Movie\-Box} class represents 'moov' box. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_movie_box_a68e2952ae634633bbccaf61c749fa33f}{\index{Movie\-Box@{Movie\-Box}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!MovieBox@{Movie\-Box}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String Movie\-Box\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_movie_box_a68e2952ae634633bbccaf61c749fa33f}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_aa7c1e41e425cce53e0bd532cfafbb67d}{Box}.
+
+\hypertarget{class_movie_box_a48d5f8248231d692efb16c7fdab53b31}{\index{Movie\-Box@{Movie\-Box}!get\-Model@{get\-Model}}
+\index{get\-Model@{get\-Model}!MovieBox@{Movie\-Box}}
+\subsubsection[{get\-Model}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-Standard\-Item\-Model$\ast$ Movie\-Box\-::get\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_movie_box_a48d5f8248231d692efb16c7fdab53b31}
+
+
+get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. 
+
+\begin{DoxyReturn}{Returns}
+model of \hyperlink{class_box}{Box} attributes 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_a5c7911f3c88eec77383c0a464979807d}{Box}.
+
+\hypertarget{class_movie_box_af75bd55df36733f36e9c9c3bde448d93}{\index{Movie\-Box@{Movie\-Box}!is\-Container@{is\-Container}}
+\index{is\-Container@{is\-Container}!MovieBox@{Movie\-Box}}
+\subsubsection[{is\-Container}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Movie\-Box\-::is\-Container (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_movie_box_af75bd55df36733f36e9c9c3bde448d93}
+
+
+is\-Container 
+
+\begin{DoxyReturn}{Returns}
+true when box contains other boxes, false otherwise 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_aa836717b34b2a26f84b6933d143da42b}{Box}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/box.\-h\item 
+Model/\-Boxes/box.\-cpp\end{DoxyCompactItemize}

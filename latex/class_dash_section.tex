@@ -1,0 +1,139 @@
+\hypertarget{class_dash_section}{\section{Dash\-Section Class Reference}
+\label{class_dash_section}\index{Dash\-Section@{Dash\-Section}}
+}
+
+
+The \hyperlink{class_dash_section}{Dash\-Section} class \hyperlink{class_dash_section}{Dash\-Section} contains and displays widgets that build view of dash section of the application.  
+
+
+
+
+{\ttfamily \#include $<$dashsection.\-h$>$}
+
+Inheritance diagram for Dash\-Section\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_dash_section}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_dash_section_a1def7fe671027a0aa457ef3928c5c584}{dash\-Dir\-Sig} (const Q\-String \&dir)
+\begin{DoxyCompactList}\small\item\em dash\-Dir\-Sig \end{DoxyCompactList}\item 
+void \hyperlink{class_dash_section_aa5d208d28ce0ca70904b5a709d714958}{remove\-File\-Sig} (const int \&row)
+\begin{DoxyCompactList}\small\item\em remove\-File\-Sig \end{DoxyCompactList}\item 
+void \hyperlink{class_dash_section_af294c83b94ff52df6a21aa6c01d681b2}{dash\-Files\-Selected\-Signal} (const bool \&one\-File, const Q\-String \&url)
+\begin{DoxyCompactList}\small\item\em dash\-Files\-Selected\-Signal \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_dash_section_a5dffdfc94fbff1f7373350b46943f0e1}{Dash\-Section} (Q\-Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_dash_section}{Dash\-Section}. \end{DoxyCompactList}\item 
+void \hyperlink{class_dash_section_abd3bb2f76089674e16a956ec3f6cd4d8}{set\-Dash\-File\-List} (Q\-Abstract\-Item\-Model $\ast$file\-Model, const bool \&disabled=false)
+\begin{DoxyCompactList}\small\item\em set\-Dash\-File\-List \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_dash_section}{Dash\-Section} class \hyperlink{class_dash_section}{Dash\-Section} contains and displays widgets that build view of dash section of the application. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_dash_section_a5dffdfc94fbff1f7373350b46943f0e1}{\index{Dash\-Section@{Dash\-Section}!Dash\-Section@{Dash\-Section}}
+\index{Dash\-Section@{Dash\-Section}!DashSection@{Dash\-Section}}
+\subsubsection[{Dash\-Section}]{\setlength{\rightskip}{0pt plus 5cm}Dash\-Section\-::\-Dash\-Section (
+\begin{DoxyParamCaption}
+\item[{Q\-Widget $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}}\label{class_dash_section_a5dffdfc94fbff1f7373350b46943f0e1}
+
+
+\hyperlink{class_dash_section}{Dash\-Section}. 
+
+Public.
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & tree model of boxes \\
+\hline
+{\em parent} & Creates dash section. It contains of filenames listview, buttons (selecting directory of files, removing file from list and preparing selected files to dash streaming) and textline of U\-R\-L address. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_dash_section_a1def7fe671027a0aa457ef3928c5c584}{\index{Dash\-Section@{Dash\-Section}!dash\-Dir\-Sig@{dash\-Dir\-Sig}}
+\index{dash\-Dir\-Sig@{dash\-Dir\-Sig}!DashSection@{Dash\-Section}}
+\subsubsection[{dash\-Dir\-Sig}]{\setlength{\rightskip}{0pt plus 5cm}void Dash\-Section\-::dash\-Dir\-Sig (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{dir}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_dash_section_a1def7fe671027a0aa457ef3928c5c584}
+
+
+dash\-Dir\-Sig 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & selected directory \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_dash_section_af294c83b94ff52df6a21aa6c01d681b2}{\index{Dash\-Section@{Dash\-Section}!dash\-Files\-Selected\-Signal@{dash\-Files\-Selected\-Signal}}
+\index{dash\-Files\-Selected\-Signal@{dash\-Files\-Selected\-Signal}!DashSection@{Dash\-Section}}
+\subsubsection[{dash\-Files\-Selected\-Signal}]{\setlength{\rightskip}{0pt plus 5cm}void Dash\-Section\-::dash\-Files\-Selected\-Signal (
+\begin{DoxyParamCaption}
+\item[{const bool \&}]{one\-File, }
+\item[{const Q\-String \&}]{url}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_dash_section_af294c83b94ff52df6a21aa6c01d681b2}
+
+
+dash\-Files\-Selected\-Signal 
+
+
+\begin{DoxyParams}{Parameters}
+{\em one\-File} & indicates whether all segments of each presentation should be gathered in one file \\
+\hline
+{\em url} & U\-R\-L address where generated files will be available. It is inserted into \hyperlink{class_m_p_d}{M\-P\-D} file. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_dash_section_aa5d208d28ce0ca70904b5a709d714958}{\index{Dash\-Section@{Dash\-Section}!remove\-File\-Sig@{remove\-File\-Sig}}
+\index{remove\-File\-Sig@{remove\-File\-Sig}!DashSection@{Dash\-Section}}
+\subsubsection[{remove\-File\-Sig}]{\setlength{\rightskip}{0pt plus 5cm}void Dash\-Section\-::remove\-File\-Sig (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{row}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_dash_section_aa5d208d28ce0ca70904b5a709d714958}
+
+
+remove\-File\-Sig 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & row id of the filename record that shall be removed from the list \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_dash_section_abd3bb2f76089674e16a956ec3f6cd4d8}{\index{Dash\-Section@{Dash\-Section}!set\-Dash\-File\-List@{set\-Dash\-File\-List}}
+\index{set\-Dash\-File\-List@{set\-Dash\-File\-List}!DashSection@{Dash\-Section}}
+\subsubsection[{set\-Dash\-File\-List}]{\setlength{\rightskip}{0pt plus 5cm}void Dash\-Section\-::set\-Dash\-File\-List (
+\begin{DoxyParamCaption}
+\item[{Q\-Abstract\-Item\-Model $\ast$}]{file\-Model, }
+\item[{const bool \&}]{disabled = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{class_dash_section_abd3bb2f76089674e16a956ec3f6cd4d8}
+
+
+set\-Dash\-File\-List 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\-Model} & model of selected filenames (full name -\/ with path) \\
+\hline
+{\em disabled} & indicates whether Add files button shall be disabled \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+View/dashsection.\-h\item 
+View/dashsection.\-cpp\end{DoxyCompactItemize}

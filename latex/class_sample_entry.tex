@@ -1,0 +1,98 @@
+\hypertarget{class_sample_entry}{\section{Sample\-Entry Class Reference}
+\label{class_sample_entry}\index{Sample\-Entry@{Sample\-Entry}}
+}
+
+
+The \hyperlink{class_sample_entry}{Sample\-Entry} class represents Sample Entry.  
+
+
+
+
+{\ttfamily \#include $<$sampleentry.\-h$>$}
+
+Inheritance diagram for Sample\-Entry\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.947368cm]{class_sample_entry}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_sample_entry_a2681da26049fbb806e5324f57fe57d15}{{\bfseries Sample\-Entry} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off, const Q\-List$<$ unsigned int $>$ \&res, const unsigned int \&dri)}\label{class_sample_entry_a2681da26049fbb806e5324f57fe57d15}
+
+\item 
+virtual Q\-String \hyperlink{class_sample_entry_acbc7081715759b868797ad71b469a63e}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\item 
+virtual Q\-Standard\-Item\-Model $\ast$ \hyperlink{class_sample_entry_a0babc6ec796f6bf05a5e3e59d635ca79}{get\-Model} ()
+\begin{DoxyCompactList}\small\item\em get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_sample_entry_a107db03ee5cdfea6d79e671c4a307008}{Q\-List$<$ unsigned int $>$ {\bfseries reserved}}\label{class_sample_entry_a107db03ee5cdfea6d79e671c4a307008}
+
+\item 
+\hypertarget{class_sample_entry_a1d79941cccb4bd444b1896f16122d392}{unsigned int {\bfseries data\-Reference\-Index}}\label{class_sample_entry_a1d79941cccb4bd444b1896f16122d392}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_sample_entry}{Sample\-Entry} class represents Sample Entry. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_sample_entry_acbc7081715759b868797ad71b469a63e}{\index{Sample\-Entry@{Sample\-Entry}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!SampleEntry@{Sample\-Entry}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String Sample\-Entry\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_sample_entry_acbc7081715759b868797ad71b469a63e}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_aa7c1e41e425cce53e0bd532cfafbb67d}{Box}.
+
+
+
+Reimplemented in \hyperlink{class_a_v_c_sample_entry_a672f849ea0bd16cb832d1592ff8ae827}{A\-V\-C\-Sample\-Entry}, \hyperlink{class_mpeg_sample_entry_ac07fbe3d0f06f9360acd2e60eb839928}{Mpeg\-Sample\-Entry}, \hyperlink{class_m_p4_audio_sample_entry_a81d787d905a0ee6fe1158daf8cddb64d}{M\-P4\-Audio\-Sample\-Entry}, \hyperlink{class_m_p4_visual_sample_entry_a82117470bd8bbda71839fff2b9a069c6}{M\-P4\-Visual\-Sample\-Entry}, \hyperlink{class_audio_sample_entry_a928ab5498c0a8679ed624f9089dc5825}{Audio\-Sample\-Entry}, \hyperlink{class_visual_sample_entry_a8c48b121f4b5bb48d33bc9988a5dd856}{Visual\-Sample\-Entry}, and \hyperlink{class_hint_sample_entry_ac747c305de54a619efe66d5d8e0ec61a}{Hint\-Sample\-Entry}.
+
+\hypertarget{class_sample_entry_a0babc6ec796f6bf05a5e3e59d635ca79}{\index{Sample\-Entry@{Sample\-Entry}!get\-Model@{get\-Model}}
+\index{get\-Model@{get\-Model}!SampleEntry@{Sample\-Entry}}
+\subsubsection[{get\-Model}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Standard\-Item\-Model $\ast$ Sample\-Entry\-::get\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_sample_entry_a0babc6ec796f6bf05a5e3e59d635ca79}
+
+
+get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. 
+
+\begin{DoxyReturn}{Returns}
+model of \hyperlink{class_box}{Box} attributes 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_a5c7911f3c88eec77383c0a464979807d}{Box}.
+
+
+
+Reimplemented in \hyperlink{class_audio_sample_entry_a8666027778c6cf9438d4af902c1793ab}{Audio\-Sample\-Entry}, and \hyperlink{class_visual_sample_entry_a475b074b66ad025a76c66888c0e24f46}{Visual\-Sample\-Entry}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/sampleentry.\-h\item 
+Model/\-Boxes/sampleentry.\-cpp\end{DoxyCompactItemize}

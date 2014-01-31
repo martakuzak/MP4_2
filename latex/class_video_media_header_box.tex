@@ -1,0 +1,90 @@
+\hypertarget{class_video_media_header_box}{\section{Video\-Media\-Header\-Box Class Reference}
+\label{class_video_media_header_box}\index{Video\-Media\-Header\-Box@{Video\-Media\-Header\-Box}}
+}
+
+
+The \hyperlink{class_video_media_header_box}{Video\-Media\-Header\-Box} class represents 'vmhd' box.  
+
+
+
+
+{\ttfamily \#include $<$box.\-h$>$}
+
+Inheritance diagram for Video\-Media\-Header\-Box\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_video_media_header_box}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_video_media_header_box_a2063e6554cfbfae70f34f1f7cadf488b}{{\bfseries Video\-Media\-Header\-Box} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off, const unsigned int \&v, const Q\-List$<$ unsigned int $>$ \&f, const unsigned int \&graphicsmode, const Q\-List$<$ unsigned int $>$ \&opcolor)}\label{class_video_media_header_box_a2063e6554cfbfae70f34f1f7cadf488b}
+
+\item 
+virtual Q\-String \hyperlink{class_video_media_header_box_a6a6b15f956a608c18112b1b2b2317528}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\item 
+virtual Q\-Standard\-Item\-Model $\ast$ \hyperlink{class_video_media_header_box_aae14c3d53a5795039e3c5ccebc91d501}{get\-Model} ()
+\begin{DoxyCompactList}\small\item\em get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_video_media_header_box_aa2dd6760928dc1ba3a0db4d2a553c2ee}{unsigned int {\bfseries graphicsmode}}\label{class_video_media_header_box_aa2dd6760928dc1ba3a0db4d2a553c2ee}
+
+\item 
+\hypertarget{class_video_media_header_box_ac711496825fe83911dc426cb41d9b36c}{Q\-List$<$ unsigned int $>$ {\bfseries opcolor}}\label{class_video_media_header_box_ac711496825fe83911dc426cb41d9b36c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_video_media_header_box}{Video\-Media\-Header\-Box} class represents 'vmhd' box. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_video_media_header_box_a6a6b15f956a608c18112b1b2b2317528}{\index{Video\-Media\-Header\-Box@{Video\-Media\-Header\-Box}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!VideoMediaHeaderBox@{Video\-Media\-Header\-Box}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String Video\-Media\-Header\-Box\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_video_media_header_box_a6a6b15f956a608c18112b1b2b2317528}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_full_box_a0701464d8e7386653f025833308f76ee}{Full\-Box}.
+
+\hypertarget{class_video_media_header_box_aae14c3d53a5795039e3c5ccebc91d501}{\index{Video\-Media\-Header\-Box@{Video\-Media\-Header\-Box}!get\-Model@{get\-Model}}
+\index{get\-Model@{get\-Model}!VideoMediaHeaderBox@{Video\-Media\-Header\-Box}}
+\subsubsection[{get\-Model}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Standard\-Item\-Model $\ast$ Video\-Media\-Header\-Box\-::get\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_video_media_header_box_aae14c3d53a5795039e3c5ccebc91d501}
+
+
+get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. 
+
+\begin{DoxyReturn}{Returns}
+model of \hyperlink{class_box}{Box} attributes 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_a5c7911f3c88eec77383c0a464979807d}{Box}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/box.\-h\item 
+Model/\-Boxes/box.\-cpp\end{DoxyCompactItemize}

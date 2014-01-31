@@ -1,0 +1,127 @@
+\hypertarget{class_data_reference_box}{\section{Data\-Reference\-Box Class Reference}
+\label{class_data_reference_box}\index{Data\-Reference\-Box@{Data\-Reference\-Box}}
+}
+
+
+The \hyperlink{class_data_reference_box}{Data\-Reference\-Box} class represents 'dref' box.  
+
+
+
+
+{\ttfamily \#include $<$box.\-h$>$}
+
+Inheritance diagram for Data\-Reference\-Box\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_data_reference_box}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_data_reference_box_afad4046c4c7cb27fdbc4b007c8fc70b0}{{\bfseries Data\-Reference\-Box} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off, const unsigned int \&v, const Q\-List$<$ unsigned int $>$ \&f, const unsigned long int \&ec)}\label{class_data_reference_box_afad4046c4c7cb27fdbc4b007c8fc70b0}
+
+\item 
+virtual Q\-String \hyperlink{class_data_reference_box_ac023a9fd6a4177dbe16569d3ced7fd1e}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\item 
+virtual Q\-Standard\-Item\-Model $\ast$ \hyperlink{class_data_reference_box_af73f1f378a20d2f705327cc815dc7396}{get\-Model} ()
+\begin{DoxyCompactList}\small\item\em get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{class_data_reference_box_ad78cbb0eb0ba1f25aee966178e4f2f0e}{is\-Container} ()
+\begin{DoxyCompactList}\small\item\em is\-Container \end{DoxyCompactList}\item 
+virtual unsigned int \hyperlink{class_data_reference_box_a509baa8527d8fc5ff1d61d4e2508172f}{get\-Container\-Offset} ()
+\begin{DoxyCompactList}\small\item\em get\-Containet\-Offset \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_data_reference_box_aa789209cf665ff99ab5b802487fce8e7}{unsigned long int {\bfseries entry\-Count}}\label{class_data_reference_box_aa789209cf665ff99ab5b802487fce8e7}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_data_reference_box}{Data\-Reference\-Box} class represents 'dref' box. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_data_reference_box_a509baa8527d8fc5ff1d61d4e2508172f}{\index{Data\-Reference\-Box@{Data\-Reference\-Box}!get\-Container\-Offset@{get\-Container\-Offset}}
+\index{get\-Container\-Offset@{get\-Container\-Offset}!DataReferenceBox@{Data\-Reference\-Box}}
+\subsubsection[{get\-Container\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}virtual unsigned int Data\-Reference\-Box\-::get\-Container\-Offset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_data_reference_box_a509baa8527d8fc5ff1d61d4e2508172f}
+
+
+get\-Containet\-Offset 
+
+\begin{DoxyReturn}{Returns}
+offset of child boxes in the box (in bytes) 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_a2c9deb5e813bff43a2b2b62aafafe5b6}{Box}.
+
+\hypertarget{class_data_reference_box_ac023a9fd6a4177dbe16569d3ced7fd1e}{\index{Data\-Reference\-Box@{Data\-Reference\-Box}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!DataReferenceBox@{Data\-Reference\-Box}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String Data\-Reference\-Box\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_data_reference_box_ac023a9fd6a4177dbe16569d3ced7fd1e}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_full_box_a0701464d8e7386653f025833308f76ee}{Full\-Box}.
+
+\hypertarget{class_data_reference_box_af73f1f378a20d2f705327cc815dc7396}{\index{Data\-Reference\-Box@{Data\-Reference\-Box}!get\-Model@{get\-Model}}
+\index{get\-Model@{get\-Model}!DataReferenceBox@{Data\-Reference\-Box}}
+\subsubsection[{get\-Model}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Standard\-Item\-Model $\ast$ Data\-Reference\-Box\-::get\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_data_reference_box_af73f1f378a20d2f705327cc815dc7396}
+
+
+get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. 
+
+\begin{DoxyReturn}{Returns}
+model of \hyperlink{class_box}{Box} attributes 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_a5c7911f3c88eec77383c0a464979807d}{Box}.
+
+\hypertarget{class_data_reference_box_ad78cbb0eb0ba1f25aee966178e4f2f0e}{\index{Data\-Reference\-Box@{Data\-Reference\-Box}!is\-Container@{is\-Container}}
+\index{is\-Container@{is\-Container}!DataReferenceBox@{Data\-Reference\-Box}}
+\subsubsection[{is\-Container}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Data\-Reference\-Box\-::is\-Container (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_data_reference_box_ad78cbb0eb0ba1f25aee966178e4f2f0e}
+
+
+is\-Container 
+
+\begin{DoxyReturn}{Returns}
+true when box contains other boxes, false otherwise 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_aa836717b34b2a26f84b6933d143da42b}{Box}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/box.\-h\item 
+Model/\-Boxes/box.\-cpp\end{DoxyCompactItemize}

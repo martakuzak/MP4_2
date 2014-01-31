@@ -1,0 +1,140 @@
+\hypertarget{class_analyze_section}{\section{Analyze\-Section Class Reference}
+\label{class_analyze_section}\index{Analyze\-Section@{Analyze\-Section}}
+}
+
+
+The \hyperlink{class_analyze_section}{Analyze\-Section} class represents analyze section of M\-P4 G\-U\-I. Analyze section displays box tree and table of contents of selected box.  
+
+
+
+
+{\ttfamily \#include $<$analyzesection.\-h$>$}
+
+Inheritance diagram for Analyze\-Section\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_analyze_section}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_analyze_section_a8869db713962402ec948f7007ebe28e2}{box\-Selected} (Q\-Item\-Selection\-Model $\ast$selection)
+\begin{DoxyCompactList}\small\item\em box\-Selected \end{DoxyCompactList}\item 
+void \hyperlink{class_analyze_section_a0e96a86027deb05142b3c6fa1abf47b2}{search\-Button\-Clicked} (const Q\-String \&box\-Type)
+\begin{DoxyCompactList}\small\item\em search\-Button\-Clicked \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_analyze_section_ad2c80ace4884eced2784c2e809bee31e}{Analyze\-Section} (\hyperlink{class_tree_model}{Tree\-Model} $\ast$model, Q\-Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_analyze_section}{Analyze\-Section}. \end{DoxyCompactList}\item 
+void \hyperlink{class_analyze_section_adcd3fea96ac3bed00685f0b297a482fb}{print\-Selected\-Box} (Q\-Standard\-Item\-Model $\ast$model, \hyperlink{class_tree_item}{Tree\-Item} $\ast$item)
+\begin{DoxyCompactList}\small\item\em print\-Selected\-Box \end{DoxyCompactList}\item 
+void \hyperlink{class_analyze_section_ac750d046f9c716feb0e0a2a1a1a60e0e}{select\-Boxes\-Found} (Q\-Model\-Index\-List \&boxes, const Q\-String \&full\-Name)
+\begin{DoxyCompactList}\small\item\em select\-Boxes\-Found \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_analyze_section}{Analyze\-Section} class represents analyze section of M\-P4 G\-U\-I. Analyze section displays box tree and table of contents of selected box. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_analyze_section_ad2c80ace4884eced2784c2e809bee31e}{\index{Analyze\-Section@{Analyze\-Section}!Analyze\-Section@{Analyze\-Section}}
+\index{Analyze\-Section@{Analyze\-Section}!AnalyzeSection@{Analyze\-Section}}
+\subsubsection[{Analyze\-Section}]{\setlength{\rightskip}{0pt plus 5cm}Analyze\-Section\-::\-Analyze\-Section (
+\begin{DoxyParamCaption}
+\item[{{\bf Tree\-Model} $\ast$}]{model, }
+\item[{Q\-Widget $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}}\label{class_analyze_section_ad2c80ace4884eced2784c2e809bee31e}
+
+
+\hyperlink{class_analyze_section}{Analyze\-Section}. 
+
+Public.
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & tree model of boxes \\
+\hline
+{\em parent} & Creates analyze section with box tree, table of selected box contents and search area. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_analyze_section_a8869db713962402ec948f7007ebe28e2}{\index{Analyze\-Section@{Analyze\-Section}!box\-Selected@{box\-Selected}}
+\index{box\-Selected@{box\-Selected}!AnalyzeSection@{Analyze\-Section}}
+\subsubsection[{box\-Selected}]{\setlength{\rightskip}{0pt plus 5cm}void Analyze\-Section\-::box\-Selected (
+\begin{DoxyParamCaption}
+\item[{Q\-Item\-Selection\-Model $\ast$}]{selection}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_analyze_section_a8869db713962402ec948f7007ebe28e2}
+
+
+box\-Selected 
+
+
+\begin{DoxyParams}{Parameters}
+{\em selection} & model of selected records in the tree It is emitted after selection of the tree changes \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_analyze_section_adcd3fea96ac3bed00685f0b297a482fb}{\index{Analyze\-Section@{Analyze\-Section}!print\-Selected\-Box@{print\-Selected\-Box}}
+\index{print\-Selected\-Box@{print\-Selected\-Box}!AnalyzeSection@{Analyze\-Section}}
+\subsubsection[{print\-Selected\-Box}]{\setlength{\rightskip}{0pt plus 5cm}void Analyze\-Section\-::print\-Selected\-Box (
+\begin{DoxyParamCaption}
+\item[{Q\-Standard\-Item\-Model $\ast$}]{model, }
+\item[{{\bf Tree\-Item} $\ast$}]{item}
+\end{DoxyParamCaption}
+)}}\label{class_analyze_section_adcd3fea96ac3bed00685f0b297a482fb}
+
+
+print\-Selected\-Box 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & Model of contents of the selected box. \\
+\hline
+{\em item} & \hyperlink{class_tree_item}{Tree\-Item} object that represents selected box Prints content of the selected box in the table. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_analyze_section_a0e96a86027deb05142b3c6fa1abf47b2}{\index{Analyze\-Section@{Analyze\-Section}!search\-Button\-Clicked@{search\-Button\-Clicked}}
+\index{search\-Button\-Clicked@{search\-Button\-Clicked}!AnalyzeSection@{Analyze\-Section}}
+\subsubsection[{search\-Button\-Clicked}]{\setlength{\rightskip}{0pt plus 5cm}void Analyze\-Section\-::search\-Button\-Clicked (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{box\-Type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_analyze_section_a0e96a86027deb05142b3c6fa1abf47b2}
+
+
+search\-Button\-Clicked 
+
+
+\begin{DoxyParams}{Parameters}
+{\em box\-Type} & typed box type It is emitted after user clicked Search button \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_analyze_section_ac750d046f9c716feb0e0a2a1a1a60e0e}{\index{Analyze\-Section@{Analyze\-Section}!select\-Boxes\-Found@{select\-Boxes\-Found}}
+\index{select\-Boxes\-Found@{select\-Boxes\-Found}!AnalyzeSection@{Analyze\-Section}}
+\subsubsection[{select\-Boxes\-Found}]{\setlength{\rightskip}{0pt plus 5cm}void Analyze\-Section\-::select\-Boxes\-Found (
+\begin{DoxyParamCaption}
+\item[{Q\-Model\-Index\-List \&}]{boxes, }
+\item[{const Q\-String \&}]{full\-Name}
+\end{DoxyParamCaption}
+)}}\label{class_analyze_section_ac750d046f9c716feb0e0a2a1a1a60e0e}
+
+
+select\-Boxes\-Found 
+
+
+\begin{DoxyParams}{Parameters}
+{\em boxes} & list of boxes that shall be selected \\
+\hline
+{\em full\-Name} & full name of the boxes It selects box records given and exapands tree so that selected records are visible. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+View/analyzesection.\-h\item 
+View/analyzesection.\-cpp\end{DoxyCompactItemize}

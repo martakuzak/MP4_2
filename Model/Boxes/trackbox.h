@@ -18,6 +18,10 @@
 #include "box.h"
 class MainWindow;
 
+/*!
+ * \brief The TrackBox class represents 'trak' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class TrackBox : public Box {
 public:
     TrackBox(const unsigned int& s, const QString& t, const unsigned long int& off);
@@ -30,6 +34,10 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The TrackHeaderBox class represents 'tkhd' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class TrackHeaderBox : public FullBox {
 protected:
     unsigned long int creationTime;
@@ -58,12 +66,20 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The TrackReferenceBox class represents 'tref' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class TrackReferenceBox : public Box {
 public:
     TrackReferenceBox(const unsigned int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("Track Reference Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The TrackExtendsBox class represents 'trex' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class TrackExtendsBox : public FullBox {
 protected:
     unsigned int getTrackID;
@@ -79,6 +95,10 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The TrackFragmentBox class represents 'traf' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class TrackFragmentBox : public Box {
 public:
     TrackFragmentBox(const unsigned int& s, const QString& t, const unsigned long int& off);
@@ -91,6 +111,10 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The TrackFragmentHeaderBox class represents 'tfhd' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class TrackFragmentHeaderBox : public FullBox {
 protected:
     unsigned long int getTrackID;
@@ -108,6 +132,10 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The TrackRunBox class represents 'trun' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class TrackRunBox : public FullBox {
 protected:
     unsigned long int sampleCount;
@@ -127,12 +155,20 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The TrackFragmentRandomAccessBox class represents 'tfra' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class TrackFragmentRandomAccessBox : public FullBox {
 public:
     TrackFragmentRandomAccessBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Track Fragment Random Access Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The TrackFragmentBaseMediaDecodeTimeBox class represents 'tfdt' box
+ * \see ISO/IEC 14496-12:2008/FDAM 3:2011 – Information technology – Coding of audio-visual objects – Part 12: ISO base media file format, AMENDMENT 3: DASH support and RTP reception hint track processing
+ */
 class TrackFragmentBaseMediaDecodeTimeBox : public FullBox {
 protected:
     unsigned long int baseMediaDecodeTime;
@@ -143,6 +179,10 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The HandlerBox class represents 'hdlr' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class HandlerBox : public FullBox {
 protected:
     unsigned  int version;

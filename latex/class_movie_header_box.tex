@@ -1,0 +1,123 @@
+\hypertarget{class_movie_header_box}{\section{Movie\-Header\-Box Class Reference}
+\label{class_movie_header_box}\index{Movie\-Header\-Box@{Movie\-Header\-Box}}
+}
+
+
+The \hyperlink{class_movie_header_box}{Movie\-Header\-Box} class represents 'mvhd' box.  
+
+
+
+
+{\ttfamily \#include $<$box.\-h$>$}
+
+Inheritance diagram for Movie\-Header\-Box\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_movie_header_box}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_movie_header_box_a686c826b13d4dde96d8a453b2dac558b}{{\bfseries Movie\-Header\-Box} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off, const unsigned int \&v, const Q\-List$<$ unsigned int $>$ \&f, const unsigned long int \&creation\-Time, const unsigned long int \&modification\-Time, const unsigned long int \&time\-Scale, const unsigned long int \&duration, const unsigned int \&rate, const unsigned int \&volume, const unsigned int \&reserved16, const Q\-List$<$ unsigned long int $>$ \&reserved32, const Q\-List$<$ unsigned long int $>$ \&mx, const Q\-List$<$ unsigned long int $>$ \&pr, const unsigned long int \&next\-Track\-Id)}\label{class_movie_header_box_a686c826b13d4dde96d8a453b2dac558b}
+
+\item 
+virtual Q\-String \hyperlink{class_movie_header_box_a90549b1eef690572412b138e3743e6c4}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\item 
+virtual Q\-Standard\-Item\-Model $\ast$ \hyperlink{class_movie_header_box_a84bc9141e1de6ad9de73c00c9d861c7a}{get\-Model} ()
+\begin{DoxyCompactList}\small\item\em get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. \end{DoxyCompactList}\item 
+\hypertarget{class_movie_header_box_aa0846ad516bc00c568c8574fa00feba5}{unsigned long int {\bfseries get\-Duration} ()}\label{class_movie_header_box_aa0846ad516bc00c568c8574fa00feba5}
+
+\item 
+\hypertarget{class_movie_header_box_afe7780215eb8d05666edc59141c0b16b}{unsigned long int {\bfseries get\-Time\-Scale} ()}\label{class_movie_header_box_afe7780215eb8d05666edc59141c0b16b}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_movie_header_box_aa10ec3645b9839b739be8dc56eb5f080}{unsigned long int {\bfseries creation\-Time}}\label{class_movie_header_box_aa10ec3645b9839b739be8dc56eb5f080}
+
+\item 
+\hypertarget{class_movie_header_box_a5c568e1ff611aca7abda522ac1d20f38}{unsigned long int {\bfseries modification\-Time}}\label{class_movie_header_box_a5c568e1ff611aca7abda522ac1d20f38}
+
+\item 
+\hypertarget{class_movie_header_box_acf7962fac07a68e97018f76a600064e5}{unsigned long int {\bfseries time\-Scale}}\label{class_movie_header_box_acf7962fac07a68e97018f76a600064e5}
+
+\item 
+\hypertarget{class_movie_header_box_ac8813c7356944b5efcc4d5ccbce008dc}{unsigned long int {\bfseries duration}}\label{class_movie_header_box_ac8813c7356944b5efcc4d5ccbce008dc}
+
+\item 
+\hypertarget{class_movie_header_box_af82b82415e8682aba63e7a48a438b0fd}{unsigned int {\bfseries rate}}\label{class_movie_header_box_af82b82415e8682aba63e7a48a438b0fd}
+
+\item 
+\hypertarget{class_movie_header_box_a8faaa6dd6ba2e876bb36055f5274f437}{unsigned int {\bfseries volume}}\label{class_movie_header_box_a8faaa6dd6ba2e876bb36055f5274f437}
+
+\item 
+\hypertarget{class_movie_header_box_abebcda3372e107c07862cadc2a6353f2}{unsigned int {\bfseries reserved16}}\label{class_movie_header_box_abebcda3372e107c07862cadc2a6353f2}
+
+\item 
+\hypertarget{class_movie_header_box_af6b0a84485c8b8a62c0784614f0c9ee6}{Q\-List$<$ unsigned long int $>$ {\bfseries reserved32}}\label{class_movie_header_box_af6b0a84485c8b8a62c0784614f0c9ee6}
+
+\item 
+\hypertarget{class_movie_header_box_af7658e6d8db02f20faaecbc800865fe8}{Q\-List$<$ unsigned long int $>$ {\bfseries matrix}}\label{class_movie_header_box_af7658e6d8db02f20faaecbc800865fe8}
+
+\item 
+\hypertarget{class_movie_header_box_a4226b61569d5fbcae27d4fccbde0af8d}{Q\-List$<$ unsigned long int $>$ {\bfseries predefined}}\label{class_movie_header_box_a4226b61569d5fbcae27d4fccbde0af8d}
+
+\item 
+\hypertarget{class_movie_header_box_a7335502d5ace122be30e627194e7ff9a}{unsigned int long {\bfseries next\-Track\-Id}}\label{class_movie_header_box_a7335502d5ace122be30e627194e7ff9a}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_movie_header_box}{Movie\-Header\-Box} class represents 'mvhd' box. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_movie_header_box_a90549b1eef690572412b138e3743e6c4}{\index{Movie\-Header\-Box@{Movie\-Header\-Box}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!MovieHeaderBox@{Movie\-Header\-Box}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String Movie\-Header\-Box\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_movie_header_box_a90549b1eef690572412b138e3743e6c4}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_full_box_a0701464d8e7386653f025833308f76ee}{Full\-Box}.
+
+\hypertarget{class_movie_header_box_a84bc9141e1de6ad9de73c00c9d861c7a}{\index{Movie\-Header\-Box@{Movie\-Header\-Box}!get\-Model@{get\-Model}}
+\index{get\-Model@{get\-Model}!MovieHeaderBox@{Movie\-Header\-Box}}
+\subsubsection[{get\-Model}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Standard\-Item\-Model $\ast$ Movie\-Header\-Box\-::get\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_movie_header_box_a84bc9141e1de6ad9de73c00c9d861c7a}
+
+
+get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. 
+
+\begin{DoxyReturn}{Returns}
+model of \hyperlink{class_box}{Box} attributes 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_a5c7911f3c88eec77383c0a464979807d}{Box}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/box.\-h\item 
+Model/\-Boxes/box.\-cpp\end{DoxyCompactItemize}

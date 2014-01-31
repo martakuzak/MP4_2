@@ -1,0 +1,82 @@
+\hypertarget{class_composition_offset_box}{\section{Composition\-Offset\-Box Class Reference}
+\label{class_composition_offset_box}\index{Composition\-Offset\-Box@{Composition\-Offset\-Box}}
+}
+
+
+The \hyperlink{class_composition_offset_box}{Composition\-Offset\-Box} class represents 'ctts' box.  
+
+
+
+
+{\ttfamily \#include $<$sampletablebox.\-h$>$}
+
+Inheritance diagram for Composition\-Offset\-Box\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_composition_offset_box}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_composition_offset_box_a5235a49ea1972fa0e0386ff33a819c85}{{\bfseries Composition\-Offset\-Box} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off, const unsigned int \&v, const Q\-List$<$ unsigned int $>$ \&f, unsigned int ec, Q\-List$<$ unsigned int $>$ sc, Q\-List$<$ unsigned int $>$ sd)}\label{class_composition_offset_box_a5235a49ea1972fa0e0386ff33a819c85}
+
+\item 
+virtual Q\-String \hyperlink{class_composition_offset_box_a6ed0d84212f70f61a021b39e1114c0fb}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\item 
+virtual Q\-Standard\-Item\-Model $\ast$ \hyperlink{class_composition_offset_box_aeeeab60183eae5c832e9e46a055ba4e3}{get\-Model} ()
+\begin{DoxyCompactList}\small\item\em get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_composition_offset_box}{Composition\-Offset\-Box} class represents 'ctts' box. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_composition_offset_box_a6ed0d84212f70f61a021b39e1114c0fb}{\index{Composition\-Offset\-Box@{Composition\-Offset\-Box}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!CompositionOffsetBox@{Composition\-Offset\-Box}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String Composition\-Offset\-Box\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_composition_offset_box_a6ed0d84212f70f61a021b39e1114c0fb}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_full_box_a0701464d8e7386653f025833308f76ee}{Full\-Box}.
+
+\hypertarget{class_composition_offset_box_aeeeab60183eae5c832e9e46a055ba4e3}{\index{Composition\-Offset\-Box@{Composition\-Offset\-Box}!get\-Model@{get\-Model}}
+\index{get\-Model@{get\-Model}!CompositionOffsetBox@{Composition\-Offset\-Box}}
+\subsubsection[{get\-Model}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Standard\-Item\-Model $\ast$ Composition\-Offset\-Box\-::get\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_composition_offset_box_aeeeab60183eae5c832e9e46a055ba4e3}
+
+
+get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. 
+
+\begin{DoxyReturn}{Returns}
+model of \hyperlink{class_box}{Box} attributes 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_a5c7911f3c88eec77383c0a464979807d}{Box}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/sampletablebox.\-h\item 
+Model/\-Boxes/sampletablebox.\-cpp\end{DoxyCompactItemize}

@@ -1,0 +1,91 @@
+\hypertarget{class_sample_size_box}{\section{Sample\-Size\-Box Class Reference}
+\label{class_sample_size_box}\index{Sample\-Size\-Box@{Sample\-Size\-Box}}
+}
+
+
+The \hyperlink{class_sample_size_box}{Sample\-Size\-Box} class represents 'stsz' box.  
+
+
+
+
+{\ttfamily \#include $<$sampletablebox.\-h$>$}
+
+Inheritance diagram for Sample\-Size\-Box\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_sample_size_box}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_sample_size_box_a10cc5ba42cfef014daccb0c5a9c45b37}{{\bfseries Sample\-Size\-Box} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off, const unsigned int \&v, const Q\-List$<$ unsigned int $>$ \&f, const unsigned long int \&sz, const unsigned long int \&sc, const Q\-List$<$ unsigned long int $>$ \&es)}\label{class_sample_size_box_a10cc5ba42cfef014daccb0c5a9c45b37}
+
+\item 
+virtual Q\-String \hyperlink{class_sample_size_box_a3cdb87618bba15d0c9e8cea9dde19ee5}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\item 
+virtual Q\-Standard\-Item\-Model $\ast$ \hyperlink{class_sample_size_box_a4ca94df68b61aebbe2c3b46b18a8d5e5}{get\-Model} ()
+\begin{DoxyCompactList}\small\item\em get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. \end{DoxyCompactList}\item 
+\hypertarget{class_sample_size_box_a753c55ac28d9657f267f71d3a60cb7fa}{unsigned long int {\bfseries get\-Sample\-Size} (const unsigned long int \&id)}\label{class_sample_size_box_a753c55ac28d9657f267f71d3a60cb7fa}
+
+\item 
+\hypertarget{class_sample_size_box_ad7bd6448c5e88893d8ccc575e8709e63}{unsigned long int {\bfseries get\-Entry\-Count} ()}\label{class_sample_size_box_ad7bd6448c5e88893d8ccc575e8709e63}
+
+\item 
+\hypertarget{class_sample_size_box_ab530c6f7d935372b1151790094d95188}{unsigned long int {\bfseries get\-Sample\-Size} ()}\label{class_sample_size_box_ab530c6f7d935372b1151790094d95188}
+
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_sample_size_box}{Sample\-Size\-Box} class represents 'stsz' box. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_sample_size_box_a3cdb87618bba15d0c9e8cea9dde19ee5}{\index{Sample\-Size\-Box@{Sample\-Size\-Box}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!SampleSizeBox@{Sample\-Size\-Box}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String Sample\-Size\-Box\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_sample_size_box_a3cdb87618bba15d0c9e8cea9dde19ee5}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_full_box_a0701464d8e7386653f025833308f76ee}{Full\-Box}.
+
+\hypertarget{class_sample_size_box_a4ca94df68b61aebbe2c3b46b18a8d5e5}{\index{Sample\-Size\-Box@{Sample\-Size\-Box}!get\-Model@{get\-Model}}
+\index{get\-Model@{get\-Model}!SampleSizeBox@{Sample\-Size\-Box}}
+\subsubsection[{get\-Model}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Standard\-Item\-Model $\ast$ Sample\-Size\-Box\-::get\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_sample_size_box_a4ca94df68b61aebbe2c3b46b18a8d5e5}
+
+
+get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. 
+
+\begin{DoxyReturn}{Returns}
+model of \hyperlink{class_box}{Box} attributes 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_a5c7911f3c88eec77383c0a464979807d}{Box}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/sampletablebox.\-h\item 
+Model/\-Boxes/sampletablebox.\-cpp\end{DoxyCompactItemize}

@@ -1,0 +1,102 @@
+\hypertarget{class_m_p4_visual_sample_entry}{\section{M\-P4\-Visual\-Sample\-Entry Class Reference}
+\label{class_m_p4_visual_sample_entry}\index{M\-P4\-Visual\-Sample\-Entry@{M\-P4\-Visual\-Sample\-Entry}}
+}
+
+
+The \hyperlink{class_m_p4_visual_sample_entry}{M\-P4\-Visual\-Sample\-Entry} class represents 'mp4v' box.  
+
+
+
+
+{\ttfamily \#include $<$sampleentry.\-h$>$}
+
+Inheritance diagram for M\-P4\-Visual\-Sample\-Entry\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_m_p4_visual_sample_entry}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_m_p4_visual_sample_entry_aeb56db7a4cb1bdf4721f98ce0ce65360}{{\bfseries M\-P4\-Visual\-Sample\-Entry} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off, const Q\-List$<$ unsigned int $>$ \&res, const unsigned int \&dri, const unsigned int \&pd, const unsigned int \&r2, const Q\-List$<$ unsigned int $>$ \&pd1, const unsigned int \&wdth, const unsigned int \&hght, const unsigned int \&hr, const unsigned int \&vr, const unsigned int \&r3, const unsigned int \&fc, const Q\-String \&csn, const unsigned int \&dpth, const unsigned int \&pd2)}\label{class_m_p4_visual_sample_entry_aeb56db7a4cb1bdf4721f98ce0ce65360}
+
+\item 
+virtual bool \hyperlink{class_m_p4_visual_sample_entry_aa683a32a4491a554bfc03b0fe1197bfc}{is\-Container} ()
+\begin{DoxyCompactList}\small\item\em is\-Container \end{DoxyCompactList}\item 
+virtual unsigned int \hyperlink{class_m_p4_visual_sample_entry_a5ef15604b8bd6d3626dcbef1698346a9}{get\-Container\-Offset} ()
+\begin{DoxyCompactList}\small\item\em get\-Containet\-Offset \end{DoxyCompactList}\item 
+virtual Q\-String \hyperlink{class_m_p4_visual_sample_entry_a82117470bd8bbda71839fff2b9a069c6}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_m_p4_visual_sample_entry}{M\-P4\-Visual\-Sample\-Entry} class represents 'mp4v' box. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_m_p4_visual_sample_entry_a5ef15604b8bd6d3626dcbef1698346a9}{\index{M\-P4\-Visual\-Sample\-Entry@{M\-P4\-Visual\-Sample\-Entry}!get\-Container\-Offset@{get\-Container\-Offset}}
+\index{get\-Container\-Offset@{get\-Container\-Offset}!MP4VisualSampleEntry@{M\-P4\-Visual\-Sample\-Entry}}
+\subsubsection[{get\-Container\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}virtual unsigned int M\-P4\-Visual\-Sample\-Entry\-::get\-Container\-Offset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_m_p4_visual_sample_entry_a5ef15604b8bd6d3626dcbef1698346a9}
+
+
+get\-Containet\-Offset 
+
+\begin{DoxyReturn}{Returns}
+offset of child boxes in the box (in bytes) 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_a2c9deb5e813bff43a2b2b62aafafe5b6}{Box}.
+
+\hypertarget{class_m_p4_visual_sample_entry_a82117470bd8bbda71839fff2b9a069c6}{\index{M\-P4\-Visual\-Sample\-Entry@{M\-P4\-Visual\-Sample\-Entry}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!MP4VisualSampleEntry@{M\-P4\-Visual\-Sample\-Entry}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String M\-P4\-Visual\-Sample\-Entry\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_m_p4_visual_sample_entry_a82117470bd8bbda71839fff2b9a069c6}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_visual_sample_entry_a8c48b121f4b5bb48d33bc9988a5dd856}{Visual\-Sample\-Entry}.
+
+\hypertarget{class_m_p4_visual_sample_entry_aa683a32a4491a554bfc03b0fe1197bfc}{\index{M\-P4\-Visual\-Sample\-Entry@{M\-P4\-Visual\-Sample\-Entry}!is\-Container@{is\-Container}}
+\index{is\-Container@{is\-Container}!MP4VisualSampleEntry@{M\-P4\-Visual\-Sample\-Entry}}
+\subsubsection[{is\-Container}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool M\-P4\-Visual\-Sample\-Entry\-::is\-Container (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_m_p4_visual_sample_entry_aa683a32a4491a554bfc03b0fe1197bfc}
+
+
+is\-Container 
+
+\begin{DoxyReturn}{Returns}
+true when box contains other boxes, false otherwise 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_visual_sample_entry_a212a8d19ecf3236a8951c0161a85a72d}{Visual\-Sample\-Entry}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/sampleentry.\-h\item 
+Model/\-Boxes/sampleentry.\-cpp\end{DoxyCompactItemize}

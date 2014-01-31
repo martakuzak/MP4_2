@@ -1,0 +1,92 @@
+\hypertarget{class_segment_list}{\section{Segment\-List Class Reference}
+\label{class_segment_list}\index{Segment\-List@{Segment\-List}}
+}
+
+
+The \hyperlink{class_segment_list}{Segment\-List} class defines \hyperlink{class_segment_list}{Segment\-List} vertex in the Media Presentation Description file. \hyperlink{class_segment_list}{Segment\-List} vertex\-:  
+
+
+
+
+{\ttfamily \#include $<$segmentlist.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_segment_list_a81ea7f0f3e64e12b5822ce42ce1df599}{write} (Q\-Xml\-Stream\-Writer $\ast$stream)
+\begin{DoxyCompactList}\small\item\em write Writes \hyperlink{class_segment_list}{Segment\-List} vertex into Media Presentation Description file \end{DoxyCompactList}\item 
+void \hyperlink{class_segment_list_a67bf32fd52a7ad03042d2273727fffea}{add\-Segment\-U\-R\-L} (const Q\-String \&media\-Range, const Q\-String \&index\-Range, const Q\-String \&media=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em add\-Segment\-U\-R\-L Creates \hyperlink{class_segment_u_r_l}{Segment\-U\-R\-L} with given media\-Range and index\-Range and adds it to \hyperlink{class_segment_list}{Segment\-List} \end{DoxyCompactList}\item 
+\hypertarget{class_segment_list_a496d545a0f79656894c24214314c770d}{void {\bfseries add\-Segment\-U\-R\-L} (const Q\-String \&media)}\label{class_segment_list_a496d545a0f79656894c24214314c770d}
+
+\item 
+\hypertarget{class_segment_list_ad04de1dd66218c87cea21a024fc77386}{\hyperlink{class_segment_u_r_l}{Segment\-U\-R\-L} $\ast$ {\bfseries get\-Segment\-U\-R\-L} (const int \&index)}\label{class_segment_list_ad04de1dd66218c87cea21a024fc77386}
+
+\item 
+\hypertarget{class_segment_list_af264f50e65d1e94e175d62cf304583d4}{\hyperlink{class_initialization}{Initialization} $\ast$ {\bfseries get\-Initialization} () const }\label{class_segment_list_af264f50e65d1e94e175d62cf304583d4}
+
+\item 
+\hypertarget{class_segment_list_a788081b6b66468f8a727565bab53e630}{void {\bfseries set\-Initialization} (\hyperlink{class_initialization}{Initialization} $\ast$value)}\label{class_segment_list_a788081b6b66468f8a727565bab53e630}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_segment_list}{Segment\-List} class defines \hyperlink{class_segment_list}{Segment\-List} vertex in the Media Presentation Description file. \hyperlink{class_segment_list}{Segment\-List} vertex\-: 
+
+
+\begin{DoxyItemize}
+\item atrributes\-:
+\begin{DoxyEnumerate}
+\item Multiple\-Segment\-Base\-Information
+\end{DoxyEnumerate}
+\item elements\-:
+\begin{DoxyEnumerate}
+\item \hyperlink{class_initialization}{Initialization}\-: 0 or 1 occurance
+\item \hyperlink{class_segment_u_r_l}{Segment\-U\-R\-L} 0 or more occurances 
+\end{DoxyEnumerate}
+\end{DoxyItemize}
+
+\subsection{Member Function Documentation}
+\hypertarget{class_segment_list_a67bf32fd52a7ad03042d2273727fffea}{\index{Segment\-List@{Segment\-List}!add\-Segment\-U\-R\-L@{add\-Segment\-U\-R\-L}}
+\index{add\-Segment\-U\-R\-L@{add\-Segment\-U\-R\-L}!SegmentList@{Segment\-List}}
+\subsubsection[{add\-Segment\-U\-R\-L}]{\setlength{\rightskip}{0pt plus 5cm}void Segment\-List\-::add\-Segment\-U\-R\-L (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{media\-Range, }
+\item[{const Q\-String \&}]{index\-Range, }
+\item[{const Q\-String \&}]{media = {\ttfamily \char`\"{}\char`\"{}}}
+\end{DoxyParamCaption}
+)}}\label{class_segment_list_a67bf32fd52a7ad03042d2273727fffea}
+
+
+add\-Segment\-U\-R\-L Creates \hyperlink{class_segment_u_r_l}{Segment\-U\-R\-L} with given media\-Range and index\-Range and adds it to \hyperlink{class_segment_list}{Segment\-List} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em media\-Range} & defines byte range of the segment like this\-: 'first\-\_\-byte-\/last\-\_\-byte', for example '841-\/693308' \\
+\hline
+{\em index\-Range} & defines byte range of segment index like this\-: 'first\-\_\-byte-\/last\-\_\-byte', for example '841-\/897' \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_segment_list_a81ea7f0f3e64e12b5822ce42ce1df599}{\index{Segment\-List@{Segment\-List}!write@{write}}
+\index{write@{write}!SegmentList@{Segment\-List}}
+\subsubsection[{write}]{\setlength{\rightskip}{0pt plus 5cm}void Segment\-List\-::write (
+\begin{DoxyParamCaption}
+\item[{Q\-Xml\-Stream\-Writer $\ast$}]{stream}
+\end{DoxyParamCaption}
+)}}\label{class_segment_list_a81ea7f0f3e64e12b5822ce42ce1df599}
+
+
+write Writes \hyperlink{class_segment_list}{Segment\-List} vertex into Media Presentation Description file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & stream of the \hyperlink{class_m_p_d}{M\-P\-D} file \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Mpd/segmentlist.\-h\item 
+Model/\-Mpd/segmentlist.\-cpp\end{DoxyCompactItemize}

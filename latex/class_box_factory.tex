@@ -1,0 +1,63 @@
+\hypertarget{class_box_factory}{\section{Box\-Factory Class Reference}
+\label{class_box_factory}\index{Box\-Factory@{Box\-Factory}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_box_factory_af74b7bc4a67273516501a9d4cdd866d9}{Box\-Factory} (\hyperlink{class_analyzer}{Analyzer} $\ast$an)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_box_factory}{Box\-Factory}. \end{DoxyCompactList}\item 
+std\-::shared\-\_\-ptr$<$ \hyperlink{class_box}{Box} $>$ \hyperlink{class_box_factory_ac40e8b259f58eea47c0302f3227cd3f2}{get\-Box} (const unsigned int \&size=0, Q\-String type=\char`\"{}\char`\"{}, unsigned long int off=0)
+\begin{DoxyCompactList}\small\item\em get\-Box creates \hyperlink{class_box}{Box} according to the given parameters and adds extra parameters depending on type of the box. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_box_factory_af74b7bc4a67273516501a9d4cdd866d9}{\index{Box\-Factory@{Box\-Factory}!Box\-Factory@{Box\-Factory}}
+\index{Box\-Factory@{Box\-Factory}!BoxFactory@{Box\-Factory}}
+\subsubsection[{Box\-Factory}]{\setlength{\rightskip}{0pt plus 5cm}Box\-Factory\-::\-Box\-Factory (
+\begin{DoxyParamCaption}
+\item[{{\bf Analyzer} $\ast$}]{an}
+\end{DoxyParamCaption}
+)}}\label{class_box_factory_af74b7bc4a67273516501a9d4cdd866d9}
+
+
+\hyperlink{class_box_factory}{Box\-Factory}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em an} & analyzer that enables reading extra parameters of the box. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_box_factory_ac40e8b259f58eea47c0302f3227cd3f2}{\index{Box\-Factory@{Box\-Factory}!get\-Box@{get\-Box}}
+\index{get\-Box@{get\-Box}!BoxFactory@{Box\-Factory}}
+\subsubsection[{get\-Box}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<$ {\bf Box} $>$ Box\-Factory\-::get\-Box (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{size = {\ttfamily 0}, }
+\item[{Q\-String}]{type = {\ttfamily \char`\"{}\char`\"{}}, }
+\item[{unsigned long int}]{off = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{class_box_factory_ac40e8b259f58eea47c0302f3227cd3f2}
+
+
+get\-Box creates \hyperlink{class_box}{Box} according to the given parameters and adds extra parameters depending on type of the box. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of the box \\
+\hline
+{\em type} & type of the box \\
+\hline
+{\em byte} & offset of the box location \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_box}{Box} created according to the given and extra parametrs 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/boxfactory.\-h\item 
+Model/\-Boxes/boxfactory.\-cpp\end{DoxyCompactItemize}

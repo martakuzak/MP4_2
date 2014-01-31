@@ -1,0 +1,108 @@
+\hypertarget{class_media_header_box}{\section{Media\-Header\-Box Class Reference}
+\label{class_media_header_box}\index{Media\-Header\-Box@{Media\-Header\-Box}}
+}
+
+
+The \hyperlink{class_media_header_box}{Media\-Header\-Box} class represents 'mdhd' box.  
+
+
+
+
+{\ttfamily \#include $<$box.\-h$>$}
+
+Inheritance diagram for Media\-Header\-Box\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_media_header_box}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_media_header_box_a97e6aa715d357b94c4ba6f7726ce2a88}{{\bfseries Media\-Header\-Box} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off, const unsigned int \&v, const Q\-List$<$ unsigned int $>$ \&f, const unsigned long int \&ct, const unsigned long int \&mt, const unsigned int \&ts, const unsigned long int \&dur, const bool \&pad, const Q\-List$<$ unsigned int $>$ \&lan, const unsigned int \&pd)}\label{class_media_header_box_a97e6aa715d357b94c4ba6f7726ce2a88}
+
+\item 
+virtual Q\-String \hyperlink{class_media_header_box_afa8deebe50a9958932c543a79e3c198c}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\item 
+virtual Q\-Standard\-Item\-Model $\ast$ \hyperlink{class_media_header_box_a1754199a092cd0a1f0952883b119f375}{get\-Model} ()
+\begin{DoxyCompactList}\small\item\em get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. \end{DoxyCompactList}\item 
+\hypertarget{class_media_header_box_ad3ff57e3623008c9087c266c37b27371}{unsigned long int {\bfseries get\-Media\-Time\-Scale} ()}\label{class_media_header_box_ad3ff57e3623008c9087c266c37b27371}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_media_header_box_aa31498fefedc9b9077a7486f76140ecd}{unsigned long int {\bfseries creation\-Time}}\label{class_media_header_box_aa31498fefedc9b9077a7486f76140ecd}
+
+\item 
+\hypertarget{class_media_header_box_a872193550ac3891acf96df43e91154dc}{unsigned long int {\bfseries modification\-Time}}\label{class_media_header_box_a872193550ac3891acf96df43e91154dc}
+
+\item 
+\hypertarget{class_media_header_box_a3790a43230e4737e452a6fec809c89fc}{unsigned int {\bfseries timescale}}\label{class_media_header_box_a3790a43230e4737e452a6fec809c89fc}
+
+\item 
+\hypertarget{class_media_header_box_a4d026fb742aba8692402ff4e04b8a1d7}{unsigned long int {\bfseries duration}}\label{class_media_header_box_a4d026fb742aba8692402ff4e04b8a1d7}
+
+\item 
+\hypertarget{class_media_header_box_a34c0881b8a18ae6f7678f03ed4df68be}{bool {\bfseries pad}}\label{class_media_header_box_a34c0881b8a18ae6f7678f03ed4df68be}
+
+\item 
+\hypertarget{class_media_header_box_aad810d8fe025eb93601325ab71b44868}{Q\-List$<$ unsigned int $>$ {\bfseries language}}\label{class_media_header_box_aad810d8fe025eb93601325ab71b44868}
+
+\item 
+\hypertarget{class_media_header_box_a230fa2799a86d0847076b33dcbe0d3d4}{unsigned int {\bfseries predefined}}\label{class_media_header_box_a230fa2799a86d0847076b33dcbe0d3d4}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_media_header_box}{Media\-Header\-Box} class represents 'mdhd' box. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_media_header_box_afa8deebe50a9958932c543a79e3c198c}{\index{Media\-Header\-Box@{Media\-Header\-Box}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!MediaHeaderBox@{Media\-Header\-Box}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String Media\-Header\-Box\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_media_header_box_afa8deebe50a9958932c543a79e3c198c}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_full_box_a0701464d8e7386653f025833308f76ee}{Full\-Box}.
+
+\hypertarget{class_media_header_box_a1754199a092cd0a1f0952883b119f375}{\index{Media\-Header\-Box@{Media\-Header\-Box}!get\-Model@{get\-Model}}
+\index{get\-Model@{get\-Model}!MediaHeaderBox@{Media\-Header\-Box}}
+\subsubsection[{get\-Model}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Standard\-Item\-Model $\ast$ Media\-Header\-Box\-::get\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_media_header_box_a1754199a092cd0a1f0952883b119f375}
+
+
+get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. 
+
+\begin{DoxyReturn}{Returns}
+model of \hyperlink{class_box}{Box} attributes 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_a5c7911f3c88eec77383c0a464979807d}{Box}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/box.\-h\item 
+Model/\-Boxes/box.\-cpp\end{DoxyCompactItemize}

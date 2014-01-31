@@ -1,0 +1,93 @@
+\hypertarget{class_file_type_box}{\section{File\-Type\-Box Class Reference}
+\label{class_file_type_box}\index{File\-Type\-Box@{File\-Type\-Box}}
+}
+
+
+The \hyperlink{class_file_type_box}{File\-Type\-Box} class represents 'ftyp' box.  
+
+
+
+
+{\ttfamily \#include $<$box.\-h$>$}
+
+Inheritance diagram for File\-Type\-Box\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_file_type_box}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_file_type_box_a8bd14d72fb2d777ce82432343cf3b68a}{{\bfseries File\-Type\-Box} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off, const Q\-String \&mb, const unsigned int \&mv, const Q\-List$<$ Q\-String $>$ \&cb)}\label{class_file_type_box_a8bd14d72fb2d777ce82432343cf3b68a}
+
+\item 
+virtual Q\-String \hyperlink{class_file_type_box_a680e45fdfe39b2e23ff46fc9f32153eb}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\item 
+virtual Q\-Standard\-Item\-Model $\ast$ \hyperlink{class_file_type_box_a0d7a5d446140b1d10c9ab36233e87550}{get\-Model} ()
+\begin{DoxyCompactList}\small\item\em get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_file_type_box_ad22bad041aa38c68e631d4c2681deb71}{Q\-String {\bfseries major\-Brand}}\label{class_file_type_box_ad22bad041aa38c68e631d4c2681deb71}
+
+\item 
+\hypertarget{class_file_type_box_a7bdd87738818495f8b617a80779e0ff6}{unsigned int {\bfseries minor\-Version}}\label{class_file_type_box_a7bdd87738818495f8b617a80779e0ff6}
+
+\item 
+\hypertarget{class_file_type_box_a311164a4f8b63396ef5ebee15a551c3a}{Q\-List$<$ Q\-String $>$ {\bfseries compatible\-Brands}}\label{class_file_type_box_a311164a4f8b63396ef5ebee15a551c3a}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_file_type_box}{File\-Type\-Box} class represents 'ftyp' box. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_file_type_box_a680e45fdfe39b2e23ff46fc9f32153eb}{\index{File\-Type\-Box@{File\-Type\-Box}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!FileTypeBox@{File\-Type\-Box}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String File\-Type\-Box\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_file_type_box_a680e45fdfe39b2e23ff46fc9f32153eb}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_aa7c1e41e425cce53e0bd532cfafbb67d}{Box}.
+
+\hypertarget{class_file_type_box_a0d7a5d446140b1d10c9ab36233e87550}{\index{File\-Type\-Box@{File\-Type\-Box}!get\-Model@{get\-Model}}
+\index{get\-Model@{get\-Model}!FileTypeBox@{File\-Type\-Box}}
+\subsubsection[{get\-Model}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Standard\-Item\-Model $\ast$ File\-Type\-Box\-::get\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_file_type_box_a0d7a5d446140b1d10c9ab36233e87550}
+
+
+get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. 
+
+\begin{DoxyReturn}{Returns}
+model of \hyperlink{class_box}{Box} attributes 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_a5c7911f3c88eec77383c0a464979807d}{Box}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/box.\-h\item 
+Model/\-Boxes/box.\-cpp\end{DoxyCompactItemize}

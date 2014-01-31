@@ -1,0 +1,82 @@
+\hypertarget{class_mpeg_sample_entry}{\section{Mpeg\-Sample\-Entry Class Reference}
+\label{class_mpeg_sample_entry}\index{Mpeg\-Sample\-Entry@{Mpeg\-Sample\-Entry}}
+}
+
+
+The \hyperlink{class_mpeg_sample_entry}{Mpeg\-Sample\-Entry} class represents 'mp4s' box.  
+
+
+
+
+{\ttfamily \#include $<$sampleentry.\-h$>$}
+
+Inheritance diagram for Mpeg\-Sample\-Entry\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_mpeg_sample_entry}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_mpeg_sample_entry_a34a929d5f793e6dd82cf2f92c73c3964}{{\bfseries Mpeg\-Sample\-Entry} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off, const Q\-List$<$ unsigned int $>$ \&res, const unsigned int \&dri)}\label{class_mpeg_sample_entry_a34a929d5f793e6dd82cf2f92c73c3964}
+
+\item 
+virtual bool \hyperlink{class_mpeg_sample_entry_a264a9e2915c1a17f5c7e4ff7f59dab47}{is\-Container} ()
+\begin{DoxyCompactList}\small\item\em is\-Container \end{DoxyCompactList}\item 
+virtual Q\-String \hyperlink{class_mpeg_sample_entry_ac07fbe3d0f06f9360acd2e60eb839928}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_mpeg_sample_entry}{Mpeg\-Sample\-Entry} class represents 'mp4s' box. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_mpeg_sample_entry_ac07fbe3d0f06f9360acd2e60eb839928}{\index{Mpeg\-Sample\-Entry@{Mpeg\-Sample\-Entry}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!MpegSampleEntry@{Mpeg\-Sample\-Entry}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String Mpeg\-Sample\-Entry\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_mpeg_sample_entry_ac07fbe3d0f06f9360acd2e60eb839928}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_sample_entry_acbc7081715759b868797ad71b469a63e}{Sample\-Entry}.
+
+\hypertarget{class_mpeg_sample_entry_a264a9e2915c1a17f5c7e4ff7f59dab47}{\index{Mpeg\-Sample\-Entry@{Mpeg\-Sample\-Entry}!is\-Container@{is\-Container}}
+\index{is\-Container@{is\-Container}!MpegSampleEntry@{Mpeg\-Sample\-Entry}}
+\subsubsection[{is\-Container}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Mpeg\-Sample\-Entry\-::is\-Container (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_mpeg_sample_entry_a264a9e2915c1a17f5c7e4ff7f59dab47}
+
+
+is\-Container 
+
+\begin{DoxyReturn}{Returns}
+true when box contains other boxes, false otherwise 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_aa836717b34b2a26f84b6933d143da42b}{Box}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/sampleentry.\-h\item 
+Model/\-Boxes/sampleentry.\-cpp\end{DoxyCompactItemize}

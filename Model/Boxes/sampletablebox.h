@@ -22,6 +22,10 @@
 #include "box.h"
 class MainWindow;
 
+/*!
+ * \brief The SampleTableBox class represents 'stbl' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class SampleTableBox : public Box {
 public:
     SampleTableBox(const unsigned int& s=0, const QString& t="", const unsigned long int& off=0);
@@ -34,6 +38,10 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The TimeToSampleBox class represents 'stts' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class TimeToSampleBox : public FullBox {
 private:
     unsigned int entryCount;
@@ -46,6 +54,10 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The CompositionOffsetBox class represents 'ctts' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class CompositionOffsetBox : public FullBox {
 private:
     unsigned int entryCount;
@@ -59,13 +71,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
-  *\brief The SampleDescriptionBox class
- *
-  *   -
-  *   - Box Types: 'stsd'
-  *   - Container: Sample Table Box('stbl')
-  *   - Mandatory: Yes
-  *   - Quantity: Exactly one
+  *\brief The SampleDescriptionBox class represents 'stsd' box
+  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
 */
 class SampleDescriptionBox : public FullBox {
 private:
@@ -84,6 +91,10 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The SampleSizeBox class represents 'stsz' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class SampleSizeBox : public FullBox {
 private:
     unsigned long int sampleSize;
@@ -106,12 +117,20 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The CompactSampleSizeBox class represents 'stz2' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class CompactSampleSizeBox : public FullBox {
 public:
     CompactSampleSizeBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Compact Sample Size Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The SampleToChunkBox class represents 'stsc' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class SampleToChunkBox : public FullBox {
 private:
     unsigned long int entryCount;
@@ -126,6 +145,10 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The ChunkOffsetBox class represents 'stco' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class ChunkOffsetBox : public FullBox {
 private:
      unsigned long int entryCount;
@@ -137,6 +160,10 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The ChunkLargeOffsetBox class represents 'co64' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class ChunkLargeOffsetBox : public FullBox {
 private:
     unsigned long int entryCount;
@@ -148,6 +175,10 @@ public:
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The SyncSampleBox class represents 'stss' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class SyncSampleBox : public FullBox {
 private:
     unsigned long int entryCount;
@@ -165,18 +196,30 @@ public:
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The ShadowSyncSampleBox class represents 'stsh' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class ShadowSyncSampleBox : public FullBox{
 public:
     ShadowSyncSampleBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Shadow Sync Sample Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The DegradationPriorityBox class represents 'stdp' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class DegradationPriorityBox : public FullBox {
 public:
     DegradationPriorityBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Degradation Priority Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*!
+ * \brief The PaddingBitsBox class represents 'padb' box
+ * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
+ */
 class PaddingBitsBox : public FullBox {
 public:
     PaddingBitsBox(const unsigned int& s, const QString& t, const unsigned long int& off,const unsigned int& v, const QList<unsigned int>& f);

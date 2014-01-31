@@ -1,0 +1,290 @@
+\hypertarget{class_main_window}{\section{Main\-Window Class Reference}
+\label{class_main_window}\index{Main\-Window@{Main\-Window}}
+}
+
+
+The \hyperlink{class_main_window}{Main\-Window} class defines a main window of the application.  
+
+
+
+
+{\ttfamily \#include $<$mainwindow.\-h$>$}
+
+Inheritance diagram for Main\-Window\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_main_window}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_main_window_a49edf26b374679e5569a25de2f05ab87}{file\-Selected} (const Q\-String \&file\-Name)
+\begin{DoxyCompactList}\small\item\em file\-Selected \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_adc10d5521d5f7c43a57fceb4e2a5953e}{box\-Selected} (Q\-Item\-Selection\-Model $\ast$selection)
+\begin{DoxyCompactList}\small\item\em box\-Selected \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_add6f50ee0cfda97372eea9fbfea8f09b}{search\-Box} (const Q\-String \&box\-Type)
+\begin{DoxyCompactList}\small\item\em search\-Box \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_a3cacf65545a464647562b468a0e08f36}{dash\-Files\-Selected\-Signal} (const bool \&one\-File, const Q\-String \&url)
+\begin{DoxyCompactList}\small\item\em dash\-Files\-Selected\-Signal \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_ab20d195ebd6ecf001235d88f1c7c680b}{dash\-Dir\-Selected\-Sig} (const Q\-String \&dir)
+\begin{DoxyCompactList}\small\item\em dash\-Dir\-Selected\-Sig \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_a9afe6d97db65fe1cdff622187fbb86bc}{remove\-File\-Sig} (const int \&row)
+\begin{DoxyCompactList}\small\item\em remove\-File\-Sig \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}{Main\-Window} (Q\-Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_main_window}{Main\-Window} Constructor of \hyperlink{class_main_window}{Main\-Window}. \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_a9757b11e83740195027a8fe486e9f221}{file\-Analyzed} (\hyperlink{class_tree_model}{Tree\-Model} $\ast$model, const Q\-String \&file\-Name)
+\begin{DoxyCompactList}\small\item\em file\-Analyzed \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_a8a8ff9ef51b23c7fff3102ae6c0f5fdf}{print\-Selected\-Box} (Q\-Standard\-Item\-Model $\ast$model, \hyperlink{class_tree_item}{Tree\-Item} $\ast$item)
+\begin{DoxyCompactList}\small\item\em print\-Selected\-Box \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_a199be1af8e0e67ce6b8cba1f16985419}{select\-Boxes\-Found} (Q\-Model\-Index\-List \&boxes, const Q\-String \&full\-Name)
+\begin{DoxyCompactList}\small\item\em select\-Boxes\-Found \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_a0689a36479aab4d796a075f4e19e943c}{show\-Warning\-Dialog} (const Q\-String \&mes)
+\begin{DoxyCompactList}\small\item\em show\-Warning\-Dialog \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_aad00715d0134957d18cc8b2cfafc99ad}{show\-Info\-Dialog} (const Q\-String \&mes)
+\begin{DoxyCompactList}\small\item\em show\-Info\-Dialog \end{DoxyCompactList}\item 
+void \hyperlink{class_main_window_a01d701eed725194421c397b3d5ad77ce}{set\-Dash\-File\-List} (Q\-Abstract\-Item\-Model $\ast$file\-Model, const bool disabled=true)
+\begin{DoxyCompactList}\small\item\em set\-Dash\-File\-List \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_main_window}{Main\-Window} class defines a main window of the application. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}{\index{Main\-Window@{Main\-Window}!Main\-Window@{Main\-Window}}
+\index{Main\-Window@{Main\-Window}!MainWindow@{Main\-Window}}
+\subsubsection[{Main\-Window}]{\setlength{\rightskip}{0pt plus 5cm}Main\-Window\-::\-Main\-Window (
+\begin{DoxyParamCaption}
+\item[{Q\-Widget $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}}\label{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}
+
+
+\hyperlink{class_main_window}{Main\-Window} Constructor of \hyperlink{class_main_window}{Main\-Window}. 
+
+Public.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Creates window only with menus. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_main_window_adc10d5521d5f7c43a57fceb4e2a5953e}{\index{Main\-Window@{Main\-Window}!box\-Selected@{box\-Selected}}
+\index{box\-Selected@{box\-Selected}!MainWindow@{Main\-Window}}
+\subsubsection[{box\-Selected}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::box\-Selected (
+\begin{DoxyParamCaption}
+\item[{Q\-Item\-Selection\-Model $\ast$}]{selection}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_main_window_adc10d5521d5f7c43a57fceb4e2a5953e}
+
+
+box\-Selected 
+
+
+\begin{DoxyParams}{Parameters}
+{\em selection} & model of selected record in box tree \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_main_window_ab20d195ebd6ecf001235d88f1c7c680b}{\index{Main\-Window@{Main\-Window}!dash\-Dir\-Selected\-Sig@{dash\-Dir\-Selected\-Sig}}
+\index{dash\-Dir\-Selected\-Sig@{dash\-Dir\-Selected\-Sig}!MainWindow@{Main\-Window}}
+\subsubsection[{dash\-Dir\-Selected\-Sig}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::dash\-Dir\-Selected\-Sig (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{dir}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_main_window_ab20d195ebd6ecf001235d88f1c7c680b}
+
+
+dash\-Dir\-Selected\-Sig 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & selected directory \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_main_window_a3cacf65545a464647562b468a0e08f36}{\index{Main\-Window@{Main\-Window}!dash\-Files\-Selected\-Signal@{dash\-Files\-Selected\-Signal}}
+\index{dash\-Files\-Selected\-Signal@{dash\-Files\-Selected\-Signal}!MainWindow@{Main\-Window}}
+\subsubsection[{dash\-Files\-Selected\-Signal}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::dash\-Files\-Selected\-Signal (
+\begin{DoxyParamCaption}
+\item[{const bool \&}]{one\-File, }
+\item[{const Q\-String \&}]{url}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_main_window_a3cacf65545a464647562b468a0e08f36}
+
+
+dash\-Files\-Selected\-Signal 
+
+
+\begin{DoxyParams}{Parameters}
+{\em one\-File} & indicates whether all segments of each presentation should be gathered in one file \\
+\hline
+{\em url} & U\-R\-L address where generated files will be available. It is inserted into \hyperlink{class_m_p_d}{M\-P\-D} file \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_main_window_a9757b11e83740195027a8fe486e9f221}{\index{Main\-Window@{Main\-Window}!file\-Analyzed@{file\-Analyzed}}
+\index{file\-Analyzed@{file\-Analyzed}!MainWindow@{Main\-Window}}
+\subsubsection[{file\-Analyzed}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::file\-Analyzed (
+\begin{DoxyParamCaption}
+\item[{{\bf Tree\-Model} $\ast$}]{model, }
+\item[{const Q\-String \&}]{file\-Name}
+\end{DoxyParamCaption}
+)}}\label{class_main_window_a9757b11e83740195027a8fe486e9f221}
+
+
+file\-Analyzed 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & pointer to \hyperlink{class_tree_model}{Tree\-Model} of anylazed M\-P4 file \\
+\hline
+{\em file\-Name} & name of the analyzed M\-P4 file The method creates appropriate \hyperlink{class_analyze_section}{Analyze\-Section} to display tree of boxes and table of contents. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_main_window_a49edf26b374679e5569a25de2f05ab87}{\index{Main\-Window@{Main\-Window}!file\-Selected@{file\-Selected}}
+\index{file\-Selected@{file\-Selected}!MainWindow@{Main\-Window}}
+\subsubsection[{file\-Selected}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::file\-Selected (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{file\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_main_window_a49edf26b374679e5569a25de2f05ab87}
+
+
+file\-Selected 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\-Name} & full name (with path) of the selected file \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_main_window_a8a8ff9ef51b23c7fff3102ae6c0f5fdf}{\index{Main\-Window@{Main\-Window}!print\-Selected\-Box@{print\-Selected\-Box}}
+\index{print\-Selected\-Box@{print\-Selected\-Box}!MainWindow@{Main\-Window}}
+\subsubsection[{print\-Selected\-Box}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::print\-Selected\-Box (
+\begin{DoxyParamCaption}
+\item[{Q\-Standard\-Item\-Model $\ast$}]{model, }
+\item[{{\bf Tree\-Item} $\ast$}]{item}
+\end{DoxyParamCaption}
+)}}\label{class_main_window_a8a8ff9ef51b23c7fff3102ae6c0f5fdf}
+
+
+print\-Selected\-Box 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & Model of contents of the selected box. \\
+\hline
+{\em item} & \hyperlink{class_tree_item}{Tree\-Item} object that represents selected box Prints content of the selected box in the table of \hyperlink{class_analyze_section}{Analyze\-Section}. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_main_window_a9afe6d97db65fe1cdff622187fbb86bc}{\index{Main\-Window@{Main\-Window}!remove\-File\-Sig@{remove\-File\-Sig}}
+\index{remove\-File\-Sig@{remove\-File\-Sig}!MainWindow@{Main\-Window}}
+\subsubsection[{remove\-File\-Sig}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::remove\-File\-Sig (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{row}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_main_window_a9afe6d97db65fe1cdff622187fbb86bc}
+
+
+remove\-File\-Sig 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & row id of file that shall be removed \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_main_window_add6f50ee0cfda97372eea9fbfea8f09b}{\index{Main\-Window@{Main\-Window}!search\-Box@{search\-Box}}
+\index{search\-Box@{search\-Box}!MainWindow@{Main\-Window}}
+\subsubsection[{search\-Box}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::search\-Box (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{box\-Type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}}\label{class_main_window_add6f50ee0cfda97372eea9fbfea8f09b}
+
+
+search\-Box 
+
+
+\begin{DoxyParams}{Parameters}
+{\em box\-Type} & typed box type \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_main_window_a199be1af8e0e67ce6b8cba1f16985419}{\index{Main\-Window@{Main\-Window}!select\-Boxes\-Found@{select\-Boxes\-Found}}
+\index{select\-Boxes\-Found@{select\-Boxes\-Found}!MainWindow@{Main\-Window}}
+\subsubsection[{select\-Boxes\-Found}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::select\-Boxes\-Found (
+\begin{DoxyParamCaption}
+\item[{Q\-Model\-Index\-List \&}]{boxes, }
+\item[{const Q\-String \&}]{full\-Name}
+\end{DoxyParamCaption}
+)}}\label{class_main_window_a199be1af8e0e67ce6b8cba1f16985419}
+
+
+select\-Boxes\-Found 
+
+
+\begin{DoxyParams}{Parameters}
+{\em boxes} & list of boxes that shall be selected \\
+\hline
+{\em full\-Name} & full name of the boxes The method is called by \hyperlink{class_controller}{Controller} after searching for boxes having given type. It selects box records given and exapands tree so that selected records are visible. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_main_window_a01d701eed725194421c397b3d5ad77ce}{\index{Main\-Window@{Main\-Window}!set\-Dash\-File\-List@{set\-Dash\-File\-List}}
+\index{set\-Dash\-File\-List@{set\-Dash\-File\-List}!MainWindow@{Main\-Window}}
+\subsubsection[{set\-Dash\-File\-List}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::set\-Dash\-File\-List (
+\begin{DoxyParamCaption}
+\item[{Q\-Abstract\-Item\-Model $\ast$}]{file\-Model, }
+\item[{const bool}]{disabled = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}\label{class_main_window_a01d701eed725194421c397b3d5ad77ce}
+
+
+set\-Dash\-File\-List 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\-Model} & model of filenames list that shall be display in dash listview \\
+\hline
+{\em empty} & indicates wheteher the \char`\"{}open files\char`\"{} button shall be disabled. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_main_window_aad00715d0134957d18cc8b2cfafc99ad}{\index{Main\-Window@{Main\-Window}!show\-Info\-Dialog@{show\-Info\-Dialog}}
+\index{show\-Info\-Dialog@{show\-Info\-Dialog}!MainWindow@{Main\-Window}}
+\subsubsection[{show\-Info\-Dialog}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::show\-Info\-Dialog (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{mes}
+\end{DoxyParamCaption}
+)}}\label{class_main_window_aad00715d0134957d18cc8b2cfafc99ad}
+
+
+show\-Info\-Dialog 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mes} & message to display Shows info dialog with given message. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_main_window_a0689a36479aab4d796a075f4e19e943c}{\index{Main\-Window@{Main\-Window}!show\-Warning\-Dialog@{show\-Warning\-Dialog}}
+\index{show\-Warning\-Dialog@{show\-Warning\-Dialog}!MainWindow@{Main\-Window}}
+\subsubsection[{show\-Warning\-Dialog}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::show\-Warning\-Dialog (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{mes}
+\end{DoxyParamCaption}
+)}}\label{class_main_window_a0689a36479aab4d796a075f4e19e943c}
+
+
+show\-Warning\-Dialog 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mes} & message to display Shows warning dialog with given message. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+View/mainwindow.\-h\item 
+View/mainwindow.\-cpp\end{DoxyCompactItemize}

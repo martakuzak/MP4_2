@@ -1,0 +1,82 @@
+\hypertarget{class_media_information_box}{\section{Media\-Information\-Box Class Reference}
+\label{class_media_information_box}\index{Media\-Information\-Box@{Media\-Information\-Box}}
+}
+
+
+The \hyperlink{class_media_information_box}{Media\-Information\-Box} class represents 'minf' box.  
+
+
+
+
+{\ttfamily \#include $<$box.\-h$>$}
+
+Inheritance diagram for Media\-Information\-Box\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_media_information_box}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_media_information_box_aae1a46b311b6d40b5d1904230af28ab1}{{\bfseries Media\-Information\-Box} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off)}\label{class_media_information_box_aae1a46b311b6d40b5d1904230af28ab1}
+
+\item 
+virtual bool \hyperlink{class_media_information_box_a5228b61c1967efca5ab2a1212872765a}{is\-Container} ()
+\begin{DoxyCompactList}\small\item\em is\-Container \end{DoxyCompactList}\item 
+virtual Q\-String \hyperlink{class_media_information_box_afa6c5040aa7d1533543100c0fbbc0e9d}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_media_information_box}{Media\-Information\-Box} class represents 'minf' box. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_media_information_box_afa6c5040aa7d1533543100c0fbbc0e9d}{\index{Media\-Information\-Box@{Media\-Information\-Box}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!MediaInformationBox@{Media\-Information\-Box}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String Media\-Information\-Box\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_media_information_box_afa6c5040aa7d1533543100c0fbbc0e9d}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_aa7c1e41e425cce53e0bd532cfafbb67d}{Box}.
+
+\hypertarget{class_media_information_box_a5228b61c1967efca5ab2a1212872765a}{\index{Media\-Information\-Box@{Media\-Information\-Box}!is\-Container@{is\-Container}}
+\index{is\-Container@{is\-Container}!MediaInformationBox@{Media\-Information\-Box}}
+\subsubsection[{is\-Container}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Media\-Information\-Box\-::is\-Container (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_media_information_box_a5228b61c1967efca5ab2a1212872765a}
+
+
+is\-Container 
+
+\begin{DoxyReturn}{Returns}
+true when box contains other boxes, false otherwise 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_aa836717b34b2a26f84b6933d143da42b}{Box}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/box.\-h\item 
+Model/\-Boxes/box.\-cpp\end{DoxyCompactItemize}

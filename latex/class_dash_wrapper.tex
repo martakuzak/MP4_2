@@ -1,0 +1,175 @@
+\hypertarget{class_dash_wrapper}{\section{Dash\-Wrapper Class Reference}
+\label{class_dash_wrapper}\index{Dash\-Wrapper@{Dash\-Wrapper}}
+}
+
+
+The \hyperlink{class_dash_wrapper}{Dash\-Wrapper} class provides methods that adapts \hyperlink{class_dash_creator}{Dash\-Creator} and \hyperlink{class_m_p_d_writer}{M\-P\-D\-Writer} to \hyperlink{class_controller}{Controller} interface. Using this class M\-P4 files can be easily converted to forms appropriate to D\-A\-S\-H streaming and \hyperlink{class_m_p_d}{M\-P\-D} file can easily generated.  
+
+
+
+
+{\ttfamily \#include $<$dashwrapper.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_dash_wrapper_ae8755ff621924e486fced209ec64da8c}{set\-File\-Prop} (const Q\-String \&full\-Path)
+\begin{DoxyCompactList}\small\item\em set\-File\-Prop \end{DoxyCompactList}\item 
+bool \hyperlink{class_dash_wrapper_a6b005fe59242d1458b82354688ec6ecc}{write\-File} (const Q\-String \&date, const Q\-String \&name, const unsigned int \&max\-Sample\-Num)
+\begin{DoxyCompactList}\small\item\em write\-File generates one file with all the segments of the presentation \end{DoxyCompactList}\item 
+bool \hyperlink{class_dash_wrapper_afeccc99b561708539e29480b67ddb088}{write\-Files} (const Q\-String \&date, const Q\-String \&name, const unsigned int \&max\-Sample\-Num)
+\begin{DoxyCompactList}\small\item\em write\-Files generates files each with one segment of the presentation \end{DoxyCompactList}\item 
+void \hyperlink{class_dash_wrapper_a38bc9dc1273981e4ad3c141c4f3fc100}{set\-Mpd\-Props} ()
+\begin{DoxyCompactList}\small\item\em set\-Mpd\-Props Sets some \hyperlink{class_m_p_d_writer}{M\-P\-D\-Writer} attributes that are necessary to generate \hyperlink{class_m_p_d}{M\-P\-D}\-: \end{DoxyCompactList}\item 
+void \hyperlink{class_dash_wrapper_a2161004570a7a6f15602aa22f9f51fc6}{init\-M\-P\-D} (const bool \&one\-File)
+\begin{DoxyCompactList}\small\item\em init\-M\-P\-D \end{DoxyCompactList}\item 
+void \hyperlink{class_dash_wrapper_aa19d0c7e44cd86a17773b2b2d6e4c3e9}{add\-Representation} (const bool \&one\-File)
+\begin{DoxyCompactList}\small\item\em add\-Representation adds representation of presentation to \hyperlink{class_m_p_d}{M\-P\-D} model \end{DoxyCompactList}\item 
+void \hyperlink{class_dash_wrapper_aac80720e99709f1498f9bf8ed05a5066}{write\-M\-P\-D} (const Q\-String \&url)
+\begin{DoxyCompactList}\small\item\em write\-M\-P\-D \end{DoxyCompactList}\item 
+\hypertarget{class_dash_wrapper_a8e6f79427701c24714f99c6146ad768a}{void \hyperlink{class_dash_wrapper_a8e6f79427701c24714f99c6146ad768a}{clear} ()}\label{class_dash_wrapper_a8e6f79427701c24714f99c6146ad768a}
+
+\begin{DoxyCompactList}\small\item\em clear clear all the attributes (deletes mpd\-Writer and sets to N\-U\-L\-L, all Q\-String are set to \char`\"{}\char`\"{}) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_dash_wrapper}{Dash\-Wrapper} class provides methods that adapts \hyperlink{class_dash_creator}{Dash\-Creator} and \hyperlink{class_m_p_d_writer}{M\-P\-D\-Writer} to \hyperlink{class_controller}{Controller} interface. Using this class M\-P4 files can be easily converted to forms appropriate to D\-A\-S\-H streaming and \hyperlink{class_m_p_d}{M\-P\-D} file can easily generated. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_dash_wrapper_aa19d0c7e44cd86a17773b2b2d6e4c3e9}{\index{Dash\-Wrapper@{Dash\-Wrapper}!add\-Representation@{add\-Representation}}
+\index{add\-Representation@{add\-Representation}!DashWrapper@{Dash\-Wrapper}}
+\subsubsection[{add\-Representation}]{\setlength{\rightskip}{0pt plus 5cm}void Dash\-Wrapper\-::add\-Representation (
+\begin{DoxyParamCaption}
+\item[{const bool \&}]{one\-File}
+\end{DoxyParamCaption}
+)}}\label{class_dash_wrapper_aa19d0c7e44cd86a17773b2b2d6e4c3e9}
+
+
+add\-Representation adds representation of presentation to \hyperlink{class_m_p_d}{M\-P\-D} model 
+
+
+\begin{DoxyParams}{Parameters}
+{\em one\-File} & indicates wheter all the segments of presentation shall be placed in one file \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_dash_wrapper_a2161004570a7a6f15602aa22f9f51fc6}{\index{Dash\-Wrapper@{Dash\-Wrapper}!init\-M\-P\-D@{init\-M\-P\-D}}
+\index{init\-M\-P\-D@{init\-M\-P\-D}!DashWrapper@{Dash\-Wrapper}}
+\subsubsection[{init\-M\-P\-D}]{\setlength{\rightskip}{0pt plus 5cm}void Dash\-Wrapper\-::init\-M\-P\-D (
+\begin{DoxyParamCaption}
+\item[{const bool \&}]{one\-File}
+\end{DoxyParamCaption}
+)}}\label{class_dash_wrapper_a2161004570a7a6f15602aa22f9f51fc6}
+
+
+init\-M\-P\-D 
+
+
+\begin{DoxyParams}{Parameters}
+{\em one\-File} & indicates wheter all the segments of presentation shall be placed in one file sets box tree model of original file in mpd\-Writer \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_dash_wrapper_ae8755ff621924e486fced209ec64da8c}{\index{Dash\-Wrapper@{Dash\-Wrapper}!set\-File\-Prop@{set\-File\-Prop}}
+\index{set\-File\-Prop@{set\-File\-Prop}!DashWrapper@{Dash\-Wrapper}}
+\subsubsection[{set\-File\-Prop}]{\setlength{\rightskip}{0pt plus 5cm}void Dash\-Wrapper\-::set\-File\-Prop (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{full\-Path}
+\end{DoxyParamCaption}
+)}}\label{class_dash_wrapper_ae8755ff621924e486fced209ec64da8c}
+
+
+set\-File\-Prop 
+
+Files.
+
+
+\begin{DoxyParams}{Parameters}
+{\em full\-Path} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_dash_wrapper_a38bc9dc1273981e4ad3c141c4f3fc100}{\index{Dash\-Wrapper@{Dash\-Wrapper}!set\-Mpd\-Props@{set\-Mpd\-Props}}
+\index{set\-Mpd\-Props@{set\-Mpd\-Props}!DashWrapper@{Dash\-Wrapper}}
+\subsubsection[{set\-Mpd\-Props}]{\setlength{\rightskip}{0pt plus 5cm}void Dash\-Wrapper\-::set\-Mpd\-Props (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_dash_wrapper_a38bc9dc1273981e4ad3c141c4f3fc100}
+
+
+set\-Mpd\-Props Sets some \hyperlink{class_m_p_d_writer}{M\-P\-D\-Writer} attributes that are necessary to generate \hyperlink{class_m_p_d}{M\-P\-D}\-: 
+
+\hyperlink{class_m_p_d}{M\-P\-D}.
+\begin{DoxyItemize}
+\item name of the original file (wihout path)
+\item path to generated dash files 
+\end{DoxyItemize}\hypertarget{class_dash_wrapper_a6b005fe59242d1458b82354688ec6ecc}{\index{Dash\-Wrapper@{Dash\-Wrapper}!write\-File@{write\-File}}
+\index{write\-File@{write\-File}!DashWrapper@{Dash\-Wrapper}}
+\subsubsection[{write\-File}]{\setlength{\rightskip}{0pt plus 5cm}bool Dash\-Wrapper\-::write\-File (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{date, }
+\item[{const Q\-String \&}]{name, }
+\item[{const unsigned int \&}]{max\-Sample\-Num}
+\end{DoxyParamCaption}
+)}}\label{class_dash_wrapper_a6b005fe59242d1458b82354688ec6ecc}
+
+
+write\-File generates one file with all the segments of the presentation 
+
+
+\begin{DoxyParams}{Parameters}
+{\em date} & date -\/ used to name catalof for generated file \\
+\hline
+{\em name} & full name of the original file which contains presentation (with path) \\
+\hline
+{\em max\-Sample\-Num} & max sample number in the segment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if file was successfully written 
+\end{DoxyReturn}
+\hypertarget{class_dash_wrapper_afeccc99b561708539e29480b67ddb088}{\index{Dash\-Wrapper@{Dash\-Wrapper}!write\-Files@{write\-Files}}
+\index{write\-Files@{write\-Files}!DashWrapper@{Dash\-Wrapper}}
+\subsubsection[{write\-Files}]{\setlength{\rightskip}{0pt plus 5cm}bool Dash\-Wrapper\-::write\-Files (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{date, }
+\item[{const Q\-String \&}]{name, }
+\item[{const unsigned int \&}]{max\-Sample\-Num}
+\end{DoxyParamCaption}
+)}}\label{class_dash_wrapper_afeccc99b561708539e29480b67ddb088}
+
+
+write\-Files generates files each with one segment of the presentation 
+
+
+\begin{DoxyParams}{Parameters}
+{\em date} & date -\/ used to name catalof for generated file \\
+\hline
+{\em name} & full name of the original file which contains presentation (with path) \\
+\hline
+{\em max\-Sample\-Num} & max sample number in the segment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if files were successfully written 
+\end{DoxyReturn}
+\hypertarget{class_dash_wrapper_aac80720e99709f1498f9bf8ed05a5066}{\index{Dash\-Wrapper@{Dash\-Wrapper}!write\-M\-P\-D@{write\-M\-P\-D}}
+\index{write\-M\-P\-D@{write\-M\-P\-D}!DashWrapper@{Dash\-Wrapper}}
+\subsubsection[{write\-M\-P\-D}]{\setlength{\rightskip}{0pt plus 5cm}void Dash\-Wrapper\-::write\-M\-P\-D (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{url}
+\end{DoxyParamCaption}
+)}}\label{class_dash_wrapper_aac80720e99709f1498f9bf8ed05a5066}
+
+
+write\-M\-P\-D 
+
+
+\begin{DoxyParams}{Parameters}
+{\em url} & U\-R\-L address where all the dash files will be place Writes Media Presentation File with earlier set parameters. The file is located in the same catalog as files with segments \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Dash/dashwrapper.\-h\item 
+Model/\-Dash/dashwrapper.\-cpp\end{DoxyCompactItemize}

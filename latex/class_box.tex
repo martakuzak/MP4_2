@@ -1,0 +1,205 @@
+\hypertarget{class_box}{\section{Box Class Reference}
+\label{class_box}\index{Box@{Box}}
+}
+
+
+The \hyperlink{class_box}{Box} class is representation of M\-P4 box. It contains parameters that all the classes should have.  
+
+
+
+
+{\ttfamily \#include $<$box.\-h$>$}
+
+Inheritance diagram for Box\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=12.000000cm]{class_box}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_box_a0cce9940febf67fa2e7af70c1884bc0f}{Box} (const unsigned int \&s, const Q\-String \&t, const unsigned long \&off)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_box}{Box} constructor. \end{DoxyCompactList}\item 
+virtual Q\-String \hyperlink{class_box_ab349afe9881614148ca93db089ae3723}{get\-Type} ()
+\begin{DoxyCompactList}\small\item\em get\-Type \end{DoxyCompactList}\item 
+virtual unsigned int \hyperlink{class_box_ae7997ebd366dd92a4f0604bae393ea77}{get\-Size} ()
+\begin{DoxyCompactList}\small\item\em get\-Size \end{DoxyCompactList}\item 
+virtual unsigned long int \hyperlink{class_box_a3aa52ebe50e92cffe331215c829f0328}{get\-Offset} () const 
+\begin{DoxyCompactList}\small\item\em get\-Offset \end{DoxyCompactList}\item 
+virtual bool \hyperlink{class_box_aa836717b34b2a26f84b6933d143da42b}{is\-Container} ()
+\begin{DoxyCompactList}\small\item\em is\-Container \end{DoxyCompactList}\item 
+virtual unsigned int \hyperlink{class_box_a2c9deb5e813bff43a2b2b62aafafe5b6}{get\-Container\-Offset} ()
+\begin{DoxyCompactList}\small\item\em get\-Containet\-Offset \end{DoxyCompactList}\item 
+virtual Q\-String \hyperlink{class_box_aa7c1e41e425cce53e0bd532cfafbb67d}{get\-Full\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\item 
+virtual Q\-Standard\-Item\-Model $\ast$ \hyperlink{class_box_a5c7911f3c88eec77383c0a464979807d}{get\-Model} ()
+\begin{DoxyCompactList}\small\item\em get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_box_a0c055cb66d94b40d80e8a18d3d52d230}{unsigned int \hyperlink{class_box_a0c055cb66d94b40d80e8a18d3d52d230}{size}}\label{class_box_a0c055cb66d94b40d80e8a18d3d52d230}
+
+\begin{DoxyCompactList}\small\item\em size size of the box \end{DoxyCompactList}\item 
+\hypertarget{class_box_a7222d6793ebff6bd17192a5c5740a78b}{Q\-String \hyperlink{class_box_a7222d6793ebff6bd17192a5c5740a78b}{type}}\label{class_box_a7222d6793ebff6bd17192a5c5740a78b}
+
+\begin{DoxyCompactList}\small\item\em type type of the box \end{DoxyCompactList}\item 
+\hypertarget{class_box_a02478afe7796308689a7929a5d17cd3d}{unsigned long int \hyperlink{class_box_a02478afe7796308689a7929a5d17cd3d}{offset}}\label{class_box_a02478afe7796308689a7929a5d17cd3d}
+
+\begin{DoxyCompactList}\small\item\em offset byte offset of the box location \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_box}{Box} class is representation of M\-P4 box. It contains parameters that all the classes should have. 
+
+\begin{DoxySeeAlso}{See Also}
+I\-S\-O/\-I\-E\-C 14496-\/12 Information technology – Coding of audio-\/visual objects – Part 12\-: I\-S\-O base media file format 
+\end{DoxySeeAlso}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_box_a0cce9940febf67fa2e7af70c1884bc0f}{\index{Box@{Box}!Box@{Box}}
+\index{Box@{Box}!Box@{Box}}
+\subsubsection[{Box}]{\setlength{\rightskip}{0pt plus 5cm}Box\-::\-Box (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{s, }
+\item[{const Q\-String \&}]{t, }
+\item[{const unsigned long \&}]{off}
+\end{DoxyParamCaption}
+)}}\label{class_box_a0cce9940febf67fa2e7af70c1884bc0f}
+
+
+\hyperlink{class_box}{Box} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & size of box in bytes \\
+\hline
+{\em t} & type of box (created from reading bytes in A\-S\-C\-I\-I code) \\
+\hline
+{\em off} & offset of box in bytes \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_box_a2c9deb5e813bff43a2b2b62aafafe5b6}{\index{Box@{Box}!get\-Container\-Offset@{get\-Container\-Offset}}
+\index{get\-Container\-Offset@{get\-Container\-Offset}!Box@{Box}}
+\subsubsection[{get\-Container\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}virtual unsigned int Box\-::get\-Container\-Offset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_box_a2c9deb5e813bff43a2b2b62aafafe5b6}
+
+
+get\-Containet\-Offset 
+
+\begin{DoxyReturn}{Returns}
+offset of child boxes in the box (in bytes) 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_meta_box_a991bcf6b91fbe8f58b37118ccb2f44ca}{Meta\-Box}, \hyperlink{class_data_reference_box_a509baa8527d8fc5ff1d61d4e2508172f}{Data\-Reference\-Box}, \hyperlink{class_a_v_c_sample_entry_ab65d3ccefc8bcf0a0157d66189ecf8d8}{A\-V\-C\-Sample\-Entry}, \hyperlink{class_e_s_d_box_a17698371f055f5deec6e9819c9b302cd}{E\-S\-D\-Box}, \hyperlink{class_m_p4_audio_sample_entry_a81c5345f7b14c1fc8fe089dae5fd5793}{M\-P4\-Audio\-Sample\-Entry}, \hyperlink{class_m_p4_visual_sample_entry_a5ef15604b8bd6d3626dcbef1698346a9}{M\-P4\-Visual\-Sample\-Entry}, and \hyperlink{class_sample_description_box_af2fa7d915484805e19abf46f40e906f6}{Sample\-Description\-Box}.
+
+\hypertarget{class_box_aa7c1e41e425cce53e0bd532cfafbb67d}{\index{Box@{Box}!get\-Full\-Name@{get\-Full\-Name}}
+\index{get\-Full\-Name@{get\-Full\-Name}!Box@{Box}}
+\subsubsection[{get\-Full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String Box\-::get\-Full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_box_aa7c1e41e425cce53e0bd532cfafbb67d}
+
+
+get\-Full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{} 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_universal_unique_identifier_aa2c40da68671ab3f272dcb8514921324}{Universal\-Unique\-Identifier}, \hyperlink{class_producer_reference_time_box_a989eb0b8ec1d3edc57b251e815cc246c}{Producer\-Reference\-Time\-Box}, \hyperlink{class_subsegment_index_box_ae476be69002235154639a5fe938eff60}{Subsegment\-Index\-Box}, \hyperlink{class_segment_index_box_a7e3ded610e2f9811909f2152071b7eb8}{Segment\-Index\-Box}, \hyperlink{class_level_assignment_box_a9b2449445de5d18f29915acce604d858}{Level\-Assignment\-Box}, \hyperlink{class_sample_auxiliary_information_offsets_box_a40dda3a60fe8424a9f31b964909b6fa5}{Sample\-Auxiliary\-Information\-Offsets\-Box}, \hyperlink{class_sample_auxiliary_information_sizes_box_af7c35b3682bb2ab65a0bf5b9ef58dd3e}{Sample\-Auxiliary\-Information\-Sizes\-Box}, \hyperlink{class_hint_statistics_box_acec0896d250145c53576fb9f079136ca}{Hint\-Statistics\-Box}, \hyperlink{class_r_t_p_track_s_d_p_hint_information_a4603595aa6393c8c9291e43d869c0313}{R\-T\-P\-Track\-S\-D\-P\-Hint\-Information}, \hyperlink{class_r_t_p_movie_hint_information_a392a45bf07f14c417c4acf3dde6b90d2}{R\-T\-P\-Movie\-Hint\-Information}, \hyperlink{class_movie_hint_information_ab85d823e7fd70195e0f066cd305dce1c}{Movie\-Hint\-Information}, \hyperlink{class_s_r_t_p_process_box_ae1f412cb4d3fe567a42226acd6b13542}{S\-R\-T\-P\-Process\-Box}, \hyperlink{class_sequence_offset_af94648de33aecf8edf6eb0d73565c991}{Sequence\-Offset}, \hyperlink{class_time_offset_a37cfed2c1ed2bb2cc6905c90e064cadb}{Time\-Offset}, \hyperlink{class_time_scale_entry_a0a6cd5076e6fd5a2ef2250985a602fd2}{Time\-Scale\-Entry}, \hyperlink{class_scheme_information_box_ac23d413584b8c7efe0693f42e8b05bcb}{Scheme\-Information\-Box}, \hyperlink{class_scheme_type_box_a0a66d06868e206070ba44ef2324e4e31}{Scheme\-Type\-Box}, \hyperlink{class_i_p_m_p_control_box_a5e9c6d323b59faa8d2d43ee2e24a4b33}{I\-P\-M\-P\-Control\-Box}, \hyperlink{class_i_p_m_p_info_box_aef8ac41ff48a6fa3ce83f81dbdd369a1}{I\-P\-M\-P\-Info\-Box}, \hyperlink{class_original_format_box_af113c3ee7fa52db04b3bb3c58aa09724}{Original\-Format\-Box}, \hyperlink{class_protection_scheme_info_box_a322ef8cac44eae717e95c395d80b9afe}{Protection\-Scheme\-Info\-Box}, \hyperlink{class_item_info_box_acc8b801d684beee63b12ea00aa84b1d4}{Item\-Info\-Box}, \hyperlink{class_item_info_entry_a7d744fa6aeb0ee948a898bb7b629a384}{Item\-Info\-Entry}, \hyperlink{class_item_protection_box_a282908379f31aeaacb0eac073050b132}{Item\-Protection\-Box}, \hyperlink{class_primary_item_box_a77154a0294bff85067fc8c6cddecb8f1}{Primary\-Item\-Box}, \hyperlink{class_item_location_box_a88ae4bd69cdcc39a4f54b894631c12fe}{Item\-Location\-Box}, \hyperlink{class_binary_x_m_l_box_a03f9dd3cec50f79bde9f6e861826badd}{Binary\-X\-M\-L\-Box}, \hyperlink{class_x_m_l_box_a430688e22c69256bfc823b979a5060c9}{X\-M\-L\-Box}, \hyperlink{class_meta_box_a2d7a7dced50efa9193cdb68a56a59e78}{Meta\-Box}, \hyperlink{class_progressive_download_info_box_a31f8b06687aff8fed0fc103c94636a7c}{Progressive\-Download\-Info\-Box}, \hyperlink{class_sub_sample_information_box_a8220480e149473cb07bd86e6dae71701}{Sub\-Sample\-Information\-Box}, \hyperlink{class_sample_scale_box_a10a781e0e86c780b2852359f5088bd9d}{Sample\-Scale\-Box}, \hyperlink{class_sample_group_description_box_a987897d30768742d06d40a4148c7c2ea}{Sample\-Group\-Description\-Box}, \hyperlink{class_sample_to_group_box_aa1cabba0625ae5ac6c32b63846e72957}{Sample\-To\-Group\-Box}, \hyperlink{class_sample_dependency_type_box_a2a8819e3085a47d092ddda32be36dbcd}{Sample\-Dependency\-Type\-Box}, \hyperlink{class_movie_fragment_random_access_offset_box_af4d75bd89f37a3e2de59d4e327924dff}{Movie\-Fragment\-Random\-Access\-Offset\-Box}, \hyperlink{class_movie_fragment_random_access_box_a6f57f73eaa945a9af8f5c512f5fd80da}{Movie\-Fragment\-Random\-Access\-Box}, \hyperlink{class_movie_fragment_header_box_a2a175cae00c09667bb8553e8e4ab7b16}{Movie\-Fragment\-Header\-Box}, \hyperlink{class_movie_fragment_box_a496f11dd218973b9eabc0d033cf489f5}{Movie\-Fragment\-Box}, \hyperlink{class_movie_extends_header_box_a04b51a9cf075645ba21dcaaa619407c9}{Movie\-Extends\-Header\-Box}, \hyperlink{class_movie_extends_box_ae61f578cd6f7e0e8f3eb1de0c1ae2c50}{Movie\-Extends\-Box}, \hyperlink{class_copy_right_box_a5aba245c42efd1c1c587a9a7ef1fc35c}{Copy\-Right\-Box}, \hyperlink{class_user_data_box_aa95cfad6fd0558e31894e76ed1bf8a20}{User\-Data\-Box}, \hyperlink{class_edit_list_box_a305003416ec092738d06298aaffbb47d}{Edit\-List\-Box}, \hyperlink{class_edit_box_a13ccdc9edfcb00039f5785bf1d33b30e}{Edit\-Box}, \hyperlink{class_free_space_box_a28d0e0e3e5111d4a741d03eeab1b40ea}{Free\-Space\-Box}, \hyperlink{class_data_reference_box_ac023a9fd6a4177dbe16569d3ced7fd1e}{Data\-Reference\-Box}, \hyperlink{class_data_entry_url_box_a33db27552c8aa8867b565b33fa3b43d5}{Data\-Entry\-Url\-Box}, \hyperlink{class_data_entry_urn_box_a85ff1a497b398ec76cdc74f28754927a}{Data\-Entry\-Urn\-Box}, \hyperlink{class_data_information_box_afb82c4d6fcfbdff60fd172a7d1e5800c}{Data\-Information\-Box}, \hyperlink{class_null_media_header_box_a1d934fede8322ee1eb4b5da2be999411}{Null\-Media\-Header\-Box}, \hyperlink{class_hint_media_header_box_aacaa05edc0b37296c6b0cad9b216babe}{Hint\-Media\-Header\-Box}, \hyperlink{class_sound_media_header_box_a942002b38261d7b015d9309ca02ccab6}{Sound\-Media\-Header\-Box}, \hyperlink{class_video_media_header_box_a6a6b15f956a608c18112b1b2b2317528}{Video\-Media\-Header\-Box}, \hyperlink{class_media_information_box_afa6c5040aa7d1533543100c0fbbc0e9d}{Media\-Information\-Box}, \hyperlink{class_movie_header_box_a90549b1eef690572412b138e3743e6c4}{Movie\-Header\-Box}, \hyperlink{class_m_p_e_g4_bit_rate_box_a5ee8e5653c4d5683e85c6b9f5b6746a1}{M\-P\-E\-G4\-Bit\-Rate\-Box}, \hyperlink{class_movie_box_a68e2952ae634633bbccaf61c749fa33f}{Movie\-Box}, \hyperlink{class_padding_bits_box_ab355f0ebfa4a84ef4a2737bc9c264004}{Padding\-Bits\-Box}, \hyperlink{class_degradation_priority_box_a97f91434e74e47bc9e10ff9a21dd3023}{Degradation\-Priority\-Box}, \hyperlink{class_a_v_c_configuration_box_a2cd37cfa63d1fa4130c6cd853a371e6f}{A\-V\-C\-Configuration\-Box}, \hyperlink{class_media_header_box_afa8deebe50a9958932c543a79e3c198c}{Media\-Header\-Box}, \hyperlink{class_shadow_sync_sample_box_ab6644ef80649f21ac098f0d78904e9df}{Shadow\-Sync\-Sample\-Box}, \hyperlink{class_handler_box_a77b90ca0801113aed5f6272035da0a04}{Handler\-Box}, \hyperlink{class_sync_sample_box_a9d3ab6e8730ca0cca633b7920e131413}{Sync\-Sample\-Box}, \hyperlink{class_media_data_box_a76ca0bfdfb66583db91784dd4d8e8ccb}{Media\-Data\-Box}, \hyperlink{class_a_v_c_sample_entry_a672f849ea0bd16cb832d1592ff8ae827}{A\-V\-C\-Sample\-Entry}, \hyperlink{class_track_fragment_base_media_decode_time_box_acf81a553080878b3066b24fc00b14f9e}{Track\-Fragment\-Base\-Media\-Decode\-Time\-Box}, \hyperlink{class_chunk_large_offset_box_acdadc159668e5e6ab286dbb840877f31}{Chunk\-Large\-Offset\-Box}, \hyperlink{class_media_box_a1fc835d61029b900e874039e2d29216e}{Media\-Box}, \hyperlink{class_e_s_d_box_a9e610dce6e72228e08fcbdfca0177c85}{E\-S\-D\-Box}, \hyperlink{class_track_fragment_random_access_box_afeb1c2b67373428008a209cf01f6df10}{Track\-Fragment\-Random\-Access\-Box}, \hyperlink{class_segment_type_box_aba34f8492af563e14e9f904eab862c62}{Segment\-Type\-Box}, \hyperlink{class_chunk_offset_box_a1c26ce6ada45f85c65761ed27f382848}{Chunk\-Offset\-Box}, \hyperlink{class_object_descriptor_box_ae01792b840bd4547ecc0aba4ee665998}{Object\-Descriptor\-Box}, \hyperlink{class_track_run_box_a26fb4feae53dac2aa48caaa39ccceb81}{Track\-Run\-Box}, \hyperlink{class_file_type_box_a680e45fdfe39b2e23ff46fc9f32153eb}{File\-Type\-Box}, \hyperlink{class_sample_to_chunk_box_a298e53e6d563e66b7b910f99caeac0c3}{Sample\-To\-Chunk\-Box}, \hyperlink{class_mpeg_sample_entry_ac07fbe3d0f06f9360acd2e60eb839928}{Mpeg\-Sample\-Entry}, \hyperlink{class_track_fragment_header_box_a6868fba2faed6053702b3c70751195e2}{Track\-Fragment\-Header\-Box}, \hyperlink{class_m_p4_audio_sample_entry_a81d787d905a0ee6fe1158daf8cddb64d}{M\-P4\-Audio\-Sample\-Entry}, \hyperlink{class_full_box_a0701464d8e7386653f025833308f76ee}{Full\-Box}, \hyperlink{class_compact_sample_size_box_a10c8ab4b452dd5c2d58e2c744ffac884}{Compact\-Sample\-Size\-Box}, \hyperlink{class_m_p4_visual_sample_entry_a82117470bd8bbda71839fff2b9a069c6}{M\-P4\-Visual\-Sample\-Entry}, \hyperlink{class_sample_size_box_a3cdb87618bba15d0c9e8cea9dde19ee5}{Sample\-Size\-Box}, \hyperlink{class_track_fragment_box_a1ab269642f375777c20b9ab52fbc72f7}{Track\-Fragment\-Box}, \hyperlink{class_audio_sample_entry_a928ab5498c0a8679ed624f9089dc5825}{Audio\-Sample\-Entry}, \hyperlink{class_track_extends_box_acaa1a49911d86e5ca02ce2038398ff5d}{Track\-Extends\-Box}, \hyperlink{class_sample_description_box_a47754fb62da6522d13ff58de1ede0f09}{Sample\-Description\-Box}, \hyperlink{class_visual_sample_entry_a8c48b121f4b5bb48d33bc9988a5dd856}{Visual\-Sample\-Entry}, \hyperlink{class_track_reference_box_ae140565faf9eb4e95fd8ab3de418c308}{Track\-Reference\-Box}, \hyperlink{class_composition_offset_box_a6ed0d84212f70f61a021b39e1114c0fb}{Composition\-Offset\-Box}, \hyperlink{class_track_header_box_a7bc710a767026e2128ae46a1d3302778}{Track\-Header\-Box}, \hyperlink{class_time_to_sample_box_a44c8086a9f61fb72f9549e8f997be7b9}{Time\-To\-Sample\-Box}, \hyperlink{class_hint_sample_entry_ac747c305de54a619efe66d5d8e0ec61a}{Hint\-Sample\-Entry}, \hyperlink{class_sample_table_box_acdaf2b1d02df4da6fee980f328d24dbb}{Sample\-Table\-Box}, \hyperlink{class_sample_entry_acbc7081715759b868797ad71b469a63e}{Sample\-Entry}, and \hyperlink{class_track_box_a2d45d42edb82a5445d54e184894aa730}{Track\-Box}.
+
+\hypertarget{class_box_a5c7911f3c88eec77383c0a464979807d}{\index{Box@{Box}!get\-Model@{get\-Model}}
+\index{get\-Model@{get\-Model}!Box@{Box}}
+\subsubsection[{get\-Model}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-Standard\-Item\-Model$\ast$ Box\-::get\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_box_a5c7911f3c88eec77383c0a464979807d}
+
+
+get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. 
+
+\begin{DoxyReturn}{Returns}
+model of \hyperlink{class_box}{Box} attributes 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_segment_index_box_afc289658b786949624da7dc920ebd5e6}{Segment\-Index\-Box}, \hyperlink{class_movie_fragment_header_box_a768488b5d695c2ac834a041165a9be82}{Movie\-Fragment\-Header\-Box}, \hyperlink{class_movie_extends_header_box_adaeb21e662a49f852651f706af1b683a}{Movie\-Extends\-Header\-Box}, \hyperlink{class_edit_list_box_ab9a8848b0789b08e700447c3a279fcb4}{Edit\-List\-Box}, \hyperlink{class_data_reference_box_af73f1f378a20d2f705327cc815dc7396}{Data\-Reference\-Box}, \hyperlink{class_data_entry_url_box_a37fd12df4e0074f0bc2c8cc9cd3f7e5f}{Data\-Entry\-Url\-Box}, \hyperlink{class_sound_media_header_box_acc53b76481ed9c6e544b27c416f756e5}{Sound\-Media\-Header\-Box}, \hyperlink{class_video_media_header_box_aae14c3d53a5795039e3c5ccebc91d501}{Video\-Media\-Header\-Box}, \hyperlink{class_movie_header_box_a84bc9141e1de6ad9de73c00c9d861c7a}{Movie\-Header\-Box}, \hyperlink{class_m_p_e_g4_bit_rate_box_aee967785d4fb16f784b5b6dffcd850a8}{M\-P\-E\-G4\-Bit\-Rate\-Box}, \hyperlink{class_movie_box_a48d5f8248231d692efb16c7fdab53b31}{Movie\-Box}, \hyperlink{class_a_v_c_configuration_box_a034f358eb5231b98effd3835f81f538a}{A\-V\-C\-Configuration\-Box}, \hyperlink{class_media_header_box_a1754199a092cd0a1f0952883b119f375}{Media\-Header\-Box}, \hyperlink{class_handler_box_a3d0550ec682df1ea81856082f431bc28}{Handler\-Box}, \hyperlink{class_sync_sample_box_afe48e1f32651b46329c3834e642b18f9}{Sync\-Sample\-Box}, \hyperlink{class_media_data_box_af92d93a0b4a5d2051188ea0f7d555978}{Media\-Data\-Box}, \hyperlink{class_track_fragment_base_media_decode_time_box_a6a0cf2982f9e9a8a8ba5adf6c18d6caf}{Track\-Fragment\-Base\-Media\-Decode\-Time\-Box}, \hyperlink{class_chunk_large_offset_box_a16b02676650f3c08360bad4ac35470aa}{Chunk\-Large\-Offset\-Box}, \hyperlink{class_media_box_a3e4eae22e99bddfbcaac8c2950c542a1}{Media\-Box}, \hyperlink{class_segment_type_box_a0b2997e05595074bc692d87e1c12a3e1}{Segment\-Type\-Box}, \hyperlink{class_chunk_offset_box_aa9dfe2b91c236fca8b311c34d1b0a053}{Chunk\-Offset\-Box}, \hyperlink{class_track_run_box_ab2cc42d77e882ea0be127059ebda2c4d}{Track\-Run\-Box}, \hyperlink{class_file_type_box_a0d7a5d446140b1d10c9ab36233e87550}{File\-Type\-Box}, \hyperlink{class_sample_to_chunk_box_a503e73d6fda55a6dcbbf4c2b035d6fb8}{Sample\-To\-Chunk\-Box}, \hyperlink{class_track_fragment_header_box_ae27a4cc65245d755a88ae0661f568189}{Track\-Fragment\-Header\-Box}, \hyperlink{class_sample_size_box_a4ca94df68b61aebbe2c3b46b18a8d5e5}{Sample\-Size\-Box}, \hyperlink{class_track_fragment_box_a0a177d42598a374f5d187a3f968aeb01}{Track\-Fragment\-Box}, \hyperlink{class_audio_sample_entry_a8666027778c6cf9438d4af902c1793ab}{Audio\-Sample\-Entry}, \hyperlink{class_track_extends_box_a17e3133ff264960cb23e2431131da088}{Track\-Extends\-Box}, \hyperlink{class_sample_description_box_ae00adf8e73a8480b7299a88d9d65d88a}{Sample\-Description\-Box}, \hyperlink{class_visual_sample_entry_a475b074b66ad025a76c66888c0e24f46}{Visual\-Sample\-Entry}, \hyperlink{class_composition_offset_box_aeeeab60183eae5c832e9e46a055ba4e3}{Composition\-Offset\-Box}, \hyperlink{class_track_header_box_a59393dc4fe8791f266666f8f64efc510}{Track\-Header\-Box}, \hyperlink{class_time_to_sample_box_a28661d2be357ba4eb02e98c5026b619d}{Time\-To\-Sample\-Box}, \hyperlink{class_sample_table_box_a59a54b04800609fe96e3fbeaeaedfd13}{Sample\-Table\-Box}, \hyperlink{class_sample_entry_a0babc6ec796f6bf05a5e3e59d635ca79}{Sample\-Entry}, and \hyperlink{class_track_box_ab1412b2b26163ad23191427e6e934b90}{Track\-Box}.
+
+\hypertarget{class_box_a3aa52ebe50e92cffe331215c829f0328}{\index{Box@{Box}!get\-Offset@{get\-Offset}}
+\index{get\-Offset@{get\-Offset}!Box@{Box}}
+\subsubsection[{get\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}virtual unsigned long int Box\-::get\-Offset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_box_a3aa52ebe50e92cffe331215c829f0328}
+
+
+get\-Offset 
+
+\begin{DoxyReturn}{Returns}
+offset of the box in bytes 
+\end{DoxyReturn}
+\hypertarget{class_box_ae7997ebd366dd92a4f0604bae393ea77}{\index{Box@{Box}!get\-Size@{get\-Size}}
+\index{get\-Size@{get\-Size}!Box@{Box}}
+\subsubsection[{get\-Size}]{\setlength{\rightskip}{0pt plus 5cm}virtual unsigned int Box\-::get\-Size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_box_ae7997ebd366dd92a4f0604bae393ea77}
+
+
+get\-Size 
+
+\begin{DoxyReturn}{Returns}
+size in bytes 
+\end{DoxyReturn}
+\hypertarget{class_box_ab349afe9881614148ca93db089ae3723}{\index{Box@{Box}!get\-Type@{get\-Type}}
+\index{get\-Type@{get\-Type}!Box@{Box}}
+\subsubsection[{get\-Type}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\-String Box\-::get\-Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_box_ab349afe9881614148ca93db089ae3723}
+
+
+get\-Type 
+
+\begin{DoxyReturn}{Returns}
+type of the box 
+\end{DoxyReturn}
+\hypertarget{class_box_aa836717b34b2a26f84b6933d143da42b}{\index{Box@{Box}!is\-Container@{is\-Container}}
+\index{is\-Container@{is\-Container}!Box@{Box}}
+\subsubsection[{is\-Container}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Box\-::is\-Container (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_box_aa836717b34b2a26f84b6933d143da42b}
+
+
+is\-Container 
+
+\begin{DoxyReturn}{Returns}
+true when box contains other boxes, false otherwise 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_protection_scheme_info_box_ad5b64db8fc90bcc8cdbfc747ca09e48e}{Protection\-Scheme\-Info\-Box}, \hyperlink{class_item_protection_box_a3d1db2ceacc95601edf25808f3bcf4c3}{Item\-Protection\-Box}, \hyperlink{class_meta_box_a51ccaec850de68efb454358b2cf37522}{Meta\-Box}, \hyperlink{class_movie_fragment_random_access_box_a98067d945d3946d0bb3b41057b7bb24f}{Movie\-Fragment\-Random\-Access\-Box}, \hyperlink{class_movie_fragment_box_a10e2f1d3c5dc5c87fcbd35f88601af55}{Movie\-Fragment\-Box}, \hyperlink{class_movie_extends_box_a8b970223c7bc6518dc09a86a2398dc97}{Movie\-Extends\-Box}, \hyperlink{class_edit_box_a839c13a43cc4250ffe9c9747a3318bb2}{Edit\-Box}, \hyperlink{class_free_space_box_a704a3d5d180b53f0ef928be4213f6705}{Free\-Space\-Box}, \hyperlink{class_data_reference_box_ad78cbb0eb0ba1f25aee966178e4f2f0e}{Data\-Reference\-Box}, \hyperlink{class_data_information_box_a4423b54d49079a301760361e42fd4dbf}{Data\-Information\-Box}, \hyperlink{class_media_information_box_a5228b61c1967efca5ab2a1212872765a}{Media\-Information\-Box}, \hyperlink{class_m_p_e_g4_bit_rate_box_aafb5c5fe09ef9afbfe91e3cc5ce0ff5d}{M\-P\-E\-G4\-Bit\-Rate\-Box}, \hyperlink{class_movie_box_af75bd55df36733f36e9c9c3bde448d93}{Movie\-Box}, \hyperlink{class_a_v_c_configuration_box_a626fddbe3ea41877e8a8e97335948339}{A\-V\-C\-Configuration\-Box}, \hyperlink{class_a_v_c_sample_entry_ae0627e8954e878a70c9a67e337fd5d26}{A\-V\-C\-Sample\-Entry}, \hyperlink{class_media_box_a425be0e4e5c7bd559cea7e313da94e2d}{Media\-Box}, \hyperlink{class_mpeg_sample_entry_a264a9e2915c1a17f5c7e4ff7f59dab47}{Mpeg\-Sample\-Entry}, \hyperlink{class_m_p4_audio_sample_entry_a17ffcfa7b17574ed19bd38ccab77f705}{M\-P4\-Audio\-Sample\-Entry}, \hyperlink{class_m_p4_visual_sample_entry_aa683a32a4491a554bfc03b0fe1197bfc}{M\-P4\-Visual\-Sample\-Entry}, \hyperlink{class_track_fragment_box_a49538cd7fe1c888203eab7cee5cfb08c}{Track\-Fragment\-Box}, \hyperlink{class_sample_description_box_a227a7ad2f2d282a14cdbbed065fecfa5}{Sample\-Description\-Box}, \hyperlink{class_visual_sample_entry_a212a8d19ecf3236a8951c0161a85a72d}{Visual\-Sample\-Entry}, \hyperlink{class_sample_table_box_ad104b1eb63f6ce7926bbc7cee83fd29f}{Sample\-Table\-Box}, and \hyperlink{class_track_box_a9e3d52a20872169fc6f29c09f1e2ce95}{Track\-Box}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/box.\-h\item 
+Model/\-Boxes/box.\-cpp\end{DoxyCompactItemize}

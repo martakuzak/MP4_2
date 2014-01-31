@@ -1,0 +1,281 @@
+\hypertarget{class_tree_item}{\section{Tree\-Item Class Reference}
+\label{class_tree_item}\index{Tree\-Item@{Tree\-Item}}
+}
+
+
+The \hyperlink{class_tree_item}{Tree\-Item} class represent single element of the tree model.  
+
+
+
+
+{\ttfamily \#include $<$treeitem.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_tree_item_ad70866c7a97127bee8a5b11c9f87e2ca}{Tree\-Item} (\hyperlink{class_analyzer}{Analyzer} $\ast$an, const Q\-List$<$ Q\-Variant $>$ \&\hyperlink{class_tree_item_a16641e42c78f004d47a66f3b2c39341f}{data}, \hyperlink{class_tree_item}{Tree\-Item} $\ast$\hyperlink{class_tree_item_a392ec493dfab91ee474d7ff83e2c0211}{parent}=0, const long int \&off=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_tree_item}{Tree\-Item} constructor. \end{DoxyCompactList}\item 
+\hypertarget{class_tree_item_a859429185d908c3e54861bbbfb185425}{\hyperlink{class_tree_item_a859429185d908c3e54861bbbfb185425}{$\sim$\-Tree\-Item} ()}\label{class_tree_item_a859429185d908c3e54861bbbfb185425}
+
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \hyperlink{class_tree_item_ac7f432ac0587ca037e80857eefd622f8}{append\-Child} (\hyperlink{class_tree_item}{Tree\-Item} $\ast$\hyperlink{class_tree_item_a80ab3164e41c8a43f1a9ef7255d88249}{child})
+\begin{DoxyCompactList}\small\item\em append\-Child appends child item to the parent \end{DoxyCompactList}\item 
+\hyperlink{class_tree_item}{Tree\-Item} $\ast$ \hyperlink{class_tree_item_a80ab3164e41c8a43f1a9ef7255d88249}{child} (int \hyperlink{class_tree_item_a5a062d24b35421360ad1d101c564e9be}{row})
+\begin{DoxyCompactList}\small\item\em child \end{DoxyCompactList}\item 
+int \hyperlink{class_tree_item_a55ffe6dd27750e479034b93e753f87af}{child\-Count} () const 
+\begin{DoxyCompactList}\small\item\em child\-Count \end{DoxyCompactList}\item 
+int \hyperlink{class_tree_item_a31c3fb89ad8e19ae696a310a1f843a8e}{column\-Count} () const 
+\begin{DoxyCompactList}\small\item\em column\-Count \end{DoxyCompactList}\item 
+Q\-Variant \hyperlink{class_tree_item_a16641e42c78f004d47a66f3b2c39341f}{data} (int column) const 
+\begin{DoxyCompactList}\small\item\em data \end{DoxyCompactList}\item 
+int \hyperlink{class_tree_item_a5a062d24b35421360ad1d101c564e9be}{row} () const 
+\begin{DoxyCompactList}\small\item\em row \end{DoxyCompactList}\item 
+\hyperlink{class_tree_item}{Tree\-Item} $\ast$ \hyperlink{class_tree_item_a392ec493dfab91ee474d7ff83e2c0211}{parent} ()
+\begin{DoxyCompactList}\small\item\em parent \end{DoxyCompactList}\item 
+bool \hyperlink{class_tree_item_ae047d6d6ac037ed5928d1c099f5ea097}{is\-Container} ()
+\begin{DoxyCompactList}\small\item\em is\-Container Tests if represented box is container \end{DoxyCompactList}\item 
+int unsigned \hyperlink{class_tree_item_ad025779f60a443c0de1f534aafd41b7b}{get\-Offset} ()
+\begin{DoxyCompactList}\small\item\em get\-Offset \end{DoxyCompactList}\item 
+bool \hyperlink{class_tree_item_ac7f44a467b5466392cf3330af53afc52}{is\-Null} ()
+\begin{DoxyCompactList}\small\item\em is\-Null \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_tree_item_abeb2418adb8d739c6f85ca95243aba88}{get\-Type} ()
+\begin{DoxyCompactList}\small\item\em get\-Type \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_tree_item_a5faf2bd42074e0e1dba3126a2cbc0e5a}{full\-Name} ()
+\begin{DoxyCompactList}\small\item\em full\-Name \end{DoxyCompactList}\item 
+\hypertarget{class_tree_item_a588098933468fd801e8fa11e57053608}{Q\-Standard\-Item\-Model $\ast$ {\bfseries get\-Model} ()}\label{class_tree_item_a588098933468fd801e8fa11e57053608}
+
+\item 
+std\-::shared\-\_\-ptr$<$ \hyperlink{class_box}{Box} $>$ \hyperlink{class_tree_item_a3533a32e58f68761a87de666ec2e37bf}{get\-Box} ()
+\begin{DoxyCompactList}\small\item\em get\-Box \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_tree_item}{Tree\-Item} class represent single element of the tree model. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_tree_item_ad70866c7a97127bee8a5b11c9f87e2ca}{\index{Tree\-Item@{Tree\-Item}!Tree\-Item@{Tree\-Item}}
+\index{Tree\-Item@{Tree\-Item}!TreeItem@{Tree\-Item}}
+\subsubsection[{Tree\-Item}]{\setlength{\rightskip}{0pt plus 5cm}Tree\-Item\-::\-Tree\-Item (
+\begin{DoxyParamCaption}
+\item[{{\bf Analyzer} $\ast$}]{an, }
+\item[{const Q\-List$<$ Q\-Variant $>$ \&}]{data, }
+\item[{{\bf Tree\-Item} $\ast$}]{parent = {\ttfamily 0}, }
+\item[{const long int \&}]{off = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}}\label{class_tree_item_ad70866c7a97127bee8a5b11c9f87e2ca}
+
+
+\hyperlink{class_tree_item}{Tree\-Item} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & data of the parent item \\
+\hline
+{\em parent} & parent of the item \\
+\hline
+{\em off} & offset \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_tree_item_ac7f432ac0587ca037e80857eefd622f8}{\index{Tree\-Item@{Tree\-Item}!append\-Child@{append\-Child}}
+\index{append\-Child@{append\-Child}!TreeItem@{Tree\-Item}}
+\subsubsection[{append\-Child}]{\setlength{\rightskip}{0pt plus 5cm}void Tree\-Item\-::append\-Child (
+\begin{DoxyParamCaption}
+\item[{{\bf Tree\-Item} $\ast$}]{child}
+\end{DoxyParamCaption}
+)}}\label{class_tree_item_ac7f432ac0587ca037e80857eefd622f8}
+
+
+append\-Child appends child item to the parent 
+
+
+\begin{DoxyParams}{Parameters}
+{\em child} & pointer to the child that is to be appended \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_tree_item_a80ab3164e41c8a43f1a9ef7255d88249}{\index{Tree\-Item@{Tree\-Item}!child@{child}}
+\index{child@{child}!TreeItem@{Tree\-Item}}
+\subsubsection[{child}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree\-Item} $\ast$ Tree\-Item\-::child (
+\begin{DoxyParamCaption}
+\item[{int}]{row}
+\end{DoxyParamCaption}
+)}}\label{class_tree_item_a80ab3164e41c8a43f1a9ef7255d88249}
+
+
+child 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+child from given row 
+\end{DoxyReturn}
+\hypertarget{class_tree_item_a55ffe6dd27750e479034b93e753f87af}{\index{Tree\-Item@{Tree\-Item}!child\-Count@{child\-Count}}
+\index{child\-Count@{child\-Count}!TreeItem@{Tree\-Item}}
+\subsubsection[{child\-Count}]{\setlength{\rightskip}{0pt plus 5cm}int Tree\-Item\-::child\-Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_tree_item_a55ffe6dd27750e479034b93e753f87af}
+
+
+child\-Count 
+
+\begin{DoxyReturn}{Returns}
+number of children of the item 
+\end{DoxyReturn}
+\hypertarget{class_tree_item_a31c3fb89ad8e19ae696a310a1f843a8e}{\index{Tree\-Item@{Tree\-Item}!column\-Count@{column\-Count}}
+\index{column\-Count@{column\-Count}!TreeItem@{Tree\-Item}}
+\subsubsection[{column\-Count}]{\setlength{\rightskip}{0pt plus 5cm}int Tree\-Item\-::column\-Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_tree_item_a31c3fb89ad8e19ae696a310a1f843a8e}
+
+
+column\-Count 
+
+\begin{DoxyReturn}{Returns}
+number of columns 
+\end{DoxyReturn}
+\hypertarget{class_tree_item_a16641e42c78f004d47a66f3b2c39341f}{\index{Tree\-Item@{Tree\-Item}!data@{data}}
+\index{data@{data}!TreeItem@{Tree\-Item}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Variant Tree\-Item\-::data (
+\begin{DoxyParamCaption}
+\item[{int}]{column}
+\end{DoxyParamCaption}
+) const}}\label{class_tree_item_a16641e42c78f004d47a66f3b2c39341f}
+
+
+data 
+
+
+\begin{DoxyParams}{Parameters}
+{\em column} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+data from given column 
+\end{DoxyReturn}
+\hypertarget{class_tree_item_a5faf2bd42074e0e1dba3126a2cbc0e5a}{\index{Tree\-Item@{Tree\-Item}!full\-Name@{full\-Name}}
+\index{full\-Name@{full\-Name}!TreeItem@{Tree\-Item}}
+\subsubsection[{full\-Name}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Tree\-Item\-::full\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_tree_item_a5faf2bd42074e0e1dba3126a2cbc0e5a}
+
+
+full\-Name 
+
+\begin{DoxyReturn}{Returns}
+full name of the box 
+\end{DoxyReturn}
+\hypertarget{class_tree_item_a3533a32e58f68761a87de666ec2e37bf}{\index{Tree\-Item@{Tree\-Item}!get\-Box@{get\-Box}}
+\index{get\-Box@{get\-Box}!TreeItem@{Tree\-Item}}
+\subsubsection[{get\-Box}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<${\bf Box}$>$ Tree\-Item\-::get\-Box (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_tree_item_a3533a32e58f68761a87de666ec2e37bf}
+
+
+get\-Box 
+
+\begin{DoxyReturn}{Returns}
+box 
+\end{DoxyReturn}
+\hypertarget{class_tree_item_ad025779f60a443c0de1f534aafd41b7b}{\index{Tree\-Item@{Tree\-Item}!get\-Offset@{get\-Offset}}
+\index{get\-Offset@{get\-Offset}!TreeItem@{Tree\-Item}}
+\subsubsection[{get\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}int unsigned Tree\-Item\-::get\-Offset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_tree_item_ad025779f60a443c0de1f534aafd41b7b}
+
+
+get\-Offset 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{class_tree_item_abeb2418adb8d739c6f85ca95243aba88}{\index{Tree\-Item@{Tree\-Item}!get\-Type@{get\-Type}}
+\index{get\-Type@{get\-Type}!TreeItem@{Tree\-Item}}
+\subsubsection[{get\-Type}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Tree\-Item\-::get\-Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_tree_item_abeb2418adb8d739c6f85ca95243aba88}
+
+
+get\-Type 
+
+\begin{DoxyReturn}{Returns}
+type of the box 
+\end{DoxyReturn}
+\hypertarget{class_tree_item_ae047d6d6ac037ed5928d1c099f5ea097}{\index{Tree\-Item@{Tree\-Item}!is\-Container@{is\-Container}}
+\index{is\-Container@{is\-Container}!TreeItem@{Tree\-Item}}
+\subsubsection[{is\-Container}]{\setlength{\rightskip}{0pt plus 5cm}bool Tree\-Item\-::is\-Container (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_tree_item_ae047d6d6ac037ed5928d1c099f5ea097}
+
+
+is\-Container Tests if represented box is container 
+
+\begin{DoxyReturn}{Returns}
+If box is container. 
+\end{DoxyReturn}
+\hypertarget{class_tree_item_ac7f44a467b5466392cf3330af53afc52}{\index{Tree\-Item@{Tree\-Item}!is\-Null@{is\-Null}}
+\index{is\-Null@{is\-Null}!TreeItem@{Tree\-Item}}
+\subsubsection[{is\-Null}]{\setlength{\rightskip}{0pt plus 5cm}bool Tree\-Item\-::is\-Null (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_tree_item_ac7f44a467b5466392cf3330af53afc52}
+
+
+is\-Null 
+
+\begin{DoxyReturn}{Returns}
+true if box was unknown 
+\end{DoxyReturn}
+\hypertarget{class_tree_item_a392ec493dfab91ee474d7ff83e2c0211}{\index{Tree\-Item@{Tree\-Item}!parent@{parent}}
+\index{parent@{parent}!TreeItem@{Tree\-Item}}
+\subsubsection[{parent}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree\-Item} $\ast$ Tree\-Item\-::parent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_tree_item_a392ec493dfab91ee474d7ff83e2c0211}
+
+
+parent 
+
+\begin{DoxyReturn}{Returns}
+parent of the item 
+\end{DoxyReturn}
+\hypertarget{class_tree_item_a5a062d24b35421360ad1d101c564e9be}{\index{Tree\-Item@{Tree\-Item}!row@{row}}
+\index{row@{row}!TreeItem@{Tree\-Item}}
+\subsubsection[{row}]{\setlength{\rightskip}{0pt plus 5cm}int Tree\-Item\-::row (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_tree_item_a5a062d24b35421360ad1d101c564e9be}
+
+
+row 
+
+\begin{DoxyReturn}{Returns}
+number of rows 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Model/\-Boxes/treeitem.\-h\item 
+Model/\-Boxes/treeitem.\-cpp\end{DoxyCompactItemize}
