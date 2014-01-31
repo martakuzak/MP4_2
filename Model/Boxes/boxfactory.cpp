@@ -477,7 +477,7 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         }
         unsigned long int creationTime;
         unsigned long int modificationTime;
-        unsigned long int timescale;
+        unsigned int timescale;
         unsigned long int duration;
         if(version == 1) {
             creationTime = analyzer->valueOfGroupOfBytes(8, off + offset + 12);
@@ -492,10 +492,10 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
             timescale = analyzer->valueOfGroupOfBytes(4, off+ offset + 20);
             duration = analyzer->valueOfGroupOfBytes(4, off + offset + 24);
         }
-        QList<unsigned long int> reserved32;
-        QList<unsigned long int> matrix;
-        QList<unsigned long int> predefined;
-        unsigned long int nextTrackId;
+        QList<unsigned int> reserved32;
+        QList<unsigned int> matrix;
+        QList<unsigned int> predefined;
+        unsigned int nextTrackId;
         unsigned int rate = analyzer->valueOfGroupOfBytes(4, off + offset + 28)/65536;//fixed number
         unsigned int volume = analyzer->valueOfGroupOfBytes(2, off + offset + 32)/256;
         unsigned int reserved16 = analyzer->valueOfGroupOfBytes(2, off + offset + 34);
@@ -945,7 +945,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         }
         unsigned long int sampleSize = analyzer->valueOfGroupOfBytes(4, off + offset + 12);
         unsigned long int sampleCount = analyzer->valueOfGroupOfBytes(4, off + offset + 16);
-        QList<unsigned long int> entrySize;
+        QList<unsigned int> entrySize;
         if(sampleSize == 0) {
             for(unsigned int i = 0; i<sampleCount; ++i) {
                 entrySize.append(analyzer->valueOfGroupOfBytes(4 , off + offset + 20 + 4*i ));
@@ -963,7 +963,14 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         for (unsigned int i = 0; i<3; ++i) {
             f.append(analyzer->valueOfGroupOfBytes(1, off + offset + i + 9));
         }
-        std::shared_ptr<Box> ret(new CompactSampleSizeBox(size, type, off, v, f));
+        unsigned int reserved = analyzer->valueOfGroupOfBytes(3, offset + off + 12);
+        unsigned int fieldSize = analyzer->valueOfGroupOfBytes(1, off + offset + 15);
+        unsigned int sampleCount = analyzer->valueOfGroupOfBytes(4, offset + off + 16);
+        QList<unsigned int> entrySize;
+        for (unsigned int i = 0; i < 3; ++i) {
+            entrySize.append(analyzer->valueOfGroupOfBits(fieldSize, (off + offset + 20)*4 + i*fieldSize));
+        }
+        std::shared_ptr<Box> ret(new CompactSampleSizeBox(size, type, off, v, f, reserved, fieldSize, sampleCount, entrySize));
         return ret;
     }
     else if(type == "stsc"){

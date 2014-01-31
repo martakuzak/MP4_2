@@ -38,7 +38,7 @@ protected:
     /*!
       *\brief size size of the box
      */
-    unsigned int size;
+    unsigned long int size;
     /*!
       *\brief type type of the box
      */
@@ -55,7 +55,7 @@ public:
       *\param t type of box (created from reading bytes in ASCII code)
       *\param off offset of box in bytes
      */
-    Box(const unsigned int &s, const QString& t, const unsigned long &off);
+    Box(const unsigned long int &s, const QString& t, const unsigned long &off);
     /*!
       *\brief getType
       *\return type of the box
@@ -114,15 +114,7 @@ protected:
     QList<unsigned int> flags;
 
 public:
-    /*!
-     * \brief FullBox
-     * \param s size \see size
-     * \param t type \see type
-     * \param off offset \see offset
-     * \param v version \see version
-     * \param f flags \see flags
-     */
-    FullBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
+    FullBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
             const QList<unsigned int>& f);
     virtual QString getFullName() { return QString(" "); }
     unsigned int getVersion() { return version; }
@@ -139,7 +131,7 @@ protected:
     unsigned int minorVersion;
     QList<QString> compatibleBrands;
 public:
-    FileTypeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const QString& mb,
+    FileTypeBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const QString& mb,
                 const unsigned int& mv, const QList<QString>& cb);
     virtual QString getFullName() { return QString("File Type Box"); }
     virtual QStandardItemModel *getModel();
@@ -154,7 +146,7 @@ protected:
     unsigned int minorVersion;
     QList<QString> compatibleBrands;
 public:
-    SegmentTypeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const QString& mb,
+    SegmentTypeBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const QString& mb,
                    const unsigned int& mv, const QList<QString>& cb);
     virtual QString getFullName() { return QString("Segment Type Box"); }
     virtual QStandardItemModel *getModel();
@@ -166,7 +158,7 @@ public:
 */
 class MediaBox : public Box {
 public:
-    MediaBox(const unsigned int &s, const QString& t, const unsigned long &off);
+    MediaBox(const unsigned long int& s, const QString& t, const unsigned long &off);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Media Box"); }
     virtual QStandardItemModel *getModel() {
@@ -182,7 +174,7 @@ public:
 /*! */
 class MediaDataBox : public Box {
 public:
-    MediaDataBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    MediaDataBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("Media Data Box"); }
     virtual QStandardItemModel *getModel() {
          QStandardItemModel *model = new QStandardItemModel(1,1,0);
@@ -205,7 +197,7 @@ protected:
     QList<unsigned int> language;
     unsigned int predefined;
 public:
-    MediaHeaderBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
+    MediaHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
                    const QList<unsigned int>& f, const unsigned long int& ct, const unsigned long int& mt, const unsigned int & ts,
                    const unsigned long int & dur, const bool & pad, const QList<unsigned int> & lan, const unsigned int & pd);
     virtual QString getFullName() { return QString("Media Header Box"); }
@@ -221,7 +213,7 @@ public:
  */
 class MovieBox : public Box {
 public:
-    MovieBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    MovieBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Movie Box"); }
     virtual QStandardItemModel *getModel() {
@@ -244,16 +236,16 @@ protected:
     unsigned int rate;
     unsigned int volume;
     unsigned int reserved16;
-    QList<unsigned long int> reserved32;
-    QList<unsigned long int> matrix;
-    QList<unsigned long int> predefined;
-    unsigned int long nextTrackId;
+    QList<unsigned int> reserved32;
+    QList<unsigned int> matrix;
+    QList<unsigned int> predefined;
+    unsigned long nextTrackId;
 public:
-    MovieHeaderBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
+    MovieHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
                    const QList<unsigned int>& f, const unsigned long int &creationTime, const unsigned long int& modificationTime,
                    const unsigned long int &timeScale, const unsigned long int& duration, const unsigned int& rate, const unsigned int& volume,
-                   const unsigned int& reserved16, const QList<unsigned long int>& reserved32, const QList<unsigned long int>& mx,
-                   const QList<unsigned long int>& pr, const unsigned long int& nextTrackId);
+                   const unsigned int& reserved16, const QList<unsigned int>& reserved32, const QList<unsigned int>& mx,
+                   const QList<unsigned int>& pr, const unsigned int& nextTrackId);
     virtual QString getFullName() { return QString("Movie Header Box "); }
     virtual QStandardItemModel *getModel();
     unsigned long int getDuration() {
@@ -270,7 +262,7 @@ public:
  */
 class MediaInformationBox : public Box {
 public:
-    MediaInformationBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    MediaInformationBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Media Information Box"); }
 };
@@ -284,7 +276,7 @@ protected:
     unsigned int graphicsmode;
     QList <unsigned int> opcolor;
 public:
-    VideoMediaHeaderBox(const unsigned int& s, const QString& t, const unsigned long int& off,
+    VideoMediaHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
                         const unsigned int& v, const QList<unsigned int>& f, const unsigned int & graphicsmode,
                         const QList <unsigned int> & opcolor);
     virtual QString getFullName() { return QString("Video Media Header Box"); }
@@ -300,7 +292,7 @@ protected:
     unsigned int balance;
     unsigned int reserved;
 public:
-    SoundMediaHeaderBox(const unsigned int& s, const QString& t, const unsigned long int& off,
+    SoundMediaHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
                         const unsigned int& v, const QList<unsigned int>& f, const unsigned int& bl, const unsigned int&res);
     virtual QString getFullName() { return QString("Sound Media Header Box"); }
     virtual QStandardItemModel *getModel();
@@ -312,7 +304,7 @@ public:
  */
 class HintMediaHeaderBox : public FullBox {
 public:
-    HintMediaHeaderBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    HintMediaHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Hint Media Header Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -322,7 +314,7 @@ public:
  */
 class NullMediaHeaderBox : public FullBox{
 public:
-    NullMediaHeaderBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    NullMediaHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Null Media Header Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -332,7 +324,7 @@ public:
  */
 class DataInformationBox : public Box {
 public:
-    DataInformationBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    DataInformationBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Data Information Box"); }
 };
@@ -343,7 +335,7 @@ public:
  */
 class DataEntryUrnBox : public FullBox {
 public:
-    DataEntryUrnBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    DataEntryUrnBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Data Entry URN Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -355,7 +347,7 @@ class DataEntryUrlBox : public FullBox {
 protected:
     QString location;
 public:
-    DataEntryUrlBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
+    DataEntryUrlBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
                     const QList<unsigned int>& f, const QString& location);
     virtual QString getFullName() { return QString("Data Entry URL Box"); }
     virtual QStandardItemModel *getModel();
@@ -369,7 +361,7 @@ class DataReferenceBox : public FullBox {
 protected:
     unsigned long int entryCount;
 public:
-    DataReferenceBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
+    DataReferenceBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v,
                      const QList<unsigned int>& f, const unsigned long int& ec);
     virtual QString getFullName() { return QString("Data Reference Box"); }
     virtual QStandardItemModel *getModel();
@@ -385,7 +377,7 @@ class FreeSpaceBox : public Box {
 protected:
     bool container;
 public:
-    FreeSpaceBox(bool container,const unsigned int& s, const QString& t, const unsigned long int& off);
+    FreeSpaceBox(bool container,const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual bool isContainer() { return container; }
     virtual QString getFullName() { return QString("Free Space Box"); }
 };
@@ -396,7 +388,7 @@ public:
  */
 class EditBox : public Box {
 public:
-    EditBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    EditBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Edit Box"); }
 };
@@ -413,7 +405,7 @@ protected:
     QList <unsigned int> mediaRateInteger;
     QList <unsigned int> mediaRateFraction;
 public:
-    EditListBox(const unsigned int& s, const QString& t, const unsigned long int& off,
+    EditListBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
                 const unsigned int& v, const QList<unsigned int>& f, const unsigned int & entryCount, const QList<unsigned long int>& segmD,
                 const QList<unsigned long int>&medT, const QList<unsigned int>& mri, const QList<unsigned int>& mrf);
     virtual QString getFullName() { return QString("Edit List Box"); }
@@ -426,7 +418,7 @@ public:
  */
 class UserDataBox : public Box {
 public:
-    UserDataBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    UserDataBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("User Data Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -436,7 +428,7 @@ public:
  */
 class CopyRightBox : public FullBox {
 public:
-    CopyRightBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    CopyRightBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("CopyRight Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -446,7 +438,7 @@ public:
  */
 class MovieExtendsBox : public Box {
 public:
-    MovieExtendsBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    MovieExtendsBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Movie Extends Box"); }
 };
@@ -459,7 +451,7 @@ class MovieExtendsHeaderBox : public FullBox {
 protected:
     unsigned long int fragmentDuration;
 public:
-    MovieExtendsHeaderBox(const unsigned int& s, const QString& t, const unsigned long int& off,
+    MovieExtendsHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
                           const unsigned int& v, const QList<unsigned int>& f, const unsigned long int& fd);
     virtual QString getFullName() { return QString("Movie Extends Header Box"); }
     virtual QStandardItemModel *getModel();
@@ -471,7 +463,7 @@ public:
  */
 class MovieFragmentBox : public Box {
 public:
-    MovieFragmentBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    MovieFragmentBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Movie Fragment Box"); }
 };
@@ -484,7 +476,7 @@ class MovieFragmentHeaderBox : public FullBox {
 protected:
     unsigned int sequenceNumber;
 public:
-    MovieFragmentHeaderBox(const unsigned int& s, const QString& t, const unsigned long int& off, const long& sn, const unsigned int& v, const QList<unsigned int>& f);
+    MovieFragmentHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const long& sn, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Movie Fragment Header Box"); }
     virtual QStandardItemModel *getModel();
 };
@@ -495,7 +487,7 @@ public:
  */
 class MovieFragmentRandomAccessBox : public Box {
 public:
-    MovieFragmentRandomAccessBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    MovieFragmentRandomAccessBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Movie Fragment Access Box"); }
 };
@@ -506,7 +498,7 @@ public:
  */
 class MovieFragmentRandomAccessOffsetBox : public FullBox {
 public:
-    MovieFragmentRandomAccessOffsetBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    MovieFragmentRandomAccessOffsetBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Movie Fragment Random Access Offset Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -516,7 +508,7 @@ public:
  */
 class SampleDependencyTypeBox : public FullBox {
 public:
-    SampleDependencyTypeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    SampleDependencyTypeBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Sample Dependency Type Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -526,7 +518,7 @@ public:
  */
 class SampleToGroupBox : public FullBox {
 public:
-    SampleToGroupBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    SampleToGroupBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Sample To Group Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -536,7 +528,7 @@ public:
  */
 class SampleGroupDescriptionBox : public FullBox {
 public:
-    SampleGroupDescriptionBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    SampleGroupDescriptionBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Sample Group Description Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -546,7 +538,7 @@ public:
  */
 class SampleScaleBox : public FullBox {
 public:
-    SampleScaleBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    SampleScaleBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Sample Scale Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -556,7 +548,7 @@ public:
  */
 class SubSampleInformationBox : public FullBox {
 public:
-    SubSampleInformationBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    SubSampleInformationBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Sub Sample Information Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -566,7 +558,7 @@ public:
  */
 class ProgressiveDownloadInfoBox : public FullBox {
 public:
-    ProgressiveDownloadInfoBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    ProgressiveDownloadInfoBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Pogressive Donwload Info Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -576,7 +568,7 @@ public:
  */
 class MetaBox : public FullBox {
 public:
-    MetaBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    MetaBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual bool isContainer() { return true; }
     virtual unsigned int getContainerOffset() { return 12;}
     virtual QString getFullName() { return QString("Meta Box"); }
@@ -588,7 +580,7 @@ public:
 */
 class XMLBox : public FullBox {
 public:
-    XMLBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    XMLBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("XML Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -598,7 +590,7 @@ public:
  */
 class BinaryXMLBox : public FullBox {
 public:
-    BinaryXMLBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    BinaryXMLBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Binary XML Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -608,7 +600,7 @@ public:
  */
 class ItemLocationBox : public FullBox {
 public:
-    ItemLocationBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    ItemLocationBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Item Location Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -618,7 +610,7 @@ public:
  */
 class PrimaryItemBox : public FullBox {
 public:
-    PrimaryItemBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    PrimaryItemBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Primary Item Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -628,7 +620,7 @@ public:
  */
 class ItemProtectionBox : public FullBox {
 public:
-    ItemProtectionBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    ItemProtectionBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Item Protection Box"); }
 };
@@ -639,7 +631,7 @@ public:
  */
 class ItemInfoEntry : public FullBox {
 public:
-    ItemInfoEntry(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    ItemInfoEntry(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Item unsigned intfo Entry"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -649,7 +641,7 @@ public:
  */
 class ItemInfoBox : public FullBox {
 public:
-    ItemInfoBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    ItemInfoBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Item Info Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -659,7 +651,7 @@ public:
  */
 class ProtectionSchemeInfoBox : public Box {
 public:
-    ProtectionSchemeInfoBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    ProtectionSchemeInfoBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Protection Scheme Info Box"); }
 };
@@ -670,7 +662,7 @@ public:
  */
 class OriginalFormatBox : public Box {
 public:
-    OriginalFormatBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    OriginalFormatBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("Original Format Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -680,7 +672,7 @@ public:
  */
 class IPMPInfoBox : public FullBox {
 public:
-    IPMPInfoBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    IPMPInfoBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("IPMP Info Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -690,7 +682,7 @@ public:
  */
 class IPMPControlBox : public FullBox {
 public:
-    IPMPControlBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    IPMPControlBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("IPMP Control Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -700,7 +692,7 @@ public:
  */
 class SchemeTypeBox : public FullBox {
 public:
-    SchemeTypeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    SchemeTypeBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Scheme Type Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -710,7 +702,7 @@ public:
  */
 class SchemeInformationBox : public Box {
 public:
-    SchemeInformationBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    SchemeInformationBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("Scheme Information Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -720,7 +712,7 @@ public:
  */
 class TimeScaleEntry : public Box {
 public:
-    TimeScaleEntry(const unsigned int& s, const QString& t, const unsigned long int& off);
+    TimeScaleEntry(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("Time Scale Entry"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -730,7 +722,7 @@ public:
  */
 class TimeOffset : public Box {
 public:
-    TimeOffset(const unsigned int& s, const QString& t, const unsigned long int& off);
+    TimeOffset(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("Time Offset"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -740,7 +732,7 @@ public:
  */
 class SequenceOffset : public Box {
 public:
-    SequenceOffset(const unsigned int& s, const QString& t, const unsigned long int& off);
+    SequenceOffset(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("Sequence Offset"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -750,7 +742,7 @@ public:
  */
 class SRTPProcessBox : public FullBox {
 public:
-    SRTPProcessBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    SRTPProcessBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("SRTP Process Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -760,7 +752,7 @@ public:
  */
 class MovieHintInformation : public Box {
 public:
-    MovieHintInformation(const unsigned int& s, const QString& t, const unsigned long int& off);
+    MovieHintInformation(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("Movie Hint Information"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -770,7 +762,7 @@ public:
  */
 class RTPMovieHintInformation : public Box {
 public:
-    RTPMovieHintInformation(const unsigned int& s, const QString& t, const unsigned long int& off);
+    RTPMovieHintInformation(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("RTP Movie Hint Information"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -780,7 +772,7 @@ public:
  */
 class RTPTrackSDPHintInformation : public Box {
 public:
-    RTPTrackSDPHintInformation(const unsigned int& s, const QString& t, const unsigned long int& off);
+    RTPTrackSDPHintInformation(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("RTP Track SDP Hint Information"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -790,7 +782,7 @@ public:
  */
 class HintStatisticsBox : public Box {
 public:
-    HintStatisticsBox(const unsigned int& s, const QString& t, const unsigned long int& off);
+    HintStatisticsBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("Hint Statistics Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -802,7 +794,7 @@ public:
 */
 class SampleAuxiliaryInformationSizesBox : public FullBox {
 public:
-    SampleAuxiliaryInformationSizesBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    SampleAuxiliaryInformationSizesBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Sample Auxiliary Information Sizes Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -812,7 +804,7 @@ public:
  */
 class SampleAuxiliaryInformationOffsetsBox : public FullBox {
 public:
-    SampleAuxiliaryInformationOffsetsBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    SampleAuxiliaryInformationOffsetsBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Sample Auxiliary Information Offsets Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -822,7 +814,7 @@ public:
  */
 class LevelAssignmentBox : public FullBox {
 public:
-    LevelAssignmentBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    LevelAssignmentBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Level Assignment Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -845,7 +837,7 @@ protected:
     QList <unsigned int> SAPDeltaTime;
 
 public:
-    SegmentIndexBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f, const unsigned int& referenceId,
+    SegmentIndexBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f, const unsigned int& referenceId,
                     const unsigned int& timescale,const unsigned int& myEarliestPresentationTime, const unsigned int& myFirstOffset, const unsigned int& myReserved,
                     const QList<bool>& referenceType, const QList<unsigned int> referenceSize, const QList<unsigned int> & subsegmentDuration,
                     const QList<bool> & startsWithSAP, const QList<unsigned int>& SAPType, const QList<unsigned int>& SAPDeltaTime);
@@ -859,7 +851,7 @@ public:
  */
 class SubsegmentIndexBox : public FullBox {
 public:
-    SubsegmentIndexBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    SubsegmentIndexBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Subsegment Index Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -869,7 +861,7 @@ public:
  */
 class ProducerReferenceTimeBox : public FullBox {
 public:
-    ProducerReferenceTimeBox(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
+    ProducerReferenceTimeBox(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned int& v, const QList<unsigned int>& f);
     virtual QString getFullName() { return QString("Producer Reference Time Box"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -881,7 +873,7 @@ class UniversalUniqueIdentifier : public Box {
 private:
     unsigned long long int extendedType;
 public:
-    UniversalUniqueIdentifier(const unsigned int& s, const QString& t, const unsigned long int& off, const unsigned long long int& eType);
+    UniversalUniqueIdentifier(const unsigned long int& s, const QString& t, const unsigned long int& off, const unsigned long long int& eType);
     virtual QString getFullName() { return QString("Universal Unique Identifier"); }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,8 +1,8 @@
 #include "trackbox.h"
 ////////////////////////////////////////////////////////////////////////////////////////////////
-TrackBox::TrackBox(const unsigned  int& s, const QString& t, const unsigned long int& off): Box(s,t,off) {}
+TrackBox::TrackBox(const unsigned long int& s, const QString& t, const unsigned long int& off): Box(s,t,off) {}
 /////////////
-TrackHeaderBox::TrackHeaderBox(const unsigned  int& s, const QString& t, const unsigned long int& off,
+TrackHeaderBox::TrackHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
                                const unsigned  int& v, const QList<unsigned int>& f, const unsigned long &ct, const unsigned long &mt,
                                const unsigned int &tid, const unsigned int &r1, const unsigned long &dur, const QList<unsigned int> &r2,
                                const unsigned int &lay, const unsigned int &ag, const unsigned int &vol, const unsigned int &r3,
@@ -76,9 +76,9 @@ QStandardItemModel *TrackHeaderBox::getModel() {
     return model;
 }
 /////////////
-TrackReferenceBox::TrackReferenceBox(const unsigned  int& s, const QString& t, const unsigned long int& off): Box(s,t,off) {}
+TrackReferenceBox::TrackReferenceBox(const unsigned long int& s, const QString& t, const unsigned long int& off): Box(s,t,off) {}
 /////////////
-HandlerBox::HandlerBox(const unsigned  int& s, const QString& t, const unsigned long int& off,
+HandlerBox::HandlerBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
                        const unsigned  int& v, const QList<unsigned int>& f, const unsigned int &pred, const unsigned int &hand,
                        const QList<unsigned int> &res, const QString &nam):
     FullBox(s,t,off,v, f) ,
@@ -119,7 +119,7 @@ QStandardItemModel *HandlerBox::getModel() {
     return model;
 }
 /////////////
-TrackExtendsBox::TrackExtendsBox(const unsigned  int& s, const QString& t, const unsigned long int& off,
+TrackExtendsBox::TrackExtendsBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
                                  const unsigned  int& v, const QList<unsigned int>& f, const unsigned int& tid, const unsigned int& dsdi,
                                  const unsigned int& dsd,const unsigned int& dss, const unsigned int& dsf):
     FullBox(s,t,off,v, f) ,
@@ -158,9 +158,9 @@ QStandardItemModel *TrackExtendsBox::getModel() {
     return model;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-TrackFragmentBox::TrackFragmentBox(const unsigned  int& s, const QString& t, const unsigned long int& off): Box(s,t,off) {}
+TrackFragmentBox::TrackFragmentBox(const unsigned long int& s, const QString& t, const unsigned long int& off): Box(s,t,off) {}
 ////////////////////////////////////////////////////////////////////////////////////////////
-TrackFragmentHeaderBox::TrackFragmentHeaderBox(const unsigned  int& s, const QString& t, const unsigned long int& off,
+TrackFragmentHeaderBox::TrackFragmentHeaderBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
                                                const unsigned  int& v, const QList<unsigned int>& f,
                                                const unsigned long int& tid, const unsigned long &bdo, const unsigned long &dsdi,
                                                const unsigned long &dsd, const unsigned long &dss, const unsigned long &dsf):
@@ -224,7 +224,7 @@ QStandardItemModel *TrackFragmentHeaderBox::getModel() {
     return model;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-TrackRunBox::TrackRunBox(const unsigned  int& s, const QString& t, const unsigned long int& off,
+TrackRunBox::TrackRunBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
                          const unsigned  int& v, const QList<unsigned int>& f, const unsigned long &sc, const long &dof,
                          const unsigned int &fsf, const QList<unsigned long> &sd, const QList<unsigned long> &ss,
                          const QList<unsigned int> &sf, const QList<unsigned long> &scto):
@@ -317,12 +317,12 @@ QStandardItemModel *TrackRunBox::getModel() {
     return model;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-TrackFragmentRandomAccessBox::TrackFragmentRandomAccessBox(const unsigned  int& s, const QString& t, const unsigned long int& off,
+TrackFragmentRandomAccessBox::TrackFragmentRandomAccessBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
                                                            const unsigned  int& v, const QList<unsigned int>& f):
     FullBox(s,t,off,v, f)
 {}
 ////////////////////////////////////////////////////////////////////////////////////////////
-TrackFragmentBaseMediaDecodeTimeBox::TrackFragmentBaseMediaDecodeTimeBox(const unsigned  int& s, const QString& t, const unsigned long int& off,
+TrackFragmentBaseMediaDecodeTimeBox::TrackFragmentBaseMediaDecodeTimeBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
                                                                          const unsigned  int& v,
                                                                          const QList<unsigned int>& f, const unsigned long &bmdt):
     FullBox(s,t,off,v, f),

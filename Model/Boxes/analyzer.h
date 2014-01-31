@@ -47,7 +47,7 @@ public:
     /*!
       *\brief valueOfGroupOfBits takes a given sequence of bits and converts them into unsigned long int value
       *\param length number of bits in the sequence
-      *\param offset offset of the sequnce in the file
+      *\param offset bit offset of the sequnce in the file
       *\return unsigned value of bit sequence
      */
     unsigned long int valueOfGroupOfBits(const int & length, const unsigned long int& offset);
