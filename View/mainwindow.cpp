@@ -20,10 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initPointers();
 
     QWidget *window = new QWidget();
-    QString fullPath = (new QDir())->absolutePath();
-    int last = fullPath.lastIndexOf("/");
-    QString path = fullPath.mid(0, last + 1) + "img/icon.png";
-    setWindowIcon(QIcon(path));
+    setWindowIcon(QIcon("img/icon.png"));
     setCentralWidget(window);
 
     window->setLayout(mainLayout);
