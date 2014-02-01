@@ -10,7 +10,8 @@ class DashCreator;
 class MPDWriter;
 
 /*!
-  *\brief The DashWrapper class provides methods that adapts DashCreator and MPDWriter to Controller interface.
+  *\brief The DashWrapper class
+  * provides methods that adapts DashCreator and MPDWriter to Controller interface.
   * Using this class MP4 files can be easily converted to forms appropriate to DASH streaming and MPD file
   * can easily generated.
  */

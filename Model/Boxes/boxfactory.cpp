@@ -453,7 +453,6 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     }
     else{
         return std::shared_ptr<Box>(new Box(size, type, off));
-        throw NoSuchABoxException();
     }
 
     return NULL;

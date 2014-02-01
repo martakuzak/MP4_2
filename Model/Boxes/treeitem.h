@@ -4,13 +4,14 @@
 #include <QVariant>
 #include <QStringList>
 #include <QByteArray>
+#include <QException>
 #include "box.h"
 #include "boxfactory.h"
-#include "exceptions.h"
 
 class Analyzer;
 /*!
-  *\brief The TreeItem class represent single element of the tree model
+  *\brief The TreeItem class
+  * represents single element of the tree model
  */
 class TreeItem {
 private:

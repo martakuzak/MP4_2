@@ -19,7 +19,8 @@
 class MainWindow;
 
 /*!
- * \brief The TrackBox class represents 'trak' box
+ * \brief The TrackBox class
+ * represents 'trak' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class TrackBox : public Box {
@@ -35,7 +36,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The TrackHeaderBox class represents 'tkhd' box
+ * \brief The TrackHeaderBox class
+ * represents 'tkhd' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class TrackHeaderBox : public FullBox {
@@ -67,7 +69,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The TrackReferenceBox class represents 'tref' box
+ * \brief The TrackReferenceBox class
+ * represents 'tref' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class TrackReferenceBox : public Box {
@@ -77,7 +80,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The TrackExtendsBox class represents 'trex' box
+ * \brief The TrackExtendsBox class
+ * represents 'trex' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class TrackExtendsBox : public FullBox {
@@ -96,7 +100,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The TrackFragmentBox class represents 'traf' box
+ * \brief The TrackFragmentBox class
+ * represents 'traf' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class TrackFragmentBox : public Box {
@@ -112,7 +117,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The TrackFragmentHeaderBox class represents 'tfhd' box
+ * \brief The TrackFragmentHeaderBox class
+ * represents 'tfhd' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class TrackFragmentHeaderBox : public FullBox {
@@ -133,7 +139,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The TrackRunBox class represents 'trun' box
+ * \brief The TrackRunBox class
+ * represents 'trun' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class TrackRunBox : public FullBox {
@@ -156,7 +163,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The TrackFragmentRandomAccessBox class represents 'tfra' box
+ * \brief The TrackFragmentRandomAccessBox class
+ * represents 'tfra' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class TrackFragmentRandomAccessBox : public FullBox {
@@ -166,7 +174,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The TrackFragmentBaseMediaDecodeTimeBox class represents 'tfdt' box
+ * \brief The TrackFragmentBaseMediaDecodeTimeBox class
+ * represents 'tfdt' box
  * \see ISO/IEC 14496-12:2008/FDAM 3:2011 – Information technology – Coding of audio-visual objects – Part 12: ISO base media file format, AMENDMENT 3: DASH support and RTP reception hint track processing
  */
 class TrackFragmentBaseMediaDecodeTimeBox : public FullBox {
@@ -180,7 +189,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The HandlerBox class represents 'hdlr' box
+ * \brief The HandlerBox class
+ * represents 'hdlr' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class HandlerBox : public FullBox {

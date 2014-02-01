@@ -26,7 +26,8 @@ class DashWrapper;
 class AnalyzeSection;
 
 /*!
- *\brief The MainWindow class defines a main window of the application.
+ *\brief The MainWindow class
+ * defines a main window of the application.
  */
 class MainWindow : public QMainWindow {
     Q_OBJECT

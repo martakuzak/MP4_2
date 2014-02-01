@@ -8,7 +8,7 @@ TreeItem::TreeItem(Analyzer *an, const QList<QVariant> &data, TreeItem *parent, 
         try {
             box= bf.getBox( data.value(1).toUInt(),data.value(0).toString(),off ) ;
         }
-        catch(NoSuchABoxException) {}
+        catch(QException) {}
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////

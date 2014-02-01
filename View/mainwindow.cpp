@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QWidget *window = new QWidget();
     QString fullPath = (new QDir())->absolutePath();
     int last = fullPath.lastIndexOf("/");
-    QString path = fullPath.mid(0, last + 1) + "img/pear.png";
+    QString path = fullPath.mid(0, last + 1) + "img/icon.png";
     setWindowIcon(QIcon(path));
     setCentralWidget(window);
 

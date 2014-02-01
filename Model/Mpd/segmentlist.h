@@ -15,10 +15,8 @@
 #include <QDebug>
 
 /*!
-  *\brief The Initialization class specifies the URL including a possible byte range for the Initialization Segment.
-  * - atrributes:
-  *     -# sourceURL
-  *     -# range
+  *\brief The Initialization class represents Initialization element of Media Presentation Description xml file.
+  *\see ISO/IEC 23009-1:2012 Information technology – Dynamic adaptive streaming over HTTP (DASH) – Part 1: Media presentation description and segment formats
  */
 class Initialization {
 private:
@@ -40,10 +38,9 @@ public:
 };
 ///////////////////////////////////////////////////////////////////////////
 /*!
-/*! * \brief The SegmentBase class specifies default settings of segments.
- * element:
- *        -# Initialization (0...1)
-/*! */
+  *\brief The SegmentBase class represents SegmentBase element of Media Presentation Description xml file.
+  *\see ISO/IEC 23009-1:2012 Information technology – Dynamic adaptive streaming over HTTP (DASH) – Part 1: Media presentation description and segment formats
+ */
 class SegmentBase {
 private:
     Initialization *init;
@@ -59,12 +56,8 @@ public:
 };
 ///////////////////////////////////////////////////////////////////////////
 /*!
-  *\brief The SegmentURL class specifies a Media Segment URL and a possibly present Index Segment URL.
-  * - atrributes:
-  *     -# media (optional)
-  *     -# mediaRange (optional)
-  *     -# index (optional)
-  *     -# indexRange (optional)
+  *\brief The SegmentURL class represents SegmentURL element of Media Presentation Description xml file.
+  *\see ISO/IEC 23009-1:2012 Information technology – Dynamic adaptive streaming over HTTP (DASH) – Part 1: Media presentation description and segment formats
  */
 class SegmentURL {
 private:
@@ -90,13 +83,8 @@ public:
 };
 ///////////////////////////////////////////////////////////////////////////
 /*!
-  *\brief The SegmentList class defines SegmentList vertex in the Media Presentation Description file.
-  *SegmentList vertex:
-  * - atrributes:
-  *     -# MultipleSegmentBaseInformation
-  * - elements:
-  *     -# Initialization: 0 or 1 occurance
-  *     -# SegmentURL 0 or more occurances
+  *\brief The SegmentList class represents SegmentList element of Media Presentation Description xml file.
+  *\see ISO/IEC 23009-1:2012 Information technology – Dynamic adaptive streaming over HTTP (DASH) – Part 1: Media presentation description and segment formats
  */
 class SegmentList {
 private:

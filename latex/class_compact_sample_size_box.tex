@@ -19,11 +19,22 @@ Inheritance diagram for Compact\-Sample\-Size\-Box\-:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_compact_sample_size_box_aadd7045acff4abdf1562c9de33dcfba0}{{\bfseries Compact\-Sample\-Size\-Box} (const unsigned int \&s, const Q\-String \&t, const unsigned long int \&off, const unsigned int \&v, const Q\-List$<$ unsigned int $>$ \&f)}\label{class_compact_sample_size_box_aadd7045acff4abdf1562c9de33dcfba0}
+\hypertarget{class_compact_sample_size_box_ab61795847ac111bb3b5f9150318ad8ad}{{\bfseries Compact\-Sample\-Size\-Box} (const unsigned long int \&s, const Q\-String \&t, const unsigned long int \&off, const unsigned int \&v, const Q\-List$<$ unsigned int $>$ \&f, const unsigned int \&res, const unsigned int \&fs, const unsigned long int \&sc, const Q\-List$<$ unsigned int $>$ \&es)}\label{class_compact_sample_size_box_ab61795847ac111bb3b5f9150318ad8ad}
 
 \item 
 virtual Q\-String \hyperlink{class_compact_sample_size_box_a10c8ab4b452dd5c2d58e2c744ffac884}{get\-Full\-Name} ()
-\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em get\-Full\-Name \end{DoxyCompactList}\item 
+virtual Q\-Standard\-Item\-Model $\ast$ \hyperlink{class_compact_sample_size_box_a5bb876b4592c6ec6c2065ee3fbdaa869}{get\-Model} ()
+\begin{DoxyCompactList}\small\item\em get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. \end{DoxyCompactList}\item 
+\hypertarget{class_compact_sample_size_box_a972f5b59a09a3691a0630d6aad2cec0a}{unsigned int {\bfseries get\-Sample\-Size} (const unsigned int \&id)}\label{class_compact_sample_size_box_a972f5b59a09a3691a0630d6aad2cec0a}
+
+\item 
+\hypertarget{class_compact_sample_size_box_a5c5027a65d1b1fff8837bf5ebb3b8293}{unsigned int {\bfseries get\-Entry\-Count} ()}\label{class_compact_sample_size_box_a5c5027a65d1b1fff8837bf5ebb3b8293}
+
+\item 
+\hypertarget{class_compact_sample_size_box_abb758372ce0db4d4b963845be990a864}{unsigned int {\bfseries get\-Sample\-Size} ()}\label{class_compact_sample_size_box_abb758372ce0db4d4b963845be990a864}
+
+\end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
 
@@ -53,6 +64,24 @@ full\-Name of the box, e.\-g. \char`\"{}\-Media Data Box\char`\"{}
 
 
 Reimplemented from \hyperlink{class_full_box_a0701464d8e7386653f025833308f76ee}{Full\-Box}.
+
+\hypertarget{class_compact_sample_size_box_a5bb876b4592c6ec6c2065ee3fbdaa869}{\index{Compact\-Sample\-Size\-Box@{Compact\-Sample\-Size\-Box}!get\-Model@{get\-Model}}
+\index{get\-Model@{get\-Model}!CompactSampleSizeBox@{Compact\-Sample\-Size\-Box}}
+\subsubsection[{get\-Model}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Standard\-Item\-Model $\ast$ Compact\-Sample\-Size\-Box\-::get\-Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_compact_sample_size_box_a5bb876b4592c6ec6c2065ee3fbdaa869}
+
+
+get\-Model Constructs and return Q\-Standard\-Item\-Model object that is appropriate for graphical representation (for elements like Q\-Tree\-View, Q\-Table\-View etc.). Returned model contains names of the box attributes and their value. Each pair it's in its own row. Name of the attribute is in column 0, value -\/ column 1. 
+
+\begin{DoxyReturn}{Returns}
+model of \hyperlink{class_box}{Box} attributes 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_box_a5c7911f3c88eec77383c0a464979807d}{Box}.
 
 
 

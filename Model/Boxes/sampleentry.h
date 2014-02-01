@@ -18,7 +18,8 @@
 class MainWindow;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SampleEntry class represents Sample Entry
+ * \brief The SampleEntry class
+ * represents Sample Entry
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SampleEntry: public Box {
@@ -33,7 +34,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The HintSampleEntry class represents Hint Sample Entry Class
+ * \brief The HintSampleEntry class
+ * represents Hint Sample Entry Class
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class HintSampleEntry: public SampleEntry {
@@ -44,7 +46,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The VisualSampleEntry class Visual Sample Entry
+ * \brief The VisualSampleEntry class
+ * represents Visual Sample Entry
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class VisualSampleEntry: public SampleEntry {
@@ -78,7 +81,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The AudioSampleEntry class represents Audio Sample Entry
+ * \brief The AudioSampleEntry class
+ * represents Audio Sample Entry
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class AudioSampleEntry: public SampleEntry {
@@ -99,7 +103,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MP4VisualSampleEntry class represents 'mp4v' box
+ * \brief The MP4VisualSampleEntry class
+ * represents 'mp4v' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MP4VisualSampleEntry : public VisualSampleEntry {
@@ -115,7 +120,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MP4AudioSampleEntry class represents 'mp4a' box
+ * \brief The MP4AudioSampleEntry class
+ * represents 'mp4a' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MP4AudioSampleEntry : public AudioSampleEntry {
@@ -130,7 +136,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MpegSampleEntry class represents 'mp4s' box
+ * \brief The MpegSampleEntry class
+ * represents 'mp4s' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MpegSampleEntry : public SampleEntry {
@@ -142,7 +149,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The ObjectDescriptorBox class represents 'iods' box
+ * \brief The ObjectDescriptorBox class
+ * represents 'iods' box
  * \see ISO/IEC 14496-14 Information technology – Coding of audio-visual objects – Part 14: MPEG4 MP4 file format
  */
 class ObjectDescriptorBox : public FullBox {
@@ -152,7 +160,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The ESDBox class represents 'esds' box
+ * \brief The ESDBox class
+ * represents 'esds' box
  * \see ISO/IEC 14496-14 Information technology – Coding of audio-visual objects – Part 14: MPEG4 MP4 file format
  */
 class ESDBox : public FullBox {
@@ -163,7 +172,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The AVCSampleEntry class represents 'avc1' box
+ * \brief The AVCSampleEntry class
+ * represents 'avc1' box
  * \see ISO/IEC 14496-15 Information technology – Coding of audio-visual objects – Part 15: Advanced Video Coding (AVC) file format
  */
 class AVCSampleEntry: public VisualSampleEntry {
@@ -179,7 +189,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The AVCConfigurationBox class represents 'avcC' box
+ * \brief The AVCConfigurationBox class
+ * represents 'avcC' box
  * \see ISO/IEC 14496-15 Information technology – Coding of audio-visual objects – Part 15: Advanced Video Coding (AVC) file format
  */
 class AVCConfigurationBox: public Box {
@@ -208,7 +219,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MPEG4BitRateBox class represents 'btrt' box
+ * \brief The MPEG4BitRateBox class
+ * represents 'btrt' box
  * \see ISO/IEC 14496-15 Information technology – Coding of audio-visual objects – Part 15: Advanced Video Coding (AVC) file format
  */
 class MPEG4BitRateBox: public Box {

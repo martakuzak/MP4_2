@@ -14,8 +14,9 @@
 //profiles="urn:mpeg:dash:profile:isoff-main:2011">
 class TreeModel;
 /*!
- * \brief The ProgramInformation class specifies descriptive information about the program.
- * It's been not used yet.
+  *\brief The ProgramInformation class represents ProgramInformation element of Media Presentation Description xml file.
+  * It's been not used yet.
+  *\see ISO/IEC 23009-1:2012 Information technology – Dynamic adaptive streaming over HTTP (DASH) – Part 1: Media presentation description and segment formats
  */
 class ProgramInformation {
 private:
@@ -44,18 +45,9 @@ public:
     void setCopyright(const QString &value);
 };
 /*!
- * \brief The MPD class represents main element of MPD document.
- * - atrributes:
- *     -# profiles (mandatory)
- *     -# type (optional, default: static)
- *     -# mediaPresentationDuration (must be present for static type)
- *     -# minBufferTime (mandatory)
- *     -# xmlns
- * - elements:
- *     -# Period (1...N)
- *     -# BaseURL (0...N)
-*/
-
+  *\brief The MPD class represents MPD element of Media Presentation Description xml file.
+  *\see ISO/IEC 23009-1:2012 Information technology – Dynamic adaptive streaming over HTTP (DASH) – Part 1: Media presentation description and segment formats
+ */
 class MPD {
 private:
     QString type;
@@ -90,9 +82,9 @@ public:
     BaseURL *getBaseURL() const;
     void setBaseURL(const QString &url);
 };
-
 /*!
-  *\brief The MPDWriter class contains methods that create and write MPD file.
+  *\brief The MPDWriter class
+  * contains methods that create and write MPD file.
  */
 class MPDWriter {
 private:

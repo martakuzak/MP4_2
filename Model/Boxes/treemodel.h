@@ -15,7 +15,7 @@ class MainWindow;
 class DashWrapper;
 /*!
   *\brief The TreeModel class
-  *represents tree model for TreeView
+  * represents tree model for TreeView
  */
 class TreeModel : public QAbstractItemModel {
     Q_OBJECT

@@ -5,7 +5,6 @@
 #include <memory>
 #include <qDebug>
 #include <cmath>
-#include "exceptions.h"
 #include "analyzer.h"
 #include "box.h"
 #include "trackbox.h"
@@ -14,6 +13,9 @@
 
 class Analyzer;
 
+/*!
+ * \brief The BoxFactory class is a factory that creates Box objects.
+ */
 class BoxFactory {
 private:
     /*!

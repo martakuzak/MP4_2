@@ -23,7 +23,8 @@
 class MainWindow;
 
 /*!
- * \brief The SampleTableBox class represents 'stbl' box
+ * \brief The SampleTableBox class
+ * represents 'stbl' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SampleTableBox : public Box {
@@ -39,7 +40,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The TimeToSampleBox class represents 'stts' box
+ * \brief The TimeToSampleBox class
+ * represents 'stts' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class TimeToSampleBox : public FullBox {
@@ -55,7 +57,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The CompositionOffsetBox class represents 'ctts' box
+ * \brief The CompositionOffsetBox class
+ * represents 'ctts' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class CompositionOffsetBox : public FullBox {
@@ -71,7 +74,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
-  *\brief The SampleDescriptionBox class represents 'stsd' box
+  *\brief The SampleDescriptionBox class
+  * represents 'stsd' box
   * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
 */
 class SampleDescriptionBox : public FullBox {
@@ -92,7 +96,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SampleSizeBox class represents 'stsz' box
+ * \brief The SampleSizeBox class
+ * represents 'stsz' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SampleSizeBox : public FullBox {
@@ -118,7 +123,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The CompactSampleSizeBox class represents 'stz2' box
+ * \brief The CompactSampleSizeBox class
+ * represents 'stz2' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class CompactSampleSizeBox : public FullBox {
@@ -144,7 +150,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SampleToChunkBox class represents 'stsc' box
+ * \brief The SampleToChunkBox class
+ * represents 'stsc' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SampleToChunkBox : public FullBox {
@@ -162,7 +169,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The ChunkOffsetBox class represents 'stco' box
+ * \brief The ChunkOffsetBox class
+ * represents 'stco' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class ChunkOffsetBox : public FullBox {
@@ -177,7 +185,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The ChunkLargeOffsetBox class represents 'co64' box
+ * \brief The ChunkLargeOffsetBox class
+ * represents 'co64' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class ChunkLargeOffsetBox : public FullBox {
@@ -192,7 +201,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SyncSampleBox class represents 'stss' box
+ * \brief The SyncSampleBox class
+ * represents 'stss' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SyncSampleBox : public FullBox {
@@ -213,7 +223,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The ShadowSyncSampleBox class represents 'stsh' box
+ * \brief The ShadowSyncSampleBox class
+ * represents 'stsh' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class ShadowSyncSampleBox : public FullBox{
@@ -223,7 +234,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The DegradationPriorityBox class represents 'stdp' box
+ * \brief The DegradationPriorityBox
+ * class represents 'stdp' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class DegradationPriorityBox : public FullBox {
@@ -233,7 +245,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The PaddingBitsBox class represents 'padb' box
+ * \brief The PaddingBitsBox class
+ * represents 'padb' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class PaddingBitsBox : public FullBox {

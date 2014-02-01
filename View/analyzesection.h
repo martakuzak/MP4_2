@@ -20,7 +20,8 @@
 class TreeModel;
 
 /*!
- * \brief The AnalyzeSection class represents analyze section of MP4 GUI.
+ * \brief The AnalyzeSection class
+ * represents analyze section of MP4 GUI.
  * Analyze section displays box tree and table of contents of selected box.
  */
 class AnalyzeSection : public QSplitter {

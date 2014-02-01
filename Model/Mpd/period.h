@@ -3,12 +3,9 @@
 
 #include <qDebug>
 #include "segmentlist.h"
-
 /*!
-  *\brief The BaseURL class describes URL
-  * - atrributes:
-  *     -# serviceLocation(optional)
-  *     -# byteRange (optional)
+  *\brief The BaseURL class represents BaseURL element of Media Presentation Description xml file.
+  *\see ISO/IEC 23009-1:2012 Information technology – Dynamic adaptive streaming over HTTP (DASH) – Part 1: Media presentation description and segment formats
  */
 class BaseURL {
 private:
@@ -33,20 +30,8 @@ public:
 };
 ///////////////////////////////////////////////////////////////////////////////////
 /*!
-  *\brief The Representation class contains a description of a Representation.
-  * - atrributes:
-  *     -# id (optional)
-  *     -# bandwidith (optional)
-  *     -# qualityRanking (optional)
-  *     -# dependencyId (optional)
-  *     -# mediaStreamStructureId (optional)
-  *     -# CommonAttributesElements
-  * - elements:
-  *     -# BaseURL (0..N)
-  *     -# SubRepresentation (0..N)
-  *     -# SegmentBase (0..1)
-  *     -# SegmentList (0..1)
-  *     -# SegmentTemplate (0..1)
+  *\brief The Representation class represents AdaptationSet element of Media Presentation Description xml file.
+  *\see ISO/IEC 23009-1:2012 Information technology – Dynamic adaptive streaming over HTTP (DASH) – Part 1: Media presentation description and segment formats
  */
 class Representation {
 private:
@@ -97,37 +82,8 @@ public:
 };
 ///////////////////////////////////////////////////////////////////////////////////
 /*!
-  *\brief The AdaptationSet class specifies the information of a AdaptationSet.
-  * - atrributes:
-  *     -# id (optional)
-  *     -# group (optional)
-  *     -# CommonAttributesElements
-  *     -# lang (optional)
-  *     -# contentType (optional)
-  *     -# par (optional)
-  *     -# minBandwidth (optional)
-  *     -# maxBandwidth (optional)
-  *     -# minWidth (optional)
-  *     -# maxWidth (optional)
-  *     -# minHeight (optional)
-  *     -# maxHeight (optional)
-  *     -# minFrameRate (optional)
-  *     -# maxFrameRate (optional)
-  *     -# SegmentAlignment (optional with default value: false)
-  *     -# bitstreamSwitching (optional)
-  *     -# subsegmentAlignment (optional with default value: false)
-  *     -# subsegmentStartsWithSAP (optional with default value: 0)
-  * - elements:
-  *     -# Accessibility (0..N)
-  *     -# Role (0..N)
-  *     -# Rating (0..N)
-  *     -# Viewpoint (0..N)
-  *     -# ContentComponent (0..N)
-  *     -# BaseURL (0..N)
-  *     -# SegmentBase (0..1)
-  *     -# SegmentList (0..1)
-  *     -# SegmentTemplate (0..1)
-  *     -# Representation (0..N)
+  *\brief The AdaptationSet class represents AdaptationSet element of Media Presentation Description xml file.
+  *\see ISO/IEC 23009-1:2012 Information technology – Dynamic adaptive streaming over HTTP (DASH) – Part 1: Media presentation description and segment formats
  */
 
 class AdaptationSet {
@@ -187,20 +143,9 @@ public:
 };
 /////////////////////////////////
 /*!
-  *\brief The Period class specifies the information of a Period.
-  * - atrributes:
-  *     -# id (optional)
-  *     -# start (optional)
-  *     -# duration (optional)
-  *     -# bitstreamswitching (optional with default value: false)
-  * - elements:
-  *     -# BaseURL (0..N)
-  *     -# SegmentBase (0..1)
-  *     -# SegmentList (0..1)
-  *     -# SegmentTemplate (0..1)
-  *     -# AdaptationSet (0..N)
-  *     -# Subset (0..N)
-*/
+  *\brief The Period class represents Period element of Media Presentation Description xml file.
+  *\see ISO/IEC 23009-1:2012 Information technology – Dynamic adaptive streaming over HTTP (DASH) – Part 1: Media presentation description and segment formats
+ */
 
 class Period {
 private:

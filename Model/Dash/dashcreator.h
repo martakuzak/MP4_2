@@ -9,7 +9,8 @@
 
 class TreeModel;
 /*!
-  *\brief The DashCreator class provides several methods that enables writing mp4 dash file. The file may be streamed via internet
+  *\brief The DashCreator class
+  * provides several methods that enables writing mp4 dash file. The file may be streamed via internet
   *according to MPEG-DASH standard.
  */
 class DashCreator {

@@ -24,7 +24,6 @@ SOURCES += main.cpp\
     Model\Boxes\boxfactory.cpp \
     Model\Dash\dashcreator.cpp \
     Model\Dash\dashwrapper.cpp \
-    Model\Boxes\exceptions.cpp \
     Model\Mpd\mpd.cpp \
     Model\Mpd\period.cpp \
     Model\Boxes\sampleentry.cpp \
@@ -43,7 +42,6 @@ HEADERS  += View\mainwindow.h \
     Model\Boxes\boxfactory.h \
     Model\Dash\dashcreator.h \
     Model\Dash\dashwrapper.h \
-    Model\Boxes\exceptions.h \
     Model\Mpd\mpd.h \
     Model\Mpd\period.h \
     Model\Boxes\sampleentry.h \

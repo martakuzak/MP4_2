@@ -97,7 +97,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The FullBox class represents Full Box
+ * \brief The FullBox class
+ * represents Full Box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class FullBox : public Box {
@@ -122,7 +123,8 @@ public:
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The FileTypeBox class represents 'ftyp' box
+ * \brief The FileTypeBox class
+ * represents 'ftyp' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class FileTypeBox : public Box {
@@ -138,7 +140,8 @@ public:
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SegmentTypeBox class represents 'styp' box
+ * \brief The SegmentTypeBox class
+ * represents 'styp' box
  */
 class SegmentTypeBox : public Box {
 protected:
@@ -153,7 +156,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
-/* \brief The MediaBox class represents 'mdia' box
+/* \brief The MediaBox class
+ *represents 'mdia' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
 */
 class MediaBox : public Box {
@@ -169,7 +173,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
-/*! * \brief The MediaDataBox class represents 'mdat' box
+/*! * \brief The MediaDataBox class
+ *represents 'mdat' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
 /*! */
 class MediaDataBox : public Box {
@@ -184,7 +189,8 @@ public:
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MediaHeaderBox class represents 'mdhd' box
+ * \brief The MediaHeaderBox class
+ * represents 'mdhd' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MediaHeaderBox : public FullBox {
@@ -208,7 +214,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MovieBox class represents 'moov' box
+ * \brief The MovieBox class
+ * represents 'moov' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MovieBox : public Box {
@@ -224,7 +231,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MovieHeaderBox class represents 'mvhd' box
+ * \brief The MovieHeaderBox class
+ *represents 'mvhd' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MovieHeaderBox : public FullBox {
@@ -257,7 +265,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MediaInformationBox class represents 'minf' box
+ * \brief The MediaInformationBox class
+ *represents 'minf' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MediaInformationBox : public Box {
@@ -268,7 +277,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The VideoMediaHeaderBox class represents 'vmhd' box
+ * \brief The VideoMediaHeaderBox class
+ *represents 'vmhd' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class VideoMediaHeaderBox : public FullBox {
@@ -284,7 +294,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SoundMediaHeaderBox class represents 'smhd' box
+ * \brief The SoundMediaHeaderBox class
+ *represents 'smhd' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SoundMediaHeaderBox : public FullBox {
@@ -299,7 +310,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The HintMediaHeaderBox class represents 'hmhd' box
+ * \brief The HintMediaHeaderBox class
+ *represents 'hmhd' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class HintMediaHeaderBox : public FullBox {
@@ -309,7 +321,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The NullMediaHeaderBox class represents 'nmhd' box
+ * \brief The NullMediaHeaderBox class
+ *represents 'nmhd' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class NullMediaHeaderBox : public FullBox{
@@ -319,7 +332,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The DataInformationBox class represents 'dinf' box
+ * \brief The DataInformationBox class
+ *represents 'dinf' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class DataInformationBox : public Box {
@@ -330,7 +344,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The DataEntryUrnBox class represents 'urn ' box
+ * \brief The DataEntryUrnBox class
+ *represents 'urn ' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class DataEntryUrnBox : public FullBox {
@@ -340,7 +355,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The DataEntryUrlBox class represents 'url ' box
+ * \brief The DataEntryUrlBox class
+ *represents 'url ' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class DataEntryUrlBox : public FullBox {
@@ -354,7 +370,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The DataReferenceBox class represents 'dref' box
+ * \brief The DataReferenceBox class
+ *represents 'dref' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class DataReferenceBox : public FullBox {
@@ -370,7 +387,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The FreeSpaceBox class represents 'free' box
+ * \brief The FreeSpaceBox class
+ * represents 'free' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class FreeSpaceBox : public Box {
@@ -383,7 +401,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The EditBox class represents 'edts' box
+ * \brief The EditBox class
+ * represents 'edts' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class EditBox : public Box {
@@ -394,7 +413,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The EditListBox class represents 'elst' box
+ * \brief The EditListBox class
+ * represents 'elst' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class EditListBox : public FullBox {
@@ -413,7 +433,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The UserDataBox class represents 'udta' box
+ * \brief The UserDataBox class
+ * represents 'udta' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class UserDataBox : public Box {
@@ -423,7 +444,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The CopyRightBox class represents 'cprt' box
+ * \brief The CopyRightBox class
+ * represents 'cprt' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class CopyRightBox : public FullBox {
@@ -433,7 +455,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MovieExtendsBox class represents 'mvex' box
+ * \brief The MovieExtendsBox class
+ * represents 'mvex' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MovieExtendsBox : public Box {
@@ -444,7 +467,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MovieExtendsHeaderBox class represents 'mehd' box
+ * \brief The MovieExtendsHeaderBox class
+ * represents 'mehd' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MovieExtendsHeaderBox : public FullBox {
@@ -458,7 +482,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MovieFragmentBox class represents 'moof' box
+ * \brief The MovieFragmentBox class
+ * represents 'moof' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MovieFragmentBox : public Box {
@@ -469,7 +494,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MovieFragmentHeaderBox class represents 'mfhd' box
+ * \brief The MovieFragmentHeaderBox class
+ * represents 'mfhd' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MovieFragmentHeaderBox : public FullBox {
@@ -482,7 +508,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MovieFragmentRandomAccessBox class represents 'mfra' box
+ * \brief The MovieFragmentRandomAccessBox class
+ * represents 'mfra' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MovieFragmentRandomAccessBox : public Box {
@@ -493,7 +520,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MovieFragmentRandomAccessOffsetBox class represents 'mfro' box
+ * \brief The MovieFragmentRandomAccessOffsetBox class
+ * represents 'mfro' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MovieFragmentRandomAccessOffsetBox : public FullBox {
@@ -503,7 +531,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SampleDependencyTypeBox class represents 'sdtp' box
+ * \brief The SampleDependencyTypeBox class
+ * represents 'sdtp' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SampleDependencyTypeBox : public FullBox {
@@ -513,7 +542,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SampleToGroupBox class represents 'sbgp' box
+ * \brief The SampleToGroupBox class
+ * represents 'sbgp' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SampleToGroupBox : public FullBox {
@@ -523,7 +553,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SampleGroupDescriptionBox class represents 'sgpd' box
+ * \brief The SampleGroupDescriptionBox class
+ * represents 'sgpd' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SampleGroupDescriptionBox : public FullBox {
@@ -533,7 +564,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SampleScaleBox class represents 'stsl' box
+ * \brief The SampleScaleBox class
+ * represents 'stsl' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SampleScaleBox : public FullBox {
@@ -543,7 +575,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SubSampleInformationBox class represents 'subs' box
+ * \brief The SubSampleInformationBox class
+ * represents 'subs' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SubSampleInformationBox : public FullBox {
@@ -553,7 +586,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The ProgressiveDownloadInfoBox class represents 'pdin' box
+ * \brief The ProgressiveDownloadInfoBox class
+ * represents 'pdin' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class ProgressiveDownloadInfoBox : public FullBox {
@@ -563,7 +597,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MetaBox class represents 'meta' box
+ * \brief The MetaBox class
+ * represents 'meta' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MetaBox : public FullBox {
@@ -575,7 +610,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
-* \brief The XMLBox class represents 'xml ' box
+* \brief The XMLBox class represents
+* 'xml ' box
 * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
 */
 class XMLBox : public FullBox {
@@ -585,7 +621,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The BinaryXMLBox class represents 'bxml' box
+ * \brief The BinaryXMLBox class
+ * represents 'bxml' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class BinaryXMLBox : public FullBox {
@@ -595,7 +632,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The ItemLocationBox class represents 'iloc' box
+ * \brief The ItemLocationBox class
+ * represents 'iloc' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class ItemLocationBox : public FullBox {
@@ -605,7 +643,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The PrimaryItemBox class represents 'pitm' box
+ * \brief The PrimaryItemBox class
+ * represents 'pitm' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class PrimaryItemBox : public FullBox {
@@ -615,7 +654,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The ItemProtectionBox class represents 'ipro' box
+ * \brief The ItemProtectionBox class
+ * represents 'ipro' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class ItemProtectionBox : public FullBox {
@@ -626,7 +666,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The ItemInfoEntry class represents 'infe' box
+ * \brief The ItemInfoEntry class
+ * represents 'infe' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class ItemInfoEntry : public FullBox {
@@ -636,7 +677,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The ItemInfoBox class represents 'iinf' box
+ * \brief The ItemInfoBox class
+ * represents 'iinf' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class ItemInfoBox : public FullBox {
@@ -646,7 +688,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The ProtectionSchemeInfoBox class represents 'sinf' box
+ * \brief The ProtectionSchemeInfoBox class
+ * represents 'sinf' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class ProtectionSchemeInfoBox : public Box {
@@ -657,7 +700,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The OriginalFormatBox class represents 'frma' box
+ * \brief The OriginalFormatBox class
+ * represents 'frma' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class OriginalFormatBox : public Box {
@@ -667,7 +711,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The IPMPInfoBox class represents 'imif' box
+ * \brief The IPMPInfoBox class
+ * represents 'imif' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class IPMPInfoBox : public FullBox {
@@ -677,7 +722,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The IPMPControlBox class represents 'ipmc' box
+ * \brief The IPMPControlBox class
+ * represents 'ipmc' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class IPMPControlBox : public FullBox {
@@ -687,7 +733,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SchemeTypeBox class represents 'schm' box
+ * \brief The SchemeTypeBox class
+ * represents 'schm' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SchemeTypeBox : public FullBox {
@@ -697,7 +744,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SchemeInformationBox class represents 'schi' box
+ * \brief The SchemeInformationBox class
+ * represents 'schi' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SchemeInformationBox : public Box {
@@ -707,7 +755,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The TimeScaleEntry class represents 'tims' box
+ * \brief The TimeScaleEntry class
+ * represents 'tims' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class TimeScaleEntry : public Box {
@@ -717,7 +766,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The TimeOffset class represents 'tsro' box
+ * \brief The TimeOffset class
+ * represents 'tsro' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class TimeOffset : public Box {
@@ -727,7 +777,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SequenceOffset class represents 'snro' box
+ * \brief The SequenceOffset class
+ * represents 'snro' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SequenceOffset : public Box {
@@ -737,7 +788,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SRTPProcessBox class represents 'srtp' box
+ * \brief The SRTPProcessBox class
+ * represents 'srtp' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class SRTPProcessBox : public FullBox {
@@ -747,7 +799,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The MovieHintInformation class represents 'hnti' box
+ * \brief The MovieHintInformation class
+ * represents 'hnti' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class MovieHintInformation : public Box {
@@ -757,7 +810,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The RTPMovieHintInformation class represents 'rtp ' box
+ * \brief The RTPMovieHintInformation class
+ * represents 'rtp ' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class RTPMovieHintInformation : public Box {
@@ -767,7 +821,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The RTPTrackSDPHintInformation class represents 'sdp ' box
+ * \brief The RTPTrackSDPHintInformation class
+ * represents 'sdp ' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class RTPTrackSDPHintInformation : public Box {
@@ -777,7 +832,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The HintStatisticsBox class represents 'hinf' box
+ * \brief The HintStatisticsBox class
+ * represents 'hinf' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class HintStatisticsBox : public Box {
@@ -789,7 +845,8 @@ public:
 ///mpeg dash
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
-* \brief The SampleAuxiliaryInformationSizesBox class represents 'saiz' box
+* \brief The SampleAuxiliaryInformationSizesBox class
+* represents 'saiz' box
 * \see ISO/IEC 14496-12:2008/FDAM 3:2011 – Information technology – Coding of audio-visual objects – Part 12: ISO base media file format, AMENDMENT 3: DASH support and RTP reception hint track processing
 */
 class SampleAuxiliaryInformationSizesBox : public FullBox {
@@ -799,7 +856,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SampleAuxiliaryInformationOffsetsBox class represents 'saio' box
+ * \brief The SampleAuxiliaryInformationOffsetsBox class
+ * represents 'saio' box
  * \see ISO/IEC 14496-12:2008/FDAM 3:2011 – Information technology – Coding of audio-visual objects – Part 12: ISO base media file format, AMENDMENT 3: DASH support and RTP reception hint track processing
  */
 class SampleAuxiliaryInformationOffsetsBox : public FullBox {
@@ -809,7 +867,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The LevelAssignmentBox class represents 'leva' box
+ * \brief The LevelAssignmentBox class
+ * represents 'leva' box
  * \see ISO/IEC 14496-12:2008/FDAM 3:2011 – Information technology – Coding of audio-visual objects – Part 12: ISO base media file format, AMENDMENT 3: DASH support and RTP reception hint track processing
  */
 class LevelAssignmentBox : public FullBox {
@@ -819,7 +878,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SegmentIndexBox class represents 'sidx' box
+ * \brief The SegmentIndexBox class
+ * represents 'sidx' box
  * \see ISO/IEC 14496-12:2008/FDAM 3:2011 – Information technology – Coding of audio-visual objects – Part 12: ISO base media file format, AMENDMENT 3: DASH support and RTP reception hint track processing
  */
 class SegmentIndexBox : public FullBox {
@@ -846,7 +906,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The SubsegmentIndexBox class represents 'ssix' box
+ * \brief The SubsegmentIndexBox class
+ * represents 'ssix' box
  * \see ISO/IEC 14496-12:2008/FDAM 3:2011 – Information technology – Coding of audio-visual objects – Part 12: ISO base media file format, AMENDMENT 3: DASH support and RTP reception hint track processing
  */
 class SubsegmentIndexBox : public FullBox {
@@ -856,7 +917,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The ProducerReferenceTimeBox class represents 'pfrt' box
+ * \brief The ProducerReferenceTimeBox class
+ * represents 'pfrt' box
  * \see ISO/IEC 14496-12:2008/FDAM 3:2011 – Information technology – Coding of audio-visual objects – Part 12: ISO base media file format, AMENDMENT 3: DASH support and RTP reception hint track processing
  */
 class ProducerReferenceTimeBox : public FullBox {
@@ -866,7 +928,8 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*!
- * \brief The UniversalUniqueIdentifier class represents 'uuid' box
+ * \brief The UniversalUniqueIdentifier class
+ * represents 'uuid' box
  * \see ISO/IEC 14496-12 Information technology – Coding of audio-visual objects – Part 12: ISO base media file format
  */
 class UniversalUniqueIdentifier : public Box {
