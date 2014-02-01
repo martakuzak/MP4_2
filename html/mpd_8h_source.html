@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>MP4 multimedia file editor: Model/Mpd/mpd.h Source File</title>
+<title>MP4 Multimedia File Editor: Model/Mpd/mpd.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">MP4 multimedia file editor
+   <div id="projectname">MP4 Multimedia File Editor
    </div>
   </td>
  </tr>
@@ -156,35 +156,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="class_base_u_r_l.html">BaseURL</a> *getBaseURL() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> setBaseURL(<span class="keyword">const</span> QString &amp;url);</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;};</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="class_m_p_d_writer.html">   90</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_m_p_d_writer.html">MPDWriter</a> {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    QList&lt;Representation*&gt; representations;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    QString dashPath;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="class_tree_model.html">TreeModel</a> *dashModel;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="class_tree_model.html">TreeModel</a> *originalModel;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    QString originalFileName;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="class_m_p_d.html">MPD</a> *mpd;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="class_m_p_d_writer.html">MPDWriter</a>();</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_m_p_d_writer.html#a6e014465e66d27b34efc52ae6c32fdd9">addRepresentation</a>(<span class="keyword">const</span> QString &amp;path, <span class="keyword">const</span> QString &amp;fn, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;oneFile);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_m_p_d_writer.html#a5aa7772d432aab1eb501fb20f3a1d0af">init</a>(<span class="keywordtype">bool</span> oneFile); </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_m_p_d_writer.html#a4d1fb1b9b816050498f54642b3fac073">setDashPath</a>(<span class="keyword">const</span> QString&amp; dashPath);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_m_p_d_writer.html#a366910941d11fd2094b746d91ab00732">writeMPD</a>(<span class="keyword">const</span> QString &amp;url);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    QString getOriginalFileName() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordtype">void</span> setOriginalFileName(<span class="keyword">const</span> QString &amp;value);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <a class="code" href="class_adaptation_set.html">AdaptationSet</a> *setAdaptationSet();</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <a class="code" href="class_period.html">Period</a> *setPeriod();</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getRepBandwidth(<span class="keywordtype">bool</span> oneFile, <a class="code" href="class_segment_list.html">SegmentList</a> *slist = <span class="keyword">new</span> <a class="code" href="class_segment_list.html">SegmentList</a>());</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    QString getHMSFormat(<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; value);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    QString getDuration();</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> *getDimensions();</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">void</span> setMPD(<span class="keyword">const</span> QString &amp;url);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <a class="code" href="class_segment_list.html">SegmentList</a> *setSegmentList(<span class="keywordtype">bool</span> oneFile, <span class="keyword">const</span> QString &amp;dashName = <span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;};</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="preprocessor">#endif // MPD_H</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="class_m_p_d_writer.html">   89</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_m_p_d_writer.html">MPDWriter</a> {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    QList&lt;Representation*&gt; representations;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    QString dashPath;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="class_tree_model.html">TreeModel</a> *dashModel;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="class_tree_model.html">TreeModel</a> *originalModel;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    QString originalFileName;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="class_m_p_d.html">MPD</a> *mpd;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="class_m_p_d_writer.html">MPDWriter</a>();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_m_p_d_writer.html#a6e014465e66d27b34efc52ae6c32fdd9">addRepresentation</a>(<span class="keyword">const</span> QString &amp;path, <span class="keyword">const</span> QString &amp;fn, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;oneFile);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_m_p_d_writer.html#a5aa7772d432aab1eb501fb20f3a1d0af">init</a>(<span class="keywordtype">bool</span> oneFile); </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_m_p_d_writer.html#a4d1fb1b9b816050498f54642b3fac073">setDashPath</a>(<span class="keyword">const</span> QString&amp; dashPath);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_m_p_d_writer.html#a366910941d11fd2094b746d91ab00732">writeMPD</a>(<span class="keyword">const</span> QString &amp;url);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    QString getOriginalFileName() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">void</span> setOriginalFileName(<span class="keyword">const</span> QString &amp;value);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <a class="code" href="class_adaptation_set.html">AdaptationSet</a> *setAdaptationSet();</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <a class="code" href="class_period.html">Period</a> *setPeriod();</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getRepBandwidth(<span class="keywordtype">bool</span> oneFile, <a class="code" href="class_segment_list.html">SegmentList</a> *slist = <span class="keyword">new</span> <a class="code" href="class_segment_list.html">SegmentList</a>());</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    QString getHMSFormat(<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; value);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    QString getDuration();</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> *getDimensions();</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">void</span> setMPD(<span class="keyword">const</span> QString &amp;url);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <a class="code" href="class_segment_list.html">SegmentList</a> *setSegmentList(<span class="keywordtype">bool</span> oneFile, <span class="keyword">const</span> QString &amp;dashName = <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;};</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#endif // MPD_H</span></div>
 <div class="ttc" id="class_tree_model_html"><div class="ttname"><a href="class_tree_model.html">TreeModel</a></div><div class="ttdoc">The TreeModel class represents tree model for TreeView. </div><div class="ttdef"><b>Definition:</b> treemodel.h:20</div></div>
 <div class="ttc" id="class_segment_list_html"><div class="ttname"><a href="class_segment_list.html">SegmentList</a></div><div class="ttdoc">The SegmentList class represents SegmentList element of Media Presentation Description xml file...</div><div class="ttdef"><b>Definition:</b> segmentlist.h:89</div></div>
 <div class="ttc" id="class_period_html"><div class="ttname"><a href="class_period.html">Period</a></div><div class="ttdoc">The Period class represents Period element of Media Presentation Description xml file. </div><div class="ttdef"><b>Definition:</b> period.h:150</div></div>
@@ -196,12 +195,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="class_program_information_html"><div class="ttname"><a href="class_program_information.html">ProgramInformation</a></div><div class="ttdoc">The ProgramInformation class represents ProgramInformation element of Media Presentation Description ...</div><div class="ttdef"><b>Definition:</b> mpd.h:21</div></div>
 <div class="ttc" id="class_m_p_d_html_a07c1991933d680f2a7843ce2f6a2c872"><div class="ttname"><a href="class_m_p_d.html#a07c1991933d680f2a7843ce2f6a2c872">MPD::write</a></div><div class="ttdeci">void write(QXmlStreamWriter *stream)</div><div class="ttdoc">write Writes MPD vertex into Media Presentation Description file </div><div class="ttdef"><b>Definition:</b> mpd.cpp:129</div></div>
 <div class="ttc" id="class_m_p_d_writer_html_a366910941d11fd2094b746d91ab00732"><div class="ttname"><a href="class_m_p_d_writer.html#a366910941d11fd2094b746d91ab00732">MPDWriter::writeMPD</a></div><div class="ttdeci">void writeMPD(const QString &amp;url)</div><div class="ttdoc">write Writes MPD file </div><div class="ttdef"><b>Definition:</b> mpd.cpp:228</div></div>
-<div class="ttc" id="class_m_p_d_writer_html"><div class="ttname"><a href="class_m_p_d_writer.html">MPDWriter</a></div><div class="ttdoc">The MPDWriter class contains methods that create and write MPD file. </div><div class="ttdef"><b>Definition:</b> mpd.h:90</div></div>
+<div class="ttc" id="class_m_p_d_writer_html"><div class="ttname"><a href="class_m_p_d_writer.html">MPDWriter</a></div><div class="ttdoc">The MPDWriter class contains methods that create and write MPD file. </div><div class="ttdef"><b>Definition:</b> mpd.h:89</div></div>
 <div class="ttc" id="class_m_p_d_writer_html_a6e014465e66d27b34efc52ae6c32fdd9"><div class="ttname"><a href="class_m_p_d_writer.html#a6e014465e66d27b34efc52ae6c32fdd9">MPDWriter::addRepresentation</a></div><div class="ttdeci">void addRepresentation(const QString &amp;path, const QString &amp;fn, const bool &amp;oneFile)</div><div class="ttdoc">addRepresentation adds representation to MPD data model </div><div class="ttdef"><b>Definition:</b> mpd.cpp:265</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2014 14:22:06 for MP4 multimedia file editor by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Feb 2 2014 00:38:45 for MP4 Multimedia File Editor by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
