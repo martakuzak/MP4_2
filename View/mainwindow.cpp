@@ -59,8 +59,9 @@ void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName) {
         tabs->setCurrentIndex(tabs->count() - 1);
         tabs->setTabsClosable(true);
         //mainLayout->addWidget(analyzeSection);
-        setWindowTitle("MP4 " + fileName);
+        setWindowTitle("MP4 ");
     }
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::printSelectedBox(QStandardItemModel *model, TreeItem *item) {
