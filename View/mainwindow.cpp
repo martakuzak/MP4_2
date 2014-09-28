@@ -18,8 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mainLayout = new QVBoxLayout();
     tabs = new QTabWidget();
+    makeTabsConnection();
     mainLayout->addWidget(tabs);
-    analyzedFiles = new QHash<QString, std::shared_ptr<AnalyzeSection>>();
+
     initPointers();
 
     QWidget *window = new QWidget();
@@ -41,21 +42,22 @@ void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName) {
         delete dashSection;
         dashSection = NULL;
     }
-   if(analyzeSection != NULL) {
+    if(analyzeSection != NULL) {
         delete analyzeSection;
         analyzeSection = NULL;
-   }
+    }
 
     std::shared_ptr<AnalyzeSection> analyzeSection = std::shared_ptr<AnalyzeSection>(new AnalyzeSection(model));
-    analyzedFiles->insert(fileName, analyzeSection);
     tabs->addTab(analyzeSection.get(), fileName);
     makeAnalyzeConnection(analyzeSection);
+    tabs->setCurrentIndex(tabs->count() - 1);
+    tabs->setTabsClosable(true);
     //mainLayout->addWidget(analyzeSection);
     setWindowTitle("MP4 " + fileName);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::printSelectedBox(QStandardItemModel *model, TreeItem *item) {
-    analyzeSection->printSelectedBox(model, item);
+    ((AnalyzeSection*)(tabs->currentWidget()))->printSelectedBox(model,item);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::selectBoxesFound(QModelIndexList &boxes, const QString &fullName) {
@@ -129,6 +131,11 @@ void MainWindow::launchHelpSelected() {
     QDesktopServices::openUrl(QUrl("help.html"));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
+void MainWindow::tabClosed(int rowId) {
+    if(tabs->count() > rowId)
+        tabs->removeTab(rowId);
+}
+////////////////////////////////////////////////////////////////////////////////////////////
 ///Private
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::initPointers() {
@@ -179,5 +186,10 @@ void MainWindow::makeAnalyzeConnection(std::shared_ptr<AnalyzeSection> analyze) 
             SLOT(selectionChanged(QItemSelectionModel*)), Qt::QueuedConnection);
     connect(analyze.get(), SIGNAL(searchButtonClicked(QString)), this,
             SLOT(searchButtonClicked(QString)), Qt::QueuedConnection);
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+void MainWindow::makeTabsConnection() {
+    connect(tabs, SIGNAL(tabCloseRequested(int)), this,
+            SLOT(tabClosed(int)), Qt::QueuedConnection);
 }
 

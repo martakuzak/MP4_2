@@ -55,7 +55,6 @@ protected:
     DashSection *dashSection;
     AnalyzeSection *analyzeSection;
     QTabWidget* tabs;
-    QHash<QString, std::shared_ptr<AnalyzeSection>>* analyzedFiles;
 public:
     /*!
      * \brief MainWindow Constructor of MainWindow
@@ -157,6 +156,12 @@ private slots:
      * Launches help.html file
      */
     void launchHelpSelected();
+    /*!
+     * \brief tabClosed
+     * \param rowId id of the row to remove
+     * Removes given tab from the tabs
+     */
+    void tabClosed(int rowId);
 signals:
     /*!
      * \brief fileSelected
@@ -214,6 +219,11 @@ private:
      * connects analyzeSection signals to this slots
      */
     void makeAnalyzeConnection(std::shared_ptr<AnalyzeSection> analyzeSection);
+    /*!
+     * \brief makeTabsConnection
+     * connects tabs signals to slots
+     */
+    void makeTabsConnection();
 };
 
 ///////////////////////////////////////////////////////////////
