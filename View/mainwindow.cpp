@@ -17,10 +17,6 @@ MainWindow::MainWindow(QWidget *parent) :
     resize(0.6*m_width, 0.6*m_height);
 
     mainLayout = new QVBoxLayout();
-    tabs = new QTabWidget();
-    makeTabsConnection();
-    analyzedFiles = new QHash<QString, std::shared_ptr<AnalyzeSection>>;
-    mainLayout->addWidget(tabs);
 
     initPointers();
 
@@ -39,28 +35,35 @@ MainWindow::~MainWindow() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName) {
+    fileAnalyzed(model, fileName, tabs);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName, QTabWidget *tabs) {
     if(dashSection != NULL) {
         delete dashSection;
         dashSection = NULL;
     }
 
-    if(analyzedFiles->contains(fileName)) {
-        for (int i = 0; i < tabs->count(); ++ i) {
-            if(tabs->tabText(i) == fileName) {
-                tabs->setCurrentIndex(i);
-                break;
-            }
-        }
-    } else {
-        std::shared_ptr<AnalyzeSection> analyzeSection = std::shared_ptr<AnalyzeSection>(new AnalyzeSection(model));
-        analyzedFiles->insert(fileName, analyzeSection);
-        tabs->addTab(analyzeSection.get(), fileName);
-        makeAnalyzeConnection(analyzeSection);
-        tabs->setCurrentIndex(tabs->count() - 1);
-        tabs->setTabsClosable(true);
-        //mainLayout->addWidget(analyzeSection);
-        setWindowTitle("MP4 ");
+    if(tabs == NULL) {
+        tabs = new QTabWidget();
+        makeTabsConnection();
+        mainLayout->addWidget(tabs);
     }
+
+    for (int i = 0; i < tabs->count(); ++ i) {
+        if(tabs->tabText(i) == fileName) {
+            tabs->setCurrentIndex(i);
+                return;
+        }
+    }
+    AnalyzeSection* analyzeSection = new AnalyzeSection(model);
+    tabs->addTab(analyzeSection, fileName);
+    makeAnalyzeConnection(analyzeSection);
+    tabs->setCurrentIndex(tabs->count() - 1);
+    tabs->setTabsClosable(true);
+    //mainLayout->addWidget(analyzeSection);
+    setWindowTitle("MP4 ");
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,6 +147,7 @@ void MainWindow::tabClosed(int rowId) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::initPointers() {
     dashSection = NULL;
+    tabs = NULL;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::createMenu() {
@@ -184,10 +188,10 @@ void MainWindow::makeDashConnection() {
     connect(dashSection, SIGNAL(removeFileSig(int)), this, SLOT(removeButtonClicked(int)), Qt::QueuedConnection);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::makeAnalyzeConnection(std::shared_ptr<AnalyzeSection> analyze) {
-    connect(analyze.get(), SIGNAL(boxSelected(QItemSelectionModel*)), this,
+void MainWindow::makeAnalyzeConnection(AnalyzeSection* analyze) {
+    connect(analyze, SIGNAL(boxSelected(QItemSelectionModel*)), this,
             SLOT(selectionChanged(QItemSelectionModel*)), Qt::QueuedConnection);
-    connect(analyze.get(), SIGNAL(searchButtonClicked(QString)), this,
+    connect(analyze, SIGNAL(searchButtonClicked(QString)), this,
             SLOT(searchButtonClicked(QString)), Qt::QueuedConnection);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -195,4 +199,3 @@ void MainWindow::makeTabsConnection() {
     connect(tabs, SIGNAL(tabCloseRequested(int)), this,
             SLOT(tabClosed(int)), Qt::QueuedConnection);
 }
-

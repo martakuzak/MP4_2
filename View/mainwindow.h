@@ -46,15 +46,10 @@ protected:
     //Actions- Help
     //when user clicks "help" in the menu
     QAction *helpAct; 
-    //Menus
-    //QMenu *fileMenu;
-    //QMenu *dashMenu;
-    //QMenu *helpMenu;
     //Layout of the whole window
     QVBoxLayout *mainLayout;
     DashSection *dashSection;
     QTabWidget* tabs;
-    QHash<QString, std::shared_ptr<AnalyzeSection>>* analyzedFiles;
 public:
     /*!
      * \brief MainWindow Constructor of MainWindow
@@ -218,12 +213,19 @@ private:
      * \brief makeAnalyzeConnection
      * connects analyzeSection signals to this slots
      */
-    void makeAnalyzeConnection(std::shared_ptr<AnalyzeSection> analyzeSection);
+    void makeAnalyzeConnection(AnalyzeSection *analyzeSection);
     /*!
      * \brief makeTabsConnection
      * connects tabs signals to slots
      */
     void makeTabsConnection();
+    /*!
+     * \brief fileAnalyzed
+     * \param model pointer to TreeModel of anylazed MP4 file
+     * \param fileName name of the analyzed MP4 file
+     * The method creates appropriate AnalyzeSection to display tree of boxes and table of contents.
+     */
+    void fileAnalyzed(TreeModel *model, const QString &fileName, QTabWidget* tbs);
 };
 
 ///////////////////////////////////////////////////////////////
