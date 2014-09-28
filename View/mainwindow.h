@@ -9,11 +9,13 @@
 #include <QMenuBar>
 #include <QLabel>
 #include <QPushButton>
+#include <QTabWidget>
 #include <QVBoxLayout>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QHash>
 #include <QString>
 #include <qDebug>
 
@@ -32,7 +34,7 @@ class AnalyzeSection;
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
-private:
+protected:
     //Actions- File
     //when user clicks "open file" in the menu
     QAction *openAct;
@@ -51,7 +53,9 @@ private:
     //Layout of the whole window
     QVBoxLayout *mainLayout;
     DashSection *dashSection;
-    AnalyzeSection *analyzeSection;   
+    AnalyzeSection *analyzeSection;
+    QTabWidget* tabs;
+    QHash<QString, std::shared_ptr<AnalyzeSection>>* analyzedFiles;
 public:
     /*!
      * \brief MainWindow Constructor of MainWindow
@@ -209,7 +213,7 @@ private:
      * \brief makeAnalyzeConnection
      * connects analyzeSection signals to this slots
      */
-    void makeAnalyzeConnection();
+    void makeAnalyzeConnection(std::shared_ptr<AnalyzeSection> analyzeSection);
 };
 
 ///////////////////////////////////////////////////////////////

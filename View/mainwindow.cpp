@@ -5,6 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent) {
+
     createActions();
     createMenu();
 
@@ -16,7 +17,9 @@ MainWindow::MainWindow(QWidget *parent) :
     resize(0.6*m_width, 0.6*m_height);
 
     mainLayout = new QVBoxLayout();
-
+    tabs = new QTabWidget();
+    mainLayout->addWidget(tabs);
+    analyzedFiles = new QHash<QString, std::shared_ptr<AnalyzeSection>>();
     initPointers();
 
     QWidget *window = new QWidget();
@@ -42,9 +45,12 @@ void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName) {
         delete analyzeSection;
         analyzeSection = NULL;
    }
-    analyzeSection = new AnalyzeSection(model);
-    makeAnalyzeConnection();
-    mainLayout->addWidget(analyzeSection);
+
+    std::shared_ptr<AnalyzeSection> analyzeSection = std::shared_ptr<AnalyzeSection>(new AnalyzeSection(model));
+    analyzedFiles->insert(fileName, analyzeSection);
+    tabs->addTab(analyzeSection.get(), fileName);
+    makeAnalyzeConnection(analyzeSection);
+    //mainLayout->addWidget(analyzeSection);
     setWindowTitle("MP4 " + fileName);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,10 +174,10 @@ void MainWindow::makeDashConnection() {
     connect(dashSection, SIGNAL(removeFileSig(int)), this, SLOT(removeButtonClicked(int)), Qt::QueuedConnection);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::makeAnalyzeConnection() {
-    connect(analyzeSection, SIGNAL(boxSelected(QItemSelectionModel*)), this,
+void MainWindow::makeAnalyzeConnection(std::shared_ptr<AnalyzeSection> analyze) {
+    connect(analyze.get(), SIGNAL(boxSelected(QItemSelectionModel*)), this,
             SLOT(selectionChanged(QItemSelectionModel*)), Qt::QueuedConnection);
-    connect(analyzeSection, SIGNAL(searchButtonClicked(QString)), this,
+    connect(analyze.get(), SIGNAL(searchButtonClicked(QString)), this,
             SLOT(searchButtonClicked(QString)), Qt::QueuedConnection);
 }
 

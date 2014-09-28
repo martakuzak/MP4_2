@@ -48,10 +48,10 @@ void Controller::searchBox(const QString &boxType) {
     int row = 0;
     int col = 0;
     QModelIndexList Items = model->match(model->index(row,col),
-                                             Qt::DisplayRole,
-                                             QVariant::fromValue(QString(boxType)),
-                                             -1,
-                                             Qt::MatchRecursive);
+                                         Qt::DisplayRole,
+                                         QVariant::fromValue(QString(boxType)),
+                                         -1,
+                                         Qt::MatchRecursive);
     if(Items.size()==0) {
         window->showWarningDialog("No box found.");
         return;
@@ -75,26 +75,28 @@ void Controller::dashFilesSelected(const bool& oneFile, const QString &url) {
     dashWrap->clear();
     if(fileModel->rowCount()) {
         dashWrap->setFileProp(fileModel->index(0,0).data(Qt::DisplayRole).toString());
-    }
-    for ( int i = 0 ; i < fileModel->rowCount() ; ++i ) {
-        QString fileName = fileModel->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
-        bool result;
-        if(oneFile)
-            result = dashWrap->writeFile(date, fileName, 500);
-        else
-            result = dashWrap->writeFiles(date, fileName, 500);
-        if(!result) {
-            window->showWarningDialog("Error while writing files");
-            return;
-        }
-        dashWrap->setFileProp(fileModel->index(i,0).data(Qt::DisplayRole).toString());
-        dashWrap->setMpdProps();
-        dashWrap->initMPD(oneFile);
-        dashWrap->addRepresentation(oneFile);
-    }
 
-    dashWrap->writeMPD(url);
-    window->showInfoDialog("Dash files generated.");
+        for ( int i = 0 ; i < fileModel->rowCount() ; ++i ) {
+            QString fileName = fileModel->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
+            bool result;
+            if(oneFile)
+                result = dashWrap->writeFile(date, fileName, 500);
+            else
+                result = dashWrap->writeFiles(date, fileName, 500);
+            if(!result) {
+                window->showWarningDialog("Error while writing files");
+                return;
+            }
+            dashWrap->setFileProp(fileModel->index(i,0).data(Qt::DisplayRole).toString());
+            dashWrap->setMpdProps();
+            dashWrap->initMPD(oneFile);
+            dashWrap->addRepresentation(oneFile);
+        }
+
+        dashWrap->writeMPD(url);
+        window->showInfoDialog("Dash files generated.");
+    } else
+        window->showInfoDialog("No files selected.");
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::dashDirSelected(const QString &dir) {
@@ -102,7 +104,7 @@ void Controller::dashDirSelected(const QString &dir) {
         QDir *directory = new QDir(dir);
         QStringList files;
         files = directory->entryList(QStringList("*.mp4"),
-                               QDir::Files | QDir::NoSymLinks);
+                                     QDir::Files | QDir::NoSymLinks);
         if(!files.empty()) {
             fileModel->clear();
             while(!files.empty()) {
@@ -119,11 +121,11 @@ void Controller::dashDirSelected(const QString &dir) {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::removeFile(const int &row) {
-        if(row >= 0 && row < (fileModel->rowCount())) {
-            fileModel->removeRow(row);
-            if(fileModel->rowCount())
-                window->setDashFileList(fileModel);
-            else
-                window->setDashFileList(fileModel, false);
-        }
+    if(row >= 0 && row < (fileModel->rowCount())) {
+        fileModel->removeRow(row);
+        if(fileModel->rowCount())
+            window->setDashFileList(fileModel);
+        else
+            window->setDashFileList(fileModel, false);
+    }
 }
