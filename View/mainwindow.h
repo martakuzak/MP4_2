@@ -225,7 +225,7 @@ private:
      * \param fileName name of the analyzed MP4 file
      * The method creates appropriate AnalyzeSection to display tree of boxes and table of contents.
      */
-    void fileAnalyzed(TreeModel *model, const QString &fileName, QTabWidget* tbs);
+    void fileAnalyzed(TreeModel *model, const QString &fileName, QTabWidget *&tbs);
 };
 
 ///////////////////////////////////////////////////////////////

@@ -39,7 +39,7 @@ void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName, QTabWidget *tabs) {
+void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName, QTabWidget* &tabs) {
     if(dashSection != NULL) {
         delete dashSection;
         dashSection = NULL;
@@ -62,6 +62,7 @@ void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName, QTabWid
     makeAnalyzeConnection(analyzeSection);
     tabs->setCurrentIndex(tabs->count() - 1);
     tabs->setTabsClosable(true);
+    qDebug()<<tabs->count();
     //mainLayout->addWidget(analyzeSection);
     setWindowTitle("MP4 ");
 
