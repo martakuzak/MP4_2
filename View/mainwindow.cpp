@@ -116,6 +116,11 @@ void MainWindow::searchButtonClicked(const QString& boxType) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::switchToDashMenuSelected() {
     setWindowTitle("MP4 MPEG-DASH");
+    if(tabs != NULL) {
+        delete tabs;
+        tabs = NULL;
+    }
+
     if(dashSection == NULL) {
         dashSection = new DashSection();
         makeDashConnection();

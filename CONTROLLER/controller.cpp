@@ -42,7 +42,7 @@ void Controller::boxSelected(QItemSelectionModel *selection) {
 //////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::searchBox(const QString &boxType) {
     if(boxType.length() != 4) {
-        window->showWarningDialog("Box type should has at least 4 characters.");
+        window->showWarningDialog(BOX_TOO_SHORT_MSG);
         return;
     }
     int row = 0;
@@ -53,7 +53,7 @@ void Controller::searchBox(const QString &boxType) {
                                          -1,
                                          Qt::MatchRecursive);
     if(Items.size()==0) {
-        window->showWarningDialog("No box found.");
+        window->showWarningDialog(BOX_NOT_FOUND);
         return;
     }
     QModelIndex tmpId = Items.front();
@@ -84,7 +84,7 @@ void Controller::dashFilesSelected(const bool& oneFile, const QString &url) {
             else
                 result = dashWrap->writeFiles(date, fileName, 500);
             if(!result) {
-                window->showWarningDialog("Error while writing files");
+                window->showWarningDialog(WRITE_FILES_ERROR);
                 return;
             }
             dashWrap->setFileProp(fileModel->index(i,0).data(Qt::DisplayRole).toString());
@@ -94,9 +94,9 @@ void Controller::dashFilesSelected(const bool& oneFile, const QString &url) {
         }
 
         dashWrap->writeMPD(url);
-        window->showInfoDialog("Dash files generated.");
+        window->showInfoDialog(DASH_FILES_SELECTED);
     } else
-        window->showInfoDialog("No files selected.");
+        window->showInfoDialog(NO_FILES_SELECTED);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::dashDirSelected(const QString &dir) {

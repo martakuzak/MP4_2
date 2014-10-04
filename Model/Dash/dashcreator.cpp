@@ -20,7 +20,7 @@ bool DashCreator::writeFile(const unsigned int & maxSampleNum) {
             writeMoov(dashFile);
             writeSegments(maxSampleNum, dashFile);
 
-             dashFile->close();
+            dashFile->close();
             return true;
         }
     }
@@ -87,13 +87,13 @@ unsigned int DashCreator::copyBox(const QString& type, std::shared_ptr<Box> pare
         return box->getSize();
     }
     unsigned long int size = 0;
-        unsigned long int offset = box->getOffset();
-        size = box->getSize();
-        if(maxSize)
-            size = maxSize;
-        file->seek(offset);
-        QByteArray array = file->read(size);
-        dashFile->write(array);
+    unsigned long int offset = box->getOffset();
+    size = box->getSize();
+    if(maxSize)
+        size = maxSize;
+    file->seek(offset);
+    QByteArray array = file->read(size);
+    dashFile->write(array);
 
     return size;
 }
@@ -200,15 +200,15 @@ unsigned int DashCreator::writeMdat(const unsigned long int& firstSample, const 
         dashFile->write(array);
     }
     else {
-            unsigned int position = 0;
-            while(position <= (size - 8)) {
-                if(position + 2028 > size - 8)
-                    array = file->read(size - 8 - position);
-                else
-                    array = file->read(2028);
-                dashFile->write(array);
-                position += 2028;
-            }
+        unsigned int position = 0;
+        while(position <= (size - 8)) {
+            if(position + 2028 > size - 8)
+                array = file->read(size - 8 - position);
+            else
+                array = file->read(2028);
+            dashFile->write(array);
+            position += 2028;
+        }
 
     }
     return size;

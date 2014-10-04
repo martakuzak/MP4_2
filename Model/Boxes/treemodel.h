@@ -17,6 +17,10 @@ class DashWrapper;
   *\brief The TreeModel class
   * represents tree model for TreeView
  */
+
+const QString SIZE = "Size";
+const QString OFFSET = "Offset";
+
 class TreeModel : public QAbstractItemModel {
     Q_OBJECT
 private:

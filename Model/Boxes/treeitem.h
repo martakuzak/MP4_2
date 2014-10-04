@@ -13,6 +13,9 @@ class Analyzer;
   *\brief The TreeItem class
   * represents single element of the tree model
  */
+
+const QString NAME = "Name";
+
 class TreeItem {
 private:
     /*!

@@ -12,6 +12,13 @@
  * The class defines methods that enable to control the application. It gets info about events generated
  * by users by receiving signals and defines response to them.
  */
+
+const QString BOX_NOT_FOUND = "No box found.";
+const QString BOX_TOO_SHORT_MSG = "Box type should has at least 4 characters.";
+const QString WRITE_FILES_ERROR = "Error while writing files.";
+const QString DASH_FILES_SELECTED = "Dash files selected";
+const QString NO_FILES_SELECTED = "No files selected";
+
 class Controller: public QObject {
     Q_OBJECT
 private:

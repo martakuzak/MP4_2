@@ -4,7 +4,7 @@ TreeItem::TreeItem(Analyzer *an, const QList<QVariant> &data, TreeItem *parent, 
     parentItem = parent;
     itemData = data;
     BoxFactory bf(an);
-    if(!(data.value(0).toString()=="Name")) {
+    if(!(data.value(0).toString() == NAME)) {
         try {
             box= bf.getBox( data.value(1).toUInt(),data.value(0).toString(),off ) ;
         }
@@ -13,7 +13,6 @@ TreeItem::TreeItem(Analyzer *an, const QList<QVariant> &data, TreeItem *parent, 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 TreeItem::TreeItem() {
-
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 TreeItem::~TreeItem(){
