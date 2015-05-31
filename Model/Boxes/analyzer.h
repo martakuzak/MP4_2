@@ -100,6 +100,7 @@ public:
       *offset in bytes of mdat box
      */
     unsigned long int mdatOffset;
+    BitOperator* bitOperator;
 
 };
 

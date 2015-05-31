@@ -12,10 +12,11 @@ Analyzer::Analyzer(const QString &fileName) {
     }
     fileSize = file->size();
     mdatOffset = 0;
+    bitOperator = new BitOperator();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 unsigned long int Analyzer:: valueOfGroupOfBytes(const int &length, const unsigned long int& offset) {
-    QByteArray array;
+    /*QByteArray array;
     unsigned long int num = 0;
     file->seek(offset);
     array = file->read(length);
@@ -25,11 +26,12 @@ unsigned long int Analyzer:: valueOfGroupOfBytes(const int &length, const unsign
             num=(num<<8); //przesuniecie o 8 bitow w lewo
         }
     }
-    return num;
+    return num;*/
+    return bitOperator->valueOfGroupOfBytes(file, length, offset);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 signed long int Analyzer:: signedValueOfGroupOfBytes(const int &length, const unsigned long int& offset) {
-    QByteArray array;
+    /*QByteArray array;
     signed long int num = 0;
     file->seek(offset);
     array = file->read(length);
@@ -39,15 +41,15 @@ signed long int Analyzer:: signedValueOfGroupOfBytes(const int &length, const un
             num=(num<<8); //przesuniecie o 8 bitow w lewo
         }
     }
-    return num;
+    return num;*/
+    return bitOperator->signedValueOfGroupOfBytes(file, length, offset);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 unsigned long int Analyzer::valueOfGroupOfBits(const int & length, const unsigned long int& offset) {
-    int firstByteNum = offset/8;
+    /*int firstByteNum = offset/8;
     int lastByteNum = (offset + length)/8;
 
     //unsigned long int byteValue = this->valueOfGroupOfBytes(lastByteNum - firstByteNum + 1, firstByteNum);
-    BitOperator* bitOperator = new BitOperator();
     unsigned long int byteValue = bitOperator->valueOfGroupOfBytes(file, lastByteNum - firstByteNum + 1, firstByteNum);
     //koniec zmian
 
@@ -69,14 +71,16 @@ unsigned long int Analyzer::valueOfGroupOfBits(const int & length, const unsigne
 
     bitValue = (byteValue & pattern) >> suffix; //iloczyn logiczny bit po bicie i przesuniecie bitowe w prawo
 
-    return bitValue;
+    return bitValue;*/
+    return bitOperator->valueOfGroupOfBits(file, length, offset);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 QString Analyzer:: qstringValue(const unsigned int& length, const unsigned int& offset) {
-    QByteArray array;
+    /*QByteArray array;
     file->seek(offset);
     array = file->read(length);
-    return QString(array);
+    return QString(array);*/
+    return bitOperator->qstringValue(file, length, offset);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -120,6 +124,15 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
         columnData<<type;
         columnData<<QString::number(size);
         columnData<<QString::number(offset);
+
+        /*QString hexOff = QString::number(offset, 16);
+        int zeroPrefNum = 8 - hexOff.length();
+        QString hexOffRes("0x");
+        for(int i = 0; i < zeroPrefNum; ++ i)
+            hexOffRes.append("0");
+        hexOffRes.append(hexOff);*/
+
+       // columnData<<hexOffRes;
 
         TreeItem *newItem= new TreeItem(this,columnData,parent,offset);//tworzymy treeitem
 
