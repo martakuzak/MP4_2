@@ -158,6 +158,8 @@ void MainWindow::nalParseSelected() {
                                                     tr("Open File"), "/");
     if(fileName.length()) {
         emit nalFileSelected(fileName);
+        NALParser nalParser(fileName);
+        nalParser.parseFile();
     }
 }
 

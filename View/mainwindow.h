@@ -22,6 +22,7 @@
 #include "treemodel.h"
 #include "dashsection.h"
 #include "analyzesection.h"
+#include "nalparser.h"
 
 class TreeModel;
 class DashWrapper;

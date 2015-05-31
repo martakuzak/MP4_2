@@ -16,7 +16,8 @@ INCLUDEPATH += ./Model\Dash \
                ./Model\Mpd \
                ./Model\Boxes \
                ./Controller \
-               ./Model\Common
+               ./Model\Common \
+               ./Model\Nal
 
 SOURCES += main.cpp\
         View\mainwindow.cpp \
@@ -58,6 +59,7 @@ HEADERS  += View\mainwindow.h \
     View/dashsection.h \
     View/analyzesection.h \
     Model/Nal/nalparser.h \
-    Model\Common\bitoperator.h
+    Model\Common\bitoperator.h \
+    Model/Nal/nalunittype.h
 
 FORMS

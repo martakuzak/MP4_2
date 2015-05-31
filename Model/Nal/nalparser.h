@@ -3,7 +3,9 @@
 
 #include <QString>
 #include <QFile>
+#include "bitoperator.h"
 #include <QByteArray>
+#include "nalunittype.h"
 
 class NALParser
 {
@@ -17,6 +19,7 @@ public:
     QString fileName;
     QFile* file;
     unsigned long int fileSize;
+    BitOperator* bitOperator;
 };
 
 #endif // NALPARSER_H

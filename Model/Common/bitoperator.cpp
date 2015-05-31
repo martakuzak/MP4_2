@@ -5,8 +5,7 @@ BitOperator::BitOperator() {}
 BitOperator::~BitOperator() {
 }
 
-unsigned long BitOperator::valueOfGroupOfBytes(QFile* file, const int &length, const unsigned long &offset)
-{
+unsigned long BitOperator::valueOfGroupOfBytes(QFile* file, const int &length, const unsigned long &offset) {
     QByteArray array;
     unsigned long int num = 0;
     file->seek(offset);
@@ -20,8 +19,7 @@ unsigned long BitOperator::valueOfGroupOfBytes(QFile* file, const int &length, c
     return num;
 }
 
-signed long BitOperator::signedValueOfGroupOfBytes(QFile *file, const int &length, const unsigned long &offset)
-{
+signed long BitOperator::signedValueOfGroupOfBytes(QFile *file, const int &length, const unsigned long &offset) {
     QByteArray array;
     signed long int num = 0;
     file->seek(offset);
@@ -35,8 +33,7 @@ signed long BitOperator::signedValueOfGroupOfBytes(QFile *file, const int &lengt
     return num;
 }
 
-unsigned long BitOperator::valueOfGroupOfBits(QFile *file, const int &length, const unsigned long &offset)
-{
+unsigned long BitOperator::valueOfGroupOfBits(QFile *file, const int &length, const unsigned long &offset) {
     int firstByteNum = offset/8;
     int lastByteNum = (offset + length)/8;
 
@@ -66,8 +63,7 @@ unsigned long BitOperator::valueOfGroupOfBits(QFile *file, const int &length, co
     return bitValue;
 }
 
-QString BitOperator::qstringValue(QFile *file, const unsigned int &length, const unsigned int &offset)
-{
+QString BitOperator::qstringValue(QFile *file, const unsigned int &length, const unsigned int &offset) {
     QByteArray array;
     file->seek(offset);
     array = file->read(length);
