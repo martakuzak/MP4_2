@@ -123,16 +123,15 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
         QList<QVariant> columnData; //konstrukcja danych, ktore beda wyswietlane w drzewie
         columnData<<type;
         columnData<<QString::number(size);
-        columnData<<QString::number(offset);
 
-        /*QString hexOff = QString::number(offset, 16);
+        QString hexOff = QString::number(offset, 16);
         int zeroPrefNum = 8 - hexOff.length();
         QString hexOffRes("0x");
         for(int i = 0; i < zeroPrefNum; ++ i)
             hexOffRes.append("0");
-        hexOffRes.append(hexOff);*/
+        hexOffRes.append(hexOff);
 
-       // columnData<<hexOffRes;
+        columnData<<hexOffRes;
 
         TreeItem *newItem= new TreeItem(this,columnData,parent,offset);//tworzymy treeitem
 

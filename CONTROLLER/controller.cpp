@@ -30,7 +30,10 @@ void Controller::boxSelected(QItemSelectionModel *selection) {
     if(selection->hasSelection()) {
         QModelIndex id = selection->currentIndex();
         QModelIndex child = model->index(id.row(), 2, id.parent());
-        TreeItem *item = model->getChild(model->data(child, Qt::DisplayRole).toInt());
+        QString offStr = model->data(child, Qt::DisplayRole).toString();
+        int offset = offStr.toInt(false, 16);
+        TreeItem *item = model->getChild(offset);
+
         QStandardItemModel *mod = item->getModel();
         mod->setHeaderData(0, Qt::Horizontal, tr(""));
         mod->setHeaderData(1, Qt::Horizontal, tr(""));
