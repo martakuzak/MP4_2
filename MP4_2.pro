@@ -15,7 +15,8 @@ INCLUDEPATH += ./Model\Dash \
                ./View \
                ./Model\Mpd \
                ./Model\Boxes \
-               ./Controller
+               ./Controller \
+               ./Model\Common
 
 SOURCES += main.cpp\
         View\mainwindow.cpp \
@@ -34,7 +35,10 @@ SOURCES += main.cpp\
     Model\Boxes\treemodel.cpp \
     Controller\controller.cpp \
     View/dashsection.cpp \
-    View/analyzesection.cpp
+    View/analyzesection.cpp \
+    Model/Nal/nalparser.cpp \
+    Model\Common\bitoperator.cpp \
+    Model/Common/bitoperator.cpp
 
 HEADERS  += View\mainwindow.h \
     Model\Boxes\analyzer.h \
@@ -52,6 +56,8 @@ HEADERS  += View\mainwindow.h \
     Model\Boxes\treemodel.h \
     Controller\controller.h \
     View/dashsection.h \
-    View/analyzesection.h
+    View/analyzesection.h \
+    Model/Nal/nalparser.h \
+    Model\Common\bitoperator.h
 
 FORMS

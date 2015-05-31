@@ -12,8 +12,10 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle("MP4 ");
 
     setMinimumSize(160, 160);
-    const int m_width = QApplication::desktop()->width();
-    const int m_height = QApplication::desktop()->height();
+    /*const int m_width = QApplication::desktop()->width();
+    const int m_height = QApplication::desktop()->height();*/
+    const int m_width = 2000;
+    const int m_height = 1000;
     resize(0.6*m_width, 0.6*m_height);
 
     mainLayout = new QVBoxLayout();
@@ -149,6 +151,17 @@ void MainWindow::tabClosed(int rowId) {
         tabs->removeTab(rowId);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
+void MainWindow::nalParseSelected() {
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    QString fileName = QFileDialog::getOpenFileName(this,
+                                                    tr("Open File"), "/");
+    if(fileName.length()) {
+        emit nalFileSelected(fileName);
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
 ///Private
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::initPointers() {
@@ -164,6 +177,9 @@ void MainWindow::createMenu() {
 
     QMenu *dashMenu = menuBar()->addMenu(tr("&MPEG-DASH"));
     dashMenu->addAction(dashAct);
+
+    QMenu *nalMenu = menuBar()->addMenu(tr("&Parse NAL"));
+    nalMenu->addAction(nalAct);
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
     helpMenu->addAction(helpAct);
@@ -184,6 +200,8 @@ void MainWindow::createActions() {
     dashAct = new QAction(tr("&Switch to DASH menu"), this);
     connect(dashAct, SIGNAL(triggered()), this, SLOT(switchToDashMenuSelected()));
 
+    nalAct = new QAction(tr("&Parse NAL unit"), this);
+    connect(nalAct, SIGNAL(triggered()), this, SLOT(nalParseSelected()));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::makeDashConnection() {

@@ -46,7 +46,11 @@ unsigned long int Analyzer::valueOfGroupOfBits(const int & length, const unsigne
     int firstByteNum = offset/8;
     int lastByteNum = (offset + length)/8;
 
-    unsigned long int byteValue = this->valueOfGroupOfBytes(lastByteNum - firstByteNum + 1, firstByteNum);
+    //unsigned long int byteValue = this->valueOfGroupOfBytes(lastByteNum - firstByteNum + 1, firstByteNum);
+    BitOperator* bitOperator = new BitOperator();
+    unsigned long int byteValue = bitOperator->valueOfGroupOfBytes(file, lastByteNum - firstByteNum + 1, firstByteNum);
+    //koniec zmian
+
     int suffix = 8 - (offset + length)%8;
 
     unsigned long int bitValue = 0;

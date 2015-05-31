@@ -76,7 +76,7 @@ void AnalyzeSection::setBoxInfoSection(TreeModel *model) {
     tableView = new QTableView();
     hSplitter = new QSplitter();
     boxNameLabel = new QLabel();
-    boxNameLabel->setMaximumHeight(20);
+    boxNameLabel->setMaximumHeight(30);
     boxNameLabel->setFont(QFont("Arial", 13));
 
     treeView->setModel(model);
@@ -123,11 +123,14 @@ void AnalyzeSection::setSearchBoxSection() {
     searchBoxGroupBox->setTitle("Search for box");
     searchLabel = new QLabel("Type box type: ");
     searchLabel->setMaximumSize(200,40);
+    searchLabel->setMinimumSize(100,20);
     typeBox = new QLineEdit();
     typeBox->setMaximumWidth(50);
     typeBox->setMaxLength(4);
+    typeBox->setMinimumHeight(20);
     searchButton = new QPushButton("Find");
     searchButton->addAction(searchBoxAct);
+    searchButton->setMinimumHeight(20);
     connect(searchButton,
             SIGNAL(clicked()),
             this, SLOT(searchButtonClicked()));

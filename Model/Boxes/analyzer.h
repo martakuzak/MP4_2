@@ -10,7 +10,9 @@
 #include "treeitem.h"
 #include "sampletablebox.h"
 #include "mainwindow.h"
+#include "bitoperator.h"
 
+class BitOperator;
 class TreeItem;
 class TreeModel;
 /*!

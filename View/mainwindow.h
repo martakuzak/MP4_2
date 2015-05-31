@@ -43,6 +43,8 @@ protected:
     //Actions - MPEG-DASH
     //when user clicks "switch to dash section"
     QAction *dashAct;
+    //Actions - parse NAL
+    QAction *nalAct;
     //Actions- Help
     //when user clicks "help" in the menu
     QAction *helpAct; 
@@ -157,6 +159,7 @@ private slots:
      * Removes given tab from the tabs
      */
     void tabClosed(int rowId);
+    void nalParseSelected();
 signals:
     /*!
      * \brief fileSelected
@@ -189,6 +192,7 @@ signals:
      * \param row row id of file that shall be removed
      */
     void removeFileSig(const int& row);
+    void nalFileSelected(const QString& fileName);
 private:
     /*!
      * \brief initPointers Sets dashSection and analyzeSection attributes to NULL.
