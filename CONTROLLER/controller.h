@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QDateTime>
+#include <QHash>
+#include <QString>
 #include "mainwindow.h"
 #include "treemodel.h"
 #include "dashwrapper.h"
@@ -23,7 +25,7 @@ class Controller: public QObject {
     Q_OBJECT
 private:
     MainWindow *window;
-    TreeModel *model;
+    QHash <QString, TreeModel*> models;
     QStandardItemModel *fileModel;
     DashWrapper *dashWrap;
 public:
@@ -53,14 +55,14 @@ private slots:
      * The slot is called when the MainWindow::selectionChanged signal is emitted, so when selection of the
      * box tree has changed. It makes selected box print in the box info table.
      */
-    void boxSelected(QItemSelectionModel *selection);
+    void boxSelected(QItemSelectionModel *selection, const QString & fileName);
     /*!
      * \brief searchBox
      * \param boxType typed box type
      * The slot is called when the MainWindow::searchBox signal is emitted, so when user clicks Search button.
      * It searches for all the boxes with given type in the tree and selects all of them.
      */
-    void searchBox(const QString& boxType);
+    void searchBox(const QString& boxType, const QString & fileName);
     //DASH
     /*!
      * \brief dashFilesSelected

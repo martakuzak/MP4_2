@@ -171,12 +171,12 @@ signals:
      * \brief boxSelected
      * \param selection model of selected record in box tree
      */
-    void boxSelected(QItemSelectionModel *selection);
+    void boxSelected(QItemSelectionModel *selection, const QString& tabId);
     /*!
      * \brief searchBox
      * \param boxType typed box type
      */
-    void searchBox(const QString& boxType);
+    void searchBox(const QString& boxType, const QString& tabId);
     /*!
      * \brief dashFilesSelectedSignal
      * \param oneFile indicates whether all segments of each presentation should be gathered in one file

@@ -68,7 +68,7 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
         if(type == QString("mdat"))
             mdatOffset = offset;
 
-        qDebug()<<offset;
+        //qDebug()<<offset;
 
         QList<QVariant> columnData; //konstrukcja danych, ktore beda wyswietlane w drzewie
         columnData<<type;

@@ -60,10 +60,9 @@ void AnalyzeSection::searchButtonClicked() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void AnalyzeSection::selectionChanged() {
-    qDebug()<<"selection changed 1";
     QItemSelectionModel *selection = treeView->selectionModel();
-    qDebug()<<"selection changed 2";
     emit boxSelected(selection);
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 ///Private

@@ -64,10 +64,6 @@ void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName, QTabWid
     makeAnalyzeConnection(analyzeSection);
     tabs->setCurrentIndex(tabs->count() - 1);
     tabs->setTabsClosable(true);
-    qDebug()<<tabs->count();
-    //mainLayout->addWidget(analyzeSection);
-    setWindowTitle("MP4 ");
-
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::printSelectedBox(QStandardItemModel *model, TreeItem *item) {
@@ -79,6 +75,7 @@ void MainWindow::selectBoxesFound(QModelIndexList &boxes, const QString &fullNam
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::showWarningDialog(const QString& mes) {
+
     QMessageBox *infoBox = new QMessageBox(this);
     infoBox->setIcon(QMessageBox::Warning);
     infoBox->setText(mes);
@@ -106,14 +103,15 @@ void MainWindow::openFileSelected() {
     if(fileName.length()) {
         emit fileSelected(fileName);
     }
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::selectionChanged(QItemSelectionModel *selection) {
-    emit boxSelected(selection);
+    emit boxSelected(selection, tabs->tabText(tabs->currentIndex()));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::searchButtonClicked(const QString& boxType) {
-    emit searchBox(boxType);
+    emit searchBox(boxType, tabs->tabText(tabs->currentIndex()));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::switchToDashMenuSelected() {

@@ -3,14 +3,15 @@
 Controller::Controller(MainWindow *mw): window(mw) {
     dashWrap = new DashWrapper();
     fileModel = new QStandardItemModel();
+    models = QHash<QString, TreeModel*>();
     makeConnection();
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::makeConnection() {
     connect(window, SIGNAL(fileSelected(QString)), this, SLOT(fileSelected(QString)), Qt::QueuedConnection);
-    connect(window, SIGNAL(boxSelected(QItemSelectionModel*)), this,
-            SLOT(boxSelected(QItemSelectionModel*)), Qt::QueuedConnection);
-    connect(window, SIGNAL(searchBox(QString)), this, SLOT(searchBox(QString)), Qt::QueuedConnection);
+    connect(window, SIGNAL(boxSelected(QItemSelectionModel*, QString)), this,
+            SLOT(boxSelected(QItemSelectionModel*, QString)), Qt::QueuedConnection);
+    connect(window, SIGNAL(searchBox(QString, QString)), this, SLOT(searchBox(QString, QString)), Qt::QueuedConnection);
     connect(window, SIGNAL(dashFilesSelectedSignal(bool, QString)), this,
             SLOT(dashFilesSelected(bool, QString)), Qt::QueuedConnection);
     connect(window, SIGNAL(dashDirSelectedSig(QString)), this,
@@ -19,54 +20,39 @@ void Controller::makeConnection() {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::fileSelected(const QString& fileName) {
-    if(model == NULL)
-        delete model;
     Analyzer *analyzer = new Analyzer(fileName);
-    model = new TreeModel(analyzer);
-    window->fileAnalyzed(model, fileName);
+    models.insert(fileName, new TreeModel(analyzer));
+    window->fileAnalyzed(models.value(fileName), fileName);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
-void Controller::boxSelected(QItemSelectionModel *selection) {
-    qDebug()<<"boxSelected 1";
-
+void Controller::boxSelected(QItemSelectionModel *selection, const QString & fileName) {
     if(selection->hasSelection()) {
-        qDebug()<<"boxSelected 2";
-
+        TreeModel* model = models.value(fileName);
         QModelIndex id = selection->currentIndex();
+
         QModelIndex child = model->index(id.row(), 2, id.parent());
         QString offStr = model->data(child, Qt::DisplayRole).toString();
         int offset = offStr.toInt(false, 16);
         TreeItem *item = model->getChild(offset);
-        qDebug()<<"boxSelected 3";
 
         QStandardItemModel *mod = item->getModel();
-        qDebug()<<"boxSelected 3.5";
-
         mod->setHeaderData(0, Qt::Horizontal, tr(""));
-        qDebug()<<"boxSelected 4";
-
         mod->setHeaderData(1, Qt::Horizontal, tr(""));
-        qDebug()<<"boxSelected 5";
-
         window->printSelectedBox(mod, item);
-        qDebug()<<"boxSelected 6";
-
     }
-    else {
-        qDebug()<<"boxSelected 7";
-
+    else
         window->printSelectedBox(new QStandardItemModel(), new TreeItem());
-        qDebug()<<"boxSelected 8";
-}
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
-void Controller::searchBox(const QString &boxType) {
+void Controller::searchBox(const QString &boxType, const QString & fileName) {
     if(boxType.length() != 4) {
         window->showWarningDialog(BOX_TOO_SHORT_MSG);
         return;
     }
     int row = 0;
     int col = 0;
+    TreeModel * model = models.value(fileName);
     QModelIndexList Items = model->match(model->index(row,col),
                                          Qt::DisplayRole,
                                          QVariant::fromValue(QString(boxType)),
