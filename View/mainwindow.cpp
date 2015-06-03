@@ -180,7 +180,7 @@ void MainWindow::createMenu() {
     QMenu *dashMenu = menuBar()->addMenu(tr("&MPEG-DASH"));
     dashMenu->addAction(dashAct);
 
-    QMenu *nalMenu = menuBar()->addMenu(tr("&Parse NAL"));
+    QMenu *nalMenu = menuBar()->addMenu(tr("&Parse stream"));
     nalMenu->addAction(nalAct);
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
@@ -202,7 +202,7 @@ void MainWindow::createActions() {
     dashAct = new QAction(tr("&Switch to DASH menu"), this);
     connect(dashAct, SIGNAL(triggered()), this, SLOT(switchToDashMenuSelected()));
 
-    nalAct = new QAction(tr("&Parse NAL unit"), this);
+    nalAct = new QAction(tr("&Search for NAL units"), this);
     connect(nalAct, SIGNAL(triggered()), this, SLOT(nalParseSelected()));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
