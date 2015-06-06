@@ -56,12 +56,12 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
         size = valueOfGroupOfBytes(4, 0 + offset);
         //type = valueOfGroupOfBytes(4, 4 + offset);
         type = qstringValue(4, 4 + offset);
-        if(size == 0) { //gdy size = 0, to box ciągnie się do końca pliku
+        if(size == 0)  //gdy size = 0, to box ciągnie się do końca pliku
             size = fileSize - offset;  //nieprzetestowane!
-        }
-        if(size == 1 ) { //dla size = 1, rozmiar przybiera wartość rozszerzoną int(64), po typie
+
+        if(size == 1 )  //dla size = 1, rozmiar przybiera wartość rozszerzoną int(64), po typie
             size = valueOfGroupOfBytes(8, 8 + offset);
-        }
+
         if(!type.size())
             return;
 
@@ -97,9 +97,8 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
 
         if( offset >= fileSize )
             progress = false;
-        if( offset >= maxOff ) {
+        if( offset >= maxOff )
             progress = false;
-        }
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////

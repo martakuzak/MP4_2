@@ -56,7 +56,7 @@ void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName, QTabWid
     for (int i = 0; i < tabs->count(); ++ i) {
         if(tabs->tabText(i) == fileName) {
             tabs->setCurrentIndex(i);
-                return;
+            return;
         }
     }
     AnalyzeSection* analyzeSection = new AnalyzeSection(model);
