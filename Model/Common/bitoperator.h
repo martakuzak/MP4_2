@@ -36,6 +36,7 @@ public:
       *\return QString value of byte sequence
      */
     QString qstringValue(QFile *file, const unsigned int& length, const unsigned int& offset);
+    unsigned long int unsignedExpGolomb(QFile *file, const unsigned int& length, const unsigned long int& offset);
 
 };
 
