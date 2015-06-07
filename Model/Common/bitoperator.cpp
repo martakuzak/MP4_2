@@ -70,7 +70,7 @@ QString BitOperator::qstringValue(QFile *file, const unsigned int &length, const
     return QString(array);
 }
 
-unsigned long int BitOperator::unsignedExpGolomb(QFile *file, const unsigned int& length, const unsigned long int& offset) {
+unsigned long int BitOperator::unsignedExpGolomb(QFile *file, const unsigned long int& offset, int *resLength) {
     QByteArray array;
     int leadingZeroNum = 0;
     int i = 0;
@@ -79,6 +79,7 @@ unsigned long int BitOperator::unsignedExpGolomb(QFile *file, const unsigned int
         ++ i;
     }
     qDebug()<<"GOLOMB zeros : "<<leadingZeroNum;
+    resLength[0] = leadingZeroNum*2 + 1;
     return valueOfGroupOfBits(file, leadingZeroNum + 1, offset + i) - 1;
 
     /*unsigned long int num = 0;
