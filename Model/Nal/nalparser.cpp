@@ -181,7 +181,7 @@ void NALParser::identifyNalType(int nalUnitType, int offset) {
     case FILLER_DATA_RBSP:
         qDebug()<<"FILLER_DATA_RBSP"<<QString::number(offset,16);
         break;
-    case RESERVED_13:
+    /*case RESERVED_13:
         qDebug()<<"RESERVED_13"<<QString::number(offset,16);
         break;
     case RESERVED_14: // NAL unit type 14 is used for prefix NAL unit
@@ -189,7 +189,7 @@ void NALParser::identifyNalType(int nalUnitType, int offset) {
         break;
     case RESERVED_15: //NAL unit type 15 is used for subset sequence parameter set
         qDebug()<<"RESERVED_15 SVC subset sequence parameter set"<<QString::number(offset,16);
-        break;
+        break;*/
     case RESERVED_16:
         qDebug()<<"RESERVED_16"<<QString::number(offset,16);
         break;
@@ -199,12 +199,12 @@ void NALParser::identifyNalType(int nalUnitType, int offset) {
     case RESERVED_18:
         qDebug()<<"RESERVED_18"<<QString::number(offset,16);
         break;
-    case RESERVED_19:
+    /*case RESERVED_19:
         qDebug()<<"RESERVED_19"<<QString::number(offset,16);
         break;
     case RESERVED_20: // NAL unit type 20 is used for coded slice in scalable extension
         qDebug()<<"RESERVED_20 SVC coded slice in scalable extension"<<QString::number(offset,16);
-        break;
+        break;*/
     case RESERVED_21:
         qDebug()<<"RESERVED_21"<<QString::number(offset,16);
         break;
