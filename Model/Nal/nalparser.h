@@ -17,8 +17,10 @@ public:
     void parseFile();
     void identifyNalType(int nalUnitType, int offset);
     int parseSEI(int offset);
-    int parseSEIpayload(int payloadType, int payloadSize, int offset);
+    int parseSEIPayload(int payloadType, int payloadSize, int offset);
     int scalabilityInfo(int payloadSize, int offset);
+    int sliceLayerWithoutPartitioningRbsp(int offset);
+    int sliceHeader(int offset);
 
 private:
     QString fileName;
