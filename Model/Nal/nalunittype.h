@@ -16,14 +16,14 @@ enum NalUnitType {
     END_OF_SEQUENCE_RBSP = 10,
     END_OF_STREAM_RBSP = 11,
     FILLER_DATA_RBSP = 12,
-    RESERVED_13 = 13,
-    RESERVED_14 = 14, // NAL unit type 14 is used for prefix NAL unit
-    RESERVED_15 = 15, //NAL unit type 15 is used for subset sequence parameter set
+    SEQ_PARAMETER_SET_EXTENSION_RBSP = 13,
+    PREFIX_NAL_UNIT_RBSP = 14, // NAL unit type 14 is used for prefix NAL unit
+    SUBSET_SEQUENCE_PARAMETER_SET_RBSP = 15, //NAL unit type 15 is used for subset sequence parameter set
     RESERVED_16 = 16,
     RESERVED_17 = 17,
     RESERVED_18 = 18,
-    RESERVED_19 = 19,
-    RESERVED_20 = 20, // NAL unit type 20 is used for coded slice in scalable extension
+    SLICE_LAYER_WITHOUT_PARTITIONING_RBSP = 19,
+    SLICE_LAYER_EXTENSION_RBSP = 20, // NAL unit type 20 is used for coded slice in scalable extension
     RESERVED_21 = 21,
     RESERVED_22 = 22,
     RESERVED_23 = 23,
@@ -36,6 +36,7 @@ enum NalUnitType {
     UNSPECIFIED_30 = 30,
     UNSPECIFIED_31 = 31
 };
+
 
 #endif // NALUNITTYPE
 

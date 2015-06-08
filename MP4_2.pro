@@ -39,7 +39,10 @@ SOURCES += main.cpp\
     View/analyzesection.cpp \
     Model/Nal/nalparser.cpp \
     Model\Common\bitoperator.cpp \
-    Model/Common/bitoperator.cpp
+    Model/Common/bitoperator.cpp \
+    View/svcsection.cpp \
+    Model/Nal/nalunit.cpp \
+    Model/Nal/nalunitfactory.cpp
 
 HEADERS  += View\mainwindow.h \
     Model\Boxes\analyzer.h \
@@ -60,6 +63,9 @@ HEADERS  += View\mainwindow.h \
     View/analyzesection.h \
     Model/Nal/nalparser.h \
     Model\Common\bitoperator.h \
-    Model/Nal/nalunittype.h
+    Model/Nal/nalunittype.h \
+    View/svcsection.h \
+    Model/Nal/nalunit.h \
+    Model/Nal/nalunitfactory.h
 
 FORMS
