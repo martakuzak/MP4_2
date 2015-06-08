@@ -72,7 +72,7 @@ int NALParser::sliceHeader(int offset) {
     unsigned long pictureParameterSetId = bitOperator->unsignedExpGolomb(file, bitOffset, resLength);
     bitOffset += resLength[0];
     resLength[0] = 0;
-   // qDebug()<<firstMbInSlice<<sliceType<<pictureParameterSetId;
+    qDebug()<<firstMbInSlice<<sliceType<<pictureParameterSetId;
     //int frameNum = bitOperator->
     /*first_mb_in_slice 2 ue(v)
     slice_type 2 ue(v)
@@ -144,6 +144,7 @@ void NALParser::identifyNalType(int nalUnitType, int offset) {
         break;
     case NON_IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP:
         qDebug()<<"NON_IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP"<<QString::number(offset,16);
+        sliceLayerWithoutPartitioningRbsp(offset);
         break;
     case SLICE_DATA_PARTITION_A_LAYER_RBSP:
         qDebug()<<"SLICE_DATA_PARTITION_A_LAYER_RBSP"<<QString::number(offset,16);
