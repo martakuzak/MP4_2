@@ -47,6 +47,11 @@ void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName, QTabWid
         dashSection = NULL;
     }
 
+    if(svcSection != NULL) {
+        delete svcSection;
+        svcSection = NULL;
+    }
+
     if(tabs == NULL) {
         tabs = new QTabWidget();
         makeTabsConnection();
@@ -121,6 +126,11 @@ void MainWindow::switchToDashMenuSelected() {
         tabs = NULL;
     }
 
+    if(svcSection != NULL) {
+        delete svcSection;
+        svcSection = NULL;
+    }
+
     if(dashSection == NULL) {
         dashSection = new DashSection();
         makeDashConnection();
@@ -156,8 +166,23 @@ void MainWindow::nalParseSelected() {
                                                     tr("Open File"), "/");
     if(fileName.length()) {
         emit nalFileSelected(fileName);
-        NALParser nalParser(fileName);
-        nalParser.parseFile();
+        if(tabs != NULL) {
+            delete tabs;
+            tabs = NULL;
+        }
+
+        if(dashSection != NULL) {
+            delete dashSection;
+            dashSection = NULL;
+        }
+
+        if(svcSection == NULL) {
+            QList<std::shared_ptr<NalUnit>> list;
+            NALParser nalParser(fileName);
+            list = nalParser.parseFile();
+            svcSection = new SvcSection(list);
+            mainLayout->addWidget(svcSection);
+        }
     }
 }
 
@@ -167,6 +192,7 @@ void MainWindow::nalParseSelected() {
 void MainWindow::initPointers() {
     dashSection = NULL;
     tabs = NULL;
+    svcSection = NULL;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::createMenu() {

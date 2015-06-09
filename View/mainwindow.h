@@ -23,6 +23,7 @@
 #include "dashsection.h"
 #include "analyzesection.h"
 #include "nalparser.h"
+#include "svcsection.h"
 
 class TreeModel;
 class DashWrapper;
@@ -53,6 +54,7 @@ protected:
     QVBoxLayout *mainLayout;
     DashSection *dashSection;
     QTabWidget* tabs;
+    SvcSection *svcSection;
 public:
     /*!
      * \brief MainWindow Constructor of MainWindow

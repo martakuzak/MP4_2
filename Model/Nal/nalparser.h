@@ -6,15 +6,18 @@
 #include "bitoperator.h"
 #include <QByteArray>
 #include "nalunittype.h"
+#include <QList>
+#include "nalunit.h"
+#include <memory>
+#include "nalunitfactory.h"
 
-class NALParser
-{
+class NALParser {
 public:
     NALParser();
     NALParser(const QString& fileName);
     ~NALParser();
 
-    void parseFile();
+    QList<std::shared_ptr<NalUnit> > parseFile();
     void identifyNalType(int nalUnitType, int offset);
     int parseSEI(int offset);
     int parseSEIPayload(int payloadType, int payloadSize, int offset);
