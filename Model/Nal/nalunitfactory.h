@@ -12,7 +12,7 @@ class NalUnitFactory {
 protected:
     NALParser* parser;
 public:
-    NalUnitFactory();
+    NalUnitFactory(NALParser* par);
     ~NalUnitFactory();
 
     std::shared_ptr<NalUnit> getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset);

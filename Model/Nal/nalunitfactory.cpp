@@ -1,25 +1,21 @@
 #include "nalunitfactory.h"
 
-NalUnitFactory::NalUnitFactory()
-{
+NalUnitFactory::NalUnitFactory(NALParser *par) : parser(par){}
 
-}
-
-NalUnitFactory::~NalUnitFactory()
-{
-
+NalUnitFactory::~NalUnitFactory() {
+    delete parser;
 }
 
 std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset) {
     switch(typeCode) {
 
-
+    qDebug()<<"FACTORY "<<typeCode;
     case UNSPECIFIED:
         return std::shared_ptr<NalUnit>(new Unspecified(nalRefIdc, offset));
         break;
 
     case NON_IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP:
-        return std::shared_ptr<NalUnit>(new NonIdrSliceLayerWithoutPartitioningRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new NonIdrSliceLayerWithoutPartitioningRbsp(nalRefIdc, offset, 0, 0, 0));
         break;
 
     case SLICE_DATA_PARTITION_A_LAYER_RBSP:
@@ -35,7 +31,7 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         break;
 
     case IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP:
-        return std::shared_ptr<NalUnit>(new IdrSliceLayerWithoutPartitioningRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new IdrSliceLayerWithoutPartitioningRbsp(nalRefIdc, offset, 0, 0, 0));
         break;
 
     case SEI_RBSP:

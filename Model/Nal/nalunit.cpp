@@ -11,7 +11,9 @@ NalUnit::~NalUnit() {
 Unspecified::Unspecified(unsigned int nri, unsigned long off) : NalUnit(nri, off) {}
 Unspecified::~Unspecified() {}
 
-NonIdrSliceLayerWithoutPartitioningRbsp::NonIdrSliceLayerWithoutPartitioningRbsp(unsigned int nri, unsigned long off) : NalUnit(nri, off) {}
+NonIdrSliceLayerWithoutPartitioningRbsp::NonIdrSliceLayerWithoutPartitioningRbsp(unsigned int nri, unsigned long off, unsigned long fmis,
+                                                                                 unsigned int st, unsigned long ppsi) : NalUnit(nri, off) ,
+    firstMbInSlice(fmis), sliceType(st), pictureParameterSetId(ppsi) {}
 NonIdrSliceLayerWithoutPartitioningRbsp::~NonIdrSliceLayerWithoutPartitioningRbsp() {}
 
 SliceDataPartitionALayerRbsp::SliceDataPartitionALayerRbsp(unsigned int nri, unsigned long off) : NalUnit(nri, off) {}
@@ -23,7 +25,9 @@ SliceDataPartitionBLayerRbsp::~SliceDataPartitionBLayerRbsp() {}
 SliceDataPartitionCLayerRbsp::SliceDataPartitionCLayerRbsp(unsigned int nri, unsigned long off) : NalUnit(nri, off) {}
 SliceDataPartitionCLayerRbsp::~SliceDataPartitionCLayerRbsp() {}
 
-IdrSliceLayerWithoutPartitioningRbsp::IdrSliceLayerWithoutPartitioningRbsp(unsigned int nri, unsigned long off) : NalUnit(nri, off) {}
+IdrSliceLayerWithoutPartitioningRbsp::IdrSliceLayerWithoutPartitioningRbsp(unsigned int nri, unsigned long off, unsigned long fmis,
+                                                                           unsigned int st, unsigned long ppsi) : NalUnit(nri, off) ,
+    firstMbInSlice(fmis), sliceType(st), pictureParameterSetId(ppsi)  {}
 IdrSliceLayerWithoutPartitioningRbsp::~IdrSliceLayerWithoutPartitioningRbsp() {}
 
 SeiRbsp::SeiRbsp(unsigned int nri, unsigned long off) : NalUnit(nri, off) {}
