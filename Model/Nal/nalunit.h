@@ -26,9 +26,12 @@ public:
 };
 
 class NonIdrSliceLayerWithoutPartitioningRbsp : public NalUnit {
+protected:
+    unsigned long firstMbInSlice;
+    unsigned int sliceType;
+    unsigned long pictureParameterSetId;
 public:
-
-    NonIdrSliceLayerWithoutPartitioningRbsp(unsigned int nri, unsigned long offset);
+    NonIdrSliceLayerWithoutPartitioningRbsp(unsigned int nri, unsigned long offset, unsigned long fmis, unsigned int st, unsigned long ppsi);
     ~NonIdrSliceLayerWithoutPartitioningRbsp();
     virtual QString getName() { return "NON_IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP"; }
     virtual int getTypeCode() { return 1; }
@@ -59,8 +62,12 @@ public:
 };
 
 class IdrSliceLayerWithoutPartitioningRbsp : public NalUnit {
+protected:
+    unsigned long firstMbInSlice;
+    unsigned int sliceType;
+    unsigned long pictureParameterSetId;
 public:
-    IdrSliceLayerWithoutPartitioningRbsp(unsigned int nri, unsigned long offset);
+    IdrSliceLayerWithoutPartitioningRbsp(unsigned int nri, unsigned long offset, unsigned long fmis, unsigned int st, unsigned long ppsi);
     ~IdrSliceLayerWithoutPartitioningRbsp();
     virtual QString getName() { return "IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP"; }
     virtual int getTypeCode() { return 5; }
