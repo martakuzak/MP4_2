@@ -19,9 +19,13 @@ NALParser::~NALParser() {
 
 }
 
-void NALParser::parseFile() {
+QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
     //QByteArray byteArray;
     unsigned long int offset= 0;//offset w pliku
+
+    QList<std::shared_ptr<NalUnit>> list;
+
+    NalUnitFactory factory;
 
     while(offset < fileSize) {
 
@@ -40,11 +44,14 @@ void NALParser::parseFile() {
             //qDebug()<<offset;
             offset += 1;
             qDebug()<<nalRefIdc<<nalUnitType;
-            identifyNalType(nalUnitType, offset);
+            //identifyNalType(nalUnitType, offset);
+            list.append(factory.getNalUnit(nalUnitType, nalRefIdc, offset));
 
         } else
             offset += 1;
     }
+
+    return list;
 
 }
 
@@ -163,10 +170,10 @@ void NALParser::identifyNalType(int nalUnitType, int offset) {
         qDebug()<<"SEI_RBSP"<<QString::number(offset,16);
         parseSEI(offset);
         break;
-    case SEQ_PARAMATER_SET_RBSP:
+    case SEQ_PARAMETER_SET_RBSP:
         qDebug()<<"SEQ_PARAMATER_SET_RBSP"<<QString::number(offset,16);
         break;
-    case PIC_PARAMATER_SET_RBSP:
+    case PIC_PARAMETER_SET_RBSP:
         qDebug()<<"PIC_PARAMATER_SET_RBSP"<<QString::number(offset,16);
         break;
     case ACCESS_UNIT_DELIMITER_RBSP:
