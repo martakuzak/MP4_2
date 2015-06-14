@@ -16,16 +16,20 @@ SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nalUnits, QWidget *paren
     qDebug()<<"SVC SECTION"<<nalUnits.size();
     QString* tmp = new QString("");
     for(int i = 0; i < nalUnits.size(); ++ i) {
+        std::shared_ptr<NalUnit> nalUnit = nalUnits.at(i);
         tmp->append(nalUnits.at(i)->getName());
         tmp->append("\n");
         //nalInfo->setText(nalInfo->toPlainText() + nalUnits.at(i)->getName() + "\n");
         nalInfo->setCurrentFont(serifFont);
-        nalInfo->append(QString::number(i + 1) + ". " + nalUnits.at(i)->getName());
+        nalInfo->append(QString::number(i + 1) + ". " + nalUnit->getName());
 
         nalInfo->setCurrentFont(font);
-        nalInfo->append("Offset : 0x" + (QString::number(nalUnits.at(i)->getOffset(), 16)) + "");
+        nalInfo->append("Offset : 0x" + (QString::number(nalUnit->getOffset(), 16)) + "");
 
-        nalInfo->append("NalRefIdc : " + (QString::number(nalUnits.at(i)->getNalRefIdc())) + "\n");
+        nalInfo->append("NalRefIdc : " + (QString::number(nalUnit->getNalRefIdc())));
+        QString info = nalUnit->getInfo();
+        if(info.length())
+            nalInfo->append(info);
         //nalInfo->setCurrentFont(font);
 
         //qDebug()<<"SVC SECTION"<<nalUnits.at(i)->getName();

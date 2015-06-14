@@ -164,6 +164,8 @@ void MainWindow::nalParseSelected() {
     dialog.setFileMode(QFileDialog::AnyFile);
     QString fileName = QFileDialog::getOpenFileName(this,
                                                     tr("Open File"), "/");
+
+    setWindowTitle("MP4 - " + fileName);
     if(fileName.length()) {
         emit nalFileSelected(fileName);
         if(tabs != NULL) {
