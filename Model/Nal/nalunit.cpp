@@ -16,6 +16,14 @@ NonIdrSliceLayerWithoutPartitioningRbsp::NonIdrSliceLayerWithoutPartitioningRbsp
     firstMbInSlice(fmis), sliceType(st), pictureParameterSetId(ppsi) {}
 NonIdrSliceLayerWithoutPartitioningRbsp::~NonIdrSliceLayerWithoutPartitioningRbsp() {}
 
+QString NonIdrSliceLayerWithoutPartitioningRbsp::getInfo() {
+    QString res("");
+    res.append("FirstMbInSlice : " + QString::number(firstMbInSlice) + "\n");
+    res.append("SliceType : " + QString::number(sliceType) + "\n");
+    res.append("PictureParameterSetId : " + QString::number(pictureParameterSetId) + "\n");
+    return res;
+}
+
 SliceDataPartitionALayerRbsp::SliceDataPartitionALayerRbsp(unsigned int nri, unsigned long off) : NalUnit(nri, off) {}
 SliceDataPartitionALayerRbsp::~SliceDataPartitionALayerRbsp() {}
 
@@ -29,6 +37,14 @@ IdrSliceLayerWithoutPartitioningRbsp::IdrSliceLayerWithoutPartitioningRbsp(unsig
                                                                            unsigned int st, unsigned long ppsi) : NalUnit(nri, off) ,
     firstMbInSlice(fmis), sliceType(st), pictureParameterSetId(ppsi)  {}
 IdrSliceLayerWithoutPartitioningRbsp::~IdrSliceLayerWithoutPartitioningRbsp() {}
+
+QString IdrSliceLayerWithoutPartitioningRbsp::getInfo() {
+    QString res("");
+    res.append("FirstMbInSlice : " + QString::number(firstMbInSlice) + "\n");
+    res.append("SliceType : " + QString::number(sliceType) + "\n");
+    res.append("PictureParameterSetId : " + QString::number(pictureParameterSetId));
+    return res;
+}
 
 SeiRbsp::SeiRbsp(unsigned int nri, unsigned long off) : NalUnit(nri, off) {}
 SeiRbsp::~SeiRbsp() {}

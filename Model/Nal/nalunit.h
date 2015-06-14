@@ -12,6 +12,7 @@ public:
     ~NalUnit();
     virtual QString getName() { return "NAL Unit"; }
     virtual int getTypeCode() { return -1; }
+    virtual QString getInfo() { return ""; }
     unsigned int getNalRefIdc() { return nalRefIdc; }
     unsigned int getOffset() { return offset; }
 };
@@ -35,6 +36,7 @@ public:
     ~NonIdrSliceLayerWithoutPartitioningRbsp();
     virtual QString getName() { return "NON_IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP"; }
     virtual int getTypeCode() { return 1; }
+    virtual QString getInfo();
 };
 
 class SliceDataPartitionALayerRbsp : public NalUnit {
@@ -71,6 +73,7 @@ public:
     ~IdrSliceLayerWithoutPartitioningRbsp();
     virtual QString getName() { return "IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP"; }
     virtual int getTypeCode() { return 5; }
+    virtual QString getInfo();
 };
 
 class SeiRbsp : public NalUnit {
