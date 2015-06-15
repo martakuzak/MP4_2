@@ -13,31 +13,14 @@ class BitOperator {
 public:
     BitOperator();
     ~BitOperator();
-    unsigned long int valueOfGroupOfBytes(QFile *file, const int & length, const unsigned long int& offset = 0);
-    /*!
-      *\brief signedValueOfGroupOfBytes takes a given sequence of bytes and converts them into unsigned long int value
-      *\param length number of bytes in the sequence
-      *\param offset offset of the sequence in the file
-      *\return signed value of byte sequence
-     */
-    signed long int signedValueOfGroupOfBytes(QFile *file, const int & length, const unsigned long int& offset = 0);
-    /*!
-      *\brief valueOfGroupOfBits takes a given sequence of bits and converts them into unsigned long int value
-      *\param length number of bits in the sequence
-      *\param offset bit offset of the sequnce in the file
-      *\return unsigned value of bit sequence
-     */
-    unsigned long int valueOfGroupOfBits(QFile *file, const int & length, const unsigned long int& offset);
-    /*!
-      *\brief qstringValue takes a given sequence of bytes and converts them into QString value by
-      *changing each byte using ASCII code
-      *\param length number of bytes in the sequence
-      *\param offset offset of the sequence in the file
-      *\return QString value of byte sequence
-     */
-    QString qstringValue(QFile *file, const unsigned int& length, const unsigned int& offset);
-    unsigned long int unsignedExpGolomb(QFile *file, const unsigned long int& offset, int* resLength);
 
+    unsigned long int valueOfGroupOfBytes(const unsigned int array[], const unsigned int & length) const;
+    signed long int signedValueOfGroupOfBytes(const unsigned int array[], const unsigned int & length) const;
+    unsigned long int valueOfGroupOfBits(const bool array[], const unsigned int & length) const;
+    QString qstringValue(const char entry[], const unsigned int & length) const;
+
+    //DO WYRZUCENIA STĄD
+    unsigned long int unsignedExpGolomb(QFile *file, const unsigned long int& offset, int* resLength) const;
 };
 
 #endif // BITOPERATOR_H
