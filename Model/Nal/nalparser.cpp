@@ -29,7 +29,7 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
 
     while(offset < fileSize) {
 
-        unsigned int pref3Byte = bitOperator->valueOfGroupOfBytes(file, 3, offset);
+        /*unsigned int pref3Byte = bitOperator->valueOfGroupOfBytes(file, 3, offset);
         unsigned int pref4Byte = bitOperator->valueOfGroupOfBytes(file, 4, offset);
 
 
@@ -49,7 +49,7 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
             list.append(factory.getNalUnit(nalUnitType, nalRefIdc, off));
 
         } else
-            offset += 1;
+            offset += 1;*/
     }
 
     return list;
@@ -92,7 +92,7 @@ int NALParser::sliceHeader(int offset) {
 int NALParser::parseSEI(int offset) {
     ////qDebug()<<"parseSEI";
     int payloadType = 0;
-    int nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
+   /* int nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
     while(nextByteValue == 0xFF) {
         payloadType += 255;
         nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
@@ -105,11 +105,11 @@ int NALParser::parseSEI(int offset) {
         payloadSize += 255;
         nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
     }
-    payloadSize += nextByteValue;
+    payloadSize += nextByteValue;*/
 
 
     ////qDebug()<<"payloadType : "<<payloadType<<" payloadSize : "<<payloadSize;
-    parseSEIPayload(payloadType, payloadSize, offset);
+    //parseSEIPayload(payloadType, payloadSize, offset);
     return ++offset;
 }
 
@@ -127,7 +127,7 @@ int NALParser::parseSEIPayload(int payloadType, int payloadSize, int offset) {
 
 int NALParser::scalabilityInfo(int payloadSize, int offset) {
     ////qDebug()<<"GOLOMP";
-    int bitOffset = 8*offset;
+    /*int bitOffset = 8*offset;
     int temporalIdNestingFlag = bitOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
     int priorityLayerInfoPresentFlag = bitOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
     int priorityIdSettingFlag = bitOperator->valueOfGroupOfBits(file, 1, bitOffset ++);

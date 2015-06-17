@@ -5,19 +5,17 @@ BitOperator::BitOperator() {}
 BitOperator::~BitOperator() {
 }
 
-unsigned long BitOperator::valueOfGroupOfBytes(const unsigned int array[], const unsigned int & length) const {
+unsigned long BitOperator::valueOfGroupOfBytes(const char* array, const unsigned int & length) const {
     unsigned long int num = 0;
     for (int i = 0; i < length; ++ i) {
         num |= array[i] & 0xFF; //suma bit po bicie
-        qDebug()<<"num przed if"<<num<<i;
         if(0 != length && i != (length - 1))
             num = (num << 8); //przesuniecie o 8 bitow w lewo
-        qDebug()<<"num po if"<<num<<i;
     }
     return num;
 }
 
-signed long BitOperator::signedValueOfGroupOfBytes(const unsigned int array[], const unsigned int &length) const{
+signed long BitOperator::signedValueOfGroupOfBytes(const char *array, const unsigned int &length) const{
     signed long num = 0;
     for(int i = 0; i< length; ++i) {
         num |= array[i] & 0xFF; //suma bit po bicie
@@ -41,7 +39,7 @@ unsigned long BitOperator::valueOfGroupOfBits(const bool array[], const unsigned
     return num;
 }
 
-QString BitOperator::qstringValue(const char entry[], const unsigned int &length) const {
+QString BitOperator::qstringValue(const char *entry, const unsigned int &length) const {
     QByteArray array(entry, length);
     return QString(array);
 }
