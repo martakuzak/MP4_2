@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     Model/Common/bitoperator.cpp \
     View/svcsection.cpp \
     Model/Nal/nalunit.cpp \
-    Model/Nal/nalunitfactory.cpp
+    Model/Nal/nalunitfactory.cpp \
+    Model/Common/fileservice.cpp
 
 HEADERS  += View\mainwindow.h \
     Model\Boxes\analyzer.h \
@@ -66,6 +67,7 @@ HEADERS  += View\mainwindow.h \
     Model/Nal/nalunittype.h \
     View/svcsection.h \
     Model/Nal/nalunit.h \
-    Model/Nal/nalunitfactory.h
+    Model/Nal/nalunitfactory.h \
+    Model/Common/fileservice.h
 
 FORMS

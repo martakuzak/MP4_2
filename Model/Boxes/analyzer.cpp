@@ -16,19 +16,19 @@ Analyzer::Analyzer(const QString &fileName) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 unsigned long int Analyzer:: valueOfGroupOfBytes(const int &length, const unsigned long int& offset) {
-    return bitOperator->valueOfGroupOfBytes(file, length, offset);
+    return 0;//bitOperator->valueOfGroupOfBytes(file, length, offset);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 signed long int Analyzer:: signedValueOfGroupOfBytes(const int &length, const unsigned long int& offset) {
-    return bitOperator->signedValueOfGroupOfBytes(file, length, offset);
+    return 0;//bitOperator->signedValueOfGroupOfBytes(file, length, offset);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 unsigned long int Analyzer::valueOfGroupOfBits(const int & length, const unsigned long int& offset) {
-    return bitOperator->valueOfGroupOfBits(file, length, offset);
+    return 0;//bitOperator->valueOfGroupOfBits(file, length, offset);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 QString Analyzer:: qstringValue(const unsigned int& length, const unsigned int& offset) {
-    return bitOperator->qstringValue(file, length, offset);
+    return "";//bitOperator->qstringValue(file, length, offset);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 Analyzer::~Analyzer() {

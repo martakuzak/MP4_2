@@ -5,6 +5,8 @@
 #include <QString>
 #include <QDebug>
 
+#include "fileservice.h"
+
 /*! \mainpage
  *
  * \section intro_sec MP4 Multimedia File Editor
@@ -13,9 +15,17 @@
  *
  */
 int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
+    /*QApplication a(argc, argv);
     MainWindow *w = new MainWindow();
     Controller controller(w);
     w->show();
-    return a.exec();
+    return a.exec();*/
+    FileService* service = new FileService("D:\\j.txt");
+    qDebug()<<service->openFile();
+    char* data = service->getBits(0, 17);
+    for(int i = 0; i < 4; ++ i)
+        qDebug()<<"m"<<data[i];
+    qDebug()<<"DATA: "<<data;
+    service->close();
+    return 0;
 }
