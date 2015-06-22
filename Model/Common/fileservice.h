@@ -17,8 +17,9 @@ public:
     //offset i number w byte'ach
     char* getBytes(unsigned long offset, unsigned int length) const;
     //offset i number w bitach
-    char* getBits(unsigned long offset, unsigned int length) const;
+    char* getBits(unsigned long offset, unsigned int length);
 protected:
+    char* toBitArray(char byte, int prefix = 0, int suffix = 0);
     QFile* file;
 };
 
