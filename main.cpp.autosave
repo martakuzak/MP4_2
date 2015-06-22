@@ -22,9 +22,7 @@ int main(int argc, char *argv[]) {
     return a.exec();*/
     FileService* service = new FileService("D:\\j.txt");
     qDebug()<<service->openFile();
-    char* data = new char(1);
-    data[0] = 53;
-    char* tmp = service->getBits(0, 8);
+    char* tmp = service->getBits(0, 8); // 83 = 01010011b
     for(int i = 0; i < 8; ++ i)
       qDebug()<<(int)tmp[i];
     service->close();
