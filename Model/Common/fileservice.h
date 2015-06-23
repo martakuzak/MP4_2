@@ -22,6 +22,7 @@ public:
 protected:
     char* toBitArray(char byte, int prefix = 0, int suffix = 0);
     QFile* file;
+    const int BITS_IN_BYTE = 8;
 };
 
 #endif // FILESERVICE_H
