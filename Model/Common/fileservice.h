@@ -1,6 +1,7 @@
 #ifndef FILESERVICE_H
 #define FILESERVICE_H
 
+#include <cstring>
 #include <QFile>
 #include <QByteArray>
 #include <QString>
