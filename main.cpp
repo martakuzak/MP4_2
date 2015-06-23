@@ -22,11 +22,11 @@ int main(int argc, char *argv[]) {
     return a.exec();*/
     FileService* service = new FileService("D:\\j.txt");
     qDebug()<<service->openFile();
-    int start = 10;
-    int length = 3;
+    int start = 8;
+    int length = 20;
     char* tmp = new char(length);
     tmp = service->getBits(start, length); // 83 = 01010011b, 108 = 01101100b, 111 = 01101111b
-    for(int i = 0; i < length - start; ++ i)
+    for(int i = 0; i < length; ++ i)
       qDebug()<<"tmp["<<i<<"]"<<(int)tmp[i];
     service->close();
     return 0;
