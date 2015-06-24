@@ -8,6 +8,7 @@
 #include "mainwindow.h"
 #include "treemodel.h"
 #include "dashwrapper.h"
+#include "fileservice.h"
 
 /*!
  * \brief The Controller class

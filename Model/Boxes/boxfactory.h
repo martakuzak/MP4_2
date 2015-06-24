@@ -10,24 +10,22 @@
 #include "trackbox.h"
 #include "sampleentry.h"
 #include "sampletablebox.h"
-
-class Analyzer;
+#include "fileservice.h"
+#include "bitoperator.h"
 
 /*!
  * \brief The BoxFactory class is a factory that creates Box objects.
  */
 class BoxFactory {
-private:
-    /*!
-      *\brief analyzer
-     */
-    Analyzer *analyzer;
+protected:
+    FileService *fileService;
+    BitOperator *bitOperator;
 public:
     /*!
       *\brief BoxFactory
       *\param an analyzer that enables reading extra parameters of the box.
      */
-    BoxFactory(Analyzer *an);
+    BoxFactory(FileService *fs);
     /*!
       *\brief getBox creates Box according to the given parameters and adds extra parameters depending on type of the box.
       *\param size size of the box
@@ -36,6 +34,7 @@ public:
       *\return Box created according to the given and extra parametrs
      */
     std::shared_ptr<Box> getBox(const unsigned int& size=0, QString type="", unsigned long int off=0);
+    ~BoxFactory() { delete fileService; delete bitOperator; }
 private:
     /*!
       *\brief getMBox creates Box according to the given parameters and adds extra parameters depending on type of the box.

@@ -12,6 +12,7 @@
 #include "sampletablebox.h"
 #include "mainwindow.h"
 #include "bitoperator.h"
+#include "fileservice.h"
 
 class BitOperator;
 class TreeItem;
@@ -27,49 +28,13 @@ public:
       *\brief Analyzer - constructor
       *\param fileName name of the file to be analyzed
      */
-    Analyzer(const QString& fileName);
+    Analyzer(FileService *fs);
     ~Analyzer();
     /*!
       *\brief setData adds children to the parent.
       *\param parent parent of the tree fragment that children are to be analyzed.
      */
     void setData(TreeItem *parent, QHash<long,TreeItem*> *items);
-    /*!
-      *\brief valueOfGroupOfBytes takes a given sequence of bytes and converts them into unsigned long int value
-      *\param length number of bytes in the sequence
-      *\param offset offset of the sequence in the file
-      *\return unsigned value of byte sequence
-     */
-    unsigned long int valueOfGroupOfBytes(const int & length, const unsigned long int& offset = 0);
-    /*!
-      *\brief signedValueOfGroupOfBytes takes a given sequence of bytes and converts them into unsigned long int value
-      *\param length number of bytes in the sequence
-      *\param offset offset of the sequence in the file
-      *\return signed value of byte sequence
-     */
-    signed long int signedValueOfGroupOfBytes(const int & length, const unsigned long int& offset = 0);
-    /*!
-      *\brief valueOfGroupOfBits takes a given sequence of bits and converts them into unsigned long int value
-      *\param length number of bits in the sequence
-      *\param offset bit offset of the sequnce in the file
-      *\return unsigned value of bit sequence
-     */
-    unsigned long int valueOfGroupOfBits(const int & length, const unsigned long int& offset);
-    /*!
-      *\brief qstringValue takes a given sequence of bytes and converts them into QString value by
-      *changing each byte using ASCII code
-      *\param length number of bytes in the sequence
-      *\param offset offset of the sequence in the file
-      *\return QString value of byte sequence
-     */
-    QString qstringValue(const unsigned int& length, const unsigned int& offset);
-    /*!
-      *\brief set
-      *private method is called inside setData method. It adds children to the parent.
-      *\param arr QByteArray of analyzed bytes
-      *\param parent parent of the tree fragment that children are to be analyzed.
-      *\param off offset
-     */
 private:
     /*!
       *\brief setData the method is calls inside public setData method. It analyzes mp4 file by finding boxes, creating TreeItem objects
@@ -80,22 +45,25 @@ private:
       *\param maxOff max offset possible of the parent analyzed box
      */
     void setData(TreeItem *&parent, QHash<long,TreeItem*> *items, const unsigned long int &off, unsigned long int maxOff = 0L);
-public:
+    QString decToHex(const unsigned long& offset);
+    //ZMIANY - START
     /*!
       *\brief fileName
       * name of the analyzed file
      */
-    QString fileName;
+    //QString fileName;
     /*!
       *\brief file
       *analyzed file
      */
-    QFile *file;
+    //QFile *file;
     /*!
       *\brief fileSize
       *number of bytes of analyzed file
      */
-    unsigned long int fileSize;
+    //unsigned long int fileSize;
+    FileService *fileService;
+    //ZMIANY - KONIEC
     /*!
       *\brief mdatOffset
       *offset in bytes of mdat box

@@ -28,6 +28,7 @@
 class TreeModel;
 class DashWrapper;
 class AnalyzeSection;
+class TreeItem;
 
 /*!
  *\brief The MainWindow class

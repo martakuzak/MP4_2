@@ -42,7 +42,7 @@ public:
       *\param parent parent of the item
       *\param off offset
      */
-    explicit TreeItem(Analyzer *an,const QList<QVariant> &data, TreeItem *parent = 0, const long int& off=0);
+    explicit TreeItem(FileService *fileService, const QList<QVariant> &data, TreeItem *parent = 0, const long int& off=0);
     explicit TreeItem();
     //!Destructor
     ~TreeItem();

@@ -6,7 +6,7 @@
 #include <QVariant>
 #include <QHash>
 #include <qDebug>
-#include "analyzer.h"
+#include "fileservice.h"
 #include "treeitem.h"
 
 class Analyzer;
@@ -37,7 +37,7 @@ private:
     QHash<long,TreeItem*> *treeItems;
 public:
 
-    explicit TreeModel(Analyzer *analyzer, QObject *parent = 0);
+    explicit TreeModel(FileService *fs, QObject *parent = 0);
     //!Destructor
     ~TreeModel();
     /*!

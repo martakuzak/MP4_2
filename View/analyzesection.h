@@ -16,8 +16,10 @@
 #include <QDebug>
 
 #include "treemodel.h"
+#include "treeitem.h"
 
 class TreeModel;
+class TreeItem;
 
 /*!
  * \brief The AnalyzeSection class

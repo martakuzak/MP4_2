@@ -1,6 +1,7 @@
 #include "fileservice.h"
 
-FileService::FileService(QString name){
+FileService::FileService(const QString &name){
+    qDebug()<<"FILESERVICE: constructor";
     file = new QFile(name);
 }
 
@@ -8,7 +9,7 @@ FileService::~FileService(){
     delete file;
 }
 
-char* FileService::getBytes(unsigned long offset, unsigned int length) {
+char* FileService::getBytes(unsigned int length, unsigned long offset) {
     QByteArray array;
     if(offset + length >= file->size())
         return NULL;
@@ -17,7 +18,7 @@ char* FileService::getBytes(unsigned long offset, unsigned int length) {
     return array.data();
 }
 
-char* FileService::getBits(unsigned long offset, unsigned int length) {
+char* FileService::getBits(unsigned int length, unsigned long offset) {
     if(!length || offset + length >= file->size())
         return NULL;
 
