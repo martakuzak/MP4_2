@@ -34,7 +34,7 @@ public:
       *\return Box created according to the given and extra parametrs
      */
     std::shared_ptr<Box> getBox(const unsigned int& size=0, QString type="", unsigned long int off=0);
-    ~BoxFactory() { delete fileService; delete bitOperator; }
+    ~BoxFactory() { delete bitOperator; }
 private:
     /*!
       *\brief getMBox creates Box according to the given parameters and adds extra parameters depending on type of the box.

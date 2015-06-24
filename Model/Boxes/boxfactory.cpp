@@ -7,7 +7,7 @@ BoxFactory::BoxFactory(FileService *fs) : fileService(fs) {
 }
 
 std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, unsigned long int off) {
-    qDebug()<<"BOXFACTORY: getBox";
+    qDebug()<<"BOXFACTORY: getBox"<<type;
     if(type.at(0)==QChar('m'))
         return this->getMBox(size, type, off);
     else if(type.at(0)==QChar('t'))
@@ -89,22 +89,30 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
                                                        compressorName, depth, predefined2));
     }
     else if(type == "avcC") {
+        qDebug()<<"BOXFACFACTORY: getBox avcC 0";
         unsigned int configurationVersion = bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + 8), 1);
         unsigned int AVCProfileIndication = bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + 9), 1);
+        qDebug()<<"BOXFACFACTORY: getBox avcC 1";
         unsigned int profileCompatibility = bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + 10), 1);
         unsigned int AVCLevelIndication = bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, 11), 1);
+        qDebug()<<"BOXFACFACTORY: getBox avcC 2";
         unsigned int reserved1 = bitOperator->valueOfGroupOfBits(fileService->getBits(6, (off + 12)*8), 6);
+        qDebug()<<"BOXFACFACTORY: getBox avcC 2.5";
         unsigned int lengthSizeMinusOne = bitOperator->valueOfGroupOfBits(fileService->getBits(2, (off + 12)*8 + 6), 2);
+        qDebug()<<"BOXFACFACTORY: getBox avcC 3";
         unsigned int reserved2 = bitOperator->valueOfGroupOfBits(fileService->getBits(3, (off + 13)*8), 3);
         unsigned int numOfSequenceParameterSets = bitOperator->valueOfGroupOfBits(fileService->getBits(5, (off + 13)*8 + 3), 5);
+        qDebug()<<"BOXFACFACTORY: getBox avcC 4";
         QList <unsigned int> sequenceParameterSetLength;
         QList <unsigned long int> sequenceParameterSetNALUnit;
+        qDebug()<<"BOXFACFACTORY: getBox avcC 5";
         unsigned int offset = 0;
         for (unsigned int i = 0; i <numOfSequenceParameterSets; ++i) {
             sequenceParameterSetLength.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(2, off + offset + 14 ), 2));
             sequenceParameterSetNALUnit.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(sequenceParameterSetLength.at(i), off + offset + 16), sequenceParameterSetLength.at(i)));
             offset = offset + 2 + sequenceParameterSetLength.at(i);
         }
+        qDebug()<<"BOXFACFACTORY: getBox avcC 6";
         unsigned int numOfPictureParameterSets = bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + offset + 14), 1);
         QList <unsigned int> pictureParameterSetLength;
         QList <unsigned long int> pictureParameterSetNALUnit;
@@ -244,13 +252,16 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         QList<unsigned int> mediaRateInteger;
         QList<unsigned int> mediaRateFraction;
         unsigned int entryCount = bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 12), 4);
-        for(unsigned int i = 0; i<entryCount; ++i) {
-            if(v==1) {
+        qDebug()<<"BOXFACTORY: getBox elst entryCount:"<<entryCount<<"v ="<<v;
+        for(unsigned int i = 0; i < entryCount; ++i) {
+            if(v == 1) {
                 segmentDuration.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(8, off + offset + 16), 8));
                 mediaTime.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(8, off + offset + 24), 8));
                 offset += 8;
             }
             else if(v == 0) {
+                unsigned long tmp = bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 16), 4);
+                qDebug()<<"BITOPERATOR: getBox elst segmentDuration"<<tmp;
                 segmentDuration.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 16), 4));
                 mediaTime.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 20), 4));
             }

@@ -20,6 +20,7 @@ QString Analyzer::decToHex(const unsigned long& offset) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 Analyzer::~Analyzer() {
+    qDebug()<<"ANALYZER: destructor";
     delete bitOperator;
     //delete file;
     delete fileService;
@@ -57,7 +58,7 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
         if(type == QString("mdat"))
             mdatOffset = offset;
 
-        qDebug()<<"ANALYZER: setData"<<offset;
+        qDebug()<<"ANALYZER: setData"<<type<<size<<offset;
 
         QList<QVariant> columnData; //konstrukcja danych, ktore beda wyswietlane w drzewie
         columnData<<type;

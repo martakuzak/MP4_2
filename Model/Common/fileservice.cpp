@@ -1,11 +1,12 @@
 #include "fileservice.h"
 
-FileService::FileService(const QString &name){
-    qDebug()<<"FILESERVICE: constructor";
+FileService::FileService(const QString &name): id(number ++){
+    qDebug()<<"FILESERVICE"<<id<<": constructor"<<name;
     file = new QFile(name);
 }
 
 FileService::~FileService(){
+    qDebug()<<"FILESERVICE"<<id<<": destructor";
     delete file;
 }
 
@@ -19,6 +20,7 @@ char* FileService::getBytes(unsigned int length, unsigned long offset) {
 }
 
 char* FileService::getBits(unsigned int length, unsigned long offset) {
+    qDebug()<<"FILESERVICE: getBits";
     if(!length || offset + length >= file->size())
         return NULL;
 
@@ -44,6 +46,7 @@ char* FileService::getBits(unsigned int length, unsigned long offset) {
     if(byteLength > 1)
         memmove(bitData + length - BITS_IN_BYTE + suffix, toBitArray(byteData[byteLength - 1]), BITS_IN_BYTE - suffix);
 
+    qDebug()<<"FILESERVICE: getBits end";
     return bitData;
 }
 
@@ -58,4 +61,6 @@ char* FileService::toBitArray(char byte, int prefix, int suffix) {
     }
     return bitData;
 }
+
+int FileService::number = 0;
 
