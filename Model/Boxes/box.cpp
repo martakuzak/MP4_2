@@ -27,7 +27,7 @@ QStandardItemModel *FileTypeBox::getModel() {
     model->setData(model->index(2, 0, QModelIndex()), "Compatible brands");
     QString tmp("");
     QList<QString>::iterator i;
-    for (i = compatibleBrands.begin(); i !=compatibleBrands.end(); ++i) {
+    for (i = compatibleBrands.begin(); i !=compatibleBrands.end(); ++ i) {
         tmp.append(*i);
         tmp.append(" | ");
     }
@@ -53,7 +53,7 @@ QStandardItemModel *SegmentTypeBox::getModel() {
     model->setData(model->index(2, 0, QModelIndex()), "Compatible brands");
     QString tmp("");
     QList<QString>::iterator i;
-    for (i = compatibleBrands.begin(); i !=compatibleBrands.end(); ++i) {
+    for (i = compatibleBrands.begin(); i !=compatibleBrands.end(); ++ i) {
         tmp.append(*i);
         tmp.append(" | ");
     }
@@ -89,7 +89,7 @@ QStandardItemModel *MediaHeaderBox::getModel() {
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
 
-    for(int i = 0; i < flags.size(); ++i) {
+    for(int i = 0; i < flags.size(); ++ i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
     }
@@ -108,14 +108,14 @@ QStandardItemModel *MediaHeaderBox::getModel() {
     else
         model->setData(model->index(6, 1, QModelIndex()), QString::number(0));
     tmp.clear();
-    for(int i = 0; i < language.size(); ++i) {
+    for(int i = 0; i < language.size(); ++ i) {
         tmp.append(QString::number(language.at(i)));
         tmp.append(" | ");
     }
     model->setData(model->index(7, 0, QModelIndex()), "Language");
     model->setData(model->index(7, 1, QModelIndex()), tmp);
-    model->setData(model->index(7, 0, QModelIndex()), "Predefined");
-    model->setData(model->index(7, 1, QModelIndex()), QString::number(predefined));
+    model->setData(model->index(8, 0, QModelIndex()), "Predefined");
+    model->setData(model->index(8, 1, QModelIndex()), QString::number(predefined));
     return model;
 }
 /////////////
@@ -141,13 +141,13 @@ MovieHeaderBox::MovieHeaderBox(const unsigned long int& s, const QString& t, con
 {}
 
 QStandardItemModel *MovieHeaderBox::getModel() {
-    QStandardItemModel *model = new QStandardItemModel(11, 2, 0);
+    QStandardItemModel *model = new QStandardItemModel(12, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
 
-    for(int i = 0; i < flags.size(); ++i) {
+    for(int i = 0; i < flags.size(); ++ i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
     }
@@ -164,29 +164,29 @@ QStandardItemModel *MovieHeaderBox::getModel() {
     model->setData(model->index(6, 1, QModelIndex()), QString::number(rate));
     model->setData(model->index(7, 0, QModelIndex()), "Volume");
     model->setData(model->index(7, 1, QModelIndex()), QString::number(volume));
-    model->setData(model->index(7, 0, QModelIndex()), "Reserved1");
-    model->setData(model->index(7, 1, QModelIndex()), QString::number(reserved16));
+    model->setData(model->index(8, 0, QModelIndex()), "Reserved1");
+    model->setData(model->index(8, 1, QModelIndex()), QString::number(reserved16));
     tmp.clear();
-    for(int i = 0; i < reserved32.size(); ++i) {
+    for(int i = 0; i < reserved32.size(); ++ i) {
         tmp.append(QString::number(reserved32.at(i)));
         tmp.append(" | ");
     }
-    model->setData(model->index(8, 0, QModelIndex()), "Reserved2");
-    model->setData(model->index(8, 1, QModelIndex()), tmp);
+    model->setData(model->index(9, 0, QModelIndex()), "Reserved2");
+    model->setData(model->index(9, 1, QModelIndex()), tmp);
     tmp.clear();
-    for(int i = 0; i < matrix.size(); ++i) {
+    for(int i = 0; i < matrix.size(); ++ i) {
         tmp.append(QString::number(matrix.at(i)));
         tmp.append(" | ");
     }
-    model->setData(model->index(9, 0, QModelIndex()), "Matrix");
-    model->setData(model->index(9, 1, QModelIndex()), tmp);
+    model->setData(model->index(10, 0, QModelIndex()), "Matrix");
+    model->setData(model->index(10, 1, QModelIndex()), tmp);
     tmp.clear();
-    for(int i = 0; i < predefined.size(); ++i) {
+    for(int i = 0; i < predefined.size(); ++ i) {
         tmp.append(QString::number(predefined.at(i)));
         tmp.append(" | ");
     }
-    model->setData(model->index(10, 0, QModelIndex()), "Next track ID");
-    model->setData(model->index(10, 1, QModelIndex()), QString::number(nextTrackId));
+    model->setData(model->index(11, 0, QModelIndex()), "Next track ID");
+    model->setData(model->index(11, 1, QModelIndex()), QString::number(nextTrackId));
     return model;
 }
 /////////////
@@ -209,7 +209,7 @@ QStandardItemModel *VideoMediaHeaderBox::getModel() {
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
 
-    for(int i = 0; i < flags.size(); ++i) {
+    for(int i = 0; i < flags.size(); ++ i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
     }
@@ -218,7 +218,7 @@ QStandardItemModel *VideoMediaHeaderBox::getModel() {
     model->setData(model->index(2, 1, QModelIndex()), QString::number(graphicsmode));
     model->setData(model->index(3, 0, QModelIndex()), "Opcolor");
     tmp.clear();
-    for(int i = 0; i < opcolor.size(); ++i) {
+    for(int i = 0; i < opcolor.size(); ++ i) {
         tmp.append(QString::number(opcolor.at(i)));
         tmp.append(" | ");
     }
@@ -245,7 +245,7 @@ QStandardItemModel *SoundMediaHeaderBox::getModel() {
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
 
-    for(int i = 0; i < flags.size(); ++i) {
+    for(int i = 0; i < flags.size(); ++ i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
     }
@@ -284,7 +284,7 @@ QStandardItemModel *DataEntryUrlBox::getModel() {
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
 
-    for(int i = 0; i < flags.size(); ++i) {
+    for(int i = 0; i < flags.size(); ++ i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
     }
@@ -309,7 +309,7 @@ QStandardItemModel *DataReferenceBox::getModel() {
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
 
-    for(int i = 0; i < flags.size(); ++i) {
+    for(int i = 0; i < flags.size(); ++ i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
     }
@@ -337,13 +337,13 @@ EditListBox::EditListBox(const unsigned long int& s, const QString& t, const uns
 {}
 
 QStandardItemModel *EditListBox::getModel() {
-    QStandardItemModel *model = new QStandardItemModel(6, 2, 0);
+    QStandardItemModel *model = new QStandardItemModel(7, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
 
-    for(int i = 0; i < flags.size(); ++i) {
+    for(int i = 0; i < flags.size(); ++ i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
     }
@@ -351,33 +351,33 @@ QStandardItemModel *EditListBox::getModel() {
     model->setData(model->index(2, 0, QModelIndex()), "Entry count");
     model->setData(model->index(2, 1, QModelIndex()), QString::number(entryCount));
     tmp.clear();
-    for (unsigned int i = 0; i<entryCount; ++i) {
+    for (unsigned int i = 0; i < entryCount; ++ i) {
         tmp.append(QString::number(segmentDuration.at(i)));
         tmp.append(" | ");
     }
     model->setData(model->index(3, 0, QModelIndex()), "Segment duration");
     model->setData(model->index(3, 1, QModelIndex()), tmp);
     tmp.clear();
-    for (unsigned int i = 0; i<entryCount; ++i) {
+    for (unsigned int i = 0; i < entryCount; ++ i) {
         tmp.append(QString::number(mediaTime.at(i)));
         tmp.append(" | ");
     }
-    model->setData(model->index(3, 0, QModelIndex()), "Media Time");
-    model->setData(model->index(3, 1, QModelIndex()), tmp);
+    model->setData(model->index(4, 0, QModelIndex()), "Media Time");
+    model->setData(model->index(4, 1, QModelIndex()), tmp);
     tmp.clear();
-    for (unsigned int i = 0; i<entryCount; ++i) {
+    for (unsigned int i = 0; i < entryCount; ++ i) {
         tmp.append(QString::number(mediaRateInteger.at(i)));
         tmp.append(" | ");
     }
-    model->setData(model->index(4, 0, QModelIndex()), "Media rate integer");
-    model->setData(model->index(4, 1, QModelIndex()), tmp);
+    model->setData(model->index(5, 0, QModelIndex()), "Media rate integer");
+    model->setData(model->index(5, 1, QModelIndex()), tmp);
     tmp.clear();
-    for (unsigned int i = 0; i<entryCount; ++i) {
+    for (unsigned int i = 0; i < entryCount; ++ i) {
         tmp.append(QString::number(mediaRateFraction.at(i)));
         tmp.append(" | ");
     }
-    model->setData(model->index(5, 0, QModelIndex()), "Media rate fraction");
-    model->setData(model->index(5, 1, QModelIndex()), tmp);
+    model->setData(model->index(6, 0, QModelIndex()), "Media rate fraction");
+    model->setData(model->index(6, 1, QModelIndex()), tmp);
     return model;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -403,7 +403,7 @@ QStandardItemModel *MovieExtendsHeaderBox::getModel() {
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
 
-    for(int i = 0; i < flags.size(); ++i) {
+    for(int i = 0; i < flags.size(); ++ i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
     }
@@ -426,7 +426,7 @@ QStandardItemModel *MovieFragmentHeaderBox::getModel() {
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
 
-    for(int i = 0; i < flags.size(); ++i) {
+    for(int i = 0; i < flags.size(); ++ i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
     }
@@ -558,7 +558,7 @@ QStandardItemModel *SegmentIndexBox::getModel() {
     model->setData(model->index(1, 0, QModelIndex()), "Flags");
     QString tmp("");
 
-    for(int i = 0; i < flags.size(); ++i) {
+    for(int i = 0; i < flags.size(); ++ i) {
         tmp.append(QString::number(flags.at(i)));
         tmp.append(" | ");
     }
@@ -631,4 +631,3 @@ UniversalUniqueIdentifier::UniversalUniqueIdentifier(const unsigned long int& s,
     Box(s, t, off),
     extendedType(eType)
 {}
-
