@@ -1,6 +1,6 @@
 #include "bitoperator.h"
 
-BitOperator::BitOperator() {}
+BitOperator::BitOperator() { qDebug()<<"BITOPERATOR: constructor"; }
 
 BitOperator::~BitOperator() {
 }
@@ -26,7 +26,7 @@ signed long BitOperator::signedValueOfGroupOfBytes(const char *array, const unsi
     return num;
 }
 
-unsigned long BitOperator::valueOfGroupOfBits(const char array[], const unsigned int &length) const {
+unsigned long BitOperator::valueOfGroupOfBits(const char *array, const unsigned int &length) const {
     unsigned long num = 0;
 
     for(unsigned int i = 0; i < length; ++ i) {
@@ -39,7 +39,7 @@ unsigned long BitOperator::valueOfGroupOfBits(const char array[], const unsigned
     return num;
 }
 
-QString BitOperator::qstringValue(const char *entry, const unsigned int &length) const {
+QString BitOperator::stringValue(const char *entry, const unsigned int &length) const {
     QByteArray array(entry, length);
     return QString(array);
 }

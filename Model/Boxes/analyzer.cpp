@@ -3,49 +3,38 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 Analyzer::Analyzer() {}
 ////////////////////////////////////////////////////////////////////////////////////////////
-Analyzer::Analyzer(const QString &fileName) {
-    this->fileName=fileName;
-    this->fileSize = 0;
-    file = new QFile(fileName);
-    if (!file->open(QIODevice::ReadOnly)) {
-        return ;
-    }
-    fileSize = file->size();
+Analyzer::Analyzer(FileService *fs): fileService(fs) {
+    qDebug()<<"ANALYZER: constructor";
     mdatOffset = 0;
     bitOperator = new BitOperator();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-unsigned long int Analyzer:: valueOfGroupOfBytes(const int &length, const unsigned long int& offset) {
-    return 0;//bitOperator->valueOfGroupOfBytes(file, length, offset);
-}
-////////////////////////////////////////////////////////////////////////////////////////////
-signed long int Analyzer:: signedValueOfGroupOfBytes(const int &length, const unsigned long int& offset) {
-    return 0;//bitOperator->signedValueOfGroupOfBytes(file, length, offset);
-}
-////////////////////////////////////////////////////////////////////////////////////////////
-unsigned long int Analyzer::valueOfGroupOfBits(const int & length, const unsigned long int& offset) {
-    return 0;//bitOperator->valueOfGroupOfBits(file, length, offset);
-}
-////////////////////////////////////////////////////////////////////////////////////////////
-QString Analyzer:: qstringValue(const unsigned int& length, const unsigned int& offset) {
-    return "";//bitOperator->qstringValue(file, length, offset);
+QString Analyzer::decToHex(const unsigned long& offset) {
+    QString hexOff = QString::number(offset, 16);
+    int zeroPrefNum = 8 - hexOff.length();
+    QString hexOffRes("0x");
+    for(int i = 0; i < zeroPrefNum; ++ i)
+        hexOffRes.append("0");
+    hexOffRes.append(hexOff);
+    return hexOffRes;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 Analyzer::~Analyzer() {
     delete bitOperator;
-    delete file;
+    //delete file;
+    delete fileService;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void Analyzer::setData(TreeItem *parent, QHash<long, TreeItem *> *items) {
-    file = new QFile(fileName);
-    if (!file->open(QIODevice::ReadOnly)) {
-        return ;
-    }
-    setData(parent, items, 0, fileSize); //zaczynamy od zerowego offsetu
-    file->close();
+    qDebug()<<"ANALYZER: setData public";
+    fileService->openFile();
+    qDebug()<<"ANALYZER: setData 2";
+    setData(parent, items, 0, fileService->getSize()); //zaczynamy od zerowego offsetu
+    fileService->close();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const unsigned long &off, unsigned long int maxOff) {
+    qDebug()<<"ANALYZER: setData";
     unsigned long int offset= off;//offset w pliku
     bool progress= true;
     while(progress) {
@@ -53,14 +42,14 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
         //unsigned long int type; //typ boxa
         QString type;
         //unsigned int [16] extendedType;//to-do
-        size = valueOfGroupOfBytes(4, 0 + offset);
+        size = bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, 0 + offset), 4); //valueOfGroupOfBytes(4, 0 + offset);
         //type = valueOfGroupOfBytes(4, 4 + offset);
-        type = qstringValue(4, 4 + offset);
+        type = bitOperator->stringValue(fileService->getBytes(4, 4 + offset), 4); //qstringValue(4, 4 + offset);
         if(size == 0)  //gdy size = 0, to box ciągnie się do końca pliku
-            size = fileSize - offset;  //nieprzetestowane!
+            size = fileService->getSize() - offset;  //nieprzetestowane!
 
         if(size == 1 )  //dla size = 1, rozmiar przybiera wartość rozszerzoną int(64), po typie
-            size = valueOfGroupOfBytes(8, 8 + offset);
+            size = bitOperator->valueOfGroupOfBytes(fileService->getBytes(8, 8 + offset), 8);//valueOfGroupOfBytes(8, 8 + offset);
 
         if(!type.size())
             return;
@@ -68,22 +57,14 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
         if(type == QString("mdat"))
             mdatOffset = offset;
 
-        //qDebug()<<offset;
+        qDebug()<<"ANALYZER: setData"<<offset;
 
         QList<QVariant> columnData; //konstrukcja danych, ktore beda wyswietlane w drzewie
         columnData<<type;
         columnData<<QString::number(size);
+        columnData<<decToHex(offset);
 
-        QString hexOff = QString::number(offset, 16);
-        int zeroPrefNum = 8 - hexOff.length();
-        QString hexOffRes("0x");
-        for(int i = 0; i < zeroPrefNum; ++ i)
-            hexOffRes.append("0");
-        hexOffRes.append(hexOff);
-
-        columnData<<hexOffRes;
-
-        TreeItem *newItem= new TreeItem(this,columnData,parent,offset);//tworzymy treeitem
+        TreeItem *newItem= new TreeItem(fileService,columnData,parent,offset);//tworzymy treeitem
 
         parent->appendChild(newItem);
         items->insert(offset, newItem);
@@ -95,7 +76,7 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
 
         offset += size;
 
-        if( offset >= fileSize )
+        if( offset >= fileService->getSize() )
             progress = false;
         if( offset >= maxOff )
             progress = false;

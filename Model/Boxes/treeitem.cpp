@@ -1,15 +1,17 @@
 #include "treeitem.h"
 
-TreeItem::TreeItem(Analyzer *an, const QList<QVariant> &data, TreeItem *parent, const long int &off){
+TreeItem::TreeItem(FileService *fileService, const QList<QVariant> &data, TreeItem *parent, const long int &off){
+    qDebug()<<"TREEITEM: constructor";
     parentItem = parent;
     itemData = data;
-    BoxFactory bf(an);
+    BoxFactory bf(fileService);
     if(!(data.value(0).toString() == NAME)) {
         try {
             box= bf.getBox( data.value(1).toUInt(),data.value(0).toString(),off ) ;
         }
-        catch(QException) {}
-    }
+        catch(QException) {qDebug()<<"TREEITEM: exception while creating Box";}
+    } else
+        qDebug()<<"TREEITEM: data.value(0).toString() == NAME";
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 TreeItem::TreeItem() {
