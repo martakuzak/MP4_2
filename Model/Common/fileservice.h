@@ -16,7 +16,7 @@ public:
     qint64 getSize() { return file->size(); }
     void close() { file->close(); }
     //offset i number w byte'ach
-    char* getBytes(unsigned long offset, unsigned int length) const;
+    char* getBytes(unsigned long offset, unsigned int length);
     //offset i number w bitach
     char* getBits(unsigned long offset, unsigned int length);
 protected:
