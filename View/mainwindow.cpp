@@ -160,6 +160,7 @@ void MainWindow::tabClosed(int rowId) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::nalParseSelected() {
+    qDebug()<<"MainWindow nalParseSelected 1";
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::AnyFile);
     QString fileName = QFileDialog::getOpenFileName(this,
@@ -180,10 +181,14 @@ void MainWindow::nalParseSelected() {
 
         if(svcSection == NULL) {
             QList<std::shared_ptr<NalUnit>> list;
+            qDebug()<<"MainWindow nalParseSelected 2";
             NALParser nalParser(fileName);
+            qDebug()<<"MainWindow nalParseSelected 3";
             list = nalParser.parseFile();
-            svcSection = new SvcSection(list);
-            mainLayout->addWidget(svcSection);
+            qDebug()<<"MainWindow nalParseSelected 4";
+            //svcSection = new SvcSection(list);
+            qDebug()<<"MainWindow nalParseSelected 5";
+            //mainLayout->addWidget(svcSection);
         }
     }
 }

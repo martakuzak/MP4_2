@@ -2,6 +2,7 @@
 
 SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nalUnits, QWidget *parent):
     QGroupBox(parent) {
+    qDebug()<<"SVC SECTION constructor 1";
     QVBoxLayout *layout = new QVBoxLayout;
     QLabel *label = new QLabel("NAL UNITS IN THE STREAM");
 

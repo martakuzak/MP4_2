@@ -1,18 +1,19 @@
 #include "bitoperator.h"
 
-BitOperator::BitOperator() { qDebug()<<"BITOPERATOR: constructor"; }
+BitOperator::BitOperator() { /*qDebug()<<"BITOPERATOR: constructor"; */}
 
 BitOperator::~BitOperator() {
 }
 
 unsigned long BitOperator::valueOfGroupOfBytes(const char* array, const unsigned int & length) const {
+    //qDebug()<<"BITOPERATOR: valueOfGroupOfBytes start";
     unsigned long int num = 0;
     for (unsigned int i = 0; i < length; ++ i) {
         num |= array[i] & 0xFF; //suma bit po bicie
         if(0 != length && i != (length - 1))
             num = (num << 8); //przesuniecie o 8 bitow w lewo
     }
-    qDebug()<<"BITOPERATOR: valueOfGroupOfBytes end"<<num;
+    //qDebug()<<"BITOPERATOR: valueOfGroupOfBytes end"<<num;
     return num;
 }
 
@@ -20,7 +21,7 @@ signed long BitOperator::signedValueOfGroupOfBytes(const char *array, const unsi
     signed long num = 0;
     for(unsigned int i = 0; i< length; ++i) {
         num |= array[i] & 0xFF; //suma bit po bicie
-        if(0 != length && i != (length-1)) {
+        if(0 != length && i != (length - 1)) {
             num = (num << 8); //przesuniecie o 8 bitow w lewo
         }
     }
@@ -33,9 +34,8 @@ unsigned long BitOperator::valueOfGroupOfBits(const char *array, const unsigned 
 
     for(unsigned int i = 0; i < length; ++ i) {
         num |= array[i] & 0xFF; //suma bit po bicie
-        if(0 != length && i != (length-1)) {
+        if(0 != length && i != (length - 1))
             num = (num << 1); //przesuniecie o 8 bitow w lewo
-        }
     }
     qDebug()<<"BITOPERATOR: valueOfGroupOfBits end";
     return num;
@@ -65,7 +65,7 @@ unsigned long int BitOperator::unsignedExpGolomb(QFile *file, const unsigned lon
     array = file->read(length);
     for(int i = 0; i< length; ++i) {
         num |= static_cast<unsigned int>(array[i]) & 0xFF; //suma bit po bicie
-        if(0!=length && i!=(length-1)) {
+        if(0!=length && i!=(length - 1)) {
             num=(num<<8); //przesuniecie o 8 bitow w lewo
         }
     }*/

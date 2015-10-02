@@ -12,6 +12,7 @@ TreeItem::TreeItem(FileService *fileService, const QList<QVariant> &data, TreeIt
         catch(QException) {qDebug()<<"TREEITEM: exception while creating Box";}
     } else
         qDebug()<<"TREEITEM: data.value(0).toString() == NAME";
+    delete bf;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 TreeItem::TreeItem() {

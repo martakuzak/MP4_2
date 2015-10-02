@@ -20,12 +20,15 @@ NALParser::~NALParser() {
 }
 
 QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
+    qDebug()<<"NALPARSER parseFile 1";
     //QByteArray byteArray;
     unsigned long int offset= 0;//offset w pliku
 
     QList<std::shared_ptr<NalUnit>> list;
+    qDebug()<<"NALPARSER parseFile 2";
 
     NalUnitFactory factory(this);
+    qDebug()<<"NALPARSER parseFile 3";
 
     while(offset < fileSize) {
 
@@ -50,7 +53,9 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
 
         } else
             offset += 1;*/
+        offset += 1;
     }
+    qDebug()<<"NALPARSER parseFile 4";
 
     return list;
 
