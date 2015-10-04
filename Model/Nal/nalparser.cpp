@@ -30,30 +30,34 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
     NalUnitFactory factory(this);
     qDebug()<<"NALPARSER parseFile 3";
 
-    while(offset < fileSize) {
+    FileService* service = new FileService(fileName);
+    if(service->openFile()) {
+        while(offset < fileSize) {
 
-        /*unsigned int pref3Byte = bitOperator->valueOfGroupOfBytes(file, 3, offset);
-        unsigned int pref4Byte = bitOperator->valueOfGroupOfBytes(file, 4, offset);
+            unsigned int pref3Byte = bitOperator->valueOfGroupOfBytes(service->getBytes(3, offset), 3); //? sprawdzic to wszystko
+            unsigned int pref4Byte = bitOperator->valueOfGroupOfBytes(service->getBytes(4, offset), 4);
 
 
-        if(pref3Byte == 1 || pref4Byte == 1) {
-            int off = offset;
-            offset += (pref3Byte == 1) ? 3 : 4;
-            //forbidden_zero_bit
-            short int forbiddenZeroBit = bitOperator->valueOfGroupOfBits(file, 1, offset*8);
-            //nal_ref_idc
-            short int nalRefIdc = bitOperator->valueOfGroupOfBits(file, 2, offset*8 + 1);
-            //nal_unit_type;
-            int nalUnitType = bitOperator->valueOfGroupOfBits(file, 5, offset*8 + 3);
-            ////qDebug()<<offset;
-            offset += 1;
-            qDebug()<<"NALPARSER parse" <<nalRefIdc<<nalUnitType;
-            //identifyNalType(nalUnitType, offset);
-            list.append(factory.getNalUnit(nalUnitType, nalRefIdc, off));
+            if(pref3Byte == 1 || pref4Byte == 1) {
+                int off = offset;
+                offset += (pref3Byte == 1) ? 3 : 4;
+                //forbidden_zero_bit
+                short int forbiddenZeroBit = bitOperator->valueOfGroupOfBits(service->getBits(1, offset*8), 1);
+                //nal_ref_idc
+                short int nalRefIdc = bitOperator->valueOfGroupOfBits(service->getBits(2, offset*8 + 1), 2);
+                //nal_unit_type;
+                int nalUnitType = bitOperator->valueOfGroupOfBits(service->getBits(5, offset*8) + 3, 5);
+                ////qDebug()<<offset;
+                offset += 1;
+                qDebug()<<"NALPARSER parse" <<nalRefIdc<<nalUnitType;
+                //identifyNalType(nalUnitType, offset);
+                list.append(factory.getNalUnit(nalUnitType, nalRefIdc, off));
 
-        } else
-            offset += 1;*/
-        offset += 1;
+            } else
+                offset += 1;
+            //offset += 1;
+        }
+        service->close();
     }
     qDebug()<<"NALPARSER parseFile 4";
 
@@ -97,7 +101,7 @@ int NALParser::sliceHeader(int offset) {
 int NALParser::parseSEI(int offset) {
     ////qDebug()<<"parseSEI";
     int payloadType = 0;
-   /* int nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
+    /* int nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
     while(nextByteValue == 0xFF) {
         payloadType += 255;
         nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
@@ -194,7 +198,7 @@ void NALParser::identifyNalType(int nalUnitType, int offset) {
     case FILLER_DATA_RBSP:
         //qDebug()<<"FILLER_DATA_RBSP"<<QString::number(offset,16);
         break;
-    /*case RESERVED_13:
+        /*case RESERVED_13:
         //qDebug()<<"RESERVED_13"<<QString::number(offset,16);
         break;
     case RESERVED_14: // NAL unit type 14 is used for prefix NAL unit
@@ -212,7 +216,7 @@ void NALParser::identifyNalType(int nalUnitType, int offset) {
     case RESERVED_18:
         //qDebug()<<"RESERVED_18"<<QString::number(offset,16);
         break;
-    /*case RESERVED_19:
+        /*case RESERVED_19:
         //qDebug()<<"RESERVED_19"<<QString::number(offset,16);
         break;
     case RESERVED_20: // NAL unit type 20 is used for coded slice in scalable extension

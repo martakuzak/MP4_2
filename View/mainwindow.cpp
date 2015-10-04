@@ -186,9 +186,9 @@ void MainWindow::nalParseSelected() {
             qDebug()<<"MainWindow nalParseSelected 3";
             list = nalParser.parseFile();
             qDebug()<<"MainWindow nalParseSelected 4";
-            //svcSection = new SvcSection(list);
+            svcSection = new SvcSection(list);
             qDebug()<<"MainWindow nalParseSelected 5";
-            //mainLayout->addWidget(svcSection);
+            mainLayout->addWidget(svcSection);
         }
     }
 }

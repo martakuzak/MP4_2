@@ -10,6 +10,7 @@
 #include "nalunit.h"
 #include <memory>
 #include "nalunitfactory.h"
+#include "fileservice.h"
 
 class NALParser {
 public:
