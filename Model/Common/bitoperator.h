@@ -26,14 +26,11 @@ public:
      */
     unsigned long int valueOfGroupOfBytes(const char *array, const unsigned int & length) const;
     /**
-      TODO
-      JAKIM CUDEM TO MA DZIALAC CO TO JEST????
-      */
-    /**
      * @brief signedValueOfGroupOfBytes
      * @param array array of bytes
      * @param length length of array
      * @return signed long value of the bytes in the array
+     * @example array =
      *
      */
     signed long int signedValueOfGroupOfBytes(const char *array, const unsigned int & length) const;
