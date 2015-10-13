@@ -6,37 +6,26 @@ BitOperator::~BitOperator() {
 }
 
 unsigned long BitOperator::valueOfGroupOfBytes(const char* array, const unsigned int & length) const {
-    //qDebug()<<"BITOPERATOR: valueOfGroupOfBytes start";
     unsigned long int num = 0;
     for (unsigned int i = 0; i < length; ++ i) {
         num |= array[i] & 0xFF; //suma bit po bicie
         if(0 != length && i != (length - 1))
             num = (num << 8); //przesuniecie o 8 bitow w lewo
     }
-    //qDebug()<<"BITOPERATOR: valueOfGroupOfBytes end"<<num;
     return num;
 }
 
 signed long BitOperator::signedValueOfGroupOfBytes(const char *array, const unsigned int &length) const{
-    signed long num = (array[0] == 0) ? 0 : -1;
-    //qDebug()<<"num = 0";
+    signed long num = (array[0] == 0) ? 0 : -1; //0 dla nieujemnych, -1 dla ujemnych
     for(unsigned int i = 0; i< length; ++i) {
-        //qDebug()<<"array["<< i<< "] = "<<(int)array[i];
         num |= array[i] & 0xFF; //suma bit po bicie
-        //qDebug()<<"num 1 = "<<QString::number(num,2);
-        if(0 != length && i != (length - 1)) {
+        if(0 != length && i != (length - 1))
             num = (num << 8); //przesuniecie o 8 bitow w lewo
-            if(array[0] == 1)
-                num += 0xFF;
-            //qDebug()<<"num przesuniecie = "<<QString::number(num,2);
-        }
     }
-    //qDebug()<<"num koniec = "<<QString::number(num,2);
     return num;
 }
 
 unsigned long BitOperator::valueOfGroupOfBits(const char *array, const unsigned int &length) const {
-    qDebug()<<"BITOPERATOR: valueOfGroupOfBits";
     unsigned long num = 0;
 
     for(unsigned int i = 0; i < length; ++ i) {
@@ -44,7 +33,6 @@ unsigned long BitOperator::valueOfGroupOfBits(const char *array, const unsigned 
         if(0 != length && i != (length - 1))
             num = (num << 1); //przesuniecie o 8 bitow w lewo
     }
-    qDebug()<<"BITOPERATOR: valueOfGroupOfBits end";
     return num;
 }
 

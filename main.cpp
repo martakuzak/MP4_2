@@ -25,12 +25,10 @@ int main(int argc, char *argv[]) {
     //11111111 11111111 11111111 10110000
     char* array = new char[3];
     array[0] = 0xFF;
-    array[1] = 0xFF;
-    array[2] = 176;
-    int k = b->signedValueOfGroupOfBytes(array, 3);
+    array[1] = 0xBE;
+    int k = b->signedValueOfGroupOfBytes(array, 2);
     array[0] = 0;
-    array[1] = 0;
-    int l = b->signedValueOfGroupOfBytes(array, 3);
+    int l = b->signedValueOfGroupOfBytes(array, 2);
     qDebug()<<"wynik = " <<k<< " "<<l;
     return a.exec();
    // return 0;
