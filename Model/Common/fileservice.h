@@ -34,9 +34,8 @@ public:
      */
     bool openFile(QIODevice::OpenMode openMode = QIODevice::ReadOnly) {
         if(file == NULL)
-            qDebug()<<"FILESERVICE: openFile file is null";
+            return NULL;
         bool tmp = file->open(openMode);
-        qDebug()<<"FILESERVICE: openFile file open? : "<<tmp;
         return tmp;
     }
     /**

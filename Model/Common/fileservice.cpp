@@ -1,40 +1,31 @@
 #include "fileservice.h"
 
 FileService::FileService(const QString &name) {
-    qDebug()<<"FILESERVICE: constructor"<<name;
     file = new QFile(name);
 }
 
 FileService::~FileService(){
-    qDebug()<<"FILESERVICE: destructor";
     delete file;
 }
 
 char* FileService::getBytes(unsigned int length, unsigned long offset) {
     QByteArray array;
-    if(offset + length > file->size()) {
-        qDebug()<<"FILESERVICE: getBytes NULL offset = "<<offset<<"length ="<<length<<"filesize = "<<file->size();
+    if(offset + length > file->size())
         return NULL;
-    }
     file->seek(offset);
     array = file->read(length);
     return array.data();
 }
 
 char* FileService::getBits(unsigned int length, unsigned long offset) {
-    qDebug()<<"FILESERVICE: getBits";
-    if(!length || offset + length > (8*file->size())) {
-        qDebug()<<"FILESERVICE: getBits NULL"<<length<<(offset + length)<<file->size();
+    if(!length || offset + length > (8*file->size()))
         return NULL;
-    }
-    qDebug()<<"FILESERVICE: getBits po ifie";
     char* bitData = new char(length);
     int firstByteIdx = offset/BITS_IN_BYTE;
     int lastByteIdx = (offset + length - 1)/BITS_IN_BYTE;
     int byteLength = lastByteIdx - firstByteIdx + 1;
 
     char* byteData = new char[byteLength];
-    qDebug()<<"FILESERVICE: getBits 1"<<firstByteIdx<<lastByteIdx<<byteLength;
 
     memcpy(byteData, this->getBytes(byteLength, firstByteIdx), byteLength);
 
@@ -54,7 +45,6 @@ char* FileService::getBits(unsigned int length, unsigned long offset) {
 
     delete byteData;
 
-    qDebug()<<"FILESERVICE: getBits end";
     return bitData;
 }
 

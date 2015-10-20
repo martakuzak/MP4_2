@@ -4,7 +4,6 @@
 Analyzer::Analyzer() {}
 ////////////////////////////////////////////////////////////////////////////////////////////
 Analyzer::Analyzer(FileService *fs): fileService(fs) {
-    qDebug()<<"ANALYZER: constructor";
     mdatOffset = 0;
     bitOperator = new BitOperator();
 }
@@ -20,22 +19,18 @@ QString Analyzer::decToHex(const unsigned long& offset) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 Analyzer::~Analyzer() {
-    qDebug()<<"ANALYZER: destructor";
     delete bitOperator;
     //delete file;
     delete fileService;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void Analyzer::setData(TreeItem *parent, QHash<long, TreeItem *> *items) {
-    qDebug()<<"ANALYZER: setData public";
     fileService->openFile();
-    qDebug()<<"ANALYZER: setData 2";
     setData(parent, items, 0, fileService->getSize()); //zaczynamy od zerowego offsetu
     fileService->close();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const unsigned long &off, unsigned long int maxOff) {
-    qDebug()<<"ANALYZER: setData";
     unsigned long int offset= off;//offset w pliku
     bool progress= true;
     while(progress) {
@@ -43,11 +38,14 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
         //unsigned long int type; //typ boxa
         QString type;
         //unsigned int [16] extendedType;//to-do
-        char* sizeAr = fileService->getBytes(4, 0 + offset);
-        char* typeAr = fileService->getBytes(4, 4 + offset);
+        char* sizeAr = new char[4];
+        memcpy(sizeAr, fileService->getBytes(4, 0 + offset), 4);
+        char* typeAr = new char[4];
+        memcpy(typeAr, fileService->getBytes(4, 4 + offset), 4);
         size = bitOperator->valueOfGroupOfBytes(sizeAr, 4); //valueOfGroupOfBytes(4, 0 + offset);
         //type = valueOfGroupOfBytes(4, 4 + offset);
         type = bitOperator->stringValue(typeAr, 4); //qstringValue(4, 4 + offset);
+
         if(size == 0)  //gdy size = 0, to box ciągnie się do końca pliku
             size = fileService->getSize() - offset;  //nieprzetestowane!
 
@@ -60,7 +58,7 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
         if(type == QString("mdat"))
             mdatOffset = offset;
 
-        qDebug()<<"ANALYZER: setData"<<type<<size<<offset;
+        //qDebug()<<"ANALYZER: setData"<<type;//<<size<<offset;
 
         QList<QVariant> columnData; //konstrukcja danych, ktore beda wyswietlane w drzewie
         columnData<<type;

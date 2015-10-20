@@ -2,12 +2,11 @@
 
 
 BoxFactory::BoxFactory(FileService *fs) : fileService(fs) {
-    qDebug()<<"BOXFACTORY: constructor";
     bitOperator = new BitOperator();
 }
 
 std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, unsigned long int off) {
-    qDebug()<<"BOXFACTORY: getBox"<<type;
+    //qDebug()<<"BOXFACTORY: getBox"<<type<<size;
     if(type.at(0)==QChar('m'))
         return this->getMBox(size, type, off);
     else if(type.at(0)==QChar('t'))
@@ -81,14 +80,10 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     } else if(type == "avcC") {
         unsigned int configurationVersion = bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + 8), 1);
         unsigned int AVCProfileIndication = bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + 9), 1);
-        qDebug()<<"BOXFACFACTORY: getBox avcC 1";
         unsigned int profileCompatibility = bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + 10), 1);
         unsigned int AVCLevelIndication = bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + 11), 1);
-        qDebug()<<"BOXFACFACTORY: getBox avcC 2"<<off;
         unsigned int reserved1 = bitOperator->valueOfGroupOfBits(fileService->getBits(6, (off + 12)*8), 6);
-        qDebug()<<"BOXFACFACTORY: getBox avcC 2.5";
         unsigned int lengthSizeMinusOne = bitOperator->valueOfGroupOfBits(fileService->getBits(2, (off + 12)*8 + 6), 2);
-        qDebug()<<"BOXFACFACTORY: getBox avcC 3";
         unsigned int reserved2 = bitOperator->valueOfGroupOfBits(fileService->getBits(3, (off + 13)*8), 3);
         unsigned int numOfSequenceParameterSets = bitOperator->valueOfGroupOfBits(fileService->getBits(5, (off + 13)*8 + 3), 5);
         QList <unsigned int> sequenceParameterSetLength;
@@ -232,7 +227,6 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
                 offset += 8;
             } else if(v == 0) {
                 unsigned long tmp = bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 16), 4);
-                qDebug()<<"BITOPERATOR: getBox elst segmentDuration"<<tmp;
                 segmentDuration.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 16), 4));
                 mediaTime.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 20), 4));
             }

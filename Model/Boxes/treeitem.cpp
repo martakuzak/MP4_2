@@ -1,7 +1,6 @@
 #include "treeitem.h"
 
 TreeItem::TreeItem(FileService *fileService, const QList<QVariant> &data, TreeItem *parent, const long int &off){
-    qDebug()<<"TREEITEM: constructor";
     parentItem = parent;
     itemData = data;
     BoxFactory *bf = new BoxFactory(fileService);
@@ -10,8 +9,7 @@ TreeItem::TreeItem(FileService *fileService, const QList<QVariant> &data, TreeIt
             box= bf->getBox( data.value(1).toUInt(),data.value(0).toString(),off ) ;
         }
         catch(QException) {qDebug()<<"TREEITEM: exception while creating Box";}
-    } else
-        qDebug()<<"TREEITEM: data.value(0).toString() == NAME";
+    }
     delete bf;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
