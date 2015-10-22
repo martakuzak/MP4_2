@@ -73,7 +73,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int frameCount = bitOperator->valueOfGroupOfBytes(fileService->getBytes(2, off + 48), 2);
         QString compressorName = bitOperator->stringValue(fileService->getBytes(4, off + 50), 4);
         unsigned int depth = bitOperator->valueOfGroupOfBytes(fileService->getBytes(2, off + 82), 2);
-        int predefined2 = bitOperator->valueOfGroupOfBytes(fileService->getBytes(2, off + 84), 2);
+        int predefined2 = bitOperator->signedValueOfGroupOfBytes(fileService->getBytes(2, off + 84), 2);
         return std::shared_ptr<Box>(new AVCSampleEntry(size, type, off,reserved,dataReferenceIndex, predefined, reserved1, predefined1,
                                                        width,height,horizonresolution, vertresolution, reserved2, frameCount,
                                                        compressorName, depth, predefined2));
@@ -529,7 +529,7 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         unsigned int frameCount = bitOperator->valueOfGroupOfBytes(fileService->getBytes(2, off + 48), 2);
         QString compressorName = bitOperator->stringValue(fileService->getBytes(4, off + 50), 4);
         unsigned int depth = bitOperator->valueOfGroupOfBytes(fileService->getBytes(2, off + 82), 2);
-        int predefined2 = bitOperator->valueOfGroupOfBytes(fileService->getBytes(2, off + 84), 2);
+        int predefined2 = bitOperator->signedValueOfGroupOfBytes(fileService->getBytes(2, off + 84), 2);
         return std::shared_ptr<Box>(new MP4VisualSampleEntry(size, type, off,reserved,dataReferenceIndex, predefined, reserved1,
                                                              predefined1, width, height, horizonresolution, vertresolution, reserved2,
                                                              frameCount, compressorName, depth, predefined2));

@@ -83,7 +83,7 @@ MediaHeaderBox::MediaHeaderBox(const unsigned long int& s, const QString& t, con
 {}
 
 QStandardItemModel *MediaHeaderBox::getModel() {
-    QStandardItemModel *model = new QStandardItemModel(8, 2, 0);
+    QStandardItemModel *model = new QStandardItemModel(9, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Version");
     model->setData(model->index(0, 1, QModelIndex()), FullBox::getVersion());
     model->setData(model->index(1, 0, QModelIndex()), "Flags");

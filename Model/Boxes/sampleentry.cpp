@@ -200,8 +200,8 @@ AVCConfigurationBox::AVCConfigurationBox(const unsigned long int& s, const QStri
 {}
 
 QStandardItemModel *AVCConfigurationBox::getModel() {
-    QStandardItemModel *model = new QStandardItemModel(5 + 2*numOfSequenceParameterSets +
-                                                       2*numOfPictureParameterSets, 2, 0);
+    QStandardItemModel *model = new QStandardItemModel(6 + numOfSequenceParameterSets +
+                                                       numOfPictureParameterSets, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Configuration version");
     model->setData(model->index(0, 1, QModelIndex()), QString::number(configurationVersion));
     model->setData(model->index(1, 0, QModelIndex()), "AVC Profile Indication");
