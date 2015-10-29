@@ -6,7 +6,7 @@ BoxFactory::BoxFactory(FileService *fs) : fileService(fs) {
 }
 
 std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, unsigned long int off) {
-    //qDebug()<<"BOXFACTORY: getBox"<<type<<size;
+    qDebug()<<"BOXFACTORY: getBox"<<type<<size;
     if(type.at(0)==QChar('m'))
         return this->getMBox(size, type, off);
     else if(type.at(0)==QChar('t'))
@@ -145,18 +145,18 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         std::shared_ptr<Box> ret(new DataReferenceBox(size, type, off, v, f, entryCount));
         return ret;
     } else if(type == "ctts"){
-        qDebug()<<"BOXFACTORY: getBox ctss off = "<<off;
+        //qDebug()<<"BOXFACTORY: getBox ctss off = "<<off;
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
         unsigned int v = bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + offset + 8), 1);
-        qDebug()<<"BOXFACTORY: getBox ctts 1";
+        //qDebug()<<"BOXFACTORY: getBox ctts 1";
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + offset + i + 9), 1));
 
         unsigned int entryCount = bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 12), 4);
-        qDebug()<<"BOXFACTORY: getBox ctts 4";
+        //qDebug()<<"BOXFACTORY: getBox ctts 4";
 
         QList<unsigned int> sampleCount;
         QList<unsigned int> sampleDelta;
@@ -986,30 +986,22 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
             offset += 8;
         unsigned int version = bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + offset + 9), 1);
         QList<unsigned int> f;
-        qDebug()<<"BOXFACTOR: getBox sidx 1";
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + offset + i + 9), 1));
-        qDebug()<<"BOXFACTOR: getBox sidx 2";
         unsigned int referenceId = bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 12), 4);
-        qDebug()<<"BOXFACTOR: getBox sidx 3";
         unsigned int timescale = bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 16), 4);
-        qDebug()<<"BOXFACTOR: getBox sidx 4";
         unsigned long int earliestPresentationTime = 0;
         unsigned long int firstOffset = 0;
         if (version == 0){
             earliestPresentationTime = bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 20), 4);
-            qDebug()<<"BOXFACTOR: getBox sidx 5";
             firstOffset = bitOperator->valueOfGroupOfBytes(fileService->getBytes(4 , off + offset + 24 ), 4);
         } else if (version == 1) {
             earliestPresentationTime = bitOperator->valueOfGroupOfBytes(fileService->getBytes(8, off + offset + 20), 8);
-            qDebug()<<"BOXFACTOR: getBox sidx 6";
             firstOffset = bitOperator->valueOfGroupOfBytes(fileService->getBytes(8, off + offset + 28), 8);
             offset += 8;
         }
 
-        qDebug()<<"BOXFACTOR: getBox sidx 7";
         unsigned int reserved = bitOperator->valueOfGroupOfBytes(fileService->getBytes(2, off + offset + 28), 2);
-        qDebug()<<"BOXFACTOR: getBox sidx 8";
         unsigned int referenceCount = bitOperator->valueOfGroupOfBytes(fileService->getBytes(2, off + offset + 30), 2);
 
         QList<bool> referenceType;
@@ -1018,17 +1010,17 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         QList<bool> startsWithSAP;
         QList <unsigned int> SAPType;
         QList <unsigned int> SAPDeltaTime;
-        qDebug()<<"BOXFACTOR: getBox sidx 9";
+        qDebug()<<"BOXFACTOR: getBox sidx 9 referenceCount: "<<referenceCount;
         for(unsigned int i = 0; i < referenceCount; i ++) {
-            //referenceType.append(bitOperator->valueOfGroupOfBits(fileService->getBits(1, (off + offset + 32)*8), 1));
+            referenceType.append(bitOperator->valueOfGroupOfBits(fileService->getBits(1, (off + offset + 32)*8), 1));
             qDebug()<<"BOXFACTOR: getBox sidx 10"<<i;
-            //referenceSize.append(bitOperator->valueOfGroupOfBits(fileService->getBits(31, (off + offset + 32)*8 + 1), 31));
+            referenceSize.append(bitOperator->valueOfGroupOfBits(fileService->getBits(31, (off + offset + 32)*8 + 1), 31));
             qDebug()<<"BOXFACTOR: getBox sidx 11"<<i;
-            //subsegmentDuration.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 36), 4));
+            subsegmentDuration.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 36), 4));
             qDebug()<<"BOXFACTOR: getBox sidx 12"<<i;
-            //startsWithSAP.append(bitOperator->valueOfGroupOfBits(fileService->getBits(1, (off + offset + 40)*8), 1));
+            startsWithSAP.append(bitOperator->valueOfGroupOfBits(fileService->getBits(1, (off + offset + 40)*8), 1));
             qDebug()<<"BOXFACTOR: getBox sidx 13"<<i;
-            //SAPType.append(bitOperator->valueOfGroupOfBits(fileService->getBits(3, (off + offset + 40)*8 + 1), 3));
+            SAPType.append(bitOperator->valueOfGroupOfBits(fileService->getBits(3, (off + offset + 40)*8 + 1), 3));
             qDebug()<<"BOXFACTOR: getBox sidx 14"<<i;
             SAPDeltaTime.append(bitOperator->valueOfGroupOfBits(fileService->getBits(28, (off + offset + 40)*8 + 4), 28));
             qDebug()<<"BOXFACTOR: getBox sidx 15"<<i;
