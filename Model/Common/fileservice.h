@@ -49,12 +49,13 @@ public:
     void close() { file->close(); }
     //offset i number w byte'ach
     /**
-     * @brief getBytes
+     * @brief getBytes puts char array containing the bytes of given length which are located in the file with given offset into destination array
+     * @param dst destination
      * @param length length of the byte array in bytes
      * @param offset offset in file (in bytes)
-     * @return char array containing the bytes of given length which are located in the file with given offset
      */
-    char* getBytes(unsigned int length, unsigned long offset);
+    void getBytes(char* dst, unsigned int length, unsigned long offset);
+    //char* getBytes(unsigned int length, unsigned long offset);
     //offset i number w bitach
     /**
      * @brief getBits
@@ -62,7 +63,7 @@ public:
      * @param offset offset in file (in bits)
      * @return char array containing the bits of given length which are located in the file with given offset
      */
-    char* getBits(unsigned int length, unsigned long offset);
+    void getBits(char* dst, unsigned int length, unsigned long offset);
 protected:
     /**
      * @brief toBitArray converts byte into char bit array
@@ -75,7 +76,7 @@ protected:
      * tmp = {1, 1, 1, 1}
      * @return
      */
-    char* toBitArray(char byte, int prefix = 0, int suffix = 0);
+    void toBitArray(char* dst,  char byte, int length, int prefix = 0, int suffix = 0);
     /**
      * @brief file file on which the class operates
      */
