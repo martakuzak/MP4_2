@@ -12,7 +12,7 @@ void FileService::getBytes(char *dst, unsigned int length, unsigned long offset)
     //qDebug()<<"FILESERVICE: getBytes 1"<<length<<offset;
     QByteArray array;
     if(offset + length > file->size())
-        return NULL;
+        dst = NULL;
     file->seek(offset);
     array = file->read(length);
     //qDebug()<<"FILESERVICE: getBytes 2";
@@ -22,7 +22,7 @@ void FileService::getBytes(char *dst, unsigned int length, unsigned long offset)
 void FileService::getBits(char *dst, unsigned int length, unsigned long offset) {
     //qDebug()<<"FILESERVICE: getBits 1"<<length<<offset;
     if(!length || offset + length > (8*file->size()))
-        return NULL;
+        dst = NULL;
     int firstByteIdx = offset/BITS_IN_BYTE;
     int lastByteIdx = (offset + length - 1)/BITS_IN_BYTE;
     int byteLength = lastByteIdx - firstByteIdx + 1;
@@ -36,7 +36,7 @@ void FileService::getBits(char *dst, unsigned int length, unsigned long offset) 
 
     //przekopiowanie bitow z pierwszego byte'u
     char* bitArray = new char[BITS_IN_BYTE - prefix];
-    toBitArray(bitArray, byteData[0], BITS_IN_BYTE - prefix, , prefix, (byteLength > 1) ? 0 : suffix);
+    toBitArray(bitArray, byteData[0], BITS_IN_BYTE - prefix, /*prefix,*/ (byteLength > 1) ? 0 : suffix);
     //memmove(dst, toBitArray(byteData[0], prefix, (byteLength > 1) ? 0 : suffix), BITS_IN_BYTE - prefix);
     delete[] bitArray;
 
@@ -62,7 +62,7 @@ void FileService::getBits(char *dst, unsigned int length, unsigned long offset) 
     //return dst;
 }
 
-void FileService::toBitArray(char *dst, char byte, int length, int prefix, int suffix) {
+void FileService::toBitArray(char *dst, char byte, int length, /*int prefix,*/ int suffix) {
     //int length = BITS_IN_BYTE - prefix - suffix; - to trzeba podać!
     //char* bitData = new char(length);
 

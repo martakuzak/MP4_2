@@ -34,7 +34,7 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
     if(service->openFile()) {
         while(offset < fileSize) {
 
-            unsigned int pref3Byte = bitOperator->valueOfGroupOfBytes(service->getBytes(3, offset), 3); //? sprawdzic to wszystko
+            /*unsigned int pref3Byte = bitOperator->valueOfGroupOfBytes(service->getBytes(3, offset), 3); //? sprawdzic to wszystko
             unsigned int pref4Byte = bitOperator->valueOfGroupOfBytes(service->getBytes(4, offset), 4);
 
 
@@ -54,8 +54,8 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
                 list.append(factory.getNalUnit(nalUnitType, nalRefIdc, off));
 
             } else
-                offset += 1;
-            //offset += 1;
+                offset += 1;*/
+            offset += 1;
         }
         service->close();
     }

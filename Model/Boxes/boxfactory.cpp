@@ -16,19 +16,28 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
     else if(type.at(0) == QChar('h'))
         return this->getHBox(size, type, off);
     else if(type == "ftyp") {
-        QString majorBrand = bitOperator->stringValue(fileService->getBytes(4, off + 8), 4);
-        unsigned int minorVersion = bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + 12), 4);
+        char* mjrBr = new char[4];
+        char* mnrVr = new char[4];
+        fileService->getBytes(mjrBr, 4, off + 8);
+        QString majorBrand = bitOperator->stringValue(mjrBr, 4);
+        fileService->getBytes(mnrVr, 4, off + 12);
+        unsigned int minorVersion = bitOperator->valueOfGroupOfBytes(mnrVr, 4);
 
         QList<QString> compatibleBrands;
         unsigned int index = 16;
         while(index <= (size - 4)) {
-            QString brand =  bitOperator->stringValue(fileService->getBytes(4, off + index), 4);
+            char* cmpBr = new char[4];
+            fileService->getBytes(cmpBr, 4, off + index);
+            QString brand =  bitOperator->stringValue(cmpBr, 4);
             compatibleBrands.append(brand);
+            delete[] cmpBr;
             index += 4;
         }
+        delete[] mjrBr;
+        delete[] mnrVr;
 
         return std::shared_ptr<Box>(new FileTypeBox(size, type, off, majorBrand, minorVersion, compatibleBrands));
-    } else if(type == "vmhd"){
+    } /*else if(type == "vmhd"){
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
@@ -42,7 +51,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
             opcolor.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(2, off + offset + 15 + i*2), 2));
         std::shared_ptr<Box> ret(new VideoMediaHeaderBox(size, type, off, v, f, graphicsMode, opcolor));
         return ret;
-    } else if(type == "nmhd"){
+    } /*else if(type == "nmhd"){
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
@@ -201,10 +210,10 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
             f.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + offset + i + 9), 1));
         std::shared_ptr<Box> ret(new PaddingBitsBox(size, type, off, v, f));
         return ret;
-    } else if(type == "free"){
+    }*/ else if(type == "free"){
         std::shared_ptr<Box> ret(new FreeSpaceBox(false,size, type, off));
         return ret;
-    } else if(type == "edts"){
+    }/* else if(type == "edts"){
         std::shared_ptr<Box> ret(new EditBox(size, type, off));
         return ret;
     } else if(type == "elst"){
@@ -396,14 +405,14 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         QString extendedType = bitOperator->stringValue(fileService->getBytes(16, 8), 16);
         return std::shared_ptr<Box>(new UniversalUniqueIdentifier(size, type, off, extendedType));
     } else
-        return std::shared_ptr<Box>(new Box(size, type, off));
+        return std::shared_ptr<Box>(new Box(size, type, off));*/
     return NULL;
 }
 //////////////////////////////////////////////
 std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type, unsigned long int off) {
     if(type== "moov")
         return std::shared_ptr<Box>(new MovieBox(size, type, off));
-    else if(type == "mdat")
+    /*else if(type == "mdat")
         return std::shared_ptr<Box>(new MediaDataBox(size, type, off));
     else if(type == "mvhd"){
         unsigned int offset = 0;
@@ -510,7 +519,7 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         unsigned int sn = bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 12), 4);
         std::shared_ptr<Box> ret(new MovieFragmentHeaderBox(size, type, off, sn, v, f));
         return ret;
-    } else if(type == "mp4v" /*|| type == "avc1"*/){
+    } else if(type == "mp4v" /*|| type == "avc1"*//*){
         QList <unsigned int> reserved;
         for(int i = 0; i < 6; ++ i)
             reserved.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + 8 + i ), 1));
@@ -600,12 +609,12 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
             f.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + offset + i + 9), 1));
         std::shared_ptr<Box> ret(new MovieFragmentRandomAccessOffsetBox(size, type, off, v, f));
         return ret;
-    }
+    }*/
     return std::shared_ptr<Box>(new Box(size, type, off));
 }
 ////////////////////////////////////////////////////////////////
 std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type, unsigned long int off) {
-    if(type == "trak"){
+    /*if(type == "trak"){
         std::shared_ptr<Box> ret(new TrackBox(size, type, off));
         return ret;
     } else if(type == "tkhd"){
@@ -768,12 +777,12 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         else if(v == 0)
             baseMediaDecodeTime = bitOperator->valueOfGroupOfBytes(fileService->getBytes(4, off + offset + 12), 4);
         return std::shared_ptr<Box>(new TrackFragmentBaseMediaDecodeTimeBox(size, type, off, v, f, baseMediaDecodeTime));
-    }
+    }*/
     return std::shared_ptr<Box>(new Box(size, type, off));
 }
 ////////////////////////////////////////////////////////////////
 std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type, unsigned long int off) {
-    if(type == "smhd"){
+    /*if(type == "smhd"){
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
@@ -935,10 +944,10 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
             f.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + offset + i + 9), 1));
         std::shared_ptr<Box> ret(new DegradationPriorityBox(size, type, off, v, f));
         return ret;
-    } else if(type == "skip"){
+    } else */if(type == "skip"){
         std::shared_ptr<Box> ret(new FreeSpaceBox(true,size, type, off));
         return ret;
-    } else if(type == "sdtp"){
+    }/* else if(type == "sdtp"){
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
@@ -1098,12 +1107,12 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(bitOperator->valueOfGroupOfBytes(fileService->getBytes(1, off + offset + i + 9), 1));
         return std::shared_ptr<Box>(new SampleAuxiliaryInformationOffsetsBox(size, type, off, v, f));
-    }
+    }*/
     return std::shared_ptr<Box>(new Box(size, type, off));
 }
 ////////////////////////////////////////////////////////////////
 std::shared_ptr<Box> BoxFactory::getHBox(const unsigned int& size, QString type, unsigned long int off) {
-    if(type == "hdlr"){
+    /*if(type == "hdlr"){
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
@@ -1135,6 +1144,6 @@ std::shared_ptr<Box> BoxFactory::getHBox(const unsigned int& size, QString type,
     } else if(type == "hinf"){
         std::shared_ptr<Box> ret(new HintStatisticsBox(size, type, off));
         return ret;
-    }
+    }*/
     return std::shared_ptr<Box>(new Box(size, type, off));
 }

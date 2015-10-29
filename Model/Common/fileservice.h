@@ -76,7 +76,7 @@ protected:
      * tmp = {1, 1, 1, 1}
      * @return
      */
-    void toBitArray(char* dst,  char byte, int length, int prefix = 0, int suffix = 0);
+    void toBitArray(char* dst,  char byte, int length, int suffix = 0);
     /**
      * @brief file file on which the class operates
      */
