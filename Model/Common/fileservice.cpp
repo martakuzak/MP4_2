@@ -9,13 +9,11 @@ FileService::~FileService(){
 }
 
 void FileService::getBytes(char *dst, unsigned int length, unsigned long offset) {
-    //qDebug()<<"FILESERVICE: getBytes 1"<<length<<offset;
     QByteArray array;
     if(offset + length > file->size())
         dst = NULL;
     file->seek(offset);
     array = file->read(length);
-    //qDebug()<<"FILESERVICE: getBytes 2";
     memmove(dst, array.data(), length);
 }
 
@@ -26,9 +24,12 @@ void FileService::getBits(char *dst, unsigned int length, unsigned long offset) 
     int firstByteIdx = offset/BITS_IN_BYTE;
     int lastByteIdx = (offset + length - 1)/BITS_IN_BYTE;
     int byteLength = lastByteIdx - firstByteIdx + 1;
-
     char* byteData = new char[byteLength];
     this->getBytes(byteData, byteLength, firstByteIdx);
+    if(byteData == NULL) {
+        dst = NULL;
+        return;
+    }
     //memmove(byteData, this->getBytes(byteLength, firstByteIdx), byteLength);
 
     int prefix = offset % BITS_IN_BYTE;

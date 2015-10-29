@@ -26,14 +26,12 @@ signed long BitOperator::signedValueOfGroupOfBytes(const char *array, const unsi
 }
 
 unsigned long BitOperator::valueOfGroupOfBits(const char *array, const unsigned int &length) const {
-    qDebug()<<"BITOPERATOR: valusOfGroupOfBits 1";
     unsigned long num = 0;
     for(unsigned int i = 0; i < length; ++ i) {
         num |= array[i] & 0xFF; //suma bit po bicie
         if(0 != length && i != (length - 1))
             num = (num << 1); //przesuniecie o 8 bitow w lewo
     }
-    qDebug()<<"BITOPERATOR: valusOfGroupOfBits 2";
     return num;
 }
 

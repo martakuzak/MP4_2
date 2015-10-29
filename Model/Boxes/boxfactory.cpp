@@ -6,7 +6,7 @@ BoxFactory::BoxFactory(FileService *fs) : fileService(fs) {
 }
 
 std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, unsigned long int off) {
-    qDebug()<<"BOXFACTORY: getBox"<<type<<size;
+    //qDebug()<<"BOXFACTORY: getBox"<<type<<size;
     if(type.at(0)==QChar('m'))
         return this->getMBox(size, type, off);
     else if(type.at(0)==QChar('t'))
@@ -75,7 +75,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         return std::shared_ptr<Box>(new AVCSampleEntry(size, type, off,reserved,dataReferenceIndex, predefined, reserved1, predefined1,
                                                        width,height,horizonresolution, vertresolution, reserved2, frameCount,
                                                        compressorName, depth, predefined2));
-    } else if(type == "avcC") {
+    } /*else if(type == "avcC") {
         unsigned int configurationVersion = valueOfGroupOfBytes(1, off + 8);
         unsigned int AVCProfileIndication = valueOfGroupOfBytes(1, off + 9);
         unsigned int profileCompatibility = valueOfGroupOfBytes(1, off + 10);
@@ -107,7 +107,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
                                                             reserved2,numOfSequenceParameterSets, sequenceParameterSetLength,
                                                             sequenceParameterSetNALUnit, numOfPictureParameterSets,
                                                             pictureParameterSetLength, pictureParameterSetNALUnit));
-    } else if(type == "url "){
+    } */else if(type == "url "){
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
@@ -1055,20 +1055,13 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         QList<bool> startsWithSAP;
         QList <unsigned int> SAPType;
         QList <unsigned int> SAPDeltaTime;
-        qDebug()<<"BOXFACTOR: getBox sidx 9 referenceCount: "<<referenceCount;
         for(unsigned int i = 0; i < referenceCount; i ++) {
             referenceType.append(valueOfGroupOfBits(1, (off + offset + 32)*8));
-            qDebug()<<"BOXFACTOR: getBox sidx 10"<<i;
-            referenceSize.append(valueOfGroupOfBits((31, (off + offset + 32)*8 + 1), 31));
-            qDebug()<<"BOXFACTOR: getBox sidx 11"<<i;
+            referenceSize.append(valueOfGroupOfBits(31, (off + offset + 32)*8 + 1));
             subsegmentDuration.append(valueOfGroupOfBytes(4, off + offset + 36));
-            qDebug()<<"BOXFACTOR: getBox sidx 12"<<i;
             startsWithSAP.append(valueOfGroupOfBits(1, (off + offset + 40)*8));
-            qDebug()<<"BOXFACTOR: getBox sidx 13"<<i;
-            SAPType.append(valueOfGroupOfBits((3, (off + offset + 40)*8 + 1), 3));
-            qDebug()<<"BOXFACTOR: getBox sidx 14"<<i;
-            SAPDeltaTime.append(valueOfGroupOfBits((28, (off + offset + 40)*8 + 4), 28));
-            qDebug()<<"BOXFACTOR: getBox sidx 15"<<i;
+            SAPType.append(valueOfGroupOfBits(3, (off + offset + 40)*8 + 1));
+            SAPDeltaTime.append(valueOfGroupOfBits(28, (off + offset + 40)*8 + 4));
             offset += 12;
         }
         return std::shared_ptr<Box>(new SegmentIndexBox(size, type, off, version, f, referenceId, timescale, earliestPresentationTime,
@@ -1207,7 +1200,7 @@ signed long int BoxFactory::signedValueOfGroupOfBytes(const unsigned int & lengt
 }
 unsigned long int BoxFactory::valueOfGroupOfBits(const unsigned int & length, const unsigned long& offset) const {
     char* ptr = new char[length];
-    fileService->getBytes(ptr, length, offset);
+    fileService->getBits(ptr, length, offset);
     unsigned long int ret = bitOperator->valueOfGroupOfBits(ptr, length);
     delete[] ptr;
     return ret;
