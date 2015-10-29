@@ -72,6 +72,10 @@ private:
       *\return Box created according to the given and extra parametrs
      */
     std::shared_ptr<Box> getHBox(const unsigned int& size = 0, QString type = "", unsigned long int off = 0);
+    unsigned long int valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const;
+    signed long int signedValueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const;
+    unsigned long int valueOfGroupOfBits(const unsigned int & length, const unsigned long& offset) const;
+    QString stringValue(const unsigned int & length, const unsigned long& offset) const;
 };
 
 #endif // BOXFACTORY_H
