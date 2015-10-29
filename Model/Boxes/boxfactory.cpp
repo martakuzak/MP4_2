@@ -111,7 +111,6 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
         unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
@@ -127,11 +126,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -141,11 +137,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -157,11 +150,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         //qDebug()<<"BOXFACTORY: getBox ctts 1";
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
@@ -175,8 +165,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int index = 0;
         unsigned int i = 0;
         while(index < entryCount) {
-            sampleCount.append(valueOfGroupOfBytes(4, off + offset + i + 16), 4));
-            sampleDelta.append(valueOfGroupOfBytes(4, off + offset + i + 20), 4));
+            sampleCount.append(valueOfGroupOfBytes(4, off + offset + i + 16));
+            sampleDelta.append(valueOfGroupOfBytes(4, off + offset + i + 20));
             ++ index;
             i += 8;
         }
@@ -187,18 +177,15 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
         unsigned long int entryCount = valueOfGroupOfBytes(4, off + offset + 12);
         QList<unsigned long int> chunkOffset;
         for(unsigned int i = 0; i<entryCount; ++ i)
-            chunkOffset.append(valueOfGroupOfBytes(4, off + offset + 16 + 4*i), 4));
+            chunkOffset.append(valueOfGroupOfBytes(4, off + offset + 16 + 4*i));
         std::shared_ptr<Box> ret(new ChunkLargeOffsetBox(size, type, off, v, f, entryCount, chunkOffset));
         return ret;
     } else if(type == "btrt") {
@@ -211,11 +198,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -231,11 +215,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -246,13 +227,13 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int entryCount = valueOfGroupOfBytes(4, off + offset + 12);
         for(unsigned int i = 0; i < entryCount; ++ i) {
             if(v == 1) {
-                segmentDuration.append(valueOfGroupOfBytes(8, off + offset + 16), 8));
-                mediaTime.append(valueOfGroupOfBytes(8, off + offset + 24), 8));
+                segmentDuration.append(valueOfGroupOfBytes(8, off + offset + 16));
+                mediaTime.append(valueOfGroupOfBytes(8, off + offset + 24));
                 offset += 8;
             } else if(v == 0) {
-                unsigned long tmp = valueOfGroupOfBytes(4, off + offset + 16);
-                segmentDuration.append(valueOfGroupOfBytes(4, off + offset + 16), 4));
-                mediaTime.append(valueOfGroupOfBytes(4, off + offset + 20), 4));
+                unsigned long tmp = valueOfGroupOfBytes(4, off + offset + 16); //UWAGA
+                segmentDuration.append(valueOfGroupOfBytes(4, off + offset + 16));
+                mediaTime.append(valueOfGroupOfBytes(4, off + offset + 20));
             }
             mediaRateInteger.append(valueOfGroupOfBytes(2, off + offset + 24));
             mediaRateFraction.append(valueOfGroupOfBytes(2, off + offset + 27));
@@ -267,11 +248,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -281,11 +259,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -295,11 +270,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -309,11 +281,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -323,11 +292,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -337,11 +303,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -351,11 +314,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -366,11 +326,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -380,11 +337,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -397,11 +351,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -411,11 +362,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -428,11 +376,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -441,11 +386,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -454,11 +396,8 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -467,17 +406,14 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
         return std::shared_ptr<Box>(new ProducerReferenceTimeBox(size, type, off, v, f));
     } else if(type == "uuid") {
-        QString extendedType = bitOperator->stringValue(16, 8), 16);
+        QString extendedType = stringValue(16, 8);
         return std::shared_ptr<Box>(new UniversalUniqueIdentifier(size, type, off, extendedType));
     } else
         return std::shared_ptr<Box>(new Box(size, type, off));
@@ -502,10 +438,10 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         unsigned int timescale;
         unsigned long int duration;
         if(version == 1) {
-            creationTime = valueOfGroupOfBytes(8, off + offset + 12), 8);
-            modificationTime = valueOfGroupOfBytes(8, off + offset + 20), 8);
-            timescale = valueOfGroupOfBytes(8, off + offset + 28), 8);
-            duration = valueOfGroupOfBytes(8, off + offset + 36), 8);
+            creationTime = valueOfGroupOfBytes(8, off + offset + 12);
+            modificationTime = valueOfGroupOfBytes(8, off + offset + 20);
+            timescale = valueOfGroupOfBytes(8, off + offset + 28);
+            duration = valueOfGroupOfBytes(8, off + offset + 36);
             offset+=12;
         } else if(version == 0) {
             creationTime = valueOfGroupOfBytes(4, off + offset + 12);
@@ -517,15 +453,15 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         QList<unsigned int> matrix;
         QList<unsigned int> predefined;
         unsigned int nextTrackId;
-        unsigned int rate = valueOfGroupOfBytes(4, off + offset + 28), 4)/65536;//fixed number
-        unsigned int volume = valueOfGroupOfBytes(2, off + offset + 32), 2)/256;
+        unsigned int rate = valueOfGroupOfBytes(4, off + offset + 28)/65536;//fixed number
+        unsigned int volume = valueOfGroupOfBytes(2, off + offset + 32)/256;
         unsigned int reserved16 = valueOfGroupOfBytes(2, off + offset + 34);
-        reserved32.append(valueOfGroupOfBytes(4, off + offset + 36), 4));
-        reserved32.append(valueOfGroupOfBytes(4, off + offset + 40), 4));
+        reserved32.append(valueOfGroupOfBytes(4, off + offset + 36));
+        reserved32.append(valueOfGroupOfBytes(4, off + offset + 40));
         for(int i = 0; i < 9; ++ i)
-            matrix.append(valueOfGroupOfBytes(4, off + offset + 44 + 4*i), 4));
+            matrix.append(valueOfGroupOfBytes(4, off + offset + 44 + 4*i));
         for(int i = 0; i < 6; ++ i)
-            predefined.append(valueOfGroupOfBytes(4, off + offset + 80 +4*i), 4));
+            predefined.append(valueOfGroupOfBytes(4, off + offset + 80 +4*i));
         nextTrackId = valueOfGroupOfBytes(4, off + offset + 104);
 
         std::shared_ptr<Box> ret(new MovieHeaderBox(size, type, off, version, f, creationTime, modificationTime, timescale, duration,
@@ -535,11 +471,8 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -548,10 +481,10 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         unsigned int timescale;
         unsigned long int duration;
         if(v == 1) {
-            creationTime = valueOfGroupOfBytes(8, off + offset + 12), 8);
-            modificationTime = valueOfGroupOfBytes(8, off+ offset + 20), 8);
-            timescale = valueOfGroupOfBytes(8, off + offset + 28), 8);
-            duration = valueOfGroupOfBytes(8, off + offset + 43), 8);
+            creationTime = valueOfGroupOfBytes(8, off + offset + 12);
+            modificationTime = valueOfGroupOfBytes(8, off+ offset + 20);
+            timescale = valueOfGroupOfBytes(8, off + offset + 28);
+            duration = valueOfGroupOfBytes(8, off + offset + 43);
             offset += 12;
         } else if (v == 0) {
             creationTime = valueOfGroupOfBytes(4, off + offset + 12);
@@ -591,11 +524,8 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -612,16 +542,16 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         unsigned int reserved1 = valueOfGroupOfBytes(2, off + 18);
         QList <unsigned int> predefined1;
         for(int i = 0; i < 3; ++ i)
-            predefined1.append(valueOfGroupOfBytes(4, off + 20 + i*4), 4));
+            predefined1.append(valueOfGroupOfBytes(4, off + 20 + i*4));
         unsigned int width = valueOfGroupOfBytes(2, off + 32);
         unsigned int height = valueOfGroupOfBytes(2, off + 34);
-        unsigned int horizonresolution = valueOfGroupOfBytes(4, off + 36), 4)/65536;
-        unsigned int vertresolution = valueOfGroupOfBytes(4, off + 40), 4)/65536;
+        unsigned int horizonresolution = valueOfGroupOfBytes(4, off + 36)/65536;
+        unsigned int vertresolution = valueOfGroupOfBytes(4, off + 40)/65536;
         unsigned int reserved2 = valueOfGroupOfBytes(4, off + 44);
         unsigned int frameCount = valueOfGroupOfBytes(2, off + 48);
-        QString compressorName = bitOperator->stringValue(4, off + 50);
+        QString compressorName = stringValue(4, off + 50);
         unsigned int depth = valueOfGroupOfBytes(2, off + 82);
-        int predefined2 = bitOperator->signedValueOfGroupOfBytes(2, off + 84);
+        int predefined2 = signedValueOfGroupOfBytes(2, off + 84);
         return std::shared_ptr<Box>(new MP4VisualSampleEntry(size, type, off,reserved,dataReferenceIndex, predefined, reserved1,
                                                              predefined1, width, height, horizonresolution, vertresolution, reserved2,
                                                              frameCount, compressorName, depth, predefined2));
@@ -633,8 +563,8 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         unsigned int dataReferenceIndex = valueOfGroupOfBytes(2, off +14);
         //AudioSampleEntry
         QList <unsigned int> reserved1;
-        reserved1.append(valueOfGroupOfBytes(4, off + 16), 4));
-        reserved1.append(valueOfGroupOfBytes(4, off + 20), 4));
+        reserved1.append(valueOfGroupOfBytes(4, off + 16));
+        reserved1.append(valueOfGroupOfBytes(4, off + 20));
         unsigned int channelCount = valueOfGroupOfBytes(2, off + 24);
         unsigned int sampleSize = valueOfGroupOfBytes(2, off + 26);
         unsigned int predefined = valueOfGroupOfBytes(2, off + 28);
@@ -655,17 +585,14 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
         unsigned long int fd;
         if(v)
-            fd = valueOfGroupOfBytes(8, off + offset + 12), 8);
+            fd = valueOfGroupOfBytes(8, off + offset + 12);
         else
             fd = valueOfGroupOfBytes(4, off + offset + 12);
         std::shared_ptr<Box> ret(new MovieExtendsHeaderBox(size, type, off, v, f, fd));
@@ -680,11 +607,8 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -694,11 +618,8 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -716,11 +637,8 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -730,11 +648,11 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         unsigned int reserved1;
         unsigned long int duration;
         if(v == 1) {
-            creationTime = valueOfGroupOfBytes(8, off + offset + 12), 8);
-            modificationTime = valueOfGroupOfBytes(8, off+ offset + 20), 8);
+            creationTime = valueOfGroupOfBytes(8, off + offset + 12);
+            modificationTime = valueOfGroupOfBytes(8, off+ offset + 20);
             trackID = valueOfGroupOfBytes(4, off + offset + 28);
             reserved1 = valueOfGroupOfBytes(4, off + offset + 32);
-            duration = valueOfGroupOfBytes(8, off + offset + 43), 8);
+            duration = valueOfGroupOfBytes(8, off + offset + 43);
             offset += 12;
         } else if(v == 0) {
             creationTime = valueOfGroupOfBytes(4, off + offset + 12);
@@ -744,15 +662,15 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
             duration = valueOfGroupOfBytes(4, off + offset + 28);
         }
         QList<unsigned int> reserved2;
-        reserved2.append(valueOfGroupOfBytes(4, off + offset + 32), 4));
-        reserved2.append(valueOfGroupOfBytes(4, off + offset + 36), 4));
+        reserved2.append(valueOfGroupOfBytes(4, off + offset + 32));
+        reserved2.append(valueOfGroupOfBytes(4, off + offset + 36));
         unsigned int layer = valueOfGroupOfBytes(2, off + offset + 40);
         unsigned int alternateGroup = valueOfGroupOfBytes(1,  off + offset + 42);
-        unsigned int volume = valueOfGroupOfBytes(2, off + offset + 44), 2)/256;
+        unsigned int volume = valueOfGroupOfBytes(2, off + offset + 44)/256;
         unsigned int reserved3 = valueOfGroupOfBytes(2, off + offset + 46);
         QList<unsigned int> matrix;
         for(int i = 0; i < 9; i ++) {
-            matrix.append(valueOfGroupOfBytes(4 , off + offset + 48 ), 4));
+            matrix.append(valueOfGroupOfBytes(4 , off + offset + 48 ));
             offset += 4;
         }
         offset -= 4;
@@ -768,11 +686,8 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -792,11 +707,8 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -807,7 +719,7 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         unsigned int dss = 0;
         unsigned int dsf = 0;
         if(size >= 24) {
-            bdo = valueOfGroupOfBytes(8, off + offset + 16), 8);
+            bdo = valueOfGroupOfBytes(8, off + offset + 16);
             if(size >= 28) {
                 sdi = valueOfGroupOfBytes(4 , off + offset + 24 );
                 if(size >= 32) {
@@ -826,18 +738,15 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
         unsigned int sampleCount = valueOfGroupOfBytes(4, off + offset + 12);
         long int dataOffset = 0;
         if(f.at(2) == 1 || f.at(2) == 5) {
-            dataOffset = bitOperator->signedValueOfGroupOfBytes(4, off + offset + 16);
+            dataOffset = signedValueOfGroupOfBytes(4, off + offset + 16);
             offset += 4;
         }
         unsigned int firstSampleFlags = 0;
@@ -852,7 +761,7 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         //?
         if(f.at(1) == 2)
             for (unsigned int i = 0; i<sampleCount; ++ i)
-                sampleSize.append(valueOfGroupOfBytes(4, off + offset + 16 + 4*i), 4));
+                sampleSize.append(valueOfGroupOfBytes(4, off + offset + 16 + 4*i));
 
         std::shared_ptr<Box> ret(new TrackRunBox(size, type, off, v, f,sampleCount,dataOffset,firstSampleFlags,sampleDuration,
                                                  sampleSize,sampleFlags,sampleCompositionTimeOffset));
@@ -861,11 +770,8 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -882,17 +788,14 @@ std::shared_ptr<Box> BoxFactory::getTBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
         unsigned long int baseMediaDecodeTime;
         if(v == 1)
-            baseMediaDecodeTime = valueOfGroupOfBytes(8, off + offset + 12), 8);
+            baseMediaDecodeTime = valueOfGroupOfBytes(8, off + offset + 12);
         else if(v == 0)
             baseMediaDecodeTime = valueOfGroupOfBytes(4, off + offset + 12);
         return std::shared_ptr<Box>(new TrackFragmentBaseMediaDecodeTimeBox(size, type, off, v, f, baseMediaDecodeTime));
@@ -905,11 +808,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -924,11 +824,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -939,8 +836,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int index =0;
         unsigned int i = 0;
         while(index<entryCount) {
-            sampleCount.append(valueOfGroupOfBytes(4, off + offset+ i + 16), 4));
-            sampleDelta.append(valueOfGroupOfBytes(4, off + offset + i + 20), 4));
+            sampleCount.append(valueOfGroupOfBytes(4, off + offset+ i + 16));
+            sampleDelta.append(valueOfGroupOfBytes(4, off + offset + i + 20));
             ++ index;
             i += 8;
         }
@@ -950,11 +847,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -965,11 +859,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -978,7 +869,7 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         QList<unsigned int> entrySize;
         if(sampleSize == 0)
             for(unsigned int i = 0; i<sampleCount; ++ i)
-                entrySize.append(valueOfGroupOfBytes(4 , off + offset + 20 + 4*i ), 4));
+                entrySize.append(valueOfGroupOfBytes(4 , off + offset + 20 + 4*i ));
 
         std::shared_ptr<Box> ret(new SampleSizeBox(size, type, off, v, f, sampleSize, sampleCount, entrySize));
         return ret;
@@ -986,11 +877,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1006,11 +894,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1019,9 +904,9 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         QList<unsigned int> samplesPerChunk;
         QList<unsigned int> sampleDescriptionIndex;
         for(unsigned int i = 0; i<entryCount; ++ i) {
-            firstChunk.append(valueOfGroupOfBytes(4 , off + offset + 16 + 12*i ), 4));
-            samplesPerChunk.append(valueOfGroupOfBytes(4, off + offset + 20 + 12*i ), 4));
-            sampleDescriptionIndex.append(valueOfGroupOfBytes(4, off + offset + 24 + 12*i ), 4));
+            firstChunk.append(valueOfGroupOfBytes(4 , off + offset + 16 + 12*i ));
+            samplesPerChunk.append(valueOfGroupOfBytes(4, off + offset + 20 + 12*i ));
+            sampleDescriptionIndex.append(valueOfGroupOfBytes(4, off + offset + 24 + 12*i ));
         }
         std::shared_ptr<Box> ret(new SampleToChunkBox(size, type, off, v, f, entryCount, firstChunk, samplesPerChunk,
                                                       sampleDescriptionIndex));
@@ -1030,46 +915,40 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
         unsigned int entryCount = valueOfGroupOfBytes(4, off + offset + 12);
         QList<unsigned int> chunkOffset;
         for(unsigned int i = 0; i<entryCount; ++ i)
-            chunkOffset.append(valueOfGroupOfBytes(4, off + offset + 16 + 4*i), 4));
+            chunkOffset.append(valueOfGroupOfBytes(4, off + offset + 16 + 4*i));
         std::shared_ptr<Box> ret(new ChunkOffsetBox(size, type, off, v, f, entryCount, chunkOffset));
         return ret;
     } else if(type == "stss"){
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
         unsigned int entryCount = valueOfGroupOfBytes(4, off + offset + 12);
         QList<unsigned int> sampleNumber;
         for (unsigned int i = 0; i<entryCount; ++ i)
-            sampleNumber.append(valueOfGroupOfBytes(4, off + offset + 16 + 4*i), 4));
+            sampleNumber.append(valueOfGroupOfBytes(4, off + offset + 16 + 4*i));
         std::shared_ptr<Box> ret(new SyncSampleBox(size, type, off, v, f, entryCount,sampleNumber));
         return ret;
     } else if(type == "styp") {
-        QString majorBrand = bitOperator->stringValue(4, off + 8);
+        QString majorBrand = stringValue(4, off + 8);
         unsigned int minorVersion = valueOfGroupOfBytes(4, off + 12);
         //QString minorVersion = bitOperator->stringValue(4, off + 12);
         QList<QString> compatibleBrands;
         unsigned int index = 16;
         while(index <= (size - 4)) {
-            QString brand =  bitOperator->stringValue(4, off + index);
+            QString brand =  stringValue(4, off + index);
             compatibleBrands.append(brand);
             index += 4;
         }
@@ -1079,11 +958,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1093,11 +969,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1110,11 +983,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1124,11 +994,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1138,11 +1005,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1152,11 +1016,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1180,8 +1041,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
             earliestPresentationTime = valueOfGroupOfBytes(4, off + offset + 20);
             firstOffset = valueOfGroupOfBytes(4 , off + offset + 24 );
         } else if (version == 1) {
-            earliestPresentationTime = valueOfGroupOfBytes(8, off + offset + 20), 8);
-            firstOffset = valueOfGroupOfBytes(8, off + offset + 28), 8);
+            earliestPresentationTime = valueOfGroupOfBytes(8, off + offset + 20);
+            firstOffset = valueOfGroupOfBytes(8, off + offset + 28);
             offset += 8;
         }
 
@@ -1196,13 +1057,13 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         QList <unsigned int> SAPDeltaTime;
         qDebug()<<"BOXFACTOR: getBox sidx 9 referenceCount: "<<referenceCount;
         for(unsigned int i = 0; i < referenceCount; i ++) {
-            referenceType.append(valueOfGroupOfBits((1, (off + offset + 32)*8));
+            referenceType.append(valueOfGroupOfBits(1, (off + offset + 32)*8));
             qDebug()<<"BOXFACTOR: getBox sidx 10"<<i;
             referenceSize.append(valueOfGroupOfBits((31, (off + offset + 32)*8 + 1), 31));
             qDebug()<<"BOXFACTOR: getBox sidx 11"<<i;
-            subsegmentDuration.append(valueOfGroupOfBytes(4, off + offset + 36), 4));
+            subsegmentDuration.append(valueOfGroupOfBytes(4, off + offset + 36));
             qDebug()<<"BOXFACTOR: getBox sidx 12"<<i;
-            startsWithSAP.append(valueOfGroupOfBits((1, (off + offset + 40)*8));
+            startsWithSAP.append(valueOfGroupOfBits(1, (off + offset + 40)*8));
             qDebug()<<"BOXFACTOR: getBox sidx 13"<<i;
             SAPType.append(valueOfGroupOfBits((3, (off + offset + 40)*8 + 1), 3));
             qDebug()<<"BOXFACTOR: getBox sidx 14"<<i;
@@ -1226,11 +1087,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1243,11 +1101,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1263,11 +1118,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1280,11 +1132,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1293,11 +1142,8 @@ std::shared_ptr<Box> BoxFactory::getSBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1311,11 +1157,8 @@ std::shared_ptr<Box> BoxFactory::getHBox(const unsigned int& size, QString type,
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
@@ -1323,19 +1166,16 @@ std::shared_ptr<Box> BoxFactory::getHBox(const unsigned int& size, QString type,
         unsigned long int handlerType = valueOfGroupOfBytes(4, off + offset + 16);
         QList <unsigned int> reserved;
         for(int i = 0; i < 3; ++ i)
-            reserved.append(valueOfGroupOfBytes(4 , off + offset + 20 + 4*i ), 4));
-        QString name = bitOperator->stringValue(size - offset - 32, off + offset + 32), size - offset - 32);
+            reserved.append(valueOfGroupOfBytes(4 , off + offset + 20 + 4*i ));
+        QString name = stringValue(size - offset - 32, off + offset + 32);
         std::shared_ptr<Box> ret(new HandlerBox(size, type, off, v, f, predefined, handlerType, reserved, name));
         return ret;
     } else if(type == "hmhd"){
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
-                char* vPtr = new char[1];
-        fileService->getBytes(vPtr, 1, off + offset + 8);
-        unsigned int v = valueOfGroupOfBytes(vPtr, 1);
-        //unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
-        delete[] vPtr;
+        unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
+
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
