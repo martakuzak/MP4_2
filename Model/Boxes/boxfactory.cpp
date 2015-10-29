@@ -75,7 +75,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         return std::shared_ptr<Box>(new AVCSampleEntry(size, type, off,reserved,dataReferenceIndex, predefined, reserved1, predefined1,
                                                        width,height,horizonresolution, vertresolution, reserved2, frameCount,
                                                        compressorName, depth, predefined2));
-    } /*else if(type == "avcC") {
+    } else if(type == "avcC") {
         unsigned int configurationVersion = valueOfGroupOfBytes(1, off + 8);
         unsigned int AVCProfileIndication = valueOfGroupOfBytes(1, off + 9);
         unsigned int profileCompatibility = valueOfGroupOfBytes(1, off + 10);
@@ -89,8 +89,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int offset = 0;
         for (unsigned int i = 0; i <numOfSequenceParameterSets; ++ i) {
             sequenceParameterSetLength.append(valueOfGroupOfBytes(2, off + offset + 14 ));
-            //UZUPELNIC
-            //sequenceParameterSetNALUnit.append(valueOfGroupOfBytes(sequenceParameterSetLength.at(i), off + offset + 16), sequenceParameterSetLength.at(i)));
+            sequenceParameterSetNALUnit.append(valueOfGroupOfBytes(sequenceParameterSetLength.at(i), off + offset + 16));
             offset = offset + 2 + sequenceParameterSetLength.at(i);
         }
         unsigned int numOfPictureParameterSets = valueOfGroupOfBytes(1, off + offset + 14);
@@ -98,8 +97,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         QList <unsigned long int> pictureParameterSetNALUnit;
         for (unsigned int i = 0; i <numOfPictureParameterSets; ++ i) {
             pictureParameterSetLength.append(valueOfGroupOfBytes(2, off + offset + 15 ));
-            //UZUPELNIC
-            //pictureParameterSetNALUnit.append(valueOfGroupOfBytes(pictureParameterSetLength.at(i), off + offset + 17), pictureParameterSetLength.at(i)));
+            pictureParameterSetNALUnit.append(valueOfGroupOfBytes(pictureParameterSetLength.at(i), off + offset + 17));
             offset = offset + 2 + pictureParameterSetLength.at(i);
         }
         return std::shared_ptr<Box>(new AVCConfigurationBox(size, type, off, configurationVersion, AVCProfileIndication,
@@ -107,7 +105,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
                                                             reserved2,numOfSequenceParameterSets, sequenceParameterSetLength,
                                                             sequenceParameterSetNALUnit, numOfPictureParameterSets,
                                                             pictureParameterSetLength, pictureParameterSetNALUnit));
-    } */else if(type == "url "){
+    } else if(type == "url "){
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
@@ -146,19 +144,16 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         std::shared_ptr<Box> ret(new DataReferenceBox(size, type, off, v, f, entryCount));
         return ret;
     } else if(type == "ctts"){
-        //qDebug()<<"BOXFACTORY: getBox ctss off = "<<off;
         unsigned int offset = 0;
         if(size == 1)
             offset += 8;
         unsigned int v = valueOfGroupOfBytes(1, off + offset + 8);
 
-        //qDebug()<<"BOXFACTORY: getBox ctts 1";
         QList<unsigned int> f;
         for (unsigned int i = 0; i < 3; ++ i)
             f.append(valueOfGroupOfBytes(1, off + offset + i + 9));
 
         unsigned int entryCount = valueOfGroupOfBytes(4, off + offset + 12);
-        //qDebug()<<"BOXFACTORY: getBox ctts 4";
 
         QList<unsigned int> sampleCount;
         QList<unsigned int> sampleDelta;
@@ -231,7 +226,6 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
                 mediaTime.append(valueOfGroupOfBytes(8, off + offset + 24));
                 offset += 8;
             } else if(v == 0) {
-                unsigned long tmp = valueOfGroupOfBytes(4, off + offset + 16); //UWAGA
                 segmentDuration.append(valueOfGroupOfBytes(4, off + offset + 16));
                 mediaTime.append(valueOfGroupOfBytes(4, off + offset + 20));
             }
