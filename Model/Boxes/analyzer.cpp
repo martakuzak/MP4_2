@@ -4,6 +4,7 @@
 Analyzer::Analyzer() {}
 ////////////////////////////////////////////////////////////////////////////////////////////
 Analyzer::Analyzer(FileService *fs): fileService(fs) {
+    qDebug()<<"ANALYZER constructor";
     mdatOffset = 0;
     bitOperator = new BitOperator();
 }

@@ -10,8 +10,10 @@ FileService::~FileService(){
 
 void FileService::getBytes(char *dst, unsigned int length, unsigned long offset) {
     QByteArray array;
-    if(offset + length > file->size())
+    if(offset + length > file->size()) {
         dst = NULL;
+        return;
+    }
     file->seek(offset);
     array = file->read(length);
     memmove(dst, array.data(), length);

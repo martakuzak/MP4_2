@@ -6,7 +6,7 @@ BoxFactory::BoxFactory(FileService *fs) : fileService(fs) {
 }
 
 std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, unsigned long int off) {
-    //qDebug()<<"BOXFACTORY: getBox"<<type<<size;
+    qDebug()<<"BOXFACTORY: getBox"<<type<<size;
     if(type.at(0)==QChar('m'))
         return this->getMBox(size, type, off);
     else if(type.at(0)==QChar('t'))
@@ -76,6 +76,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
                                                        width,height,horizonresolution, vertresolution, reserved2, frameCount,
                                                        compressorName, depth, predefined2));
     } else if(type == "avcC") {
+        qDebug()<<"BOXFACTORY avcC 1";
         unsigned int configurationVersion = valueOfGroupOfBytes(1, off + 8);
         unsigned int AVCProfileIndication = valueOfGroupOfBytes(1, off + 9);
         unsigned int profileCompatibility = valueOfGroupOfBytes(1, off + 10);
@@ -84,14 +85,22 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int lengthSizeMinusOne = valueOfGroupOfBits(2, (off + 12)*8 + 6);
         unsigned int reserved2 = valueOfGroupOfBits(3, (off + 13)*8);
         unsigned int numOfSequenceParameterSets = valueOfGroupOfBits(5, (off + 13)*8 + 3);
+        qDebug()<<"BOXFACTORY avcC 2";
         QList <unsigned int> sequenceParameterSetLength;
         QList <unsigned long int> sequenceParameterSetNALUnit;
         unsigned int offset = 0;
         for (unsigned int i = 0; i <numOfSequenceParameterSets; ++ i) {
+            qDebug()<<"BOXFACTORY avcC 2.1"<<i<<(off + offset + 14);
             sequenceParameterSetLength.append(valueOfGroupOfBytes(2, off + offset + 14 ));
-            sequenceParameterSetNALUnit.append(valueOfGroupOfBytes(sequenceParameterSetLength.at(i), off + offset + 16));
+            qDebug()<<"BOXFACTORY avcC 2.2"<<i<<sequenceParameterSetLength.at(i);
+            valueOfGroupOfBytes(sequenceParameterSetLength.at(i), off + offset + 16);
+            //sequenceParameterSetNALUnit.append(valueOfGroupOfBytes(sequenceParameterSetLength.at(i), off + offset + 16));
+            qDebug()<<"BOXFACTORY avcC 2.3";
             offset = offset + 2 + sequenceParameterSetLength.at(i);
+            qDebug()<<"BOXFACTORY avcC 2.4";
         }
+        qDebug()<<"BOXFACTORY avcC 3";
+
         unsigned int numOfPictureParameterSets = valueOfGroupOfBytes(1, off + offset + 14);
         QList <unsigned int> pictureParameterSetLength;
         QList <unsigned long int> pictureParameterSetNALUnit;
@@ -100,6 +109,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
             pictureParameterSetNALUnit.append(valueOfGroupOfBytes(pictureParameterSetLength.at(i), off + offset + 17));
             offset = offset + 2 + pictureParameterSetLength.at(i);
         }
+
         return std::shared_ptr<Box>(new AVCConfigurationBox(size, type, off, configurationVersion, AVCProfileIndication,
                                                             profileCompatibility, AVCLevelIndication, reserved1, lengthSizeMinusOne,
                                                             reserved2,numOfSequenceParameterSets, sequenceParameterSetLength,
@@ -1179,6 +1189,8 @@ std::shared_ptr<Box> BoxFactory::getHBox(const unsigned int& size, QString type,
 }
 
 unsigned long int BoxFactory::valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
+    if(length == 55808)
+        return 0;
     char* ptr = new char[length];
     fileService->getBytes(ptr, length, offset);
     unsigned long int ret = bitOperator->valueOfGroupOfBytes(ptr, length);
