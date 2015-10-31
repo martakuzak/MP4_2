@@ -6,7 +6,7 @@ BoxFactory::BoxFactory(FileService *fs) : fileService(fs) {
 }
 
 std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, unsigned long int off) {
-    qDebug()<<"BOXFACTORY: getBox"<<type<<size;
+    //qDebug()<<"BOXFACTORY: getBox"<<type<<size;
     if(type.at(0)==QChar('m'))
         return this->getMBox(size, type, off);
     else if(type.at(0)==QChar('t'))
@@ -85,21 +85,21 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int lengthSizeMinusOne = valueOfGroupOfBits(2, (off + 12)*8 + 6);
         unsigned int reserved2 = valueOfGroupOfBits(3, (off + 13)*8);
         unsigned int numOfSequenceParameterSets = valueOfGroupOfBits(5, (off + 13)*8 + 3);
-        qDebug()<<"BOXFACTORY avcC 2";
+        //qDebug()<<"BOXFACTORY avcC 2";
         QList <unsigned int> sequenceParameterSetLength;
         QList <unsigned long int> sequenceParameterSetNALUnit;
         unsigned int offset = 0;
         for (unsigned int i = 0; i <numOfSequenceParameterSets; ++ i) {
-            qDebug()<<"BOXFACTORY avcC 2.1"<<i<<(off + offset + 14);
+            //qDebug()<<"BOXFACTORY avcC 2.1"<<i<<(off + offset + 14);
             sequenceParameterSetLength.append(valueOfGroupOfBytes(2, off + offset + 14 ));
-            qDebug()<<"BOXFACTORY avcC 2.2"<<i<<sequenceParameterSetLength.at(i);
+            //qDebug()<<"BOXFACTORY avcC 2.2"<<i<<sequenceParameterSetLength.at(i);
             valueOfGroupOfBytes(sequenceParameterSetLength.at(i), off + offset + 16);
-            //sequenceParameterSetNALUnit.append(valueOfGroupOfBytes(sequenceParameterSetLength.at(i), off + offset + 16));
-            qDebug()<<"BOXFACTORY avcC 2.3";
+            sequenceParameterSetNALUnit.append(valueOfGroupOfBytes(sequenceParameterSetLength.at(i), off + offset + 16));
+            //qDebug()<<"BOXFACTORY avcC 2.3";
             offset = offset + 2 + sequenceParameterSetLength.at(i);
-            qDebug()<<"BOXFACTORY avcC 2.4";
+            //qDebug()<<"BOXFACTORY avcC 2.4";
         }
-        qDebug()<<"BOXFACTORY avcC 3";
+        //qDebug()<<"BOXFACTORY avcC 3";
 
         unsigned int numOfPictureParameterSets = valueOfGroupOfBytes(1, off + offset + 14);
         QList <unsigned int> pictureParameterSetLength;

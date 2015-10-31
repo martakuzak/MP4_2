@@ -1,6 +1,6 @@
 #include "bitoperator.h"
 
-BitOperator::BitOperator() { /*qDebug()<<"BITOPERATOR: constructor"; */}
+BitOperator::BitOperator() {}
 
 BitOperator::~BitOperator() {
 }

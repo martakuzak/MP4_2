@@ -4,7 +4,6 @@
 Analyzer::Analyzer() {}
 ////////////////////////////////////////////////////////////////////////////////////////////
 Analyzer::Analyzer(FileService *fs): fileService(fs) {
-    qDebug()<<"ANALYZER constructor";
     mdatOffset = 0;
     bitOperator = new BitOperator();
 }
@@ -21,7 +20,6 @@ QString Analyzer::decToHex(const unsigned long& offset) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 Analyzer::~Analyzer() {
     delete bitOperator;
-    //delete file;
     delete fileService;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,12 +39,9 @@ void Analyzer::setData(TreeItem *&parent, QHash<long, TreeItem *> *items, const 
         //unsigned int [16] extendedType;//to-do
         char* sizeAr = new char[4];
         fileService->getBytes(sizeAr, 4, 0 + offset);
-        //memmove(sizeAr, fileService->getBytes(4, 0 + offset), 4);
         char* typeAr = new char[4];
         fileService->getBytes(typeAr, 4, 4 + offset);
-        //memmove(typeAr, fileService->getBytes(4, 4 + offset), 4);
         size = bitOperator->valueOfGroupOfBytes(sizeAr, 4); //valueOfGroupOfBytes(4, 0 + offset);
-        //type = valueOfGroupOfBytes(4, 4 + offset);
         type = bitOperator->stringValue(typeAr, 4); //qstringValue(4, 4 + offset);
 
         delete[] sizeAr;

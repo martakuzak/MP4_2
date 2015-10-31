@@ -55,18 +55,18 @@ public:
      * @param offset offset in file (in bytes)
      */
     void getBytes(char* dst, unsigned int length, unsigned long offset);
-    //char* getBytes(unsigned int length, unsigned long offset);
     //offset i number w bitach
     /**
-     * @brief getBits
+     * @brief getBits puts char array containing the bits of given length which are located in the file with given offset into destination array
+     * @param dst destination
      * @param length length of the bit array in bits
      * @param offset offset in file (in bits)
-     * @return char array containing the bits of given length which are located in the file with given offset
      */
     void getBits(char* dst, unsigned int length, unsigned long offset);
 protected:
     /**
      * @brief toBitArray converts byte into char bit array
+     * @param dst destination of the converted result
      * @param byte byte that contains bit sequence that is supposed to be returned
      * @param prefix number of bits to skip as a prefix (MSB)
      * @param suffix number of bits to skip as a suffix (LSB)
@@ -74,7 +74,6 @@ protected:
      * 254 -> 11111110b
      * We skip 3 MSB and 1 LSB, so the result is 1111b
      * tmp = {1, 1, 1, 1}
-     * @return
      */
     void toBitArray(char* dst,  char byte, int length, int suffix = 0);
     /**
