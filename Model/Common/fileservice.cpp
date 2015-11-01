@@ -58,7 +58,7 @@ void FileService::getBits(char *dst, unsigned int length, unsigned long offset) 
     delete[] byteData;
 }
 
-void FileService::toBitArray(char *dst, char byte, int length, int suffix) {
+void FileService::toBitArray(char *dst, char byte, int length, int suffix) {//TO-DO co z tym prefixem??
     byte = byte >> suffix;
     for(int i = length - 1; i >= 0; -- i) {
         dst[i] = byte - ((byte >> 1) << 1 );
