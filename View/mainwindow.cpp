@@ -181,14 +181,13 @@ void MainWindow::nalParseSelected() {
 
         if(svcSection == NULL) {
             QList<std::shared_ptr<NalUnit>> list;
-            qDebug()<<"MainWindow nalParseSelected 2";
             NALParser nalParser(fileName);
-            qDebug()<<"MainWindow nalParseSelected 3";
             list = nalParser.parseFile();
-            qDebug()<<"MainWindow nalParseSelected 4";
-            svcSection = new SvcSection(list);
-            qDebug()<<"MainWindow nalParseSelected 5";
-            mainLayout->addWidget(svcSection);
+            if(!list.empty()) {
+                svcSection = new SvcSection(list);
+                mainLayout->addWidget(svcSection);
+            } else
+                showWarningDialog("No NAL found.");
         }
     }
 }
