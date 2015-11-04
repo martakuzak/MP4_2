@@ -13,10 +13,12 @@ NALParser::NALParser(const QString &fileName) {
     }
     fileSize = file->size();
     bitOperator = new BitOperator();
+    fileService = new FileService(fileName);
 }
 
 NALParser::~NALParser() {
-
+    delete bitOperator;
+    delete fileService;
 }
 
 QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
@@ -30,23 +32,22 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
     NalUnitFactory factory(this);
     qDebug()<<"NALPARSER parseFile 3";
 
-    FileService* service = new FileService(fileName);
-    if(service->openFile()) {
+    if(fileService->openFile()) {
         while(offset < fileSize) {
 
-            /*unsigned int pref3Byte = bitOperator->valueOfGroupOfBytes(service->getBytes(3, offset), 3); //? sprawdzic to wszystko
-            unsigned int pref4Byte = bitOperator->valueOfGroupOfBytes(service->getBytes(4, offset), 4);
+            unsigned int pref3Byte = valueOfGroupOfBytes(3, offset); //? sprawdzic to wszystko !!!
+            unsigned int pref4Byte = valueOfGroupOfBytes(4, offset);
 
 
-            if(pref3Byte == 1 || pref4Byte == 1) {
+            if(pref3Byte == 1 || pref4Byte == 1) { //prefix == 0x001 lub 0x0001
                 int off = offset;
                 offset += (pref3Byte == 1) ? 3 : 4;
                 //forbidden_zero_bit
-                short int forbiddenZeroBit = bitOperator->valueOfGroupOfBits(service->getBits(1, offset*8), 1);
+                short int forbiddenZeroBit = valueOfGroupOfBits(1, offset*8);
                 //nal_ref_idc
-                short int nalRefIdc = bitOperator->valueOfGroupOfBits(service->getBits(2, offset*8 + 1), 2);
+                short int nalRefIdc = valueOfGroupOfBits(2, offset*8 + 1);
                 //nal_unit_type;
-                int nalUnitType = bitOperator->valueOfGroupOfBits(service->getBits(5, offset*8) + 3, 5);
+                int nalUnitType = valueOfGroupOfBits(5, offset*8 + 3);
                 ////qDebug()<<offset;
                 offset += 1;
                 qDebug()<<"NALPARSER parse" <<nalRefIdc<<nalUnitType;
@@ -54,10 +55,9 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
                 list.append(factory.getNalUnit(nalUnitType, nalRefIdc, off));
 
             } else
-                offset += 1;*/
-            offset += 1;
+                offset += 1;
         }
-        service->close();
+        fileService->close();
     }
     qDebug()<<"NALPARSER parseFile 4";
 
@@ -258,5 +258,37 @@ void NALParser::identifyNalType(int nalUnitType, int offset) {
     default:
         break;
 
-    }
+    }    
+}
+
+
+unsigned long int NALParser::valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
+    if(length == 55808)
+        return 0;
+    char* ptr = new char[length];
+    fileService->getBytes(ptr, length, offset);
+    unsigned long int ret = bitOperator->valueOfGroupOfBytes(ptr, length);
+    delete[] ptr;
+    return ret;
+}
+signed long int NALParser::signedValueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
+    char* ptr = new char[length];
+    fileService->getBytes(ptr, length, offset);
+    long int ret = bitOperator->signedValueOfGroupOfBytes(ptr, length);
+    delete[] ptr;
+    return ret;
+}
+unsigned long int NALParser::valueOfGroupOfBits(const unsigned int & length, const unsigned long& offset) const {
+    char* ptr = new char[length];
+    fileService->getBits(ptr, length, offset);
+    unsigned long int ret = bitOperator->valueOfGroupOfBits(ptr, length);
+    delete[] ptr;
+    return ret;
+}
+QString NALParser::stringValue(const unsigned int & length, const unsigned long& offset) const {
+    char* ptr = new char[length];
+    fileService->getBytes(ptr, length, offset);
+    QString ret = bitOperator->stringValue(ptr, length);
+    delete[] ptr;
+    return ret;
 }

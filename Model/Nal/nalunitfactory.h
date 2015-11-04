@@ -3,6 +3,7 @@
 
 #include "nalunit.h"
 #include "nalparser.h"
+#include "box.h"
 #include <memory>
 
 

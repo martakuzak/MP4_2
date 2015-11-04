@@ -3,7 +3,8 @@
 NalUnitFactory::NalUnitFactory(NALParser *par) : parser(par){}
 
 NalUnitFactory::~NalUnitFactory() {
-    delete parser;
+    //delete parser; //NALParser wola obiekt factory - niech factory go nie kasuje!!!!!!!
+                    //TO-DO przemyselec, jak to lepiej zrobic
 }
 
 std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset) {
@@ -142,4 +143,3 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
     }
     return std::shared_ptr<NalUnit>(new NalUnit(nalRefIdc, offset));
 }
-
