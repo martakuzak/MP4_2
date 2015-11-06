@@ -1,2 +1,1 @@
-1. Sprawdziæ implementacjê i tworzenie boxu avcC. Rozmiary w sequenceParameterSetLength wydaj¹ siê byæ za du¿e. 
-2. Uodporniæ funkcje na wypadek b³êdów (np. NULLi).
+1. Uodporniæ funkcje na wypadek b³êdów (np. NULLi).
