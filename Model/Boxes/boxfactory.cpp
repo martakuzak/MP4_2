@@ -1189,8 +1189,6 @@ std::shared_ptr<Box> BoxFactory::getHBox(const unsigned int& size, QString type,
 }
 
 unsigned long int BoxFactory::valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
-    if(length == 55808)
-        return 0;
     char* ptr = new char[length];
     fileService->getBytes(ptr, length, offset);
     unsigned long int ret = bitOperator->valueOfGroupOfBytes(ptr, length);

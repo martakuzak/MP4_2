@@ -1,10 +1,14 @@
 #include "nalunitfactory.h"
 
-NalUnitFactory::NalUnitFactory(NALParser *par) : parser(par){}
+NalUnitFactory::NalUnitFactory(NALParser *par, FileService* fs) : parser(par), fileService(fs){
+    bitOperator = new BitOperator();
+}
 
 NalUnitFactory::~NalUnitFactory() {
     //delete parser; //NALParser wola obiekt factory - niech factory go nie kasuje!!!!!!!
                     //TO-DO przemyselec, jak to lepiej zrobic
+    //delete fileService;
+    delete bitOperator;
 }
 
 std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset) {
@@ -67,7 +71,8 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         return std::shared_ptr<NalUnit>(new SeqParameterSetExtensionRbsp(nalRefIdc, offset));
         break;
 
-    case PREFIX_NAL_UNIT_RBSP:
+    case PREFIX_NAL_UNIT_RBSP: //14
+        //int svcExtensionFlag;
         return std::shared_ptr<NalUnit>(new PrefixNalUnitRbsp(nalRefIdc, offset));
         break;
 
@@ -91,7 +96,8 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         return std::shared_ptr<NalUnit>(new SliceLayerWithoutPartitioningRbsp(nalRefIdc, offset));
         break;
 
-    case SLICE_LAYER_EXTENSION_RBSP:
+    case SLICE_LAYER_EXTENSION_RBSP: //20
+        int svcExtensionFlag;
         return std::shared_ptr<NalUnit>(new SliceLayerExtensionRbsp(nalRefIdc, offset));
         break;
 
@@ -142,4 +148,33 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         break;
     }
     return std::shared_ptr<NalUnit>(new NalUnit(nalRefIdc, offset));
+}
+
+unsigned long int NalUnitFactory::valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
+    char* ptr = new char[length];
+    fileService->getBytes(ptr, length, offset);
+    unsigned long int ret = bitOperator->valueOfGroupOfBytes(ptr, length);
+    delete[] ptr;
+    return ret;
+}
+signed long int NalUnitFactory::signedValueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
+    char* ptr = new char[length];
+    fileService->getBytes(ptr, length, offset);
+    long int ret = bitOperator->signedValueOfGroupOfBytes(ptr, length);
+    delete[] ptr;
+    return ret;
+}
+unsigned long int NalUnitFactory::valueOfGroupOfBits(const unsigned int & length, const unsigned long& offset) const {
+    char* ptr = new char[length];
+    fileService->getBits(ptr, length, offset);
+    unsigned long int ret = bitOperator->valueOfGroupOfBits(ptr, length);
+    delete[] ptr;
+    return ret;
+}
+QString NalUnitFactory::stringValue(const unsigned int & length, const unsigned long& offset) const {
+    char* ptr = new char[length];
+    fileService->getBytes(ptr, length, offset);
+    QString ret = bitOperator->stringValue(ptr, length);
+    delete[] ptr;
+    return ret;
 }

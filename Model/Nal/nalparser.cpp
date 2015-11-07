@@ -22,15 +22,10 @@ NALParser::~NALParser() {
 }
 
 QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
-    qDebug()<<"NALPARSER parseFile 1";
-    //QByteArray byteArray;
     unsigned long int offset= 0;//offset w pliku
 
     QList<std::shared_ptr<NalUnit>> list;
-    qDebug()<<"NALPARSER parseFile 2";
-
-    NalUnitFactory factory(this);
-    qDebug()<<"NALPARSER parseFile 3";
+    NalUnitFactory factory(this, fileService);
 
     if(fileService->openFile()) {
         while(offset < fileSize) {
@@ -38,21 +33,21 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
             unsigned int pref3Byte = valueOfGroupOfBytes(3, offset); //? sprawdzic to wszystko !!!
             unsigned int pref4Byte = valueOfGroupOfBytes(4, offset);
 
-
             if(pref3Byte == 1 || pref4Byte == 1) { //prefix == 0x001 lub 0x0001
                 int off = offset;
                 offset += (pref3Byte == 1) ? 3 : 4;
                 //forbidden_zero_bit
-                short int forbiddenZeroBit = valueOfGroupOfBits(1, offset*8);
+                short int forbiddenZeroBit = valueOfGroupOfBits(1, offset*8); //razem: 1 bit
                 //nal_ref_idc
-                short int nalRefIdc = valueOfGroupOfBits(2, offset*8 + 1);
+                short int nalRefIdc = valueOfGroupOfBits(2, offset*8 + 1); //razem: 3 bity
                 //nal_unit_type;
-                int nalUnitType = valueOfGroupOfBits(5, offset*8 + 3);
+                int nalUnitType = valueOfGroupOfBits(5, offset*8 + 3); //razem: 8 bitów
                 ////qDebug()<<offset;
                 offset += 1;
-                qDebug()<<"NALPARSER parse" <<nalRefIdc<<nalUnitType;
+                //qDebug()<<"NALPARSER parse" <<nalRefIdc<<nalUnitType;
                 //identifyNalType(nalUnitType, offset);
-                list.append(factory.getNalUnit(nalUnitType, nalRefIdc, off));
+                std::shared_ptr<NalUnit> nalUnit = factory.getNalUnit(nalUnitType, nalRefIdc, off);
+                list.append(nalUnit);
 
             } else
                 offset += 1;

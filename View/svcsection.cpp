@@ -17,13 +17,13 @@ SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nalUnits, QWidget *paren
     qDebug()<<"SVC SECTION"<<nalUnits.size();
     QString* tmp = new QString("");
     for(int i = 0; i < nalUnits.size(); ++ i) {
+        qDebug()<<"SVC SECTION num"<<i;
         std::shared_ptr<NalUnit> nalUnit = nalUnits.at(i);
         tmp->append(nalUnits.at(i)->getName());
         tmp->append("\n");
         //nalInfo->setText(nalInfo->toPlainText() + nalUnits.at(i)->getName() + "\n");
         nalInfo->setCurrentFont(serifFont);
         nalInfo->append(QString::number(i + 1) + ". " + nalUnit->getName());
-
         nalInfo->setCurrentFont(font);
         nalInfo->append("Offset : 0x" + (QString::number(nalUnit->getOffset(), 16)) + "");
 
@@ -36,11 +36,14 @@ SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nalUnits, QWidget *paren
         //qDebug()<<"SVC SECTION"<<nalUnits.at(i)->getName();
     }
     //nalInfo->setText(*tmp);
+    qDebug()<<"SVC SECTION 11";
 
     layout->addWidget(label);
+    qDebug()<<"SVC SECTION 12";
     layout->addWidget(nalInfo);
+    qDebug()<<"SVC SECTION 13";
     setLayout(layout);
-
+    qDebug()<<"SVC SECTION 14";
 }
 
 SvcSection::~SvcSection() {
