@@ -1,10 +1,12 @@
 #include <QApplication>
+#include "svcwriter.h"
 #include "controller.h"
 #include "mainwindow.h"
 #include <QHash>
 #include <QString>
 #include <QDebug>
 
+class SvcWriter;
 /*! \mainpage
  *
  * \section intro_sec MP4 Multimedia File Editor
@@ -17,5 +19,6 @@ int main(int argc, char *argv[]) {
     MainWindow *w = new MainWindow();
     Controller controller(w);
     w->show();
+    SvcWriter* m = new SvcWriter("m");
     return a.exec();
 }

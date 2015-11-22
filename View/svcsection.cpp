@@ -2,7 +2,7 @@
 
 SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nalUnits, QWidget *parent):
     QGroupBox(parent) {
-    qDebug()<<"SVC SECTION constructor 1";
+    //qDebug()<<"SVC SECTION constructor 1";
     QVBoxLayout *layout = new QVBoxLayout;
     QLabel *label = new QLabel("NAL UNITS IN THE STREAM");
 
@@ -14,10 +14,9 @@ SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nalUnits, QWidget *paren
     nalInfo = new QTextEdit();
     nalInfo->setAcceptRichText(true);
 
-    qDebug()<<"SVC SECTION"<<nalUnits.size();
     QString* tmp = new QString("");
     for(int i = 0; i < nalUnits.size(); ++ i) {
-        qDebug()<<"SVC SECTION num"<<i;
+        //qDebug()<<"SVC SECTION num"<<i;
         std::shared_ptr<NalUnit> nalUnit = nalUnits.at(i);
         tmp->append(nalUnits.at(i)->getName());
         tmp->append("\n");
@@ -36,14 +35,10 @@ SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nalUnits, QWidget *paren
         //qDebug()<<"SVC SECTION"<<nalUnits.at(i)->getName();
     }
     //nalInfo->setText(*tmp);
-    qDebug()<<"SVC SECTION 11";
 
     layout->addWidget(label);
-    qDebug()<<"SVC SECTION 12";
     layout->addWidget(nalInfo);
-    qDebug()<<"SVC SECTION 13";
     setLayout(layout);
-    qDebug()<<"SVC SECTION 14";
 }
 
 SvcSection::~SvcSection() {

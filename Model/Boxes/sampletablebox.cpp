@@ -128,6 +128,7 @@ QStandardItemModel *SampleSizeBox::getModel() {
     model->setData(model->index(2, 1, QModelIndex()), QString::number(sampleCount));
     if(sampleSize == 0) {
         for (unsigned int i = 0; i<sampleCount; ++i) {
+            qDebug()<<entrySize.at(i);
             model->setData(model->index(2 + i, 0, QModelIndex()), "entry_size[" + QString::number(i) + "]");
             model->setData(model->index(2 + i, 1, QModelIndex()), QString::number(entrySize.at(i)));
         }

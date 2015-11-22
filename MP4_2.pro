@@ -17,7 +17,7 @@ INCLUDEPATH += ./Model\Dash \
                ./Model\Boxes \
                ./Controller \
                ./Model\Common \
-               ./Model\Nal
+               ./Model\Nal \
 
 SOURCES += main.cpp\
         View\mainwindow.cpp \
@@ -43,7 +43,8 @@ SOURCES += main.cpp\
     View/svcsection.cpp \
     Model/Nal/nalunit.cpp \
     Model/Nal/nalunitfactory.cpp \
-    Model/Common/fileservice.cpp
+    Model/Common/fileservice.cpp \
+    Model\Nal\svcwriter.cpp
 
 HEADERS  += View\mainwindow.h \
     Model\Boxes\analyzer.h \
@@ -68,6 +69,7 @@ HEADERS  += View\mainwindow.h \
     View/svcsection.h \
     Model/Nal/nalunit.h \
     Model/Nal/nalunitfactory.h \
-    Model/Common/fileservice.h
+    Model/Common/fileservice.h \
+    Model\Nal\svcwriter.h
 
 FORMS
