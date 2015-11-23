@@ -160,7 +160,6 @@ void MainWindow::tabClosed(int rowId) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::nalParseSelected() {
-    qDebug()<<"MainWindow nalParseSelected 1";
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::AnyFile);
     QString fileName = QFileDialog::getOpenFileName(this,
@@ -191,7 +190,39 @@ void MainWindow::nalParseSelected() {
         }
     }
 }
+////////////////////////////////////////////////////////////////////////////////////////////
+void MainWindow::rawStreamSelected() {
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    QString fileName = QFileDialog::getOpenFileName(this,
+                                                    tr("Select raw stream"), "/");
 
+    setWindowTitle("MP4 - " + fileName);
+    if(fileName.length()) {
+        emit rawStreamSelected(fileName);
+        if(tabs != NULL) {
+            delete tabs;
+            tabs = NULL;
+        }
+
+        if(dashSection != NULL) {
+            delete dashSection;
+            dashSection = NULL;
+        }
+
+        if(svcSection == NULL) {
+            SvcWriter* writer = new SvcWriter("");
+            /*QList<std::shared_ptr<NalUnit>> list;
+            NALParser nalParser(fileName);
+            list = nalParser.parseFile();
+            if(!list.empty()) {
+                svcSection = new SvcSection(list);
+                mainLayout->addWidget(svcSection);
+            } else
+                showWarningDialog("No NAL found.");*/
+        }
+    }
+}
 ////////////////////////////////////////////////////////////////////////////////////////////
 ///Private
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -234,6 +265,9 @@ void MainWindow::createActions() {
 
     nalAct = new QAction(tr("&Search for NAL units"), this);
     connect(nalAct, SIGNAL(triggered()), this, SLOT(nalParseSelected()));
+
+    svcAct = new QAction(tr("&Create MP4 file"), this);
+    //connect(svcAct, SIGNAL(triggered()), this, SLOT(rawStreamSelected()));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::makeDashConnection() {
@@ -249,6 +283,10 @@ void MainWindow::makeAnalyzeConnection(AnalyzeSection* analyze) {
             SLOT(selectionChanged(QItemSelectionModel*)), Qt::QueuedConnection);
     connect(analyze, SIGNAL(searchButtonClicked(QString)), this,
             SLOT(searchButtonClicked(QString)), Qt::QueuedConnection);
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+void MainWindow::makeSvcConnection() {
+    //connect(this, SIGNAL(streamSelected(const QString& filePath)), this, SLOT(
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::makeTabsConnection() {

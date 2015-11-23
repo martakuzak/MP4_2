@@ -38,6 +38,7 @@ private:
 public:
 
     explicit TreeModel(FileService *fs, QObject *parent = 0);
+    explicit TreeModel(QObject *parent = 0);
     //!Destructor
     ~TreeModel();
     /*!

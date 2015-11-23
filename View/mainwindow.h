@@ -24,6 +24,7 @@
 #include "analyzesection.h"
 #include "nalparser.h"
 #include "svcsection.h"
+#include "svcwriter.h"
 
 class TreeModel;
 class DashWrapper;
@@ -48,6 +49,7 @@ protected:
     QAction *dashAct;
     //Actions - parse NAL
     QAction *nalAct;
+    QAction *svcAct;
     //Actions- Help
     //when user clicks "help" in the menu
     QAction *helpAct; 
@@ -164,6 +166,7 @@ private slots:
      */
     void tabClosed(int rowId);
     void nalParseSelected();
+    void rawStreamSelected();
 signals:
     /*!
      * \brief fileSelected
@@ -197,6 +200,7 @@ signals:
      */
     void removeFileSig(const int& row);
     void nalFileSelected(const QString& fileName);
+    void rawStreamSelected(const QString& fileName);
 private:
     /*!
      * \brief initPointers Sets dashSection and analyzeSection attributes to NULL.
@@ -227,6 +231,7 @@ private:
      * connects tabs signals to slots
      */
     void makeTabsConnection();
+    void makeSvcConnection();
     /*!
      * \brief fileAnalyzed
      * \param model pointer to TreeModel of anylazed MP4 file

@@ -10,6 +10,8 @@ protected:
     //name of analyzed file
     QString fileName;
     QFile *file;
+    const int MVHD_SIZE_0 = 108; //version = 0
+    const int MVHD_SIZE_1 = 120; //version = 1
 public:
     bool writeFile(const QString& name);
 protected:
@@ -19,15 +21,27 @@ protected:
       *\param dashFile
       *\return size in bytes of written ftyp box
      */
-    unsigned int writeFtyp();
-    unsigned int writeMdat();
-    unsigned int writeMoov();
-    unsigned int writeMvhd();
-    unsigned int writeTkhd();
-    unsigned int writeMdia();
-    unsigned int writeMdhd();
-    unsigned int writeHdlr();
-    unsigned int writeMinf();
+    void writeFtyp();
+    void writeMoov();
+    unsigned int writeMvhd(bool write);
+    unsigned int writeTrak(bool write);
+    unsigned int writeTkhd(bool write);
+    unsigned int writeMdia(bool write);
+    unsigned int writeMdhd(bool write);
+    unsigned int writeHdlr(bool write);
+    unsigned int writeMinf(bool write);
+    unsigned int writeVmhd(bool write);
+    unsigned int writeDinf(bool write);
+    unsigned int writeDref(bool write);
+    unsigned int writeStbl(bool write);
+    unsigned int writeStsd(bool write);
+    unsigned int writeStts(bool write);
+    unsigned int writeCtts(bool write);
+    unsigned int writeStsc(bool write);
+    unsigned int writeStsz(bool write); //stz2?
+    unsigned int writeStco(bool write);
+    unsigned int writeStss(bool write);
+    void writeMdat();
 
 signals:
 
