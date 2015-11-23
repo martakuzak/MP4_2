@@ -6,15 +6,13 @@ NalUnitFactory::NalUnitFactory(NALParser *par, FileService* fs) : parser(par), f
 
 NalUnitFactory::~NalUnitFactory() {
     //delete parser; //NALParser wola obiekt factory - niech factory go nie kasuje!!!!!!!
-                    //TO-DO przemyselec, jak to lepiej zrobic
+    //TO-DO przemyselec, jak to lepiej zrobic
     //delete fileService;
     delete bitOperator;
 }
 
 std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset) {
     switch(typeCode) {
-
-    qDebug()<<"FACTORY "<<typeCode;
     case UNSPECIFIED:
         return std::shared_ptr<NalUnit>(new Unspecified(nalRefIdc, offset));
         break;
@@ -72,10 +70,29 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         break;
 
     case PREFIX_NAL_UNIT_RBSP: //14
-        //int svcExtensionFlag;
-        return std::shared_ptr<NalUnit>(new PrefixNalUnitRbsp(nalRefIdc, offset));
-        break;
-
+    {
+        unsigned int off = offset;
+        off += 5;
+        unsigned int svcExtensionFlag = valueOfGroupOfBits(1, off*8);
+        if(svcExtensionFlag) {
+            unsigned int reservedOneBit = valueOfGroupOfBits(1, off*8);
+            unsigned int idrFlag = valueOfGroupOfBits(1, off*8 + 1);
+            unsigned int priorityId = valueOfGroupOfBits(6, off*8 + 2);
+            off += 1;
+            unsigned int noInterLayerPredFlag = valueOfGroupOfBits(1, off*8);
+            unsigned int dependencyId = valueOfGroupOfBits(3, off*8 + 1);
+            unsigned int qualityId = valueOfGroupOfBits(4, off*8 + 4);
+            unsigned int temporaryId = valueOfGroupOfBits(3, off*8 + 7);
+            unsigned int useRefBasePicFlag = valueOfGroupOfBits(1, off*8 + 10);
+            unsigned int discardableFlag = valueOfGroupOfBits(1, off*8 + 11);
+            unsigned int outputFlag = valueOfGroupOfBits(1, off*8 + 12);
+            unsigned int reservedThree2bits = valueOfGroupOfBits(2, off*8 + 13);
+            return std::shared_ptr<NalUnit>(new PrefixNalUnitRbsp(nalRefIdc, offset, reservedOneBit, idrFlag, priorityId, noInterLayerPredFlag,
+                                                                        dependencyId, qualityId, temporaryId, useRefBasePicFlag, discardableFlag, outputFlag,
+                                                                        reservedThree2bits));
+        }
+        else return std::shared_ptr<NalUnit>(new NalUnit(nalRefIdc, off));
+    }
     case SUBSET_SEQUENCE_PARAMETER_SET_RBSP:
         return std::shared_ptr<NalUnit>(new SubsetSequenceParameterSetRbsp(nalRefIdc, offset));
         break;
@@ -97,10 +114,31 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         break;
 
     case SLICE_LAYER_EXTENSION_RBSP: //20
-        int svcExtensionFlag;
-        return std::shared_ptr<NalUnit>(new SliceLayerExtensionRbsp(nalRefIdc, offset));
-        break;
+    {
+        unsigned int off = offset;
+        off += 5;
+        unsigned int svcExtensionFlag = valueOfGroupOfBits(1, off*8);
+        if(svcExtensionFlag) {
+            unsigned int reservedOneBit = valueOfGroupOfBits(1, off*8);
+            unsigned int idrFlag = valueOfGroupOfBits(1, off*8 + 1);
+            unsigned int priorityId = valueOfGroupOfBits(6, off*8 + 2);
+            off += 1;
+            unsigned int noInterLayerPredFlag = valueOfGroupOfBits(1, off*8);
+            unsigned int dependencyId = valueOfGroupOfBits(3, off*8 + 1);
+            unsigned int qualityId = valueOfGroupOfBits(4, off*8 + 4);
+            unsigned int temporaryId = valueOfGroupOfBits(3, off*8 + 7);
+            unsigned int useRefBasePicFlag = valueOfGroupOfBits(1, off*8 + 10);
+            unsigned int discardableFlag = valueOfGroupOfBits(1, off*8 + 11);
+            unsigned int outputFlag = valueOfGroupOfBits(1, off*8 + 12);
+            unsigned int reservedThree2bits = valueOfGroupOfBits(2, off*8 + 13);
 
+            return std::shared_ptr<NalUnit>(new SliceLayerExtensionRbsp(nalRefIdc, offset, reservedOneBit, idrFlag, priorityId, noInterLayerPredFlag,
+                                                                        dependencyId, qualityId, temporaryId, useRefBasePicFlag, discardableFlag, outputFlag,
+                                                                        reservedThree2bits));
+        }
+        else return std::shared_ptr<NalUnit>(new NalUnit(nalRefIdc, off));
+        break;
+    }
     case RESERVED_21:
         return std::shared_ptr<NalUnit>(new Reserved21(nalRefIdc, offset));
         break;

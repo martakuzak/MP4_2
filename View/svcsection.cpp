@@ -22,11 +22,12 @@ SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nalUnits, QWidget *paren
         tmp->append("\n");
         //nalInfo->setText(nalInfo->toPlainText() + nalUnits.at(i)->getName() + "\n");
         nalInfo->setCurrentFont(serifFont);
-        nalInfo->append(QString::number(i + 1) + ". " + nalUnit->getName());
+        nalInfo->append(QString::number(i + 1) + ". " + nalUnit->getName() + " (" + QString::number(nalUnit->getTypeCode()) + ")");
         nalInfo->setCurrentFont(font);
-        nalInfo->append("Offset : 0x" + (QString::number(nalUnit->getOffset(), 16)) + "");
+        nalInfo->append(nalUnit->getHeader());
+        /*nalInfo->append("Offset : 0x" + (QString::number(nalUnit->getOffset(), 16)) + "");
 
-        nalInfo->append("NalRefIdc : " + (QString::number(nalUnit->getNalRefIdc())));
+        nalInfo->append("NalRefIdc : " + (QString::number(nalUnit->getNalRefIdc())));*/
         QString info = nalUnit->getInfo();
         if(info.length())
             nalInfo->append(info);

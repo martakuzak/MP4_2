@@ -178,16 +178,19 @@ void MainWindow::nalParseSelected() {
             dashSection = NULL;
         }
 
-        if(svcSection == NULL) {
-            QList<std::shared_ptr<NalUnit>> list;
-            NALParser nalParser(fileName);
-            list = nalParser.parseFile();
-            if(!list.empty()) {
-                svcSection = new SvcSection(list);
-                mainLayout->addWidget(svcSection);
-            } else
-                showWarningDialog("No NAL found.");
-        }
+        if(svcSection != NULL)
+            delete svcSection;
+
+        QList<std::shared_ptr<NalUnit>> list;
+        NALParser nalParser(fileName);
+        list = nalParser.parseFile();
+        if(!list.empty()) {
+            svcSection = new SvcSection(list);
+            mainLayout->addWidget(svcSection);
+        } else
+            showWarningDialog("No NAL found.");
+
+
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////

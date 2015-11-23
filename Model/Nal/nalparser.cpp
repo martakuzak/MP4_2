@@ -36,13 +36,12 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
             unsigned int pref4Byte = valueOfGroupOfBytes(4, offset);
 
             if(pref3Byte == 1 || pref4Byte == 1) { //prefix == 0x001 lub 0x0001
-                qDebug()<<offset;
                 int off = offset;
                 offset += (pref3Byte == 1) ? 3 : 4;
                 //forbidden_zero_bit
                 short int forbiddenZeroBit = valueOfGroupOfBits(1, offset*8); //razem: 1 bit
                 /*if(forbiddenZeroBit)
-                    qDebug()<<"WHAT A FUCK";
+                    qDebug()<<"forbiddenZeroBit 1!!!";
                 else
                     qDebug()<<"OK";*/
                 //nal_ref_idc
