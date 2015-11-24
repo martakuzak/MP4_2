@@ -1,6 +1,7 @@
 #ifndef SVCWRITER_H
 #define SVCWRITER_H
 #include <QFile>
+#include <QDebug>
 #include <QDataStream>
 
 class SvcWriter {
@@ -10,8 +11,12 @@ protected:
     //name of analyzed file
     QString fileName;
     QFile *file;
+    const int MDHD_SIZE_0 = 32; //version = 0
+    const int MDHD_SIZE_1 = 44; //version = 1
     const int MVHD_SIZE_0 = 108; //version = 0
     const int MVHD_SIZE_1 = 120; //version = 1
+    const int TKHD_SIZE_0 = 92; //version = 0
+    const int TKHD_SIZE_1 = 114; //version = 1
 public:
     bool writeFile(const QString& name);
 protected:
@@ -22,10 +27,10 @@ protected:
       *\return size in bytes of written ftyp box
      */
     void writeFtyp();
-    void writeMoov();
-    unsigned int writeMvhd(bool write);
-    unsigned int writeTrak(bool write);
-    unsigned int writeTkhd(bool write);
+    void writeMoov(int layerNum);
+    unsigned int writeMvhd(bool write, int trackNum);
+    unsigned int writeTrak(bool write, int trackID);
+    unsigned int writeTkhd(bool write, int trackID);
     unsigned int writeMdia(bool write);
     unsigned int writeMdhd(bool write);
     unsigned int writeHdlr(bool write);
