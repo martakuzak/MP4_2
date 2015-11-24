@@ -249,19 +249,109 @@ unsigned int SvcWriter::writeDref(bool write){
         stream<<quint8(0); //flag3
         stream<<quint32(0); //entry_count
         //for(int i = 0; i < 0; ++i) //tyle ile entry_count
-          //  writeUrl(true);
+        //  writeUrl(true);
     }
     return size;
 }
 unsigned int SvcWriter::writeStbl(bool write){
-    return 0;
+    unsigned int size = 8 + writeStsd(false) + writeStts(false) + writeStsc(false) + writeStsz(false) + writeStco(false) + writeStss(false);
+    if(write) {
+        QDataStream stream(file);
+        stream<<quint32(size);
+        stream.writeRawData("stbl", 4);
+        writeStsd(true);
+        writeStts(true);
+        writeStsc(true);
+        writeStsz(true);
+        writeStco(true);
+        writeStss(true);
+    }
+    return size;
 }
-/*unsigned int writeStsd(bool write);
-    unsigned int writeStts(bool write);
-    unsigned int writeCtts(bool write);
-    unsigned int writeStsc(bool write);
-    unsigned int writeStsz(bool write); //stz2?
-    unsigned int writeStco(bool write);
-    unsigned int writeStss(bool write);
-    void writeMdat();
+unsigned int SvcWriter::writeStsd(bool write) {
+    unsigned int size = 12 /* + writeMP4V/AVC1*/;
+    if(write) {
+        unsigned short version = 0;
+        QDataStream stream(file);
+        stream<<quint32(size);
+        stream.writeRawData("stsd", 4);
+        stream<<quint8(version);
+        stream<<quint8(0); //flag1
+        stream<<quint8(0); //flag2
+        stream<<quint8(0); //flag3
+        //writeMP4V/AVC1
+    }
+    return size;
+}
+
+unsigned int SvcWriter::writeStts(bool write) {
+    unsigned int size = 16 + 5*8;
+    if(write) {
+        unsigned short version = 0;
+        QDataStream stream(file);
+        stream<<quint32(size);
+        stream.writeRawData("stts", 4);
+        stream<<quint8(version);
+        stream<<quint8(0); //flag1
+        stream<<quint8(0); //flag2
+        stream<<quint8(0); //flag3
+        stream<<quint32(5); //entry_count
+        for(int i = 0; i < 5; ++ i) {
+            stream<<quint32(0); //sample_count
+            stream<<quint32(0); //sample_delta
+        }
+    }
+    return size;
+}
+
+unsigned int SvcWriter::writeCtts(bool write) {
+    unsigned int size = 8;
+    if(write) {
+
+    }
+    return size;
+}
+
+unsigned int SvcWriter::writeStsc(bool write) {
+    unsigned int size = 8;
+    if(write) {
+
+    }
+    return size;
+}
+
+unsigned int SvcWriter::writeStsz(bool write) { //stz2?
+    unsigned int size = 8;
+    if(write) {
+
+    }
+    return size;
+}
+unsigned int SvcWriter::writeStco(bool write) {
+    unsigned int size = 8;
+    if(write) {
+
+    }
+    return size;
+}
+
+unsigned int SvcWriter::writeStss(bool write) {
+    unsigned int size = 16 + 5*4;
+    if(write) {
+        unsigned short version = 0;
+        QDataStream stream(file);
+        stream<<quint32(size);
+        stream.writeRawData("stss", 4);
+        stream<<quint8(version);
+        stream<<quint8(0); //flag1
+        stream<<quint8(0); //flag2
+        stream<<quint8(0); //flag3
+        stream<<quint32(5); //entry_count
+        for(int i = 0; i < 5; ++i)
+            stream<<quint32(0); //sample_number
+    }
+    return size;
+}
+
+/*   void writeMdat();
     */
