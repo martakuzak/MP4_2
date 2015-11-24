@@ -21,7 +21,6 @@ public:
     ~NALParser();
 
     QList<std::shared_ptr<NalUnit> > parseFile();
-    void identifyNalType(int nalUnitType, int offset);
     int parseSEI(int offset);
     int parseSEIPayload(int payloadType, int payloadSize, int offset);
     int scalabilityInfo(int payloadSize, int offset);
@@ -40,6 +39,7 @@ protected:
     unsigned long int fileSize;
     BitOperator* bitOperator;
     FileService* fileService;
+    QList<std::shared_ptr<NalUnit>> nalUnits;
 };
 
 #endif // NALPARSER_H

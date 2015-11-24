@@ -1,7 +1,6 @@
 #include "nalunit.h"
 
 NalUnit::NalUnit(const unsigned int&  nri, const unsigned long & off) : nalRefIdc(nri), offset(off) {
-
 }
 
 NalUnit::~NalUnit() {
@@ -72,11 +71,11 @@ SeqParameterSetExtensionRbsp::~SeqParameterSetExtensionRbsp() {}
 
 PrefixNalUnitRbsp::PrefixNalUnitRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned int& rob, const unsigned int& idr,
                                      const unsigned int& pid, const unsigned int& nilp, const unsigned int& did, const unsigned int& qid,
-                                     const unsigned int& tid, const unsigned int& urbp, const unsigned int& dis, const unsigned int&outputFlag,
+                                     const unsigned int& tid, const unsigned int& urbp, const unsigned int& dis, const unsigned int&of,
                                      const unsigned int&rt2b) : NalUnit(nri, off), reservedOneBit(rob), idrFlag(idr), priorityId(pid),
     noInterLayerPredFlag(nilp), dependencyId(did), qualityId(qid),
     temporaryId(tid), useRefBasePicFlag(urbp), discardableFlag(dis),
-    reservedThree2bits(rt2b) {}
+    reservedThree2bits(rt2b), outputFlag(of) {}
 PrefixNalUnitRbsp::~PrefixNalUnitRbsp() {}
 
 QString PrefixNalUnitRbsp::getHeaderExtension() {
@@ -104,11 +103,11 @@ SliceLayerWithoutPartitioningRbsp::~SliceLayerWithoutPartitioningRbsp() {}
 
 SliceLayerExtensionRbsp::SliceLayerExtensionRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned int& rob, const unsigned int& idr,
                                                  const unsigned int& pid, const unsigned int& nilp, const unsigned int& did, const unsigned int& qid,
-                                                 const unsigned int& tid, const unsigned int& urbp, const unsigned int& dis, const unsigned int&outputFlag,
+                                                 const unsigned int& tid, const unsigned int& urbp, const unsigned int& dis, const unsigned int& of,
                                                  const unsigned int&rt2b) : NalUnit(nri, off), reservedOneBit(rob), idrFlag(idr), priorityId(pid),
     noInterLayerPredFlag(nilp), dependencyId(did), qualityId(qid),
     temporaryId(tid), useRefBasePicFlag(urbp), discardableFlag(dis),
-    reservedThree2bits(rt2b){}
+    reservedThree2bits(rt2b), outputFlag(of){}
 SliceLayerExtensionRbsp::~SliceLayerExtensionRbsp() {}
 
 QString SliceLayerExtensionRbsp::getHeaderExtension() {

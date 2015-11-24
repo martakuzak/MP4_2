@@ -24,13 +24,11 @@ NALParser::~NALParser() {
 QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
     unsigned long int offset= 0;//offset w pliku
 
-    QList<std::shared_ptr<NalUnit>> list;
     NalUnitFactory factory(this, fileService);
 
     if(fileService->openFile()) {
 
         while(offset < fileSize) {
-            //qDebug()<<"NALPARSER 3";
 
             unsigned int pref3Byte = valueOfGroupOfBytes(3, offset); //? sprawdzic to wszystko !!!
             unsigned int pref4Byte = valueOfGroupOfBytes(4, offset);
@@ -48,13 +46,9 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
                 short int nalRefIdc = valueOfGroupOfBits(2, offset*8 + 1); //razem: 3 bity
                 //nal_unit_type;
                 int nalUnitType = valueOfGroupOfBits(5, offset*8 + 3); //razem: 8 bitów
-                //qDebug()<<nalUnitType<<offset;
-                ////qDebug()<<offset;
                 offset += 1;
-                //qDebug()<<"NALPARSER parse" <<nalRefIdc<<nalUnitType;
-                //identifyNalType(nalUnitType, offset);
                 std::shared_ptr<NalUnit> nalUnit = factory.getNalUnit(nalUnitType, nalRefIdc, off);
-                list.append(nalUnit);
+                nalUnits.append(nalUnit);
                 //NumBytesInRBSP = 0
                 //nalUnitHeaderBytes = 1
 
@@ -67,7 +61,7 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
     }
     qDebug()<<"NALPARSER parseFile 4";
 
-    return list;
+    return nalUnits;
 
 }
 
@@ -159,114 +153,6 @@ int NALParser::scalabilityInfo(int payloadSize, int offset) {
 
     return offset;
 }
-
-void NALParser::identifyNalType(int nalUnitType, int offset) {
-    switch(nalUnitType) {
-    case UNSPECIFIED:
-        //qDebug()<<"UNSPECIFIED"<<QString::number(offset,16);
-        break;
-    case NON_IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP:
-        //qDebug()<<"NON_IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP"<<QString::number(offset,16);
-        sliceLayerWithoutPartitioningRbsp(offset);
-        break;
-    case SLICE_DATA_PARTITION_A_LAYER_RBSP:
-        //qDebug()<<"SLICE_DATA_PARTITION_A_LAYER_RBSP"<<QString::number(offset,16);
-        break;
-    case SLICE_DATA_PARTITION_B_LAYER_RBSP:
-        //qDebug()<<"SLICE_DATA_PARTITION_B_LAYER_RBSP"<<QString::number(offset,16);
-        break;
-    case SLICE_DATA_PARTITION_C_LAYER_RBSP:
-        //qDebug()<<"SLICE_DATA_PARTITION_C_LAYER_RBSP"<<QString::number(offset,16);
-        break;
-    case IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP:
-        //qDebug()<<"\nIDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP"<<QString::number(offset,16)<<"\n";
-        sliceLayerWithoutPartitioningRbsp(offset);
-        break;
-    case SEI_RBSP:
-        //qDebug()<<"SEI_RBSP"<<QString::number(offset,16);
-        parseSEI(offset);
-        break;
-    case SEQ_PARAMETER_SET_RBSP:
-        //qDebug()<<"SEQ_PARAMATER_SET_RBSP"<<QString::number(offset,16);
-        break;
-    case PIC_PARAMETER_SET_RBSP:
-        //qDebug()<<"PIC_PARAMATER_SET_RBSP"<<QString::number(offset,16);
-        break;
-    case ACCESS_UNIT_DELIMITER_RBSP:
-        //qDebug()<<"ACCESS_UNIT_DELIMITER_RBSP"<<QString::number(offset,16);
-        break;
-    case END_OF_SEQUENCE_RBSP:
-        //qDebug()<<"END_OF_SEQUENCE_RBSP"<<QString::number(offset,16);
-        break;
-    case END_OF_STREAM_RBSP:
-        //qDebug()<<"END_OF_STREAM_RBSP"<<QString::number(offset,16);
-        break;
-    case FILLER_DATA_RBSP:
-        //qDebug()<<"FILLER_DATA_RBSP"<<QString::number(offset,16);
-        break;
-        /*case RESERVED_13:
-        //qDebug()<<"RESERVED_13"<<QString::number(offset,16);
-        break;
-    case RESERVED_14: // NAL unit type 14 is used for prefix NAL unit
-        //qDebug()<<"RESERVED_14 SVC prefix NAL unit"<<QString::number(offset,16);
-        break;
-    case RESERVED_15: //NAL unit type 15 is used for subset sequence parameter set
-        //qDebug()<<"RESERVED_15 SVC subset sequence parameter set"<<QString::number(offset,16);
-        break;*/
-    case RESERVED_16:
-        //qDebug()<<"RESERVED_16"<<QString::number(offset,16);
-        break;
-    case RESERVED_17:
-        //qDebug()<<"RESERVED_17"<<QString::number(offset,16);
-        break;
-    case RESERVED_18:
-        //qDebug()<<"RESERVED_18"<<QString::number(offset,16);
-        break;
-        /*case RESERVED_19:
-        //qDebug()<<"RESERVED_19"<<QString::number(offset,16);
-        break;
-    case RESERVED_20: // NAL unit type 20 is used for coded slice in scalable extension
-        //qDebug()<<"RESERVED_20 SVC coded slice in scalable extension"<<QString::number(offset,16);
-        break;*/
-    case RESERVED_21:
-        //qDebug()<<"RESERVED_21"<<QString::number(offset,16);
-        break;
-    case RESERVED_22:
-        //qDebug()<<"RESERVED_22"<<QString::number(offset,16);
-        break;
-    case RESERVED_23:
-        //qDebug()<<"RESERVED_23"<<QString::number(offset,16);
-        break;
-    case UNSPECIFIED_24:
-        //qDebug()<<"RESERVED_24"<<QString::number(offset,16);
-        break;
-    case UNSPECIFIED_25:
-        //qDebug()<<"RESERVED_25"<<QString::number(offset,16);
-        break;
-    case UNSPECIFIED_26:
-        //qDebug()<<"RESERVED_26"<<QString::number(offset,16);
-        break;
-    case UNSPECIFIED_27:
-        //qDebug()<<"RESERVED_27"<<QString::number(offset,16);
-        break;
-    case UNSPECIFIED_28:
-        //qDebug()<<"RESERVED_28"<<QString::number(offset,16);
-        break;
-    case UNSPECIFIED_29:
-        //qDebug()<<"RESERVED_29"<<QString::number(offset,16);
-        break;
-    case UNSPECIFIED_30:
-        //qDebug()<<"RESERVED_30"<<QString::number(offset,16);
-        break;
-    case UNSPECIFIED_31:
-        //qDebug()<<"RESERVED_31"<<QString::number(offset,16);
-        break;
-    default:
-        break;
-
-    }    
-}
-
 
 unsigned long int NALParser::valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
     if(length == 55808)

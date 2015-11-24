@@ -11,38 +11,56 @@ SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nalUnits, QWidget *paren
     QFont serifFont("Calibri", 11, QFont::Bold);
     QFont font("Calibri", 10, QFont::Normal);
     label->setFont(serifFont);
-    nalInfo = new QTextEdit();
-    nalInfo->setAcceptRichText(true);
+
+    QTreeView* treeView = new QTreeView(this);
+    QStandardItemModel* standardModel = new QStandardItemModel ;
+    standardModel->setHorizontalHeaderItem(0, new QStandardItem("NAL unit type"));
+    standardModel->setHorizontalHeaderItem(1, new QStandardItem("Offset"));
 
     QString* tmp = new QString("");
     for(int i = 0; i < nalUnits.size(); ++ i) {
-        //qDebug()<<"SVC SECTION num"<<i;
         std::shared_ptr<NalUnit> nalUnit = nalUnits.at(i);
         tmp->append(nalUnits.at(i)->getName());
         tmp->append("\n");
-        //nalInfo->setText(nalInfo->toPlainText() + nalUnits.at(i)->getName() + "\n");
-        nalInfo->setCurrentFont(serifFont);
-        nalInfo->append(QString::number(i + 1) + ". " + nalUnit->getName() + " (" + QString::number(nalUnit->getTypeCode()) + ")");
-        nalInfo->setCurrentFont(font);
-        nalInfo->append(nalUnit->getHeader());
-        /*nalInfo->append("Offset : 0x" + (QString::number(nalUnit->getOffset(), 16)) + "");
 
-        nalInfo->append("NalRefIdc : " + (QString::number(nalUnit->getNalRefIdc())));*/
-        QString info = nalUnit->getInfo();
-        if(info.length())
-            nalInfo->append(info);
-        //nalInfo->setCurrentFont(font);
+        QList<QStandardItem *> preparedRow =prepareRow(QString::number(i + 1) + ". " + nalUnit->getName() + " (" +
+                                                       QString::number(nalUnit->getTypeCode()) + ")", QString("0x") +QString::number(nalUnit->getOffset(), 16));
+        QStandardItem *item = standardModel->invisibleRootItem();
+        // adding a row to the invisible root item produces a root element
+        item->appendRow(preparedRow);
 
-        //qDebug()<<"SVC SECTION"<<nalUnits.at(i)->getName();
+
+        QList<QStandardItem *> secondRow;
+        QString temp = nalUnit->getHeader();
+        if(nalUnit->getInfo().length())
+            temp.append("\n" + nalUnit->getInfo());
+        secondRow<<new QStandardItem(temp);
+        // adding a row to an item starts a subtree
+        preparedRow.first()->appendRow(secondRow);
+
     }
-    //nalInfo->setText(*tmp);
 
+    treeView->setModel(standardModel);
+    treeView->setSizePolicy(QSizePolicy::Expanding,
+                            QSizePolicy::MinimumExpanding);
+    treeView->resizeColumnToContents(0);
     layout->addWidget(label);
-    layout->addWidget(nalInfo);
+    layout->addWidget(treeView);
+    QPushButton* createMP4 = new QPushButton("Create MP4 file");
+    layout->addWidget(createMP4);
+
     setLayout(layout);
 }
 
 SvcSection::~SvcSection() {
 
+}
+
+QList<QStandardItem *> SvcSection::prepareRow(const QString &first, const QString &second)
+{
+    QList<QStandardItem *> rowItems;
+    rowItems << new QStandardItem(first);
+    rowItems << new QStandardItem(second);
+    return rowItems;
 }
 

@@ -17,7 +17,6 @@ TreeItem::TreeItem() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 TreeItem::~TreeItem(){
-    qDebug()<<"TREEITEM: destructor";
     qDeleteAll(childItems);
     delete parentItem;
 }

@@ -11,6 +11,10 @@
 #include <memory>
 #include <QString>
 #include <QDebug>
+#include <QPushButton>
+#include <QTreeView>
+#include <QStandardItemModel>
+#include <QStandardItem>
 
 #include "nalunit.h"
 
@@ -21,6 +25,7 @@ public:
     ~SvcSection();
 protected:
     QTextEdit* nalInfo;
+    QList<QStandardItem *> prepareRow(const QString &first, const QString &second);
 };
 
 #endif // SVCSECTION_H

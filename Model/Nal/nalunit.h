@@ -7,7 +7,7 @@
 class NalUnit {
 protected:
     unsigned int nalRefIdc;
-    const unsigned long & offset;
+    const unsigned long offset;
 public:
     NalUnit(const unsigned int&  nri, const unsigned long & off);
     ~NalUnit();
@@ -15,8 +15,8 @@ public:
     virtual int getTypeCode() { return -1; }
     virtual QString getInfo() { return ""; }
     unsigned int getNalRefIdc() { return nalRefIdc; }
-    unsigned int getOffset() { return offset; }
-    virtual QString getHeader() { return  "Offset:\t0x" + QString::number(offset, 16) + "\nNalRefIdc:\t" + QString::number(nalRefIdc);}
+    unsigned int getOffset() {return offset; }
+    virtual QString getHeader() { return "NalRefIdc: " + QString::number(nalRefIdc);}
 };
 
 
