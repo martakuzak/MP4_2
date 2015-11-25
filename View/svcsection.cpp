@@ -13,7 +13,7 @@ SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nalUnits, QWidget *paren
 
     layout->addWidget(label);
 
-   // prepareNALtree(nalUnits);
+    prepareNALtree(nalUnits);
 
     QPushButton* createMP4 = new QPushButton("Create MP4 file");
     connect(createMP4, SIGNAL(clicked()), this, SLOT(createMP4()), Qt::QueuedConnection);

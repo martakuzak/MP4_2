@@ -9,6 +9,7 @@ bool SvcWriter::writeFile(const QString& name) {
     if(file->open(QIODevice::ReadWrite)) {
         writeFtyp();
         writeMoov(2);
+        writeMdat();
         file->close();
     } else return false;
 }
@@ -403,5 +404,9 @@ unsigned int SvcWriter::writeStss(bool write) {
     return size;
 }
 
-/*   void writeMdat();
-    */
+   void SvcWriter::writeMdat() {
+       QDataStream stream(file);
+       stream<<quint32(8);
+       stream.writeRawData("mdat", 4);
+   }
+

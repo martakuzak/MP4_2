@@ -59,7 +59,6 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
         }
         fileService->close();
     }
-    qDebug()<<"NALPARSER parseFile 4";
 
     return nalUnits;
 
