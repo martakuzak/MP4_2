@@ -7,15 +7,22 @@
 class NalUnit {
 protected:
     unsigned int nalRefIdc;
-    const unsigned long offset;
+    unsigned long offset;
+    unsigned long length;
 public:
     NalUnit(const unsigned int&  nri, const unsigned long & off);
     ~NalUnit();
+    bool setLength(const unsigned long endOfNal) {
+        if(endOfNal <= offset)
+            return false;
+        else
+            length = endOfNal - offset;
+    }
+    unsigned int getNalRefIdc() { return nalRefIdc; }
+    unsigned int getOffset() {return offset; }
     virtual QString getName() { return "NAL Unit"; }
     virtual int getTypeCode() { return -1; }
     virtual QString getInfo() { return ""; }
-    unsigned int getNalRefIdc() { return nalRefIdc; }
-    unsigned int getOffset() {return offset; }
     virtual QString getHeader() { return "NalRefIdc: " + QString::number(nalRefIdc);}
 };
 

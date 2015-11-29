@@ -38,6 +38,7 @@ void SvcSection::prepareNALtree(QList<std::shared_ptr<NalUnit> > nalUnits) {
 
     for(int i = 0; i < nalUnits.size(); ++ i) {
         std::shared_ptr<NalUnit> nalUnit = nalUnits.at(i);
+        qDebug()<<QString::number(i + 1)<<nalUnit->getName();
         QList<QStandardItem *> preparedRow =prepareRow(QString::number(i + 1) + ". " + nalUnit->getName() + " (" +
                                                        QString::number(nalUnit->getTypeCode()) + ")", QString("0x") +
                                                        QString::number(nalUnit->getOffset(), 16));

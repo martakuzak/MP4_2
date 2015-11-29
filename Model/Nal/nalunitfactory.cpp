@@ -11,7 +11,8 @@ NalUnitFactory::~NalUnitFactory() {
     delete bitOperator;
 }
 
-std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset) {    
+std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset) {
+    qDebug()<<QString::number(offset)<<QString::number(typeCode);
     switch(typeCode) {
     case UNSPECIFIED:
         return std::shared_ptr<NalUnit>(new Unspecified(nalRefIdc, offset));
@@ -72,7 +73,7 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
     case PREFIX_NAL_UNIT_RBSP: //14
     {
         unsigned int off = offset;
-        off += 5;
+        off += 1; //??
         unsigned int svcExtensionFlag = valueOfGroupOfBits(1, off*8);
         if(svcExtensionFlag) {
             unsigned int reservedOneBit = valueOfGroupOfBits(1, off*8);
@@ -116,7 +117,7 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
     case SLICE_LAYER_EXTENSION_RBSP: //20
     {
         unsigned int off = offset;
-        off += 5;
+        off += 1;
         unsigned int svcExtensionFlag = valueOfGroupOfBits(1, off*8);
         if(svcExtensionFlag) {
             unsigned int reservedOneBit = valueOfGroupOfBits(1, off*8);

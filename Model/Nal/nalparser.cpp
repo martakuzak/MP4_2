@@ -27,27 +27,26 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
     NalUnitFactory factory(this, fileService);
 
     if(fileService->openFile()) {
-
+        int idx = 0;
         while(offset < fileSize) {
 
             unsigned int pref3Byte = valueOfGroupOfBytes(3, offset); //? sprawdzic to wszystko !!!
             unsigned int pref4Byte = valueOfGroupOfBytes(4, offset);
-
             if(pref3Byte == 1 || pref4Byte == 1) { //prefix == 0x001 lub 0x0001
-                int off = offset;
                 offset += (pref3Byte == 1) ? 3 : 4;
+                int off = offset;
                 //forbidden_zero_bit
-                short int forbiddenZeroBit = valueOfGroupOfBits(1, offset*8); //razem: 1 bit
-                /*if(forbiddenZeroBit)
-                    qDebug()<<"forbiddenZeroBit 1!!!";
-                else
-                    qDebug()<<"OK";*/
+                short int forbiddenZeroBit = valueOfGroupOfBits(1, off*8); //razem: 1 bit
                 //nal_ref_idc
-                short int nalRefIdc = valueOfGroupOfBits(2, offset*8 + 1); //razem: 3 bity
+                short int nalRefIdc = valueOfGroupOfBits(2, off*8 + 1); //razem: 3 bity
                 //nal_unit_type;
-                int nalUnitType = valueOfGroupOfBits(5, offset*8 + 3); //razem: 8 bitów
+                int nalUnitType = valueOfGroupOfBits(5, off*8 + 3); //razem: 8 bitów
+                //qDebug()<<QString::number(++idx)<<"fzb = "<<QString::number(forbiddenZeroBit)<<"nalRfcId = "<<QString::number(nalRefIdc)<<"nalUnitType = "<<QString::number(nalUnitType);
                 offset += 1;
                 std::shared_ptr<NalUnit> nalUnit = factory.getNalUnit(nalUnitType, nalRefIdc, off);
+                int size = nalUnits.size();
+                if(size > 1)
+                    nalUnits.at(size - 1)->setLength(off);
                 nalUnits.append(nalUnit);
                 //NumBytesInRBSP = 0
                 //nalUnitHeaderBytes = 1
