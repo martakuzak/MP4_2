@@ -214,7 +214,7 @@ void MainWindow::rawStreamSelected() {
         }
 
         if(svcSection == NULL) {
-            SvcWriter* writer = new SvcWriter("");
+            //SvcWriter* writer = new SvcWriter("");
             /*QList<std::shared_ptr<NalUnit>> list;
             NALParser nalParser(fileName);
             list = nalParser.parseFile();

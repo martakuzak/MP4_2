@@ -23,7 +23,7 @@
 class SvcSection : public QGroupBox {
     Q_OBJECT
 public:
-    SvcSection(QList<std::shared_ptr<NalUnit>> nalUnits, QWidget *parent = 0);
+    SvcSection(QList<std::shared_ptr<NalUnit>> nu, QWidget *parent = 0);
     ~SvcSection();
 private slots:
     void createMP4();
@@ -32,6 +32,7 @@ protected:
     QList<QStandardItem *> prepareRow(const QString &first, const QString &second);
 
     QVBoxLayout *layout;
+    QList<std::shared_ptr<NalUnit> > nalUnits;
 };
 
 #endif // SVCSECTION_H

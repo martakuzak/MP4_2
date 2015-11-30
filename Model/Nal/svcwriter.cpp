@@ -1,6 +1,25 @@
 #include "svcwriter.h"
 
-SvcWriter::SvcWriter(const QString &name): fileName(name){
+SvcWriter::SvcWriter(const QList<std::shared_ptr<NalUnit> > &nu): nalUnits(nu){
+}
+
+short SvcWriter::calculateBytesNumOfNalLenPar() {
+    int maxLength = 0;
+    int nuLength = nalUnits.length(); //wyznacz najwiekszy NAL
+    for(unsigned i = 0; i < nuLength; ++ i) {
+        std::shared_ptr<NalUnit> nalUnit = nalUnits.at(i);
+        if(nalUnit->getLength() > maxLength)
+            maxLength = nalUnit->getLength();
+    }
+    //okresl na ilu bajtach trzeba to zapisac: do wybory 1, 2, 4
+    if(maxLength < 0xFF)
+        return 1;
+    else if(maxLength < 0xFFFF)
+        return 2;
+    else if(maxLength < 0xFFFFFFFF)
+        return 4;
+    else
+        return -1; //to nie jest dobrze
 }
 
 bool SvcWriter::writeFile(const QString& name) {

@@ -3,14 +3,20 @@
 #include <QFile>
 #include <QDebug>
 #include <QDataStream>
+#include <QList>
+#include <memory>
+#include "nalunit.h"
+
+class NalUnit;
 
 class SvcWriter {
 public:
-    SvcWriter(const QString& name);
+    SvcWriter(const QList<std::shared_ptr<NalUnit> >& nu);
 protected:
     //name of analyzed file
     QString fileName;
     QFile *file;
+    QList<std::shared_ptr<NalUnit> > nalUnits;
     const int MDHD_SIZE_0 = 32; //version = 0
     const int MDHD_SIZE_1 = 44; //version = 1
     const int MVHD_SIZE_0 = 108; //version = 0
@@ -20,6 +26,7 @@ protected:
 public:
     bool writeFile(const QString& name);
 protected:
+    short calculateBytesNumOfNalLenPar();
     /*!
       *\brief writeFtyp
       *Writes ftyp box and returns size of it. If dashFile is NULL, method only returns size of potentially written box.

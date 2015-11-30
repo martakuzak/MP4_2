@@ -18,6 +18,7 @@ public:
         else
             length = endOfNal - offset;
     }
+    unsigned long getLength() { return length; }
     unsigned int getNalRefIdc() { return nalRefIdc; }
     unsigned int getOffset() {return offset; }
     virtual QString getName() { return "NAL Unit"; }

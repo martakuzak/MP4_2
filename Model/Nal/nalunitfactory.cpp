@@ -12,7 +12,6 @@ NalUnitFactory::~NalUnitFactory() {
 }
 
 std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset) {
-    qDebug()<<QString::number(offset)<<QString::number(typeCode);
     switch(typeCode) {
     case UNSPECIFIED:
         return std::shared_ptr<NalUnit>(new Unspecified(nalRefIdc, offset));
