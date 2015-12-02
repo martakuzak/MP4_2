@@ -184,7 +184,7 @@ void MainWindow::nalParseSelected() {
         }
 
         for (int i = 0; i < tabs->count(); ++ i) {
-            if(tabs->tabText(i) == fileName) {
+            if(tabs->tabText(i) == ("SVC : " + fileName)) {
                 tabs->setCurrentIndex(i);
                 return;
             }
@@ -195,7 +195,7 @@ void MainWindow::nalParseSelected() {
         list = nalParser.parseFile();
         if(!list.empty()) {
             svcSection = new SvcSection(list);
-            tabs->addTab(svcSection, fileName);
+            tabs->addTab(svcSection, "SVC : " + fileName);
             tabs->setCurrentIndex(tabs->count() - 1);
             tabs->setTabsClosable(true);
         } else
