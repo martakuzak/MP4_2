@@ -47,10 +47,10 @@ void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName, QTabWid
         dashSection = NULL;
     }
 
-    if(svcSection != NULL) {
-        delete svcSection;
-        svcSection = NULL;
-    }
+//    if(svcSection != NULL) {
+//        delete svcSection;
+//        svcSection = NULL;
+//    }
 
     if(tabs == NULL) {
         tabs = new QTabWidget();
@@ -168,25 +168,36 @@ void MainWindow::nalParseSelected() {
     setWindowTitle("MP4 - " + fileName);
     if(fileName.length()) {
         emit nalFileSelected(fileName);
-        if(tabs != NULL) {
-            delete tabs;
-            tabs = NULL;
-        }
 
         if(dashSection != NULL) {
             delete dashSection;
             dashSection = NULL;
         }
 
-        if(svcSection != NULL)
-            delete svcSection;
+//        if(svcSection != NULL)
+//            delete svcSection;
+
+        if(tabs == NULL) {
+            tabs = new QTabWidget();
+            makeTabsConnection();
+            mainLayout->addWidget(tabs);
+        }
+
+        for (int i = 0; i < tabs->count(); ++ i) {
+            if(tabs->tabText(i) == fileName) {
+                tabs->setCurrentIndex(i);
+                return;
+            }
+        }
 
         QList<std::shared_ptr<NalUnit>> list;
         NALParser nalParser(fileName);
         list = nalParser.parseFile();
         if(!list.empty()) {
             svcSection = new SvcSection(list);
-            mainLayout->addWidget(svcSection);
+            tabs->addTab(svcSection, fileName);
+            tabs->setCurrentIndex(tabs->count() - 1);
+            tabs->setTabsClosable(true);
         } else
             showWarningDialog("No NAL found.");
 
