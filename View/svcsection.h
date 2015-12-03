@@ -19,6 +19,7 @@
 
 #include "nalunit.h"
 #include "svcwriter.h"
+#include "nalxml.h"
 
 class SvcSection : public QGroupBox {
     Q_OBJECT
@@ -27,6 +28,7 @@ public:
     ~SvcSection();
 private slots:
     void createMP4();
+    //void writeXML();
 protected:
     void prepareNALtree(QList<std::shared_ptr<NalUnit> > nalUnits);
     QList<QStandardItem *> prepareRow(const QString &first, const QString &second);

@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     Model/Nal/nalunit.cpp \
     Model/Nal/nalunitfactory.cpp \
     Model/Common/fileservice.cpp \
-    Model\Nal\svcwriter.cpp
+    Model\Nal\svcwriter.cpp \
+    Model/Nal/nalxml.cpp
 
 HEADERS  += View\mainwindow.h \
     Model\Boxes\analyzer.h \
@@ -70,6 +71,7 @@ HEADERS  += View\mainwindow.h \
     Model/Nal/nalunit.h \
     Model/Nal/nalunitfactory.h \
     Model/Common/fileservice.h \
-    Model\Nal\svcwriter.h
+    Model\Nal\svcwriter.h \
+    Model/Nal/nalxml.h
 
 FORMS

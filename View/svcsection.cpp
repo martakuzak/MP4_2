@@ -26,6 +26,8 @@ SvcSection::~SvcSection() {
 }
 
 void SvcSection::createMP4() {
+    NALXml *nalXml = new NALXml("F:\\aa.xml");
+    nalXml->writeXML();
     //SvcWriter* writer = new SvcWriter("tmp.mp4");
     //writer->writeFile("F:\\atmp.mp4");
 }

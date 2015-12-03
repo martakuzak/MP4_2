@@ -4,8 +4,8 @@ SvcWriter::SvcWriter(const QList<std::shared_ptr<NalUnit> > &nu): nalUnits(nu){
 }
 
 short SvcWriter::calculateBytesNumOfNalLenPar() {
-    int maxLength = 0;
-    int nuLength = nalUnits.length(); //wyznacz najwiekszy NAL
+    unsigned int maxLength = 0;
+    unsigned int nuLength = nalUnits.length(); //wyznacz najwiekszy NAL
     for(unsigned i = 0; i < nuLength; ++ i) {
         std::shared_ptr<NalUnit> nalUnit = nalUnits.at(i);
         if(nalUnit->getLength() > maxLength)
@@ -30,7 +30,9 @@ bool SvcWriter::writeFile(const QString& name) {
         writeMoov(2);
         writeMdat();
         file->close();
-    } else return false;
+        return true;
+    }
+    return false;
 }
 
 void SvcWriter::writeFtyp() {
