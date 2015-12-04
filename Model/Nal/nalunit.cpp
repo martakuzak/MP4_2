@@ -1,10 +1,91 @@
 #include "nalunit.h"
 
-NalUnit::NalUnit(const unsigned int&  nri, const unsigned long & off) : nalRefIdc(nri), offset(off) {
+NalUnit::NalUnit(const unsigned int&  nri, const unsigned long & off) : nalRefIdc(nri), offset(off) {}
+
+NalUnit::~NalUnit() {}
+
+unsigned int ExtendedNalUnit::getSVCflag() const
+{
+    return SVCflag;
 }
 
-NalUnit::~NalUnit() {
+ExtendedNalUnit::ExtendedNalUnit(const unsigned int&  nri, const unsigned long & off, const unsigned int& rob) : NalUnit(nri, off),
+    SVCflag(rob) {}
 
+ExtendedNalUnit::~ExtendedNalUnit() {}
+
+QString ExtendedNalUnit::getHeaderExtension() {
+    return "SVC extension flag: " + QString::number(SVCflag);
+}
+
+unsigned int noInterLayerPredFlag;
+unsigned int dependencyId;
+unsigned int qualityId;
+unsigned int temporaryId;
+unsigned int useRefBasePicFlag;
+unsigned int discardableFlag;
+unsigned int outputFlag;
+unsigned int reservedThree2bits;
+
+unsigned int SVCNalUnit::getIdrFlag() const
+{
+    return idrFlag;
+}
+
+unsigned int SVCNalUnit::getNoInterLayerPredFlag() const
+{
+    return noInterLayerPredFlag;
+}
+
+unsigned int SVCNalUnit::getDependencyId() const
+{
+    return dependencyId;
+}
+
+unsigned int SVCNalUnit::getQualityId() const
+{
+    return qualityId;
+}
+
+unsigned int SVCNalUnit::getTemporaryId() const
+{
+    return temporaryId;
+}
+
+unsigned int SVCNalUnit::getUseRefBasePicFlag() const
+{
+    return useRefBasePicFlag;
+}
+
+unsigned int SVCNalUnit::getDiscardableFlag() const
+{
+    return discardableFlag;
+}
+
+unsigned int SVCNalUnit::getOutputFlag() const
+{
+    return outputFlag;
+}
+
+unsigned int SVCNalUnit::getReservedThree2bits() const
+{
+    return reservedThree2bits;
+}
+
+SVCNalUnit::SVCNalUnit(const unsigned int&  nri, const unsigned long & off, const unsigned int& rob, const unsigned int& idr,
+                                     const unsigned int& pid, const unsigned int& nilp, const unsigned int& did, const unsigned int& qid,
+                                     const unsigned int& tid, const unsigned int& urbp, const unsigned int& dis, const unsigned int&of,
+                                     const unsigned int&rt2b) : ExtendedNalUnit(nri, off, rob), idrFlag(idr), priorityId(pid),
+    noInterLayerPredFlag(nilp), dependencyId(did), qualityId(qid), temporaryId(tid), useRefBasePicFlag(urbp), discardableFlag(dis),
+    outputFlag(of), reservedThree2bits(rt2b){}
+SVCNalUnit::~SVCNalUnit() {}
+
+QString SVCNalUnit::getHeaderExtension() {
+    return SVCNalUnit::getHeaderExtension() + "\nIDR flag: " + QString::number(idrFlag) +
+            "\nPriority ID: " + QString::number(priorityId) + "\nNo Inter Layer Prediction Flag: " + QString::number(noInterLayerPredFlag) +
+            "\nDependency ID: " + QString::number(dependencyId) + "\nQuality ID: " + QString::number(qualityId) +
+            "\nTemporary ID: " + QString::number(temporaryId) + "\nUse Ref Base Picture Flag: " + QString::number(useRefBasePicFlag)
+            + "\nDiscardable Flag: " + QString::number(discardableFlag) + "\nReserved three 2 bits: " + QString::number(reservedThree2bits);
 }
 
 Unspecified::Unspecified(const unsigned int&  nri, const unsigned long & off) : NalUnit(nri, off) {}
@@ -72,14 +153,12 @@ SeqParameterSetExtensionRbsp::~SeqParameterSetExtensionRbsp() {}
 PrefixNalUnitRbsp::PrefixNalUnitRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned int& rob, const unsigned int& idr,
                                      const unsigned int& pid, const unsigned int& nilp, const unsigned int& did, const unsigned int& qid,
                                      const unsigned int& tid, const unsigned int& urbp, const unsigned int& dis, const unsigned int&of,
-                                     const unsigned int&rt2b) : NalUnit(nri, off), reservedOneBit(rob), idrFlag(idr), priorityId(pid),
-    noInterLayerPredFlag(nilp), dependencyId(did), qualityId(qid),
-    temporaryId(tid), useRefBasePicFlag(urbp), discardableFlag(dis),
-    reservedThree2bits(rt2b), outputFlag(of) {}
+                                     const unsigned int&rt2b) : SVCNalUnit(nri, off, rob, idr, pid, nilp, did, qid, tid, urbp,
+                                                                                                   dis, of, rt2b) {}
 PrefixNalUnitRbsp::~PrefixNalUnitRbsp() {}
 
 QString PrefixNalUnitRbsp::getHeaderExtension() {
-    return "SVC extension flag: " + QString::number(reservedOneBit) + "\nIDR flag: " + QString::number(idrFlag) +
+    return ExtendedNalUnit::getHeaderExtension() + "\nIDR flag: " + QString::number(idrFlag) +
             "\nPriority ID: " + QString::number(priorityId) + "\nNo Inter Layer Prediction Flag: " + QString::number(noInterLayerPredFlag) +
             "\nDependency ID: " + QString::number(dependencyId) + "\nQuality ID: " + QString::number(qualityId) +
             "\nTemporary ID: " + QString::number(temporaryId) + "\nUse Ref Base Picture Flag: " + QString::number(useRefBasePicFlag)
@@ -103,15 +182,13 @@ SliceLayerWithoutPartitioningRbsp::~SliceLayerWithoutPartitioningRbsp() {}
 
 SliceLayerExtensionRbsp::SliceLayerExtensionRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned int& rob, const unsigned int& idr,
                                                  const unsigned int& pid, const unsigned int& nilp, const unsigned int& did, const unsigned int& qid,
-                                                 const unsigned int& tid, const unsigned int& urbp, const unsigned int& dis, const unsigned int& of,
-                                                 const unsigned int&rt2b) : NalUnit(nri, off), reservedOneBit(rob), idrFlag(idr), priorityId(pid),
-    noInterLayerPredFlag(nilp), dependencyId(did), qualityId(qid),
-    temporaryId(tid), useRefBasePicFlag(urbp), discardableFlag(dis),
-    reservedThree2bits(rt2b), outputFlag(of){}
+                                                 const unsigned int& tid, const unsigned int& urbp, const unsigned int& dis, const unsigned int&of,
+                                                 const unsigned int&rt2b) : SVCNalUnit(nri, off, rob, idr, pid, nilp, did, qid, tid, urbp,
+                                                                                                               dis, of, rt2b) {}
 SliceLayerExtensionRbsp::~SliceLayerExtensionRbsp() {}
 
 QString SliceLayerExtensionRbsp::getHeaderExtension() {
-    return "SVC extension flag: " + QString::number(reservedOneBit) + "\nIDR flag: " + QString::number(idrFlag) +
+    return ExtendedNalUnit::getHeaderExtension() + "\nIDR flag: " + QString::number(idrFlag) +
             "\nPriority ID: " + QString::number(priorityId) + "\nNo Inter Layer Prediction Flag: " + QString::number(noInterLayerPredFlag) +
             "\nDependency ID: " + QString::number(dependencyId) + "\nQuality ID: " + QString::number(qualityId) +
             "\nTemporary ID: " + QString::number(temporaryId) + "\nUse Ref Base Picture Flag: " + QString::number(useRefBasePicFlag)

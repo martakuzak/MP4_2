@@ -17,6 +17,8 @@ protected:
     QString fileName;
     QList<std::shared_ptr<NalUnit> > nalUnits;
     void write(QXmlStreamWriter *stream);
+    void writeHeader(QXmlStreamWriter *stream, std::shared_ptr<NalUnit> nalUnit);
+    void writeExtendedHeader(QXmlStreamWriter *stream, std::shared_ptr<NalUnit> nalUnit);
 
 signals:
 

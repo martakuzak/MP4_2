@@ -10,13 +10,14 @@ protected:
     unsigned long offset;
     unsigned long length;
 public:
-    NalUnit(const unsigned int&  nri, const unsigned long & off);
+    NalUnit(const unsigned int&  nri = 0, const unsigned long & off = 0);
     ~NalUnit();
     bool setLength(const unsigned long endOfNal) {
         if(endOfNal <= offset)
             return false;
         else
             length = endOfNal - offset;
+        return true;
     }
     unsigned long getLength() { return length; }
     unsigned int getNalRefIdc() { return nalRefIdc; }
@@ -27,6 +28,56 @@ public:
     virtual QString getHeader() { return "NalRefIdc: " + QString::number(nalRefIdc);}
 };
 
+class ExtendedNalUnit : public NalUnit {
+protected:
+    unsigned int SVCflag;
+public:
+    ExtendedNalUnit(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned int& svcFlag = 0);
+    ~ExtendedNalUnit();
+    virtual QString getName() { return "Extended NAL Unit"; }
+    virtual int getTypeCode() { return -1; }
+    virtual QString getHeaderExtension();
+    virtual QString getHeader() {
+        return NalUnit::getHeader() + "\n" + getHeaderExtension();
+    }
+    unsigned int getSVCflag() const;
+};
+
+class SVCNalUnit : public ExtendedNalUnit {
+protected:
+    unsigned int idrFlag;
+    unsigned int priorityId;
+    unsigned int noInterLayerPredFlag;
+    unsigned int dependencyId;
+    unsigned int qualityId;
+    unsigned int temporaryId;
+    unsigned int useRefBasePicFlag;
+    unsigned int discardableFlag;
+    unsigned int outputFlag;
+    unsigned int reservedThree2bits;
+public:
+    SVCNalUnit(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned int& SVCflag = 0, const unsigned int& idrFlag = 0,
+    const unsigned int& priorityId = 0, const unsigned int& noInterLayerPredFlag = 0, const unsigned int& dependencyId = 0, const unsigned int& qualityId = 0,
+    const unsigned int& temporaryId = 0, const unsigned int& useRefBasePicFlag = 0, const unsigned int& discardableFlag = 0, const unsigned int& outputFlag = 0,
+    const unsigned int& reservedThree2bits = 0);
+    ~SVCNalUnit();
+    virtual QString getName() { return "Extended NAL Unit"; }
+    virtual int getTypeCode() { return -1; }
+    virtual QString getHeaderExtension();
+    virtual QString getHeader() {
+        return NalUnit::getHeader() + "\n" + getHeaderExtension();
+    }
+    int getPriorityId() { return priorityId; }
+    unsigned int getIdrFlag() const;
+    unsigned int getNoInterLayerPredFlag() const;
+    unsigned int getDependencyId() const;
+    unsigned int getQualityId() const;
+    unsigned int getTemporaryId() const;
+    unsigned int getUseRefBasePicFlag() const;
+    unsigned int getDiscardableFlag() const;
+    unsigned int getOutputFlag() const;
+    unsigned int getReservedThree2bits() const;
+};
 
 class Unspecified : public NalUnit {
 public:
@@ -150,24 +201,12 @@ public:
     virtual int getTypeCode() { return 13; }
 };
 
-class PrefixNalUnitRbsp : public NalUnit {
-protected:
-    unsigned int reservedOneBit;
-    unsigned int idrFlag;
-    unsigned int priorityId;
-    unsigned int noInterLayerPredFlag;
-    unsigned int dependencyId;
-    unsigned int qualityId;
-    unsigned int temporaryId;
-    unsigned int useRefBasePicFlag;
-    unsigned int discardableFlag;
-    unsigned int outputFlag;
-    unsigned int reservedThree2bits;
+class PrefixNalUnitRbsp : public SVCNalUnit {
 public:
-    PrefixNalUnitRbsp(const unsigned int&  nri, const unsigned long & offset, const unsigned int& reservedOneBit, const unsigned int& idrFlag,
-    const unsigned int& priorityId, const unsigned int& noInterLayerPredFlag, const unsigned int& dependencyId, const unsigned int& qualityId,
-    const unsigned int& temporaryId, const unsigned int& useRefBasePicFlag, const unsigned int& discardableFlag, const unsigned int& outputFlag,
-    const unsigned int& reservedThree2bits);
+    PrefixNalUnitRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned int& SVCflag = 0, const unsigned int& idrFlag = 0,
+    const unsigned int& priorityId = 0, const unsigned int& noInterLayerPredFlag = 0, const unsigned int& dependencyId = 0, const unsigned int& qualityId = 0,
+    const unsigned int& temporaryId = 0, const unsigned int& useRefBasePicFlag = 0, const unsigned int& discardableFlag = 0, const unsigned int& outputFlag = 0,
+    const unsigned int& reservedThree2bits = 0);
     ~PrefixNalUnitRbsp();
     virtual QString getName() { return "PREFIX_NAL_UNIT_RBSP"; }
     virtual int getTypeCode() { return 14; }
@@ -217,21 +256,9 @@ public:
     virtual int getTypeCode() { return 19; }
 };
 
-class SliceLayerExtensionRbsp : public NalUnit {
-protected:
-    unsigned int reservedOneBit;
-    unsigned int idrFlag;
-    unsigned int priorityId;
-    unsigned int noInterLayerPredFlag;
-    unsigned int dependencyId;
-    unsigned int qualityId;
-    unsigned int temporaryId;
-    unsigned int useRefBasePicFlag;
-    unsigned int discardableFlag;
-    unsigned int outputFlag;
-    unsigned int reservedThree2bits;
+class SliceLayerExtensionRbsp : public SVCNalUnit {
 public:
-    SliceLayerExtensionRbsp(const unsigned int&  nri, const unsigned long & offset, const unsigned int& reservedOneBit,
+    SliceLayerExtensionRbsp(const unsigned int&  nri, const unsigned long & offset, const unsigned int& SVCflag,
                             const unsigned int& idrFlag, const unsigned int&priorityId, const unsigned int&noInterLayerPredFlag,
                             const unsigned int&dependencyId, const unsigned int&qualityId, const unsigned int&temporaryId,
                             const unsigned int&useRefBasePicFlag, const unsigned int&discardableFlag, const unsigned int&outputFlag,
