@@ -18,6 +18,7 @@
 #include <QHash>
 #include <QString>
 #include <qDebug>
+#include <QMessageBox>
 
 #include "treemodel.h"
 #include "dashsection.h"
@@ -239,6 +240,7 @@ private:
      * The method creates appropriate AnalyzeSection to display tree of boxes and table of contents.
      */
     void fileAnalyzed(TreeModel *model, const QString &fileName, QTabWidget *&tbs);
+    QString changeExtension(const QString& fileName, const QString& newExtension);
 };
 
 ///////////////////////////////////////////////////////////////

@@ -5,7 +5,7 @@
 #include <QXmlStreamWriter>
 #include <QList>
 #include <memory>
-
+#include <QDebug>
 #include "nalunit.h"
 #include "nalunittype.h"
 
@@ -16,9 +16,9 @@ public:
 protected:
     QString fileName;
     QList<std::shared_ptr<NalUnit> > nalUnits;
-    void write(QXmlStreamWriter *stream);
-    void writeHeader(QXmlStreamWriter *stream, std::shared_ptr<NalUnit> nalUnit);
-    void writeExtendedHeader(QXmlStreamWriter *stream, std::shared_ptr<NalUnit> nalUnit);
+    void write(QXmlStreamWriter *stream) const;
+    void writeHeader(QXmlStreamWriter *stream, const std::shared_ptr<NalUnit> nalUnit) const;
+    void writeExtendedHeader(QXmlStreamWriter *stream, std::shared_ptr<NalUnit> nalUnit) const;
 
 signals:
 

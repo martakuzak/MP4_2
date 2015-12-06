@@ -26,7 +26,9 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
 
     NalUnitFactory factory(this, fileService);
 
-    if(fileService->openFile()) {
+    if(!fileService->openFile()) {
+
+    } else {
         int idx = 0;
         while(offset < fileSize) {
 

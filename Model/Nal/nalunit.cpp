@@ -18,15 +18,6 @@ QString ExtendedNalUnit::getHeaderExtension() {
     return "SVC extension flag: " + QString::number(SVCflag);
 }
 
-unsigned int noInterLayerPredFlag;
-unsigned int dependencyId;
-unsigned int qualityId;
-unsigned int temporaryId;
-unsigned int useRefBasePicFlag;
-unsigned int discardableFlag;
-unsigned int outputFlag;
-unsigned int reservedThree2bits;
-
 unsigned int SVCNalUnit::getIdrFlag() const
 {
     return idrFlag;

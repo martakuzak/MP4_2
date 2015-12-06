@@ -47,11 +47,6 @@ void MainWindow::fileAnalyzed(TreeModel *model, const QString& fileName, QTabWid
         dashSection = NULL;
     }
 
-//    if(svcSection != NULL) {
-//        delete svcSection;
-//        svcSection = NULL;
-//    }
-
     if(tabs == NULL) {
         tabs = new QTabWidget();
         makeTabsConnection();
@@ -159,7 +154,7 @@ void MainWindow::tabClosed(int rowId) {
         tabs->removeTab(rowId);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::nalParseSelected() {
+void MainWindow::nalParseSelected() {    
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::AnyFile);
     QString fileName = QFileDialog::getOpenFileName(this,
@@ -167,15 +162,13 @@ void MainWindow::nalParseSelected() {
 
     setWindowTitle("MP4 - " + fileName);
     if(fileName.length()) {
+
         emit nalFileSelected(fileName);
 
         if(dashSection != NULL) {
             delete dashSection;
             dashSection = NULL;
-        }
-
-//        if(svcSection != NULL)
-//            delete svcSection;
+        }     delete svcSection;
 
         if(tabs == NULL) {
             tabs = new QTabWidget();
@@ -198,6 +191,14 @@ void MainWindow::nalParseSelected() {
             tabs->addTab(svcSection, "SVC : " + fileName);
             tabs->setCurrentIndex(tabs->count() - 1);
             tabs->setTabsClosable(true);
+
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::question(this, "Export NAL stream to xml?", "Export NAL stream to xml file?",
+                                          QMessageBox::Yes|QMessageBox::No);
+            if (reply == QMessageBox::Yes) {
+                NALXml *nalXml = new NALXml(changeExtension(fileName, "xml"), list);
+                nalXml->writeXML();
+            }
         } else
             showWarningDialog("No NAL found.");
 
@@ -206,6 +207,7 @@ void MainWindow::nalParseSelected() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::rawStreamSelected() {
+
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::AnyFile);
     QString fileName = QFileDialog::getOpenFileName(this,
@@ -224,17 +226,6 @@ void MainWindow::rawStreamSelected() {
             dashSection = NULL;
         }
 
-        if(svcSection == NULL) {
-            //SvcWriter* writer = new SvcWriter("");
-            /*QList<std::shared_ptr<NalUnit>> list;
-            NALParser nalParser(fileName);
-            list = nalParser.parseFile();
-            if(!list.empty()) {
-                svcSection = new SvcSection(list);
-                mainLayout->addWidget(svcSection);
-            } else
-                showWarningDialog("No NAL found.");*/
-        }
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -284,6 +275,13 @@ void MainWindow::createActions() {
     //connect(svcAct, SIGNAL(triggered()), this, SLOT(rawStreamSelected()));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
+QString MainWindow::changeExtension(const QString& fileName, const QString& newExtension) {
+    int last = fileName.lastIndexOf(".");
+    if(last == -1)
+        return fileName + "." + newExtension;
+    return fileName.mid(0, last + 1) + newExtension;
+}
+///////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::makeDashConnection() {
     connect(dashSection, SIGNAL(dashDirSig(QString)), this,
             SLOT(dashDirSelected(QString)), Qt::QueuedConnection);

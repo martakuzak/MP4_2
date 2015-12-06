@@ -18,37 +18,37 @@ bool NALXml::writeXML() {
         return false;
 }
 
-void NALXml::write(QXmlStreamWriter* stream) {
+void NALXml::write(QXmlStreamWriter* stream) const {
     stream->writeStartElement("NAL_Stream");
-    for(int i = 0; i < nalUnits.size(); ++ i) {
-        std::shared_ptr<NalUnit> nalUnit = nalUnits.at(i);
+    QList<std::shared_ptr<NalUnit>>::const_iterator it;
+    for(it = nalUnits.constBegin(); it < nalUnits.constEnd(); ++it) {
         stream->writeStartElement("NAL_unit");
-        stream->writeAttribute("name", nalUnit->getName());
-        stream->writeAttribute("offset", QString::number(nalUnit->getOffset()));
-        stream->writeAttribute("length", QString::number(nalUnit->getLength()));
-        writeHeader(stream, nalUnit);
-        writeExtendedHeader(stream, nalUnit);
+        stream->writeAttribute("name", (*it)->getName());
+        stream->writeAttribute("offset", QString::number((*it)->getOffset()));
+        stream->writeAttribute("length", QString::number((*it)->getLength()));
+        writeHeader(stream, (*it));
+        writeExtendedHeader(stream, (*it));
         stream->writeEndElement();
     }
     stream->writeEndElement();
 }
 
-void NALXml::writeHeader(QXmlStreamWriter *stream, std::shared_ptr<NalUnit> nalUnit) {
+void NALXml::writeHeader(QXmlStreamWriter *stream, const std::shared_ptr<NalUnit> nalUnit) const {
     stream->writeStartElement("header");
     stream->writeAttribute("type", QString::number(nalUnit->getTypeCode()));
     stream->writeAttribute("NAL Ref ID", QString::number(nalUnit->getNalRefIdc()));
     stream->writeEndElement();
 }
 
-void NALXml::writeExtendedHeader(QXmlStreamWriter *stream, std::shared_ptr<NalUnit> nalUnit) {
+void NALXml::writeExtendedHeader(QXmlStreamWriter *stream, std::shared_ptr<NalUnit> nalUnit) const {
     if(nalUnit->getTypeCode() == 14 || nalUnit->getTypeCode() == 20) {
         stream->writeStartElement("Extended_header");
-        std::shared_ptr<ExtendedNalUnit> unit = std::dynamic_pointer_cast<ExtendedNalUnit>(nalUnit);
-        unsigned int SVCflag = unit->getSVCflag();
-        stream->writeAttribute("SVCflag", QString::number(SVCflag));
+        try {
+            std::shared_ptr<ExtendedNalUnit> unit = std::dynamic_pointer_cast<ExtendedNalUnit>(nalUnit);
+            unsigned int SVCflag = unit->getSVCflag();
+            stream->writeAttribute("SVCflag", QString::number(SVCflag));
 
-        if(SVCflag) {
-            try {
+            if(SVCflag) {
                 std::shared_ptr<SVCNalUnit> svcUnit = std::dynamic_pointer_cast<SVCNalUnit> (unit);
                 stream->writeAttribute("idrFlag", QString::number(svcUnit->getIdrFlag()));
                 stream->writeAttribute("priorityId", QString::number(svcUnit->getPriorityId()));
@@ -61,10 +61,12 @@ void NALXml::writeExtendedHeader(QXmlStreamWriter *stream, std::shared_ptr<NalUn
                 stream->writeAttribute("outputFlag", QString::number(svcUnit->getOutputFlag()));
                 stream->writeAttribute("reservedThree2bits", QString::number(svcUnit->getReservedThree2bits()));
 
-            } catch (const std::bad_cast& e) {
-                //std::cerr << "  Exception " << e.what() << " thrown." << std::endl;
-                //std::cerr << "  Object is not of type B" << std::endl;
             }
+        }
+        catch (const std::bad_cast& e) {
+            qCritical() << "  Exception " << e.what() << " thrown.";
+            //std::cerr << "  Exception " << e.what() << " thrown." << std::endl;
+            //std::cerr << "  Object is not of type B" << std::endl;
         }
         stream->writeEndElement();
     }

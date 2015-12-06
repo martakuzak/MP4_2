@@ -1,15 +1,15 @@
 #include "svcwriter.h"
 
-SvcWriter::SvcWriter(const QList<std::shared_ptr<NalUnit> > &nu): nalUnits(nu){
+SvcWriter::SvcWriter(const QList<std::shared_ptr<NalUnit>> &nu): nalUnits(nu){
 }
 
 short SvcWriter::calculateBytesNumOfNalLenPar() {
     unsigned int maxLength = 0;
     unsigned int nuLength = nalUnits.length(); //wyznacz najwiekszy NAL
     for(unsigned i = 0; i < nuLength; ++ i) {
-        std::shared_ptr<NalUnit> nalUnit = nalUnits.at(i);
-        if(nalUnit->getLength() > maxLength)
-            maxLength = nalUnit->getLength();
+        int nalUnitLength= nalUnits.at(i)->getLength();
+        if(nalUnitLength> maxLength)
+            maxLength = nalUnitLength;
     }
     //okresl na ilu bajtach trzeba to zapisac: do wybory 1, 2, 4
     if(maxLength < 0xFF)
@@ -60,7 +60,7 @@ void SvcWriter::writeMoov(int layerNum) {
 
 unsigned int SvcWriter::writeMvhd(bool write, int trackNum) {
     unsigned short version = 0; //0 lub 1
-    unsigned int size = (version) ? MVHD_SIZE_1: MVHD_SIZE_0;
+    unsigned int size = version ? MVHD_SIZE_1: MVHD_SIZE_0;
     if(write) {
         QDataStream stream(file);
         stream<<quint32(size);
@@ -425,9 +425,9 @@ unsigned int SvcWriter::writeStss(bool write) {
     return size;
 }
 
-   void SvcWriter::writeMdat() {
-       QDataStream stream(file);
-       stream<<quint32(8);
-       stream.writeRawData("mdat", 4);
-   }
+void SvcWriter::writeMdat() {
+    QDataStream stream(file);
+    stream<<quint32(8);
+    stream.writeRawData("mdat", 4);
+}
 
