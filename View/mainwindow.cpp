@@ -162,13 +162,12 @@ void MainWindow::nalParseSelected() {
 
     setWindowTitle("MP4 - " + fileName);
     if(fileName.length()) {
-
         emit nalFileSelected(fileName);
 
         if(dashSection != NULL) {
             delete dashSection;
             dashSection = NULL;
-        }     delete svcSection;
+        }
 
         if(tabs == NULL) {
             tabs = new QTabWidget();
