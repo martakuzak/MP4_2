@@ -15,7 +15,7 @@ SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nu, QWidget *parent) : n
 
     prepareNALtree(nalUnits);
 
-    QPushButton* createMP4 = new QPushButton("Export to XML");
+    QPushButton* createMP4 = new QPushButton("Create MP4");
     connect(createMP4, SIGNAL(clicked()), this, SLOT(createMP4()), Qt::QueuedConnection);
     layout->addWidget(createMP4);
 
