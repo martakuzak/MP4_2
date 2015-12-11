@@ -25,7 +25,6 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
     unsigned long int offset= 0;//offset w pliku
 
     NalUnitFactory factory(this, fileService);
-
     if(!fileService->openFile()) {
 
     } else {
@@ -34,6 +33,7 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
 
             unsigned int pref3Byte = valueOfGroupOfBytes(3, offset); //? sprawdzic to wszystko !!!
             unsigned int pref4Byte = valueOfGroupOfBytes(4, offset);
+
             if(pref3Byte == 1 || pref4Byte == 1) { //prefix == 0x001 lub 0x0001
                 offset += (pref3Byte == 1) ? 3 : 4;
                 int off = offset;
@@ -45,6 +45,7 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
                 int nalUnitType = valueOfGroupOfBits(5, off*8 + 3); //razem: 8 bitów
                 //qDebug()<<QString::number(++idx)<<"fzb = "<<QString::number(forbiddenZeroBit)<<"nalRfcId = "<<QString::number(nalRefIdc)<<"nalUnitType = "<<QString::number(nalUnitType);
                 offset += 1;
+                //qDebug()<<"NAL unit"<<QString::number(nalUnitType);
                 std::shared_ptr<NalUnit> nalUnit = factory.getNalUnit(nalUnitType, nalRefIdc, off);
                 int size = nalUnits.size();
                 if(size > 1)
@@ -55,8 +56,13 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
 
                 offset+=1;
 
-            } else
-                offset += 1;
+            } else {
+                int lastByte = pref4Byte - (pref3Byte >> 8);
+                if(lastByte > 1)
+                    offset += 4;
+                else //JESZCZE POMYŚL
+                    offset += 1;
+            }
         }
         fileService->close();
     }
@@ -174,7 +180,9 @@ unsigned long int NALParser::valueOfGroupOfBits(const unsigned int & length, con
     char* ptr = new char[length];
     fileService->getBits(ptr, length, offset);
     unsigned long int ret = bitOperator->valueOfGroupOfBits(ptr, length);
+    //qDebug()<<"MArcinBit 4"<<QString::number(ptr[0]);
     delete[] ptr;
+    //qDebug()<<"MArcinBit 5";
     return ret;
 }
 QString NALParser::stringValue(const unsigned int & length, const unsigned long& offset) const {

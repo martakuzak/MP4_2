@@ -37,7 +37,7 @@ void FileService::getBits(char *dst, unsigned int length, unsigned long offset) 
     int suffix =(byteLength + firstByteIdx)* BITS_IN_BYTE  - (offset + length) ;
 
     //przekopiowanie bitow z pierwszego byte'u
-    toBitArray(dst, byteData[0], BITS_IN_BYTE - prefix, /*prefix,*/ (byteLength > 1) ? 0 : suffix);
+    toBitArray(dst, byteData[0], (byteLength > 1) ? (BITS_IN_BYTE - prefix) : (BITS_IN_BYTE - prefix - suffix), /*prefix,*/ (byteLength > 1) ? 0 : suffix);
 
     //dolaczenie bitow z kolejnych byte'ów oprocz ostatniego
     for(int byteIdx = 1; byteIdx < (byteLength - 1); ++ byteIdx) {
