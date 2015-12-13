@@ -26,8 +26,6 @@ SvcSection::~SvcSection() {
 }
 
 void SvcSection::createMP4() {
-    NALXml *nalXml = new NALXml("F:\\aa.xml", nalUnits);
-    nalXml->writeXML();
     //SvcWriter* writer = new SvcWriter("tmp.mp4");
     //writer->writeFile("F:\\atmp.mp4");
 }
@@ -36,13 +34,14 @@ void SvcSection::prepareNALtree(QList<std::shared_ptr<NalUnit> > nalUnits) {
     QTreeView* treeView = new QTreeView(this);
     QStandardItemModel* standardModel = new QStandardItemModel ;
     standardModel->setHorizontalHeaderItem(0, new QStandardItem("NAL unit type"));
-    standardModel->setHorizontalHeaderItem(1, new QStandardItem("Offset"));
+    standardModel->setHorizontalHeaderItem(1, new QStandardItem("Size"));
+    standardModel->setHorizontalHeaderItem(2, new QStandardItem("Offset"));
 
     for(int i = 0; i < nalUnits.size(); ++ i) {
         std::shared_ptr<NalUnit> nalUnit = nalUnits.at(i);
         QList<QStandardItem *> preparedRow =prepareRow(QString::number(i + 1) + ". " + nalUnit->getName() + " (" +
-                                                       QString::number(nalUnit->getTypeCode()) + ")", QString("0x") +
-                                                       QString::number(nalUnit->getOffset(), 16));
+                                                       QString::number(nalUnit->getTypeCode()) + ")", QString::number(nalUnit->getLength()),
+                                                       QString("0x") + QString::number(nalUnit->getOffset(), 16));
         QStandardItem *item = standardModel->invisibleRootItem();
         // adding a row to the invisible root item produces a root element
         item->appendRow(preparedRow);
@@ -64,11 +63,12 @@ void SvcSection::prepareNALtree(QList<std::shared_ptr<NalUnit> > nalUnits) {
     layout->addWidget(treeView);
 }
 
-QList<QStandardItem *> SvcSection::prepareRow(const QString &first, const QString &second)
+QList<QStandardItem *> SvcSection::prepareRow(const QString &first, const QString &second, const QString &third)
 {
     QList<QStandardItem *> rowItems;
     rowItems << new QStandardItem(first);
     rowItems << new QStandardItem(second);
+    rowItems << new QStandardItem(third);
     return rowItems;
 }
 

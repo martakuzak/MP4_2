@@ -31,7 +31,7 @@ private slots:
     //void writeXML();
 protected:
     void prepareNALtree(QList<std::shared_ptr<NalUnit> > nalUnits);
-    QList<QStandardItem *> prepareRow(const QString &first, const QString &second);
+    QList<QStandardItem *> prepareRow(const QString &first, const QString &second, const QString &third);
 
     QVBoxLayout *layout;
     QList<std::shared_ptr<NalUnit> > nalUnits;
