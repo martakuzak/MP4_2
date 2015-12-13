@@ -1,5 +1,7 @@
 #include "nalparser.h"
 
+#include <QDateTime>
+
 NALParser::NALParser() {
 
 }
@@ -22,6 +24,7 @@ NALParser::~NALParser() {
 }
 
 QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
+    long start = QDateTime::currentMSecsSinceEpoch();
     unsigned long int offset= 0;//offset w pliku
 
     NalUnitFactory factory(this, fileService);
@@ -38,6 +41,8 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
                 offset += (pref3Byte == 1) ? 3 : 4;
                 int off = offset;
                 //forbidden_zero_bit
+                int forbidde = valueOfGroupOfBits(5000000, off*8); //razem: 1 bit
+
                 short int forbiddenZeroBit = valueOfGroupOfBits(1, off*8); //razem: 1 bit
                 //nal_ref_idc
                 short int nalRefIdc = valueOfGroupOfBits(2, off*8 + 1); //razem: 3 bity
@@ -53,19 +58,30 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
                 nalUnits.append(nalUnit);
                 //NumBytesInRBSP = 0
                 //nalUnitHeaderBytes = 1
-
-                offset+=1;
+                if(nalUnitType == 14 || nalUnitType == 20)
+                    offset += 5;
+                else
+                    offset += 1;
 
             } else {
-                int lastByte = pref4Byte - (pref3Byte >> 8);
-                if(lastByte > 1)
+                unsigned int* bytes = new unsigned int[4];
+                for(int i = 0; i < 4; ++ i) {//ostatni byte ma numer 0
+                    bytes[i] = (pref4Byte >> (8*i)) & 0xff;
+                }
+                if(bytes[0] > 1 || (bytes[0] == 1 && (bytes[1] || bytes[2])))
                     offset += 4;
+                else if(bytes[1] ) //ostatni = 0 i przedostatni > 0
+                    offset += 3;
+                else if(bytes[2]) //ostatni = 0, przedostatni = 0, przedprzedostatni > 0
+                    offset += 2;
                 else //JESZCZE POMYŚL
                     offset += 1;
             }
         }
         fileService->close();
     }
+    long end = QDateTime::currentMSecsSinceEpoch();
+    qDebug()<<"Czas : "<<QString::number(end - start);
 
     return nalUnits;
 
