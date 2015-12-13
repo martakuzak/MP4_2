@@ -41,8 +41,6 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
                 offset += (pref3Byte == 1) ? 3 : 4;
                 int off = offset;
                 //forbidden_zero_bit
-                int forbidde = valueOfGroupOfBits(5000000, off*8); //razem: 1 bit
-
                 short int forbiddenZeroBit = valueOfGroupOfBits(1, off*8); //razem: 1 bit
                 //nal_ref_idc
                 short int nalRefIdc = valueOfGroupOfBits(2, off*8 + 1); //razem: 3 bity
