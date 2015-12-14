@@ -19,10 +19,12 @@ bool NALXml::writeXML() {
 }
 
 void NALXml::write(QXmlStreamWriter* stream) const {
+    int idx = 1;
     stream->writeStartElement("NAL_Stream");
     QList<std::shared_ptr<NalUnit>>::const_iterator it;
     for(it = nalUnits.constBegin(); it < nalUnits.constEnd(); ++it) {
         stream->writeStartElement("NAL_unit");
+        stream->writeAttribute("idx", QString::number(idx++));
         stream->writeAttribute("name", (*it)->getName());
         stream->writeAttribute("offset", QString::number((*it)->getOffset()));
         stream->writeAttribute("length", QString::number((*it)->getLength()));

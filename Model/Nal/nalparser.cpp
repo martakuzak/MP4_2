@@ -57,9 +57,9 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
                 //NumBytesInRBSP = 0
                 //nalUnitHeaderBytes = 1
                 if(nalUnitType == 14 || nalUnitType == 20)
-                    offset += 6;
+                    offset += 4; //normalny naglowek (1)+ naglowek rozszerzony (3)
                 else
-                    offset += 2;
+                    offset += 1; //normalny naglowek
 
             } else {
                 unsigned int* bytes = new unsigned int[4];
