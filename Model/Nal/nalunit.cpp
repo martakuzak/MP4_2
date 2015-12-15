@@ -4,8 +4,7 @@ NalUnit::NalUnit(const unsigned int&  nri, const unsigned long & off) : nalRefId
 
 NalUnit::~NalUnit() {}
 
-unsigned int ExtendedNalUnit::getSVCflag() const
-{
+unsigned int ExtendedNalUnit::getSVCflag() const {
     return SVCflag;
 }
 
@@ -18,55 +17,46 @@ QString ExtendedNalUnit::getHeaderExtension() {
     return "SVC extension flag: " + QString::number(SVCflag);
 }
 
-unsigned int SVCNalUnit::getIdrFlag() const
-{
+unsigned int SVCNalUnit::getIdrFlag() const {
     return idrFlag;
 }
 
-unsigned int SVCNalUnit::getNoInterLayerPredFlag() const
-{
+unsigned int SVCNalUnit::getNoInterLayerPredFlag() const {
     return noInterLayerPredFlag;
 }
 
-unsigned int SVCNalUnit::getDependencyId() const
-{
+unsigned int SVCNalUnit::getDependencyId() const {
     return dependencyId;
 }
 
-unsigned int SVCNalUnit::getQualityId() const
-{
+unsigned int SVCNalUnit::getQualityId() const {
     return qualityId;
 }
 
-unsigned int SVCNalUnit::getTemporaryId() const
-{
+unsigned int SVCNalUnit::getTemporaryId() const {
     return temporaryId;
 }
 
-unsigned int SVCNalUnit::getUseRefBasePicFlag() const
-{
+unsigned int SVCNalUnit::getUseRefBasePicFlag() const {
     return useRefBasePicFlag;
 }
 
-unsigned int SVCNalUnit::getDiscardableFlag() const
-{
+unsigned int SVCNalUnit::getDiscardableFlag() const {
     return discardableFlag;
 }
 
-unsigned int SVCNalUnit::getOutputFlag() const
-{
+unsigned int SVCNalUnit::getOutputFlag() const {
     return outputFlag;
 }
 
-unsigned int SVCNalUnit::getReservedThree2bits() const
-{
+unsigned int SVCNalUnit::getReservedThree2bits() const {
     return reservedThree2bits;
 }
 
 SVCNalUnit::SVCNalUnit(const unsigned int&  nri, const unsigned long & off, const unsigned int& rob, const unsigned int& idr,
-                                     const unsigned int& pid, const unsigned int& nilp, const unsigned int& did, const unsigned int& qid,
-                                     const unsigned int& tid, const unsigned int& urbp, const unsigned int& dis, const unsigned int&of,
-                                     const unsigned int&rt2b) : ExtendedNalUnit(nri, off, rob), idrFlag(idr), priorityId(pid),
+                       const unsigned int& pid, const unsigned int& nilp, const unsigned int& did, const unsigned int& qid,
+                       const unsigned int& tid, const unsigned int& urbp, const unsigned int& dis, const unsigned int&of,
+                       const unsigned int&rt2b) : ExtendedNalUnit(nri, off, rob), idrFlag(idr), priorityId(pid),
     noInterLayerPredFlag(nilp), dependencyId(did), qualityId(qid), temporaryId(tid), useRefBasePicFlag(urbp), discardableFlag(dis),
     outputFlag(of), reservedThree2bits(rt2b){}
 SVCNalUnit::~SVCNalUnit() {}
@@ -145,7 +135,7 @@ PrefixNalUnitRbsp::PrefixNalUnitRbsp(const unsigned int&  nri, const unsigned lo
                                      const unsigned int& pid, const unsigned int& nilp, const unsigned int& did, const unsigned int& qid,
                                      const unsigned int& tid, const unsigned int& urbp, const unsigned int& dis, const unsigned int&of,
                                      const unsigned int&rt2b) : SVCNalUnit(nri, off, rob, idr, pid, nilp, did, qid, tid, urbp,
-                                                                                                   dis, of, rt2b) {}
+                                                                           dis, of, rt2b) {}
 PrefixNalUnitRbsp::~PrefixNalUnitRbsp() {}
 
 QString PrefixNalUnitRbsp::getHeaderExtension() {
@@ -175,7 +165,7 @@ SliceLayerExtensionRbsp::SliceLayerExtensionRbsp(const unsigned int&  nri, const
                                                  const unsigned int& pid, const unsigned int& nilp, const unsigned int& did, const unsigned int& qid,
                                                  const unsigned int& tid, const unsigned int& urbp, const unsigned int& dis, const unsigned int&of,
                                                  const unsigned int&rt2b) : SVCNalUnit(nri, off, rob, idr, pid, nilp, did, qid, tid, urbp,
-                                                                                                               dis, of, rt2b) {}
+                                                                                       dis, of, rt2b) {}
 SliceLayerExtensionRbsp::~SliceLayerExtensionRbsp() {}
 
 QString SliceLayerExtensionRbsp::getHeaderExtension() {

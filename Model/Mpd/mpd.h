@@ -110,7 +110,7 @@ public:
      * \param oneFile indicated wheter all the media data segments of each representation are located
      * in one file or not
      */
-    void init(bool oneFile); 
+    void init(bool oneFile);
     /*!
      * \brief setDashPath
      * \param dashPath path to created files with media data segments

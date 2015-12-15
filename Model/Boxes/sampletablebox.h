@@ -52,7 +52,7 @@ private:
 public:
     TimeToSampleBox(const unsigned long int& s, const QString& t, const unsigned long int& off,const unsigned int& v,
                     const QList<unsigned int>& f, unsigned int ec, QList<unsigned int> sc, QList<unsigned int> sd);
-    virtual QString getFullName() { return QString("Time To Sample Box"); }  
+    virtual QString getFullName() { return QString("Time To Sample Box"); }
     virtual QStandardItemModel *getModel();
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -175,7 +175,7 @@ public:
  */
 class ChunkOffsetBox : public FullBox {
 private:
-     unsigned int entryCount;
+    unsigned int entryCount;
     QList<unsigned int> chunkOffset;
 public:
     ChunkOffsetBox(const unsigned long int& s, const QString& t, const unsigned long int& off,const unsigned int& v,

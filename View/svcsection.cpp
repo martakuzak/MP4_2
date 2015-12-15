@@ -9,7 +9,7 @@ SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nu, QWidget *parent) : n
     label->setMinimumSize(1000,30);
     QFont serifFont("Calibri", 11, QFont::Bold);
     QFont font("Calibri", 10, QFont::Normal);
-    label->setFont(serifFont);   
+    label->setFont(serifFont);
 
     layout->addWidget(label);
 
@@ -71,4 +71,3 @@ QList<QStandardItem *> SvcSection::prepareRow(const QString &first, const QStrin
     rowItems << new QStandardItem(third);
     return rowItems;
 }
-

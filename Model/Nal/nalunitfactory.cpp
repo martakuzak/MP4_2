@@ -88,8 +88,8 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
             unsigned int outputFlag = valueOfGroupOfBits(1, off*8 + 12);
             unsigned int reservedThree2bits = valueOfGroupOfBits(2, off*8 + 13);
             return std::shared_ptr<NalUnit>(new PrefixNalUnitRbsp(nalRefIdc, offset, reservedOneBit, idrFlag, priorityId, noInterLayerPredFlag,
-                                                                        dependencyId, qualityId, temporaryId, useRefBasePicFlag, discardableFlag, outputFlag,
-                                                                        reservedThree2bits));
+                                                                  dependencyId, qualityId, temporaryId, useRefBasePicFlag, discardableFlag, outputFlag,
+                                                                  reservedThree2bits));
         }
         else return std::shared_ptr<NalUnit>(new NalUnit(nalRefIdc, off));
     }

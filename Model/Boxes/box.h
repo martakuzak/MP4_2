@@ -166,7 +166,7 @@ public:
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Media Box"); }
     virtual QStandardItemModel *getModel() {
-         QStandardItemModel *model = new QStandardItemModel(1,1,0);
+        QStandardItemModel *model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Media Box is a container for all objects that declare information about the media data within a track.");
         return model;
     }
@@ -182,7 +182,7 @@ public:
     MediaDataBox(const unsigned long int& s, const QString& t, const unsigned long int& off);
     virtual QString getFullName() { return QString("Media Data Box"); }
     virtual QStandardItemModel *getModel() {
-         QStandardItemModel *model = new QStandardItemModel(1,1,0);
+        QStandardItemModel *model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Media Box contains the media data.");
         return model;
     }
@@ -224,7 +224,7 @@ public:
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Movie Box"); }
     virtual QStandardItemModel *getModel() {
-         QStandardItemModel *model = new QStandardItemModel(1,1,0);
+        QStandardItemModel *model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Movie Box is container box for all meta-data.");
         return model;
     }
@@ -419,7 +419,7 @@ public:
  */
 class EditListBox : public FullBox {
 protected:
-     unsigned int entryCount;
+    unsigned int entryCount;
     QList <unsigned long int> segmentDuration;
     QList <unsigned long int> mediaTime;
     QList <unsigned int> mediaRateInteger;

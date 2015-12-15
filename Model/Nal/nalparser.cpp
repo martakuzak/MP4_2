@@ -25,7 +25,7 @@ NALParser::~NALParser() {
 
 QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
     long start = QDateTime::currentMSecsSinceEpoch();
-    unsigned long int offset= 0;//offset w pliku
+    unsigned long int offset = 0;//offset w pliku
 
     NalUnitFactory factory(this, fileService);
     if(!fileService->openFile()) {
@@ -46,7 +46,6 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
                 short int nalRefIdc = valueOfGroupOfBits(2, offset*8 + 1); //razem: 3 bity
                 //nal_unit_type;
                 int nalUnitType = valueOfGroupOfBits(5, offset*8 + 3); //razem: 8 bitów
-                //qDebug()<<QString::number(++idx)<<"fzb = "<<QString::number(forbiddenZeroBit)<<"nalRfcId = "<<QString::number(nalRefIdc)<<"nalUnitType = "<<QString::number(nalUnitType);
                 //qDebug()<<"NAL unit"<<QString::number(nalUnitType);
                 std::shared_ptr<NalUnit> nalUnit = factory.getNalUnit(nalUnitType, nalRefIdc, offset);
                 int size = nalUnits.size();

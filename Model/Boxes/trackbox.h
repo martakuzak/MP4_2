@@ -110,7 +110,7 @@ public:
     virtual bool isContainer() { return true; }
     virtual QString getFullName() { return QString("Track Fragment Box"); }
     virtual QStandardItemModel *getModel() {
-         QStandardItemModel *model = new QStandardItemModel(1,1,0);
+        QStandardItemModel *model = new QStandardItemModel(1,1,0);
         model->setData(model->index(0, 0, QModelIndex()), "Track Fragment Box is usefull for defaulting many fields within track fragments structure, it can store the space and complexity of movie fragments default values");
         return model;
     }

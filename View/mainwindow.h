@@ -53,7 +53,7 @@ protected:
     QAction *svcAct;
     //Actions- Help
     //when user clicks "help" in the menu
-    QAction *helpAct; 
+    QAction *helpAct;
     //Layout of the whole window
     QVBoxLayout *mainLayout;
     DashSection *dashSection;

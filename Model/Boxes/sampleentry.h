@@ -229,7 +229,7 @@ class MPEG4BitRateBox: public Box {
     unsigned int avgBitrate;
 public:
     MPEG4BitRateBox(const unsigned long int& s, const QString& t, const unsigned long int& off,
-                        const unsigned int& bsDB, const unsigned int& maxbr, const unsigned int& avgBr);
+                    const unsigned int& bsDB, const unsigned int& maxbr, const unsigned int& avgBr);
     virtual bool isContainer() { return false; }
     virtual QString getFullName() { return QString("MPEG4 Bitrate Box"); }
     virtual QStandardItemModel *getModel();

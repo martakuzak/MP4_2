@@ -57,9 +57,9 @@ protected:
     unsigned int reservedThree2bits;
 public:
     SVCNalUnit(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned int& SVCflag = 0, const unsigned int& idrFlag = 0,
-    const unsigned int& priorityId = 0, const unsigned int& noInterLayerPredFlag = 0, const unsigned int& dependencyId = 0, const unsigned int& qualityId = 0,
-    const unsigned int& temporaryId = 0, const unsigned int& useRefBasePicFlag = 0, const unsigned int& discardableFlag = 0, const unsigned int& outputFlag = 0,
-    const unsigned int& reservedThree2bits = 0);
+               const unsigned int& priorityId = 0, const unsigned int& noInterLayerPredFlag = 0, const unsigned int& dependencyId = 0, const unsigned int& qualityId = 0,
+               const unsigned int& temporaryId = 0, const unsigned int& useRefBasePicFlag = 0, const unsigned int& discardableFlag = 0, const unsigned int& outputFlag = 0,
+               const unsigned int& reservedThree2bits = 0);
     ~SVCNalUnit();
     virtual QString getName() { return "Extended NAL Unit"; }
     virtual int getTypeCode() { return -1; }
@@ -204,9 +204,9 @@ public:
 class PrefixNalUnitRbsp : public SVCNalUnit {
 public:
     PrefixNalUnitRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned int& SVCflag = 0, const unsigned int& idrFlag = 0,
-    const unsigned int& priorityId = 0, const unsigned int& noInterLayerPredFlag = 0, const unsigned int& dependencyId = 0, const unsigned int& qualityId = 0,
-    const unsigned int& temporaryId = 0, const unsigned int& useRefBasePicFlag = 0, const unsigned int& discardableFlag = 0, const unsigned int& outputFlag = 0,
-    const unsigned int& reservedThree2bits = 0);
+                      const unsigned int& priorityId = 0, const unsigned int& noInterLayerPredFlag = 0, const unsigned int& dependencyId = 0, const unsigned int& qualityId = 0,
+                      const unsigned int& temporaryId = 0, const unsigned int& useRefBasePicFlag = 0, const unsigned int& discardableFlag = 0, const unsigned int& outputFlag = 0,
+                      const unsigned int& reservedThree2bits = 0);
     ~PrefixNalUnitRbsp();
     virtual QString getName() { return "PREFIX_NAL_UNIT_RBSP"; }
     virtual int getTypeCode() { return 14; }
