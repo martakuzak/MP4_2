@@ -38,7 +38,6 @@ SOURCES += main.cpp\
     View/dashsection.cpp \
     View/analyzesection.cpp \
     Model/Nal/nalparser.cpp \
-    Model\Common\bitoperator.cpp \
     Model/Common/bitoperator.cpp \
     View/svcsection.cpp \
     Model/Nal/nalunit.cpp \

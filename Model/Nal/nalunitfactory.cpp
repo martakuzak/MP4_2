@@ -75,6 +75,7 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         off += 1; //??
         unsigned int svcExtensionFlag = valueOfGroupOfBits(1, off*8);
         if(svcExtensionFlag) {
+            //rozszerzony naglowek
             unsigned int reservedOneBit = valueOfGroupOfBits(1, off*8);
             unsigned int idrFlag = valueOfGroupOfBits(1, off*8 + 1);
             unsigned int priorityId = valueOfGroupOfBits(6, off*8 + 2);
@@ -87,6 +88,25 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
             unsigned int discardableFlag = valueOfGroupOfBits(1, off*8 + 11);
             unsigned int outputFlag = valueOfGroupOfBits(1, off*8 + 12);
             unsigned int reservedThree2bits = valueOfGroupOfBits(2, off*8 + 13);
+            //dalej
+            if(nalRefIdc) {
+                unsigned short storeRefBasePicFlag = valueOfGroupOfBits(1, off*8 + 14);
+                if( (useRefBasePicFlag || storeRefBasePicFlag) && !idrFlag) {
+                    //decrefBasePicMarking();
+                }
+
+                /*store_ref_base_pic_flag 2 u(1)
+                if( ( use_ref_base_pic_flag | | store_ref_base_pic_flag ) &&
+                !idr_flag )
+                dec_ref_base_pic_marking( ) 2
+                additional_prefix_nal_unit_extension_flag 2 u(1)
+                if( additional_prefix_nal_unit_extension_flag = = 1 )
+                while( more_rbsp_data( ) )
+                additional_prefix_nal_unit_extension_data_flag 2 u(1)
+                rbsp_trailing_bits( )*/
+            } else {//else if( more_rbsp_data( )
+
+            }
             return std::shared_ptr<NalUnit>(new PrefixNalUnitRbsp(nalRefIdc, offset, reservedOneBit, idrFlag, priorityId, noInterLayerPredFlag,
                                                                   dependencyId, qualityId, temporaryId, useRefBasePicFlag, discardableFlag, outputFlag,
                                                                   reservedThree2bits));
