@@ -6,6 +6,7 @@
 #include <QList>
 #include <memory>
 #include "nalunit.h"
+#include "nalunittype.h"
 
 class NalUnit;
 
@@ -24,7 +25,8 @@ protected:
     const int TKHD_SIZE_0 = 92; //version = 0
     const int TKHD_SIZE_1 = 114; //version = 1
 public:
-    bool writeFile(const QString& name);
+    bool writeMP4File(const QString& name);
+    bool writeBaseLayer(const QString &name, const QString &svcFile);
 protected:
     short calculateBytesNumOfNalLenPar();
     /*!

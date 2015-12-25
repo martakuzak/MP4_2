@@ -186,7 +186,7 @@ void MainWindow::nalParseSelected() {
         NALParser nalParser(fileName);
         list = nalParser.parseFile();
         if(!list.empty()) {
-            svcSection = new SvcSection(list);
+            svcSection = new SvcSection(list, fileName, this);
             tabs->addTab(svcSection, "SVC : " + fileName);
             tabs->setCurrentIndex(tabs->count() - 1);
             tabs->setTabsClosable(true);

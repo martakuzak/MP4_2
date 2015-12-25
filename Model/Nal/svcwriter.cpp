@@ -7,8 +7,8 @@ short SvcWriter::calculateBytesNumOfNalLenPar() {
     unsigned int maxLength = 0;
     unsigned int nuLength = nalUnits.length(); //wyznacz najwiekszy NAL
     for(unsigned i = 0; i < nuLength; ++ i) {
-        int nalUnitLength= nalUnits.at(i)->getLength();
-        if(nalUnitLength> maxLength)
+        unsigned int nalUnitLength= nalUnits.at(i)->getLength();
+        if(nalUnitLength > maxLength)
             maxLength = nalUnitLength;
     }
     //okresl na ilu bajtach trzeba to zapisac: do wybory 1, 2, 4
@@ -22,18 +22,40 @@ short SvcWriter::calculateBytesNumOfNalLenPar() {
         return -1; //to nie jest dobrze
 }
 
-bool SvcWriter::writeFile(const QString& name) {
+bool SvcWriter::writeMP4File(const QString& name) {
     fileName = name;
-    file = new QFile(name);
-    if(file->open(QIODevice::ReadWrite)) {
+    QFile* outputFile = new QFile(name);
+    if(outputFile->open(QIODevice::ReadWrite)) {
         writeFtyp();
         writeMoov(2);
         writeMdat();
-        file->close();
+        outputFile->close();
         return true;
     }
     return false;
 }
+
+bool SvcWriter::writeBaseLayer(const QString &name, const QString &svcFile) {
+    fileName = name;
+    QFile* outputFile = new QFile(name);
+    file = new QFile(svcFile);
+    if(outputFile->open(QIODevice::ReadWrite) && file->open(QIODevice::ReadOnly)) {
+        QList<std::shared_ptr<NalUnit>>::const_iterator it;
+        for(it = nalUnits.constBegin(); it < nalUnits.constEnd(); ++it) {
+            if((*it)->getTypeCode() == NON_IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP
+                    || (*it)->getTypeCode() == IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP
+                    || (*it)->getTypeCode() == SEQ_PARAMETER_SET_RBSP) {
+                file->seek((*it)->getOffset());
+                QByteArray array = file->read((*it)->getLength());
+                outputFile->write(array);
+            }
+        }
+        outputFile->close();
+        return true;
+    }
+    return false;
+}
+
 
 void SvcWriter::writeFtyp() {
     QDataStream stream(file);

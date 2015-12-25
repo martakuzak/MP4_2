@@ -1,6 +1,6 @@
 #include "svcsection.h"
 
-SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nu, QWidget *parent) : nalUnits(nu),
+SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nu, const QString &name, QWidget *parent) : nalUnits(nu), fileName(name),
     QGroupBox(parent) {
     layout = new QVBoxLayout;
     QLabel *label = new QLabel("NAL UNITS IN THE STREAM");
@@ -17,7 +17,10 @@ SvcSection::SvcSection(QList<std::shared_ptr<NalUnit> > nu, QWidget *parent) : n
 
     QPushButton* createMP4 = new QPushButton("Create MP4");
     connect(createMP4, SIGNAL(clicked()), this, SLOT(createMP4()), Qt::QueuedConnection);
+    QPushButton* writeBaseLayer = new QPushButton("Export base layer");
+    connect(writeBaseLayer, SIGNAL(clicked()), this, SLOT(writeBaseLayer()), Qt::QueuedConnection);
     layout->addWidget(createMP4);
+    layout->addWidget(writeBaseLayer);
 
     setLayout(layout);
 }
@@ -28,6 +31,11 @@ SvcSection::~SvcSection() {
 void SvcSection::createMP4() {
     //SvcWriter* writer = new SvcWriter("tmp.mp4");
     //writer->writeFile("F:\\atmp.mp4");
+}
+
+void SvcSection::writeBaseLayer() {
+    SvcWriter* writer = new SvcWriter(nalUnits);
+    writer->writeBaseLayer("F:\\aatmp", fileName);
 }
 
 void SvcSection::prepareNALtree(QList<std::shared_ptr<NalUnit> > nalUnits) {

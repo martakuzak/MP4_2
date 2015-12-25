@@ -16,6 +16,7 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QAction>
+#include <QString>
 
 #include "nalunit.h"
 #include "svcwriter.h"
@@ -24,10 +25,11 @@
 class SvcSection : public QGroupBox {
     Q_OBJECT
 public:
-    SvcSection(QList<std::shared_ptr<NalUnit>> nu, QWidget *parent = 0);
+    SvcSection(QList<std::shared_ptr<NalUnit>> nu, const QString& name, QWidget *parent = 0);
     ~SvcSection();
 private slots:
     void createMP4();
+    void writeBaseLayer();
     //void writeXML();
 protected:
     void prepareNALtree(QList<std::shared_ptr<NalUnit> > nalUnits);
@@ -35,6 +37,7 @@ protected:
 
     QVBoxLayout *layout;
     QList<std::shared_ptr<NalUnit> > nalUnits;
+    QString fileName;
 };
 
 #endif // SVCSECTION_H
