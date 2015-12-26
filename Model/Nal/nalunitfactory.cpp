@@ -11,26 +11,26 @@ NalUnitFactory::~NalUnitFactory() {
     delete bitOperator;
 }
 
-std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset) {
+std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset, const unsigned short &sl) {
     switch(typeCode) {
     case UNSPECIFIED:
-        return std::shared_ptr<NalUnit>(new Unspecified(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Unspecified(nalRefIdc, offset, sl));
         break;
 
     case NON_IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP:
-        return std::shared_ptr<NalUnit>(new NonIdrSliceLayerWithoutPartitioningRbsp(nalRefIdc, offset, 0, 0, 0));
+        return std::shared_ptr<NalUnit>(new NonIdrSliceLayerWithoutPartitioningRbsp(nalRefIdc, offset, sl,  0, 0, 0));
         break;
 
     case SLICE_DATA_PARTITION_A_LAYER_RBSP:
-        return std::shared_ptr<NalUnit>(new SliceDataPartitionALayerRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new SliceDataPartitionALayerRbsp(nalRefIdc, offset, sl));
         break;
 
     case SLICE_DATA_PARTITION_B_LAYER_RBSP:
-        return std::shared_ptr<NalUnit>(new SliceDataPartitionBLayerRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new SliceDataPartitionBLayerRbsp(nalRefIdc, offset, sl));
         break;
 
     case SLICE_DATA_PARTITION_C_LAYER_RBSP:
-        return std::shared_ptr<NalUnit>(new SliceDataPartitionCLayerRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new SliceDataPartitionCLayerRbsp(nalRefIdc, offset, sl));
         break;
 
     case IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP:
@@ -38,41 +38,41 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         break;
 
     case SEI_RBSP:
-        return std::shared_ptr<NalUnit>(new SeiRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new SeiRbsp(nalRefIdc, offset, sl));
         break;
 
     case SEQ_PARAMETER_SET_RBSP:
-        return std::shared_ptr<NalUnit>(new SeqParameterSetRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new SeqParameterSetRbsp(nalRefIdc, offset, sl));
         break;
 
     case PIC_PARAMETER_SET_RBSP:
-        return std::shared_ptr<NalUnit>(new PicParameterSetRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new PicParameterSetRbsp(nalRefIdc, offset, sl));
         break;
 
     case ACCESS_UNIT_DELIMITER_RBSP:
-        return std::shared_ptr<NalUnit>(new AccessUnitDelimiterRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new AccessUnitDelimiterRbsp(nalRefIdc, offset, sl));
         break;
 
     case END_OF_SEQUENCE_RBSP:
-        return std::shared_ptr<NalUnit>(new EndOfSequenceRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new EndOfSequenceRbsp(nalRefIdc, offset, sl));
         break;
 
     case END_OF_STREAM_RBSP:
-        return std::shared_ptr<NalUnit>(new EndOfStreamRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new EndOfStreamRbsp(nalRefIdc, offset, sl));
         break;
 
     case FILLER_DATA_RBSP:
-        return std::shared_ptr<NalUnit>(new FillerDataRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new FillerDataRbsp(nalRefIdc, offset, sl));
         break;
 
     case SEQ_PARAMETER_SET_EXTENSION_RBSP:
-        return std::shared_ptr<NalUnit>(new SeqParameterSetExtensionRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new SeqParameterSetExtensionRbsp(nalRefIdc, offset, sl));
         break;
 
     case PREFIX_NAL_UNIT_RBSP: //14
     {
         unsigned int off = offset;
-        off += 1; //??
+        off += (1 + sl); //??
         unsigned int svcExtensionFlag = valueOfGroupOfBits(1, off*8);
         if(svcExtensionFlag) {
             //rozszerzony naglowek
@@ -107,36 +107,36 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
             } else {//else if( more_rbsp_data( )
 
             }
-            return std::shared_ptr<NalUnit>(new PrefixNalUnitRbsp(nalRefIdc, offset, reservedOneBit, idrFlag, priorityId, noInterLayerPredFlag,
-                                                                  dependencyId, qualityId, temporaryId, useRefBasePicFlag, discardableFlag, outputFlag,
-                                                                  reservedThree2bits));
+            return std::shared_ptr<NalUnit>(new PrefixNalUnitRbsp(nalRefIdc, offset, sl, reservedOneBit, idrFlag, priorityId, noInterLayerPredFlag,
+                                                                  dependencyId, qualityId, temporaryId, useRefBasePicFlag, discardableFlag,
+                                                                  outputFlag, reservedThree2bits));
         }
-        else return std::shared_ptr<NalUnit>(new NalUnit(nalRefIdc, off));
+        else return std::shared_ptr<NalUnit>(new NalUnit(nalRefIdc, off, sl));
     }
     case SUBSET_SEQUENCE_PARAMETER_SET_RBSP:
-        return std::shared_ptr<NalUnit>(new SubsetSequenceParameterSetRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new SubsetSequenceParameterSetRbsp(nalRefIdc, offset, sl));
         break;
 
     case RESERVED_16:
-        return std::shared_ptr<NalUnit>(new Reserved16(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Reserved16(nalRefIdc, offset, sl));
         break;
 
     case RESERVED_17:
-        return std::shared_ptr<NalUnit>(new Reserved17(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Reserved17(nalRefIdc, offset, sl));
         break;
 
     case RESERVED_18:
-        return std::shared_ptr<NalUnit>(new Reserved18(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Reserved18(nalRefIdc, offset, sl));
         break;
 
     case SLICE_LAYER_WITHOUT_PARTITIONING_RBSP:
-        return std::shared_ptr<NalUnit>(new SliceLayerWithoutPartitioningRbsp(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new SliceLayerWithoutPartitioningRbsp(nalRefIdc, offset, sl));
         break;
 
     case SLICE_LAYER_EXTENSION_RBSP: //20
     {
         unsigned int off = offset;
-        off += 1;
+        off += (1 + sl);
         unsigned int svcExtensionFlag = valueOfGroupOfBits(1, off*8);
         if(svcExtensionFlag) {
             unsigned int reservedOneBit = valueOfGroupOfBits(1, off*8);
@@ -152,60 +152,60 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
             unsigned int outputFlag = valueOfGroupOfBits(1, off*8 + 12);
             unsigned int reservedThree2bits = valueOfGroupOfBits(2, off*8 + 13);
 
-            return std::shared_ptr<NalUnit>(new SliceLayerExtensionRbsp(nalRefIdc, offset, reservedOneBit, idrFlag, priorityId, noInterLayerPredFlag,
-                                                                        dependencyId, qualityId, temporaryId, useRefBasePicFlag, discardableFlag, outputFlag,
-                                                                        reservedThree2bits));
+            return std::shared_ptr<NalUnit>(new SliceLayerExtensionRbsp(nalRefIdc, offset, sl, reservedOneBit, idrFlag, priorityId,
+                                                                        noInterLayerPredFlag, dependencyId, qualityId, temporaryId,
+                                                                        useRefBasePicFlag, discardableFlag, outputFlag, reservedThree2bits));
         }
-        else return std::shared_ptr<NalUnit>(new NalUnit(nalRefIdc, off));
+        else return std::shared_ptr<NalUnit>(new NalUnit(nalRefIdc, off, sl));
         break;
     }
     case RESERVED_21:
-        return std::shared_ptr<NalUnit>(new Reserved21(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Reserved21(nalRefIdc, offset, sl));
         break;
 
     case RESERVED_22:
-        return std::shared_ptr<NalUnit>(new Reserved22(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Reserved22(nalRefIdc, offset, sl));
         break;
 
     case RESERVED_23:
-        return std::shared_ptr<NalUnit>(new Reserved23(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Reserved23(nalRefIdc, offset, sl));
         break;
 
     case UNSPECIFIED_24:
-        return std::shared_ptr<NalUnit>(new Unspecified24(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Unspecified24(nalRefIdc, offset, sl));
         break;
 
     case UNSPECIFIED_25:
-        return std::shared_ptr<NalUnit>(new Unspecified25(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Unspecified25(nalRefIdc, offset, sl));
         break;
 
     case UNSPECIFIED_26:
-        return std::shared_ptr<NalUnit>(new Unspecified26(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Unspecified26(nalRefIdc, offset, sl));
         break;
 
     case UNSPECIFIED_27:
-        return std::shared_ptr<NalUnit>(new Unspecified27(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Unspecified27(nalRefIdc, offset, sl));
         break;
 
     case UNSPECIFIED_28:
-        return std::shared_ptr<NalUnit>(new Unspecified28(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Unspecified28(nalRefIdc, offset, sl));
         break;
 
     case UNSPECIFIED_29:
-        return std::shared_ptr<NalUnit>(new Unspecified29(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Unspecified29(nalRefIdc, offset, sl));
         break;
 
     case UNSPECIFIED_30:
-        return std::shared_ptr<NalUnit>(new Unspecified30(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Unspecified30(nalRefIdc, offset, sl));
         break;
 
     case UNSPECIFIED_31:
-        return std::shared_ptr<NalUnit>(new Unspecified31(nalRefIdc, offset));
+        return std::shared_ptr<NalUnit>(new Unspecified31(nalRefIdc, offset, sl));
         break;
     default:
         break;
     }
-    return std::shared_ptr<NalUnit>(new NalUnit(nalRefIdc, offset));
+    return std::shared_ptr<NalUnit>(new NalUnit(nalRefIdc, offset, sl));
 }
 
 unsigned long int NalUnitFactory::valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {

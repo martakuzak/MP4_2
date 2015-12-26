@@ -24,7 +24,7 @@ public:
     NalUnitFactory(NALParser* par, FileService* fs);
     ~NalUnitFactory();
 
-    std::shared_ptr<NalUnit> getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset);
+    std::shared_ptr<NalUnit> getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset, const unsigned short & sl = 3);
 };
 
 #endif // NALUNITFACTORY_H

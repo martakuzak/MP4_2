@@ -47,7 +47,7 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
                 //nal_unit_type;
                 int nalUnitType = valueOfGroupOfBits(5, offset*8 + 3); //razem: 8 bitów
                 //qDebug()<<"NAL unit"<<QString::number(nalUnitType);
-                std::shared_ptr<NalUnit> nalUnit = factory.getNalUnit(nalUnitType, nalRefIdc, offset);
+                std::shared_ptr<NalUnit> nalUnit = factory.getNalUnit(nalUnitType, nalRefIdc, off, (pref3Byte == 1) ? 3 : 4);
                 int size = nalUnits.size();
                 if(size)
                     nalUnits.at(size - 1)->setLength(off);
