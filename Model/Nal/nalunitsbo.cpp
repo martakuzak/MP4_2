@@ -18,4 +18,3 @@ unsigned short NalUnitsBO::getSizeFieldLen() const {
 unsigned int NalUnitsBO::getAllPrefLength() const {
     return allPrefLength;
 }
-
