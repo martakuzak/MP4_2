@@ -3,24 +3,33 @@
 
 #include <QString>
 #include <QFile>
-#include "bitoperator.h"
 #include <QByteArray>
-#include "nalunittype.h"
 #include <QList>
-#include "nalunit.h"
 #include <memory>
+
+#include "nalunit.h"
 #include "nalunitfactory.h"
 #include "fileservice.h"
+#include "nalunitsbo.h"
+#include "nalunittype.h"
+#include "bitoperator.h"
 
 class Box;
 
 class NALParser {
+protected:
+    QString fileName;
+    QFile* file;
+    unsigned long int fileSize;
+    BitOperator* bitOperator;
+    FileService* fileService;
+    QList<std::shared_ptr<NalUnit>> nalUnits;
 public:
     NALParser();
     NALParser(const QString& fileName);
     ~NALParser();
 
-    QList<std::shared_ptr<NalUnit> > parseFile();
+    NalUnitsBO* parseFile();
     int parseSEI(int offset);
     int parseSEIPayload(int payloadType, int payloadSize, int offset);
     int scalabilityInfo(int payloadSize, int offset);
@@ -33,13 +42,6 @@ protected:
     signed long int signedValueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const;
     unsigned long int valueOfGroupOfBits(const unsigned int & length, const unsigned long& offset) const;
     QString stringValue(const unsigned int & length, const unsigned long& offset) const;
-
-    QString fileName;
-    QFile* file;
-    unsigned long int fileSize;
-    BitOperator* bitOperator;
-    FileService* fileService;
-    QList<std::shared_ptr<NalUnit>> nalUnits;
 };
 
 #endif // NALPARSER_H

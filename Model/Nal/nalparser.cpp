@@ -23,23 +23,24 @@ NALParser::~NALParser() {
     delete fileService;
 }
 
-QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
+NalUnitsBO *NALParser::parseFile() {
     long start = QDateTime::currentMSecsSinceEpoch();
     unsigned long int offset = 0;//offset w pliku
-
+    unsigned short sizeFieldLength = -1;
+    unsigned int allPrefLength = 0;
     NalUnitFactory factory(this, fileService);
     if(!fileService->openFile()) {
 
     } else {
-        int idx = 0;
+        unsigned int maxLength = 0;
         while(offset < fileSize) {
-
             unsigned int pref3Byte = valueOfGroupOfBytes(3, offset); //? sprawdzic to wszystko !!!
             unsigned int pref4Byte = valueOfGroupOfBytes(4, offset);
 
             if(pref3Byte == 1 || pref4Byte == 1) { //prefix == 0x001 lub 0x0001
                 int off = offset;
                 offset += (pref3Byte == 1) ? 3 : 4;
+                allPrefLength += (pref3Byte == 1) ? 3 : 4;
                 //forbidden_zero_bit
                 short int forbiddenZeroBit = valueOfGroupOfBits(1, offset*8); //razem: 1 bit
                 //nal_ref_idc
@@ -49,8 +50,12 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
                 //qDebug()<<"NAL unit"<<QString::number(nalUnitType);
                 std::shared_ptr<NalUnit> nalUnit = factory.getNalUnit(nalUnitType, nalRefIdc, off, (pref3Byte == 1) ? 3 : 4);
                 int size = nalUnits.size();
-                if(size)
+                if(size) {
                     nalUnits.at(size - 1)->setLength(off);
+                    unsigned int nalUnitLength= nalUnits.at(size - 1)->getLength();
+                    if(nalUnitLength > maxLength)
+                        maxLength = nalUnitLength;
+                }
                 nalUnits.append(nalUnit);
                 //offset += 1;
                 //NumBytesInRBSP = 0
@@ -76,14 +81,26 @@ QList<std::shared_ptr<NalUnit>> NALParser::parseFile() {
             }
         }
         int size = nalUnits.size();
-        if(size)
+        if(size) {
             nalUnits.at(size - 1)->setLength(fileService->getSize());
+            unsigned int nalUnitLength= nalUnits.at(size - 1)->getLength();
+            if(nalUnitLength > maxLength)
+                maxLength = nalUnitLength;
+        }
+
+        //okresl na ilu bajtach trzeba to zapisac: do wybory 1, 2, 4
+        if(maxLength < 0xFF)
+            sizeFieldLength = 1;
+        else if(maxLength < 0xFFFF)
+            sizeFieldLength = 2;
+        else if(maxLength < 0xFFFFFFFF)
+            sizeFieldLength = 4;
         fileService->close();
     }
     long end = QDateTime::currentMSecsSinceEpoch();
     qDebug()<<"Czas : "<<QString::number(end - start) + " ms";
 
-    return nalUnits;
+    return new NalUnitsBO(fileName, nalUnits, sizeFieldLength, allPrefLength);
 
 }
 
@@ -177,8 +194,6 @@ int NALParser::scalabilityInfo(int payloadSize, int offset) {
 }
 
 unsigned long int NALParser::valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
-    if(length == 55808)
-        return 0;
     char* ptr = new char[length];
     fileService->getBytes(ptr, length, offset);
     unsigned long int ret = bitOperator->valueOfGroupOfBytes(ptr, length);

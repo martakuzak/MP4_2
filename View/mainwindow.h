@@ -26,6 +26,7 @@
 #include "nalparser.h"
 #include "svcsection.h"
 #include "svcwriter.h"
+#include "nalunitsbo.h"
 
 class TreeModel;
 class DashWrapper;

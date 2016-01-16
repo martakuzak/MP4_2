@@ -184,9 +184,9 @@ void MainWindow::nalParseSelected() {
 
         QList<std::shared_ptr<NalUnit>> list;
         NALParser nalParser(fileName);
-        list = nalParser.parseFile();
-        if(!list.empty()) {
-            svcSection = new SvcSection(list, fileName, this);
+        NalUnitsBO* nalUnitsBO = nalParser.parseFile();
+        if(!nalUnitsBO->getNalUnits().empty()) {
+            svcSection = new SvcSection(nalUnitsBO, this);
             tabs->addTab(svcSection, "SVC : " + fileName);
             tabs->setCurrentIndex(tabs->count() - 1);
             tabs->setTabsClosable(true);

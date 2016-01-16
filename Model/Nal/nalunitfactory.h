@@ -9,6 +9,7 @@
 
 class NALParser;
 class FileService;
+class BitOperator;
 
 class NalUnitFactory {
 protected:

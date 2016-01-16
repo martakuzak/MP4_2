@@ -10,12 +10,13 @@
 #include "nalunittype.h"
 
 class NALXml {
+protected:
+    QString fileName;
+    QList<std::shared_ptr<NalUnit> > nalUnits;
 public:
     NALXml(const QString& fileName, const QList<std::shared_ptr<NalUnit> >& nu);
     bool writeXML();
 protected:
-    QString fileName;
-    QList<std::shared_ptr<NalUnit> > nalUnits;
     void write(QXmlStreamWriter *stream) const;
     void writeHeader(QXmlStreamWriter *stream, const std::shared_ptr<NalUnit> nalUnit) const;
     void writeExtendedHeader(QXmlStreamWriter *stream, std::shared_ptr<NalUnit> nalUnit) const;

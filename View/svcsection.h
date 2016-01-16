@@ -21,11 +21,12 @@
 #include "nalunit.h"
 #include "svcwriter.h"
 #include "nalxml.h"
+#include "nalunitsbo.h"
 
 class SvcSection : public QGroupBox {
     Q_OBJECT
 public:
-    SvcSection(QList<std::shared_ptr<NalUnit>> nu, const QString& name, QWidget *parent = 0);
+    SvcSection(NalUnitsBO* nalInfo, QWidget *parent = 0);
     ~SvcSection();
 private slots:
     void createMP4();
@@ -36,8 +37,7 @@ protected:
     QList<QStandardItem *> prepareRow(const QString &first, const QString &second, const QString &third);
 
     QVBoxLayout *layout;
-    QList<std::shared_ptr<NalUnit> > nalUnits;
-    QString fileName;
+    NalUnitsBO* nalUnitsBO;
 };
 
 #endif // SVCSECTION_H
