@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QDataStream>
 #include <QList>
+#include <QDateTime>
 #include <memory>
 #include "nalunit.h"
 #include "nalunittype.h"
@@ -24,6 +25,10 @@ protected:
     const int MVHD_SIZE_1 = 120; //version = 1
     const int TKHD_SIZE_0 = 92; //version = 0
     const int TKHD_SIZE_1 = 114; //version = 1
+    const unsigned long SEC_1904_1970 = 7171200; //time between 00:00:00 01.01.1904 and 00:00:00 01.01.1970
+    const char* UND_LAN_CODE = "und";
+    const char* VIDE_TRACK = "vide";
+    const char* VIDEO_HANDLER = "VideoHandler";
 public:
     bool writeMP4File(const QString& name);
     bool writeBaseLayer(const QString &name, const QString &svcFile);
@@ -35,27 +40,28 @@ protected:
       *\param dashFile
       *\return size in bytes of written ftyp box
      */
-    void writeFtyp();
-    void writeMoov(int layerNum);
-    unsigned int writeMvhd(bool write, int trackNum);
-    unsigned int writeTrak(bool write, int trackID);
-    unsigned int writeTkhd(bool write, int trackID);
-    unsigned int writeMdia(bool write);
-    unsigned int writeMdhd(bool write);
-    unsigned int writeHdlr(bool write);
-    unsigned int writeMinf(bool write);
-    unsigned int writeVmhd(bool write);
-    unsigned int writeDinf(bool write);
-    unsigned int writeDref(bool write);
-    unsigned int writeStbl(bool write);
-    unsigned int writeStsd(bool write);
-    unsigned int writeStts(bool write);
-    unsigned int writeCtts(bool write);
-    unsigned int writeStsc(bool write);
-    unsigned int writeStsz(bool write); //stz2?
-    unsigned int writeStco(bool write);
-    unsigned int writeStss(bool write);
-    void writeMdat();
+    void writeFtyp(QFile* outputFile);
+    void writeMoov(QFile* outputFile, int layerNum);
+    unsigned int writeMvhd(QFile* outputFile, bool write, int trackNum);
+    unsigned int writeTrak(QFile* outputFile, bool write, int trackID);
+    unsigned int writeTkhd(QFile* outputFile, bool write, int trackID);
+    unsigned int writeMdia(QFile* outputFile, bool write);
+    unsigned int writeMdhd(QFile* outputFile, bool write);
+    unsigned int writeHdlr(QFile* outputFile, bool write);
+    unsigned int writeMinf(QFile* outputFile, bool write);
+    unsigned int writeVmhd(QFile* outputFile, bool write);
+    unsigned int writeDinf(QFile* outputFile, bool write);
+    unsigned int writeDref(QFile* outputFile, bool write);
+    unsigned int writeStbl(QFile* outputFile, bool write);
+    unsigned int writeStsd(QFile* outputFile, bool write);
+    unsigned int writeStts(QFile* outputFile, bool write);
+    unsigned int writeCtts(QFile* outputFile, bool write);
+    unsigned int writeStsc(QFile* outputFile, bool write);
+    unsigned int writeStsz(QFile* outputFile, bool write); //stz2?
+    unsigned int writeStco(QFile* outputFile, bool write);
+    unsigned int writeStss(QFile* outputFile, bool write);
+    void writeMdat(QFile* outputFile);
+    unsigned int getTimeSince1904();
 
 signals:
 

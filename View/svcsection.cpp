@@ -29,8 +29,8 @@ SvcSection::~SvcSection() {
 }
 
 void SvcSection::createMP4() {
-    //SvcWriter* writer = new SvcWriter("tmp.mp4");
-    //writer->writeFile("F:\\atmp.mp4");
+    SvcWriter* writer = new SvcWriter(nalUnits);
+    writer->writeMP4File("F:\\atmp.mp4");
 }
 
 void SvcSection::writeBaseLayer() {
