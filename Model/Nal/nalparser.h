@@ -30,11 +30,11 @@ public:
     ~NALParser();
 
     NalUnitsBO* parseFile();
-    int parseSEI(int offset);
-    int parseSEIPayload(int payloadType, int payloadSize, int offset);
-    int scalabilityInfo(int payloadSize, int offset);
-    int sliceLayerWithoutPartitioningRbsp(int offset);
-    int sliceHeader(int offset);
+//    int parseSEI(int offset);
+//    int parseSEIPayload(int payloadType, int payloadSize, int offset);
+//    int scalabilityInfo(int payloadSize, int offset);
+//    int sliceLayerWithoutPartitioningRbsp(int offset);
+//    int sliceHeader(int offset);
 
 protected:
     std::shared_ptr<Box> getHBox(const unsigned int& size = 0, QString type = "", unsigned long int off = 0);

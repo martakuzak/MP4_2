@@ -104,94 +104,94 @@ NalUnitsBO *NALParser::parseFile() {
 
 }
 
-int NALParser::sliceLayerWithoutPartitioningRbsp( int offset) {
-    //qDebug()<<"sliceLayerWithoutPartitionRbsp";
-    int newOffset = sliceHeader(offset);
-    /*
-    slice_header();
-    slice_data( );
-    rbsp_slice_trailing_bits( );
-    */
-    return newOffset;
-}
+//int NALParser::sliceLayerWithoutPartitioningRbsp( int offset) {
+//    //qDebug()<<"sliceLayerWithoutPartitionRbsp";
+//    int newOffset = sliceHeader(offset);
+//    /*
+//    slice_header();
+//    slice_data( );
+//    rbsp_slice_trailing_bits( );
+//    */
+//    return newOffset;
+//}
 
-int NALParser::sliceHeader(int offset) {
-    int bitOffset = 8*offset;
-    //qDebug()<<"SLICE HEADER";
-    int* resLength = new int[1];
-    unsigned long firstMbInSlice = bitOperator->unsignedExpGolomb(file, bitOffset, resLength);
-    bitOffset += resLength[0];
-    resLength[0] = 0;
-    unsigned int sliceType = bitOperator->unsignedExpGolomb(file, bitOffset, resLength);
-    bitOffset += resLength[0];
-    resLength[0] = 0;
-    unsigned long pictureParameterSetId = bitOperator->unsignedExpGolomb(file, bitOffset, resLength);
-    bitOffset += resLength[0];
-    resLength[0] = 0;
-    ////qDebug()<<firstMbInSlice<<sliceType<<pictureParameterSetId;
-    //int frameNum = bitOperator->
-    /*first_mb_in_slice 2 ue(v)
-    slice_type 2 ue(v)
-    pic_parameter_set_id 2 ue(v)
-    frame_num*/
-    return bitOffset;
-}
+//int NALParser::sliceHeader(int offset) {
+//    int bitOffset = 8*offset;
+//    //qDebug()<<"SLICE HEADER";
+//    int* resLength = new int[1];
+//    unsigned long firstMbInSlice = bitOperator->unsignedExpGolomb(file, bitOffset, resLength);
+//    bitOffset += resLength[0];
+//    resLength[0] = 0;
+//    unsigned int sliceType = bitOperator->unsignedExpGolomb(file, bitOffset, resLength);
+//    bitOffset += resLength[0];
+//    resLength[0] = 0;
+//    unsigned long pictureParameterSetId = bitOperator->unsignedExpGolomb(file, bitOffset, resLength);
+//    bitOffset += resLength[0];
+//    resLength[0] = 0;
+//    ////qDebug()<<firstMbInSlice<<sliceType<<pictureParameterSetId;
+//    //int frameNum = bitOperator->
+//    /*first_mb_in_slice 2 ue(v)
+//    slice_type 2 ue(v)
+//    pic_parameter_set_id 2 ue(v)
+//    frame_num*/
+//    return bitOffset;
+//}
 
-int NALParser::parseSEI(int offset) {
-    ////qDebug()<<"parseSEI";
-    int payloadType = 0;
-    /* int nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
-    while(nextByteValue == 0xFF) {
-        payloadType += 255;
-        nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
-    }
-    payloadType += nextByteValue;
+//int NALParser::parseSEI(int offset) {
+//    ////qDebug()<<"parseSEI";
+//    int payloadType = 0;
+//    /* int nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
+//    while(nextByteValue == 0xFF) {
+//        payloadType += 255;
+//        nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
+//    }
+//    payloadType += nextByteValue;
 
-    int payloadSize = 0;
-    nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
-    while(nextByteValue == 0xFF) {
-        payloadSize += 255;
-        nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
-    }
-    payloadSize += nextByteValue;*/
+//    int payloadSize = 0;
+//    nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
+//    while(nextByteValue == 0xFF) {
+//        payloadSize += 255;
+//        nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
+//    }
+//    payloadSize += nextByteValue;*/
 
 
-    ////qDebug()<<"payloadType : "<<payloadType<<" payloadSize : "<<payloadSize;
-    //parseSEIPayload(payloadType, payloadSize, offset);
-    return ++offset;
-}
+//    ////qDebug()<<"payloadType : "<<payloadType<<" payloadSize : "<<payloadSize;
+//    //parseSEIPayload(payloadType, payloadSize, offset);
+//    return ++offset;
+//}
 
-int NALParser::parseSEIPayload(int payloadType, int payloadSize, int offset) {
-    ////qDebug()<<"parseSEIpayload";
-    switch(payloadType) {
-    case 24:
-        offset = scalabilityInfo(payloadSize, offset);
-        break;
-    default:
-        break;
-    }
-    return offset;
-}
+//int NALParser::parseSEIPayload(int payloadType, int payloadSize, int offset) {
+//    ////qDebug()<<"parseSEIpayload";
+//    switch(payloadType) {
+//    case 24:
+//        offset = scalabilityInfo(payloadSize, offset);
+//        break;
+//    default:
+//        break;
+//    }
+//    return offset;
+//}
 
-int NALParser::scalabilityInfo(int payloadSize, int offset) {
-    ////qDebug()<<"GOLOMP";
-    /*int bitOffset = 8*offset;
-    int temporalIdNestingFlag = bitOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
-    int priorityLayerInfoPresentFlag = bitOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
-    int priorityIdSettingFlag = bitOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
+//int NALParser::scalabilityInfo(int payloadSize, int offset) {
+//    ////qDebug()<<"GOLOMP";
+//    /*int bitOffset = 8*offset;
+//    int temporalIdNestingFlag = bitOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
+//    int priorityLayerInfoPresentFlag = bitOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
+//    int priorityIdSettingFlag = bitOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
 
-    int* golombOffset = new int[1];
-    int numLayersMinus1 = bitOperator->unsignedExpGolomb(file, bitOffset, golombOffset);
-    bitOffset += golombOffset[0];
+//    int* golombOffset = new int[1];
+//    int numLayersMinus1 = bitOperator->unsignedExpGolomb(file, bitOffset, golombOffset);
+//    bitOffset += golombOffset[0];
 
-    ////qDebug()<<temporalIdNestingFlag<<priorityLayerInfoPresentFlag<<priorityIdSettingFlag<<numLayersMinus1;
+//    ////qDebug()<<temporalIdNestingFlag<<priorityLayerInfoPresentFlag<<priorityIdSettingFlag<<numLayersMinus1;
 
-    /*for(int i = 0; i <= numLayersMinus1; ++ i) {
-        //qDebug()<<bitOperator->unsignedExpGolomb(file, bitOffset, golombOffset);
-    }*/
+//    /*for(int i = 0; i <= numLayersMinus1; ++ i) {
+//        //qDebug()<<bitOperator->unsignedExpGolomb(file, bitOffset, golombOffset);
+//    }*/
 
-    return offset;
-}
+//    return offset;
+//}
 
 unsigned long int NALParser::valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
     char* ptr = new char[length];
