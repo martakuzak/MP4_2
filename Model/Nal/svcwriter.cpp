@@ -429,7 +429,8 @@ unsigned int SvcWriter::writeStco(bool write) {
 }
 
 unsigned int SvcWriter::writeStss(bool write) {
-    unsigned int size = 16 + 5*4;
+    unsigned int syncSize = nalUnitsBO->getSyncIdx().size();
+    unsigned int size = 16 + syncSize*4;
     if(write) {
         unsigned short version = 0;
         QDataStream stream(outputFile);
@@ -439,9 +440,9 @@ unsigned int SvcWriter::writeStss(bool write) {
         stream<<quint8(0); //flag1
         stream<<quint8(0); //flag2
         stream<<quint8(0); //flag3
-        stream<<quint32(5); //entry_count
-        for(int i = 0; i < 5; ++i)
-            stream<<quint32(0); //sample_number
+        stream<<quint32(syncSize); //entry_count
+        for(int i = 0; i < syncSize; ++i)
+            stream<<quint32(nalUnitsBO->getSyncIdx().at(i)); //sample_number
     }
     return size;
 }

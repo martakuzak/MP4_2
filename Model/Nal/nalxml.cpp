@@ -1,6 +1,6 @@
 #include "nalxml.h"
 
-NALXml::NALXml(const QString &fn, const QList<std::shared_ptr<NalUnit> > &nu): fileName(fn), nalUnits(nu) {
+NALXml::NALXml(const QString &fn, NalUnitsBO *nalunits): fileName(fn), nalUnitsBO(nalunits) {
 
 }
 
@@ -22,7 +22,7 @@ void NALXml::write(QXmlStreamWriter* stream) const {
     int idx = 1;
     stream->writeStartElement("NAL_Stream");
     QList<std::shared_ptr<NalUnit>>::const_iterator it;
-    for(it = nalUnits.constBegin(); it < nalUnits.constEnd(); ++it) {
+    for(it = nalUnitsBO->getNalUnits().constBegin(); it < nalUnitsBO->getNalUnits().constEnd(); ++it) {
         stream->writeStartElement("NAL_unit");
         stream->writeAttribute("idx", QString::number(idx++));
         stream->writeAttribute("name", (*it)->getName());

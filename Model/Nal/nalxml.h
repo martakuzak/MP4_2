@@ -8,13 +8,14 @@
 #include <QDebug>
 #include "nalunit.h"
 #include "nalunittype.h"
+#include "nalunitsbo.h"
 
 class NALXml {
 protected:
     QString fileName;
-    QList<std::shared_ptr<NalUnit> > nalUnits;
+    NalUnitsBO* nalUnitsBO;
 public:
-    NALXml(const QString& fileName, const QList<std::shared_ptr<NalUnit> >& nu);
+    NALXml(const QString& fileName, NalUnitsBO* nalunits);
     bool writeXML();
 protected:
     void write(QXmlStreamWriter *stream) const;

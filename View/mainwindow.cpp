@@ -182,7 +182,6 @@ void MainWindow::nalParseSelected() {
             }
         }
 
-        QList<std::shared_ptr<NalUnit>> list;
         NALParser nalParser(fileName);
         NalUnitsBO* nalUnitsBO = nalParser.parseFile();
         if(!nalUnitsBO->getNalUnits().empty()) {
@@ -195,7 +194,7 @@ void MainWindow::nalParseSelected() {
             reply = QMessageBox::question(this, "Export NAL stream to xml?", "Export NAL stream to xml file?",
                                           QMessageBox::Yes|QMessageBox::No);
             if (reply == QMessageBox::Yes) {
-                NALXml *nalXml = new NALXml(changeExtension(fileName, "xml"), list);
+                NALXml *nalXml = new NALXml(changeExtension(fileName, "xml"), nalUnitsBO);
                 nalXml->writeXML();
             }
         } else
