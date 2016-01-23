@@ -28,9 +28,9 @@ QStandardItemModel *TimeToSampleBox::getModel() {
     unsigned int index = 3;
     for(unsigned int i = 1; i < (entryCount + 1); ++i) {
         model->setData(model->index(index, 0, QModelIndex()), "SampleCount[" + QString::number(i) + "]");
-        model->setData(model->index(index, 1, QModelIndex()), QString::number(sampleCount.at(i)));
+        model->setData(model->index(index, 1, QModelIndex()), QString::number(sampleCount.at(i - 1)));
         model->setData(model->index(index + 1, 0, QModelIndex()), "SampleDelta[" + QString::number(i) + "]");
-        model->setData(model->index(index + 1, 1, QModelIndex()), QString::number(sampleDelta.at(i)));
+        model->setData(model->index(index + 1, 1, QModelIndex()), QString::number(sampleDelta.at(i - 1)));
         index += 2;
     }
     return model;
@@ -62,14 +62,14 @@ QStandardItemModel *CompositionOffsetBox::getModel() {
     model->setData(model->index(3, 0, QModelIndex()), "Sample count");
     tmp.clear();
     for(unsigned int i = 1; i < (entryCount + 1); ++i) {
-        tmp.append(QString::number(sampleCount.at(i)));
+        tmp.append(QString::number(sampleCount.at(i - 1)));
         tmp.append(" | ");
     }
     model->setData(model->index(3, 1, QModelIndex()), tmp);
     model->setData(model->index(4, 0, QModelIndex()), "Sample offset");
     tmp.clear();
     for(unsigned int i = 1; i < (entryCount + 1); ++i) {
-        tmp.append(QString::number(sampleOffset.at(i)));
+        tmp.append(QString::number(sampleOffset.at(i - 1)));
         tmp.append(" | ");
     }
     model->setData(model->index(4, 1, QModelIndex()), tmp);
@@ -129,7 +129,7 @@ QStandardItemModel *SampleSizeBox::getModel() {
     if(sampleSize == 0) {
         for (unsigned int i = 1; i < (sampleCount + 1); ++i) {
             model->setData(model->index(2 + i, 0, QModelIndex()), "entry_size[" + QString::number(i) + "]");
-            model->setData(model->index(2 + i, 1, QModelIndex()), QString::number(entrySize.at(i)));
+            model->setData(model->index(2 + i, 1, QModelIndex()), QString::number(entrySize.at(i - 1)));
         }
     }
     return model;
@@ -159,7 +159,7 @@ QStandardItemModel *CompactSampleSizeBox::getModel() {
     if(fieldSize == 0) {
         for (unsigned int i = 1; i < (sampleCount + 1); ++i) {
             model->setData(model->index(2 + i, 0, QModelIndex()), "entry_size[" + QString::number(i) + "]");
-            model->setData(model->index(2 + i, 1, QModelIndex()), QString::number(entrySize.at(i)));
+            model->setData(model->index(2 + i, 1, QModelIndex()), QString::number(entrySize.at(i - 1)));
         }
     }
     return model;
@@ -190,12 +190,12 @@ QStandardItemModel *SampleToChunkBox::getModel() {
     model->setData(model->index(2, 1, QModelIndex()), QString::number(entryCount));
 
     for (unsigned int i = 1; i < (entryCount + 1); ++i) {
-        model->setData(model->index(3 + 3*i, 0, QModelIndex()), "first_chunk[" + QString::number(i) + "]");
-        model->setData(model->index(3 + 3*i, 1, QModelIndex()), QString::number(firstChunk.at(i)));
-        model->setData(model->index(4 + 3*i, 0, QModelIndex()), "samples_per_chunk[" + QString::number(i) + "]");
-        model->setData(model->index(4 + 3*i, 1, QModelIndex()), QString::number(samplesPerChunk.at(i)));
-        model->setData(model->index(5 + 3*i, 0, QModelIndex()), "sampleDescriptionIndex[" + QString::number(i) + "]");
-        model->setData(model->index(5 + 3*i, 1, QModelIndex()), QString::number(sampleDescriptionIndex.at(i)));
+        model->setData(model->index(3 + 3*(i - 1), 0, QModelIndex()), "first_chunk[" + QString::number(i) + "]");
+        model->setData(model->index(3 + 3*(i - 1), 1, QModelIndex()), QString::number(firstChunk.at(i - 1)));
+        model->setData(model->index(4 + 3*(i - 1), 0, QModelIndex()), "samples_per_chunk[" + QString::number(i) + "]");
+        model->setData(model->index(4 + 3*(i - 1), 1, QModelIndex()), QString::number(samplesPerChunk.at(i - 1)));
+        model->setData(model->index(5 + 3*(i - 1), 0, QModelIndex()), "sampleDescriptionIndex[" + QString::number(i) + "]");
+        model->setData(model->index(5 + 3*(i - 1), 1, QModelIndex()), QString::number(sampleDescriptionIndex.at(i - 1)));
     }
 
     return model;
@@ -223,8 +223,8 @@ QStandardItemModel *ChunkOffsetBox::getModel() {
     model->setData(model->index(2, 1, QModelIndex()), QString::number(entryCount));
 
     for (unsigned int i = 1; i < (entryCount + 1); ++i) {
-        model->setData(model->index(3 + i, 0, QModelIndex()), "chunk_offset[" + QString::number(i) + "]");
-        model->setData(model->index(3 + i, 1, QModelIndex()), QString::number(chunkOffset.at(i)));
+        model->setData(model->index(2 + i, 0, QModelIndex()), "chunk_offset[" + QString::number(i) + "]");
+        model->setData(model->index(2 + i, 1, QModelIndex()), QString::number(chunkOffset.at(i - 1)));
     }
 
     return model;
@@ -254,7 +254,7 @@ QStandardItemModel *ChunkLargeOffsetBox::getModel() {
 
     for (unsigned int i = 1; i < (entryCount + 1); ++i) {
         model->setData(model->index(2 + i, 0, QModelIndex()), "chunk_offset[" + QString::number(i) + "]");
-        model->setData(model->index(2 + i, 1, QModelIndex()), QString::number(chunkOffset.at(i)));
+        model->setData(model->index(2 + i, 1, QModelIndex()), QString::number(chunkOffset.at(i - 1)));
     }
 
     return model;
@@ -282,8 +282,8 @@ QStandardItemModel *SyncSampleBox::getModel() {
     model->setData(model->index(2, 1, QModelIndex()), QString::number(entryCount));
 
     for (unsigned int i = 1; i < (entryCount + 1); ++i) {
-        model->setData(model->index(3 + i, 0, QModelIndex()), "sample_number[" + QString::number(i) + "]");
-        model->setData(model->index(3 + i, 1, QModelIndex()), QString::number(sampleNumber.at(i)));
+        model->setData(model->index(2 + i, 0, QModelIndex()), "sample_number[" + QString::number(i) + "]");
+        model->setData(model->index(2 + i, 1, QModelIndex()), QString::number(sampleNumber.at(i - 1)));
     }
 
     return model;
