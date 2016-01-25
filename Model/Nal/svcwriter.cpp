@@ -102,8 +102,8 @@ unsigned int SvcWriter::writeMvhd(bool write, int trackNum) {
             stream<<quint32(81); //duration
         }
 
-        stream<<quint32(16); //rate, typically 1.0
-        stream<<quint16(4); //volume, typically full volume
+        stream<<quint32(65536); //rate, typically 1.0
+        stream<<quint16(256); //volume, typically full volume
         stream<<quint16(0); //reserved = 0
         stream<<quint64(0); //usnigned int(32([2] reserved = 0
         stream<<quint32(65536); //unity matrix, kolejno 0x00010000

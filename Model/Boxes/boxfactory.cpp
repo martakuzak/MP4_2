@@ -76,7 +76,6 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
                                                        width,height,horizonresolution, vertresolution, reserved2, frameCount,
                                                        compressorName, depth, predefined2));
     } else if(type == "avcC") {
-        qDebug()<<"BOXFACTORY avcC 1";
         unsigned int configurationVersion = valueOfGroupOfBytes(1, off + 8);
         unsigned int AVCProfileIndication = valueOfGroupOfBytes(1, off + 9);
         unsigned int profileCompatibility = valueOfGroupOfBytes(1, off + 10);
@@ -85,21 +84,15 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int lengthSizeMinusOne = valueOfGroupOfBits(2, (off + 12)*8 + 6);
         unsigned int reserved2 = valueOfGroupOfBits(3, (off + 13)*8);
         unsigned int numOfSequenceParameterSets = valueOfGroupOfBits(5, (off + 13)*8 + 3);
-        //qDebug()<<"BOXFACTORY avcC 2";
         QList <unsigned int> sequenceParameterSetLength;
         QList <unsigned long int> sequenceParameterSetNALUnit;
         unsigned int offset = 0;
         for (unsigned int i = 0; i <numOfSequenceParameterSets; ++ i) {
-            //qDebug()<<"BOXFACTORY avcC 2.1"<<i<<(off + offset + 14);
             sequenceParameterSetLength.append(valueOfGroupOfBytes(2, off + offset + 14 ));
-            //qDebug()<<"BOXFACTORY avcC 2.2"<<i<<sequenceParameterSetLength.at(i);
             valueOfGroupOfBytes(sequenceParameterSetLength.at(i), off + offset + 16);
             sequenceParameterSetNALUnit.append(valueOfGroupOfBytes(sequenceParameterSetLength.at(i), off + offset + 16));
-            //qDebug()<<"BOXFACTORY avcC 2.3";
             offset = offset + 2 + sequenceParameterSetLength.at(i);
-            //qDebug()<<"BOXFACTORY avcC 2.4";
         }
-        //qDebug()<<"BOXFACTORY avcC 3";
 
         unsigned int numOfPictureParameterSets = valueOfGroupOfBytes(1, off + offset + 14);
         QList <unsigned int> pictureParameterSetLength;
@@ -457,8 +450,8 @@ std::shared_ptr<Box> BoxFactory::getMBox(const unsigned int& size, QString type,
         QList<unsigned int> matrix;
         QList<unsigned int> predefined;
         unsigned int nextTrackId;
-        unsigned int rate = valueOfGroupOfBytes(4, off + offset + 28)/65536;//fixed number
-        unsigned int volume = valueOfGroupOfBytes(2, off + offset + 32)/256;
+        unsigned int rate = valueOfGroupOfBytes(4, off + offset + 28);//fixed number
+        unsigned int volume = valueOfGroupOfBytes(2, off + offset + 32);
         unsigned int reserved16 = valueOfGroupOfBytes(2, off + offset + 34);
         reserved32.append(valueOfGroupOfBytes(4, off + offset + 36));
         reserved32.append(valueOfGroupOfBytes(4, off + offset + 40));

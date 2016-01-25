@@ -161,9 +161,9 @@ QStandardItemModel *MovieHeaderBox::getModel() {
     model->setData(model->index(5, 0, QModelIndex()), "Duration");
     model->setData(model->index(5, 1, QModelIndex()), QString::number(duration));
     model->setData(model->index(6, 0, QModelIndex()), "Rate");
-    model->setData(model->index(6, 1, QModelIndex()), QString::number(rate));
+    model->setData(model->index(6, 1, QModelIndex()), QString::number((double)rate/65536));
     model->setData(model->index(7, 0, QModelIndex()), "Volume");
-    model->setData(model->index(7, 1, QModelIndex()), QString::number(volume));
+    model->setData(model->index(7, 1, QModelIndex()), QString::number((double)volume/256));
     model->setData(model->index(8, 0, QModelIndex()), "Reserved1");
     model->setData(model->index(8, 1, QModelIndex()), QString::number(reserved16));
     tmp.clear();

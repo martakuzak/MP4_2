@@ -117,9 +117,6 @@ NalUnitsBO *NALParser::parseFile() {
         else if(maxLength < 0xFFFFFFFF)
             sizeFieldLength = 4;
         //koniec
-
-        for(int i = 0; i < syncSampleIdx.size(); ++i)
-            qDebug()<<"sync[" + QString::number(i)<<"] = "<<QString::number(syncSampleIdx.at(i));
         fileService->close();
     }
     long end = QDateTime::currentMSecsSinceEpoch();
