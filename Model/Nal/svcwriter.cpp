@@ -469,6 +469,63 @@ void SvcWriter::writeMdat() {
     }
 }
 
+unsigned int SvcWriter::writeAvc1(bool write) {
+    unsigned int size = 42 + writeAvcC(false);
+    if(write) {
+        QDataStream stream(outputFile);
+        stream<<quint32(size);
+        stream.writeRawData("avc1", 4);
+        stream<<quint16(0); //pre_defined
+        stream<<quint16(0); //reserved
+        stream<<quint64(0); //2 x pre_defined
+        stream<<quint32(0); //pre_defined
+        stream<<quint32(352); //width
+        stream<<quint32(288); //height
+        stream<<quint32(4718592); //horizresolution 0x00480000 - 72 dpi
+        stream<<quint32(4718592); //vetresoultion 0x00480000 - 72 dpi
+        stream<<quint32(0); //reserved
+        stream<<quint16(1); //frame_count
+        stream.writeRawData("                                ", 32); //compressorname
+        stream<<quint16(24); //depth, 0x0018
+        stream<<quint16(-1);
+    }
+    return size;
+}
+
+unsigned int SvcWriter::writeAvcC(bool write) {
+    unsigned int size = 42 + writeAvcC(false);
+    if(write) {
+        QDataStream stream(outputFile);
+        stream<<quint32(size);
+        stream.writeRawData("avcC", 4);
+        stream<<quint8(1); //configurationVersion
+        stream<<quint8(100); //AVCProfileIndication
+        stream<<quint8(0); //profile_compatibility
+        stream<<quint8(0); //AVCLevelIndication
+        for(int i = 0; i < 6; ++ i) //reserved ‘111111’b;
+            stream<<1;
+        stream<<3; //lengthSizeMinusOne
+        for(int i = 0; i < 3; ++ i) //reserved ‘111’b;
+            stream<<1;
+        for(int i = 0; i < 4; ++ i) //numOfSequenceParameterSets
+            stream<<0;
+        stream<<1;
+        for(int i = 0; i < 4; ++ i) //numOfPictureParameterSets
+            stream<<0;
+        stream<<1;
+        for(int i = 0; i < 1; ++ i) { //for (i=0; i< numOfSequenceParameterSets; i++) {
+            stream<<quint16(14); //sequenceParameterSetLength
+            //bit(8*sequenceParameterSetLength) sequenceParameterSetNALUnit;
+        }
+        for(int i = 0; i < 1; ++ i) { //for (i=0; i< numOfPictureParameterSets; i++) {
+            stream<<quint16(14); //pictureParameterSetLength
+            //bit(8*pictureParameterSetLength) pictureParameterSetNALUnit;
+        }
+
+    }
+    return size;
+}
+
 unsigned int SvcWriter::getTimeSince1904() {
     return SEC_1904_1970 + QDateTime::currentMSecsSinceEpoch()/1000;
 }

@@ -200,44 +200,50 @@ AVCConfigurationBox::AVCConfigurationBox(const unsigned long int& s, const QStri
 {}
 
 QStandardItemModel *AVCConfigurationBox::getModel() {
-    QStandardItemModel *model = new QStandardItemModel(6 + numOfSequenceParameterSets +
-                                                       numOfPictureParameterSets, 2, 0);
+    QStandardItemModel *model = new QStandardItemModel(10
+                                                       + 2*numOfSequenceParameterSets +
+                                                       2*numOfPictureParameterSets, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Configuration version");
     model->setData(model->index(0, 1, QModelIndex()), QString::number(configurationVersion));
     model->setData(model->index(1, 0, QModelIndex()), "AVC Profile Indication");
     model->setData(model->index(1, 1, QModelIndex()), QString::number(AVCProfileIndication));
-    model->setData(model->index(2, 0, QModelIndex()), "Reserved1");
-    model->setData(model->index(2, 1, QModelIndex()), QString::number(reserved1, 2) + "b");
-    model->setData(model->index(3, 0, QModelIndex()), "Length size minus one");
-    model->setData(model->index(3, 1, QModelIndex()), QString::number(lengthSizeMinusOne));
-    model->setData(model->index(4, 0, QModelIndex()), "Reserved2");
-    model->setData(model->index(4, 1, QModelIndex()), QString::number(reserved2, 2) + "b");
-    model->setData(model->index(5, 0, QModelIndex()), "Num of sequence paramter sets");
-    model->setData(model->index(5, 1, QModelIndex()), QString::number(numOfSequenceParameterSets));
-    int index = 6;
+    model->setData(model->index(2, 0, QModelIndex()), "ProfileCompability");
+    model->setData(model->index(2, 1, QModelIndex()), QString::number(profileCompability));
+    model->setData(model->index(3, 0, QModelIndex()), "AVC Level Indication");
+    model->setData(model->index(3, 1, QModelIndex()), QString::number(AVCLevelIndication));
+    model->setData(model->index(4, 0, QModelIndex()), "Reserved1");
+    model->setData(model->index(4, 1, QModelIndex()), QString::number(reserved1, 2) + "b");
+    model->setData(model->index(5, 0, QModelIndex()), "Length size minus one");
+    model->setData(model->index(5, 1, QModelIndex()), QString::number(lengthSizeMinusOne));
+    model->setData(model->index(6, 0, QModelIndex()), "Reserved2");
+    model->setData(model->index(6, 1, QModelIndex()), QString::number(reserved2, 2) + "b");
+    model->setData(model->index(7, 0, QModelIndex()), "Num of sequence paramter sets");
+    model->setData(model->index(7, 1, QModelIndex()), QString::number(numOfSequenceParameterSets));
+    int index = 8;
     for(unsigned int i = 0; i < numOfSequenceParameterSets; ++ i) {
         model->setData(model->index(index, 0, QModelIndex()), "sequenceParameterSetLength[" +
                        QString::number(i) + "]");
         model->setData(model->index(index, 1, QModelIndex()),
                        QString::number(sequenceParameterSetLength.at(i)));
-        model->setData(model->index(index, 0, QModelIndex()), "sequenceParameterSetNALUnit[" +
+        model->setData(model->index(index + 1, 0, QModelIndex()), "sequenceParameterSetNALUnit[" +
                        QString::number(i) + "]");
-        model->setData(model->index(index, 1, QModelIndex()),
+        model->setData(model->index(index + 1, 1, QModelIndex()),
                        QString::number(sequenceParameterSetNALUnit.at(i)));
-        ++ index;
+        index += 2;
     }
-    model->setData(model->index(5, 0, QModelIndex()), "Num of picture paramter sets");
-    model->setData(model->index(5, 1, QModelIndex()), QString::number(numOfPictureParameterSets));
+    model->setData(model->index(index, 0, QModelIndex()), "Num of picture paramter sets");
+    model->setData(model->index(index, 1, QModelIndex()), QString::number(numOfPictureParameterSets));
+    ++ index;
     for(unsigned int i = 0; i < numOfPictureParameterSets; ++ i) {
         model->setData(model->index(index, 0, QModelIndex()), "pictureParameterSetLength[" +
                        QString::number(i) + "]");
         model->setData(model->index(index, 1, QModelIndex()),
                        QString::number(pictureParameterSetLength.at(i)));
-        model->setData(model->index(index, 0, QModelIndex()), "pictureParameterSetNALUnit[" +
+        model->setData(model->index(index + 1, 0, QModelIndex()), "pictureParameterSetNALUnit[" +
                        QString::number(i) + "]");
-        model->setData(model->index(index, 1, QModelIndex()),
+        model->setData(model->index(index + 1, 1, QModelIndex()),
                        QString::number(pictureParameterSetNALUnit.at(i)));
-        ++ index;
+        index += 2;
     }
 
     return model;
