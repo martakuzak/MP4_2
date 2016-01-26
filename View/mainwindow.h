@@ -59,7 +59,6 @@ protected:
     QVBoxLayout *mainLayout;
     DashSection *dashSection;
     QTabWidget* tabs;
-    SvcSection *svcSection;
 public:
     /*!
      * \brief MainWindow Constructor of MainWindow

@@ -121,11 +121,6 @@ void MainWindow::switchToDashMenuSelected() {
         tabs = NULL;
     }
 
-    if(svcSection != NULL) {
-        delete svcSection;
-        svcSection = NULL;
-    }
-
     if(dashSection == NULL) {
         dashSection = new DashSection();
         makeDashConnection();
@@ -185,7 +180,7 @@ void MainWindow::nalParseSelected() {
         NALParser nalParser(fileName);
         NalUnitsBO* nalUnitsBO = nalParser.parseFile();
         if(!nalUnitsBO->getNalUnits().empty()) {
-            svcSection = new SvcSection(nalUnitsBO, this);
+            SvcSection *svcSection = new SvcSection(nalUnitsBO, this);
             tabs->addTab(svcSection, "SVC : " + fileName);
             tabs->setCurrentIndex(tabs->count() - 1);
             tabs->setTabsClosable(true);
@@ -232,7 +227,6 @@ void MainWindow::rawStreamSelected() {
 void MainWindow::initPointers() {
     dashSection = NULL;
     tabs = NULL;
-    svcSection = NULL;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::createMenu() {
