@@ -29,6 +29,8 @@ NalUnitsBO *NALParser::parseFile() {
     unsigned short sizeFieldLength = -1; //rozmiar pola rozmiaru przed jednostka NAL - 1, 2 lub 4
     unsigned int allPrefLength = 0; //długość sumy wszystkich prefiksów przed NALami
     bool previousVCL = false; //do szukania jednostek dostępu, czy poprzednia jednostka była NALem
+    QList<unsigned int> seqParSetsIdx;
+    QList<unsigned int> picParSetsIdx;
     QList<unsigned int> syncSampleIdx; //offsety kolejnych jednostek dostępu
     NalUnitFactory factory(this, fileService);
     if(!fileService->openFile()) {
@@ -60,6 +62,12 @@ NalUnitsBO *NALParser::parseFile() {
                         maxLength = nalUnitLength;
                 }
                 //rozmiary - koniec
+                //zliczanie zestawów parametrów - start
+                if(nalUnitType == 7)
+                    seqParSetsIdx.append(size);
+                else if(nalUnitType == 8)
+                    picParSetsIdx.append(size);
+                //zliczanie zestawów parametrów  - koniec
                 //jednostki dostepu - start
                 NalUnitType nalType = (NalUnitType)nalUnitType;
                 if(!size)
@@ -122,7 +130,7 @@ NalUnitsBO *NALParser::parseFile() {
     long end = QDateTime::currentMSecsSinceEpoch();
     qDebug()<<"Czas : "<<QString::number(end - start) + " ms";
 
-    return new NalUnitsBO(fileName, nalUnits, sizeFieldLength, allPrefLength, syncSampleIdx);
+    return new NalUnitsBO(fileName, nalUnits, sizeFieldLength, allPrefLength, syncSampleIdx, seqParSetsIdx, picParSetsIdx);
 
 }
 

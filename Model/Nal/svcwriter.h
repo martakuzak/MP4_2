@@ -34,7 +34,7 @@ public:
     bool writeBaseLayer(const QString &name);
 protected:
     //short calculateBytesNumOfNalLenPar();
-    void writeNAL(std::shared_ptr<NalUnit> nalUnit, QFile *file, unsigned short length);
+    void writeNAL(std::shared_ptr<NalUnit> nalUnit, QFile *file, unsigned short length, bool size = true);
     /*!
       *\brief writeFtyp
       *Writes ftyp box and returns size of it. If dashFile is NULL, method only returns size of potentially written box.

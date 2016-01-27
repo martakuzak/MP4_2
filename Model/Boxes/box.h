@@ -382,7 +382,7 @@ public:
                      const QList<unsigned int>& f, const unsigned int& ec);
     virtual QString getFullName() { return QString("Data Reference Box"); }
     virtual QStandardItemModel *getModel();
-    virtual bool isContainer() { return true; }
+    virtual bool isContainer() { return entryCount; }
     virtual unsigned int getContainerOffset() { return 16; }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////

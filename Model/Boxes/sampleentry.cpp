@@ -63,7 +63,7 @@ QStandardItemModel *VisualSampleEntry::getModel() {
     model->setData(model->index(4, 0, QModelIndex()), "Predefined1");
     tmp.clear();
     int p1Size = predefined1.size();
-    for (int i = 0; i<p1Size; ++i) {
+    for (int i = 0; i < p1Size; ++i) {
         tmp.append(QString::number(predefined1.at(i)));
         tmp.append(" | ");
     }
@@ -72,7 +72,7 @@ QStandardItemModel *VisualSampleEntry::getModel() {
     model->setData(model->index(5, 1, QModelIndex()), QString::number(width));
     model->setData(model->index(6, 0, QModelIndex()), "Height");
     model->setData(model->index(6, 1, QModelIndex()), QString::number(height));
-    model->setData(model->index(7, 0, QModelIndex()), "Hotizontal resolution");
+    model->setData(model->index(7, 0, QModelIndex()), "Horizontal resolution");
     model->setData(model->index(7, 1, QModelIndex()), QString::number(horizontalResolution));
     model->setData(model->index(8, 0, QModelIndex()), "Vertical resolution");
     model->setData(model->index(8, 1, QModelIndex()), QString::number(verticalResolution));
@@ -118,7 +118,7 @@ QStandardItemModel *AudioSampleEntry::getModel() {
     model->setData(model->index(2, 0, QModelIndex()), "Reserved1");
     tmp.clear();
     int res1Size = reserved1.size();
-    for (int i = 0; i<res1Size; ++i) {
+    for (int i = 0; i < res1Size; ++i) {
         tmp.append(QString::number(reserved1.at(i)));
         tmp.append(" | ");
     }
@@ -217,7 +217,7 @@ QStandardItemModel *AVCConfigurationBox::getModel() {
     model->setData(model->index(5, 1, QModelIndex()), QString::number(lengthSizeMinusOne));
     model->setData(model->index(6, 0, QModelIndex()), "Reserved2");
     model->setData(model->index(6, 1, QModelIndex()), QString::number(reserved2, 2) + "b");
-    model->setData(model->index(7, 0, QModelIndex()), "Num of sequence paramter sets");
+    model->setData(model->index(7, 0, QModelIndex()), "Num of sequence parameter sets");
     model->setData(model->index(7, 1, QModelIndex()), QString::number(numOfSequenceParameterSets));
     int index = 8;
     for(unsigned int i = 0; i < numOfSequenceParameterSets; ++ i) {
@@ -231,7 +231,7 @@ QStandardItemModel *AVCConfigurationBox::getModel() {
                        QString::number(sequenceParameterSetNALUnit.at(i)));
         index += 2;
     }
-    model->setData(model->index(index, 0, QModelIndex()), "Num of picture paramter sets");
+    model->setData(model->index(index, 0, QModelIndex()), "Num of picture parameter sets");
     model->setData(model->index(index, 1, QModelIndex()), QString::number(numOfPictureParameterSets));
     ++ index;
     for(unsigned int i = 0; i < numOfPictureParameterSets; ++ i) {

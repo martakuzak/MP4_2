@@ -87,7 +87,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         QList <unsigned int> sequenceParameterSetLength;
         QList <unsigned long int> sequenceParameterSetNALUnit;
         unsigned int offset = 0;
-        for (unsigned int i = 0; i <numOfSequenceParameterSets; ++ i) {
+        for (unsigned int i = 0; i < numOfSequenceParameterSets; ++ i) {
             sequenceParameterSetLength.append(valueOfGroupOfBytes(2, off + offset + 14 ));
             valueOfGroupOfBytes(sequenceParameterSetLength.at(i), off + offset + 16);
             sequenceParameterSetNALUnit.append(valueOfGroupOfBytes(sequenceParameterSetLength.at(i), off + offset + 16));
@@ -97,7 +97,7 @@ std::shared_ptr<Box> BoxFactory::getBox(const unsigned int& size, QString type, 
         unsigned int numOfPictureParameterSets = valueOfGroupOfBytes(1, off + offset + 14);
         QList <unsigned int> pictureParameterSetLength;
         QList <unsigned long int> pictureParameterSetNALUnit;
-        for (unsigned int i = 0; i <numOfPictureParameterSets; ++ i) {
+        for (unsigned int i = 0; i < numOfPictureParameterSets; ++ i) {
             pictureParameterSetLength.append(valueOfGroupOfBytes(2, off + offset + 15 ));
             pictureParameterSetNALUnit.append(valueOfGroupOfBytes(pictureParameterSetLength.at(i), off + offset + 17));
             offset = offset + 2 + pictureParameterSetLength.at(i);
