@@ -53,6 +53,7 @@ protected:
     unsigned int writeVmhd(bool write);
     unsigned int writeDinf(bool write);
     unsigned int writeDref(bool write);
+    unsigned int writeUrl(bool write);
     unsigned int writeStbl(bool write);
     unsigned int writeStsd(bool write);
     unsigned int writeStts(bool write);

@@ -282,7 +282,7 @@ unsigned int SvcWriter::writeDinf(bool write){
     return size;
 }
 unsigned int SvcWriter::writeDref(bool write){
-    unsigned int size = 8 + 4 + 4;
+    unsigned int size = 8 + 4 + 4 + writeUrl(false);
     if(write) {
         unsigned short version = 0; //0 lub 1
         QDataStream stream(outputFile);
@@ -292,30 +292,36 @@ unsigned int SvcWriter::writeDref(bool write){
         stream<<quint8(0); //flag1
         stream<<quint8(0); //flag2
         stream<<quint8(1); //flag3
-        stream<<quint32(0); //entry_count
+        stream<<quint32(1); //entry_count
         //for(int i = 0; i < 0; ++i) //tyle ile entry_count
-        //  writeUrl(true);
+        writeUrl(true);
+    }
+    return size;
+}
+unsigned int SvcWriter::writeUrl(bool write) {
+    unsigned int size = 8 + 4;
+    if(write) {
+        unsigned short version = 0; //0 lub 1
+        QDataStream stream(outputFile);
+        stream<<quint32(size);
+        stream.writeRawData("url ", 4);
+        stream<<quint8(version);
+        stream<<quint8(0); //flag1
+        stream<<quint8(0); //flag2
+        stream<<quint8(1); //flag3 -  this file
     }
     return size;
 }
 unsigned int SvcWriter::writeStbl(bool write){
     unsigned int stsd = writeStsd(false);
-    qDebug()<<QString::number(stsd);
     unsigned int stts = writeStts(false);
-    qDebug()<<QString::number(stts);
     unsigned int stsc = writeStsc(false);
-    qDebug()<<QString::number(stsc);
     unsigned int stsz = writeStsz(false);
-    qDebug()<<QString::number(stsz);
     unsigned int stco = writeStco(false);
-    qDebug()<<QString::number(stco);
     unsigned int stss = writeStss(false);
-    qDebug()<<QString::number(stss);
 
-    unsigned int size = 8 /*+ stsd + stts + stsc + stsz + stco + stss; //*/ + writeStsd(false) + writeStts(false) + writeStsc(false); + writeStsz(false) +
-            writeStco(false) + writeStss(false);
+    unsigned int size = 8 + stsd + stts + stsc + stsz + stco + stss;
     if(write) {
-        qDebug()<<"writeStbl start"<<QString::number(size);
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("stbl", 4);
@@ -331,7 +337,6 @@ unsigned int SvcWriter::writeStbl(bool write){
 unsigned int SvcWriter::writeStsd(bool write) {
     unsigned int size = 16 + writeAvc1(false);
     if(write) {
-        qDebug()<<"writeStsd start";
         unsigned short version = 0;
         QDataStream stream(outputFile);
         stream<<quint32(size);
@@ -343,7 +348,6 @@ unsigned int SvcWriter::writeStsd(bool write) {
         stream<<quint32(0); //entry_count
         writeAvc1(true);
         //writeMP4V/AVC1
-        qDebug()<<"Stsd size = "<<QString::number(size);
     }
     return size;
 }
@@ -352,7 +356,6 @@ unsigned int SvcWriter::writeStsd(bool write) {
 unsigned int SvcWriter::writeAvc1(bool write) {
     unsigned int size = 86 + writeAvcC(false);
     if(write) {
-        qDebug()<<"writeAvc1 start";
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("avc1", 4);
@@ -381,7 +384,6 @@ unsigned int SvcWriter::writeAvcC(bool write) {
     unsigned int size = 8 + 7 + 2*(nalUnitsBO->getPicParSet().size() + nalUnitsBO->getSeqParSet().size()) +
             nalUnitsBO->allPPSLen() + nalUnitsBO->allSPSLen();
     if(write) {
-        qDebug()<<"writeAvcC start";
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("avcC", 4);
@@ -419,7 +421,6 @@ unsigned int SvcWriter::writeAvcC(bool write) {
 unsigned int SvcWriter::writeStts(bool write) {
     unsigned int size = 12 + 4 + 5*8;
     if(write) {
-        qDebug()<<"writeStts start";
         unsigned short version = 0;
         QDataStream stream(outputFile);
         stream<<quint32(size);
@@ -433,7 +434,6 @@ unsigned int SvcWriter::writeStts(bool write) {
             stream<<quint32(0); //sample_count
             stream<<quint32(0); //sample_delta
         }
-        qDebug()<<"Stts size = "<<QString::number(size);
     }
 
     return size;
@@ -442,7 +442,6 @@ unsigned int SvcWriter::writeStts(bool write) {
 unsigned int SvcWriter::writeCtts(bool write) {
     unsigned int size = 16 + 5*8;
     if(write) {
-        qDebug()<<"writeCtts start";
         unsigned short version = 0;
         QDataStream stream(outputFile);
         stream<<quint32(size);
@@ -457,8 +456,6 @@ unsigned int SvcWriter::writeCtts(bool write) {
             stream<<quint32(0); //sample_offset
         }
     }
-    qDebug()<<"Ctts size = "<<QString::number(size);
-
     return size;
 }
 
@@ -479,7 +476,6 @@ unsigned int SvcWriter::writeStsc(bool write) {
             stream<<quint32(1); //samples_per_chunk
             stream<<quint32(1); //sample_description_index
         }
-        qDebug()<<"Stsc size = "<<QString::number(size);
     }
 
     return size;
@@ -507,7 +503,6 @@ unsigned int SvcWriter::writeStsz(bool write) { //stz2?
                 unsigned int(32) entry_size;
             }
            }*/
-        qDebug()<<"Stsz size = "<<QString::number(size);
     }
 
     return size;
@@ -528,7 +523,6 @@ unsigned int SvcWriter::writeStco(bool write) {
         for(int i = 0; i < 5; ++ i) {
             stream<<quint32(0); //chunk_offset
         }
-        qDebug()<<"Stco size = "<<QString::number(size);
     }
 
     return size;
@@ -549,7 +543,6 @@ unsigned int SvcWriter::writeStss(bool write) {
         stream<<quint32(syncSize); //entry_count
         for(int i = 0; i < syncSize; ++i)
             stream<<quint32(nalUnitsBO->getSyncIdx().at(i)); //sample_number
-        qDebug()<<"Stss size = "<<QString::number(size);
     }
 
     return size;
