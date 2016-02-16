@@ -2,9 +2,7 @@
 
 #include <QDateTime>
 
-NALParser::NALParser() {
-
-}
+NALParser::NALParser() {}
 
 NALParser::NALParser(const QString &fileName) {
     this->fileName=fileName;
@@ -32,6 +30,8 @@ NalUnitsBO *NALParser::parseFile() {
     QList<unsigned int> seqParSetsIdx;
     QList<unsigned int> picParSetsIdx;
     QList<unsigned int> syncSampleIdx; //offsety kolejnych jednostek dostępu
+    QList<unsigned int> sampleIdx; //numery NALi, które rozpoczynają kolejne ramki
+
     NalUnitFactory factory(this, fileService);
     if(!fileService->openFile()) {
 
@@ -68,22 +68,30 @@ NalUnitsBO *NALParser::parseFile() {
                 else if(nalUnitType == 8)
                     picParSetsIdx.append(size);
                 //zliczanie zestawów parametrów  - koniec
-                //jednostki dostepu - start
+
+                //jednostki dostepu + ramki - start
                 NalUnitType nalType = (NalUnitType)nalUnitType;
-                if(!size)
+                if(!size) {
                     syncSampleIdx.append(size);
-                else if((previousVCL &&
+                    sampleIdx.append(size);
+                }
+                else if (isVCL(nalType, false)) //jesli jest to VCL, ale nie IDR, to dodaj ramke
+                    sampleIdx.append(size);
+                else if((previousVCL && //jesli poprzednia to VCL, a obecna to NAL, ktory moze zaczynac jednostke dostepu
                          this->isAUStarter(nalType))) {
-                    if(nalUnits.back()->getTypeCode() == 14 &&
-                            this->isAUStarter(nalType))
+                    if(nalUnits.back()->getTypeCode() == 14 && //nal 14 moze byc prefiksem
+                            this->isAUStarter(nalType)) {
                         syncSampleIdx.append(size - 1);
-                    else
+                        sampleIdx.append(size - 1);
+                    }
+                    else {
                         syncSampleIdx.append(size);
+                        sampleIdx.append(size);
+                    }
                 }
                 if(nalUnit->getTypeCode() != 14)
-                    previousVCL = this->isVCL(nalType);
-                //jednostki dostepu - koniec
-
+                    previousVCL = this->isVCL(nalType, true);
+                //jednostki dostepu + ramki - koniec
                 nalUnits.append(nalUnit);
 
                 //offset += 1;
@@ -130,7 +138,7 @@ NalUnitsBO *NALParser::parseFile() {
     long end = QDateTime::currentMSecsSinceEpoch();
     qDebug()<<"Czas : "<<QString::number(end - start) + " ms";
 
-    return new NalUnitsBO(fileName, nalUnits, sizeFieldLength, allPrefLength, syncSampleIdx, seqParSetsIdx, picParSetsIdx);
+    return new NalUnitsBO(fileName, nalUnits, sizeFieldLength, allPrefLength, sampleIdx, syncSampleIdx, seqParSetsIdx, picParSetsIdx);
 
 }
 
@@ -228,8 +236,10 @@ bool NALParser::isAUStarter(NalUnitType type) {
              (type >= 14 && type <= 18));
 }
 
-bool NALParser::isVCL(NalUnitType type) {
-    return ( type >= 1 && type <= 5) || type == 20;
+bool NALParser::isVCL(NalUnitType type, bool sync){
+    if(sync)
+        return ( type >= 1 && type <= 5) || type == 20;
+    return ( type >= 1 && type <= 4) || type == 20;
 }
 
 unsigned long int NALParser::valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
@@ -250,9 +260,7 @@ unsigned long int NALParser::valueOfGroupOfBits(const unsigned int & length, con
     char* ptr = new char[length];
     fileService->getBits(ptr, length, offset);
     unsigned long int ret = bitOperator->valueOfGroupOfBits(ptr, length);
-    //qDebug()<<"MArcinBit 4"<<QString::number(ptr[0]);
     delete[] ptr;
-    //qDebug()<<"MArcinBit 5";
     return ret;
 }
 QString NALParser::stringValue(const unsigned int & length, const unsigned long& offset) const {

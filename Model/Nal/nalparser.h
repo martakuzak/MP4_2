@@ -39,7 +39,7 @@ public:
 protected:
     //std::shared_ptr<Box> getHBox(const unsigned int& size = 0, QString type = "", unsigned long int off = 0);
     bool isAUStarter(NalUnitType type);
-    bool isVCL(NalUnitType type);
+    bool isVCL(NalUnitType type, bool sync = false);
     unsigned long int valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const;
     signed long int signedValueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const;
     unsigned long int valueOfGroupOfBits(const unsigned int & length, const unsigned long& offset) const;

@@ -482,7 +482,8 @@ unsigned int SvcWriter::writeStsc(bool write) {
 }
 
 unsigned int SvcWriter::writeStsz(bool write) { //stz2?
-    unsigned int size = 12 +  8 + 5*4;
+    int frameCount = nalUnitsBO->getFrameNum();
+    unsigned int size = 12 +  8 + frameCount*4;
     if(write) {
         unsigned short version = 0;
         QDataStream stream(outputFile);
@@ -493,10 +494,13 @@ unsigned int SvcWriter::writeStsz(bool write) { //stz2?
         stream<<quint8(0); //flag2
         stream<<quint8(0); //flag3
         stream<<quint32(0); //sample_size
-        stream<<quint32(5); //sample_count
-        for(int i = 0; i < 5; ++ i) {
-            stream<<quint32(0); //entry_size
+        stream<<quint32(frameCount); //sample_count
+        for(int i = 0; i < frameCount - 1; ++ i) {
+            stream<<quint32(nalUnitsBO->getNalUnitsSize(nalUnitsBO->getStartFrameNalUnitIdx(i),
+                                                        nalUnitsBO->getStartFrameNalUnitIdx(i + 1) - 1)); //entry_size
         }
+        stream<<quint32(nalUnitsBO->getNalUnitsSize(nalUnitsBO->getStartFrameNalUnitIdx(frameCount - 2),
+                        nalUnitsBO->getNalUnits().length() - 1));
         /*
          * if (sample_size==0) {
             for (i=1; i u sample_count; i++) {
@@ -541,7 +545,7 @@ unsigned int SvcWriter::writeStss(bool write) {
         stream<<quint8(0); //flag2
         stream<<quint8(0); //flag3
         stream<<quint32(syncSize); //entry_count
-        for(int i = 0; i < syncSize; ++i)
+        for(unsigned int i = 0; i < syncSize; ++i)
             stream<<quint32(nalUnitsBO->getSyncIdx().at(i)); //sample_number
     }
 

@@ -1,8 +1,9 @@
 #include "nalunitsbo.h"
 
 NalUnitsBO::NalUnitsBO(const QString& name, const QList<std::shared_ptr<NalUnit> >& nals, unsigned int sfl, unsigned int apl,
-                       const QList<unsigned int> sync, const QList<unsigned int> sps, const QList<unsigned int> pps): svcName(name),
-    nalUnits(nals), sizeFieldLen(sfl), allPrefLength(apl), syncIdx(pps), seqParSetIdx(sps), picParSetIdx(pps) {
+                       const QList<unsigned int> frames, const QList<unsigned int> sync, const QList<unsigned int> sps,
+                       const QList<unsigned int> pps): svcName(name), nalUnits(nals), sizeFieldLen(sfl),
+    allPrefLength(apl), syncIdx(pps), seqParSetIdx(sps), picParSetIdx(pps), startFrameNalIdx(frames) {
     calcNewSampleOffsets();
 }
 
@@ -40,9 +41,29 @@ QList<std::shared_ptr<NalUnit>> NalUnitsBO::getPicParSet() const {
     return pps;
 }
 
-std::shared_ptr<NalUnit> NalUnitsBO::getNalUnit(int idx) const {
+std::shared_ptr<NalUnit> NalUnitsBO::getNalUnit(unsigned int idx) const {
+    if(idx >= nalUnits.size())
+        return NULL;
     return nalUnits.at(idx);
 }
+
+unsigned int NalUnitsBO::getStartFrameNalUnitIdx(unsigned int idx) const {
+    return startFrameNalIdx.at(idx);
+}
+
+int NalUnitsBO::getFrameNum() const {
+    return startFrameNalIdx.size();
+}
+
+unsigned int NalUnitsBO::getFrameSize(int idx) const {
+    if(idx > startFrameNalIdx.size())
+        return 0;
+    //NAL startowy
+   // NalUnit nalStart = this->getNalUnit(getStart);
+    //unsigned int size = 0;
+    //for(int i = idx; i < idx; )
+}
+
 
 unsigned int NalUnitsBO::allSPSLen() {
     unsigned int len = 0;
@@ -68,3 +89,15 @@ void NalUnitsBO::calcNewSampleOffsets() {
         newOffset += ((*it)->getLength() + sizeFieldLen);
     }
 }
+
+unsigned long NalUnitsBO::getFrameOffset(unsigned int nalIdx) {
+    return nalUnits.at(nalIdx)->getOffset();
+}
+
+unsigned long NalUnitsBO::getNalUnitsSize(int startIdx, int endIdx) {
+    unsigned long size = 0;
+    for(int idx = startIdx; idx <= endIdx; ++ idx)
+        size += nalUnits.at(idx)->getLength();
+    return size;
+}
+
