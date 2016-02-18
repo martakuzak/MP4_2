@@ -1,9 +1,9 @@
 #include "treeitem.h"
 
-TreeItem::TreeItem(FileService *fileService, const QList<QVariant> &data, TreeItem *parent, const long int &off){
+TreeItem::TreeItem(FileBitOperator *fb, const QList<QVariant> &data, TreeItem *parent, const long int &off){
     parentItem = parent;
     itemData = data;
-    BoxFactory *bf = new BoxFactory(fileService);
+    BoxFactory *bf = new BoxFactory(fb);
     if(!(data.value(0).toString() == NAME)) {
         try {
             box= bf->getBox( data.value(1).toUInt(),data.value(0).toString(),off ) ;

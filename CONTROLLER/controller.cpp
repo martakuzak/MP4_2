@@ -20,9 +20,8 @@ void Controller::makeConnection() {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 void Controller::fileSelected(const QString& fileName) {
-    FileService *fileService = new FileService(fileName);
-    //Analyzer *analyzer = new Analyzer(fileService);
-    models.insert(fileName, new TreeModel(fileService));
+    FileBitOperator *fbOperator = new FileBitOperator(fileName);
+    models.insert(fileName, new TreeModel(fbOperator));
     window->fileAnalyzed(models.value(fileName), fileName);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////

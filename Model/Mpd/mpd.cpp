@@ -198,12 +198,12 @@ MPDWriter::MPDWriter() {
 ///////////////////////////////////////////////////////////////////////////////////////////
 void MPDWriter::init(bool oneFile) {
     if(oneFile) {
-        FileService *fileService = new FileService(dashPath + "/dash_" + originalFileName);
-        dashModel = new TreeModel(fileService);
+        FileBitOperator *fbOperator = new FileBitOperator(dashPath + "/dash_" + originalFileName);
+        dashModel = new TreeModel(fbOperator);
         return;
     }
-    FileService *fileService = new FileService(dashPath + "/dash_init_" + originalFileName);
-    dashModel = new TreeModel(fileService);
+    FileBitOperator *fbOperator = new FileBitOperator(dashPath + "/dash_init_" + originalFileName);
+    dashModel = new TreeModel(fbOperator);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 void MPDWriter::setMPD(const QString &url) {
@@ -263,9 +263,9 @@ void MPDWriter::setOriginalFileName(const QString &value) {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 void MPDWriter::addRepresentation(const QString& path, const QString& fn, const bool& oneFile) {
-    FileService *fileService = new FileService(path + fn);
+    FileBitOperator *fbOperator = new FileBitOperator(path + fn);
     //Analyzer *an = new Analyzer(fileService);
-    originalModel = new TreeModel(fileService);
+    originalModel = new TreeModel(fbOperator);
     Representation *repr = new Representation();
     QString dashName;
     if(oneFile)

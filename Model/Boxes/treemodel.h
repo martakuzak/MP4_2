@@ -6,8 +6,8 @@
 #include <QVariant>
 #include <QHash>
 #include <qDebug>
-#include "fileservice.h"
 #include "treeitem.h"
+#include "filebitoperator.h"
 
 class Analyzer;
 class TreeItem;
@@ -37,7 +37,7 @@ private:
     QHash<long,TreeItem*> *treeItems;
 public:
 
-    explicit TreeModel(FileService *fs, QObject *parent = 0);
+    explicit TreeModel(FileBitOperator *fs, QObject *parent = 0);
     explicit TreeModel(QObject *parent = 0);
     //!Destructor
     ~TreeModel();

@@ -11,6 +11,15 @@
  * @brief The FileService class is destined to do basic operations on the file
  */
 class FileService {
+private:
+    /**
+     * @brief file file on which the class operates
+     */
+    QFile* file;
+    /**
+     * @brief BITS_IN_BYTE number of bits in the byte
+     */
+    const int BITS_IN_BYTE = 8;
 public:
     /**
      * @brief FileService
@@ -76,14 +85,6 @@ protected:
      * tmp = {1, 1, 1, 1}
      */
     void toBitArray(char* dst,  char byte, int length, int suffix = 0);
-    /**
-     * @brief file file on which the class operates
-     */
-    QFile* file;
-    /**
-     * @brief BITS_IN_BYTE number of bits in the byte
-     */
-    const int BITS_IN_BYTE = 8;
 };
 
 #endif // FILESERVICE_H

@@ -366,5 +366,4 @@ public:
     virtual int getTypeCode() { return 31; }
 };
 
-
 #endif // NALUNIT_H

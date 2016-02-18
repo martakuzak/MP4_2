@@ -11,10 +11,8 @@
 #include "treeitem.h"
 #include "sampletablebox.h"
 #include "mainwindow.h"
-#include "bitoperator.h"
-#include "fileservice.h"
+#include "filebitoperator.h"
 
-class BitOperator;
 class TreeItem;
 class TreeModel;
 /*!
@@ -22,13 +20,20 @@ class TreeModel;
   * provides tools to analyze MP4 file.
  */
 class Analyzer {
+private:
+    FileBitOperator* fbOperator;
+    /*!
+      *\brief mdatOffset
+      *offset in bytes of mdat box
+     */
+    unsigned long int mdatOffset;
 public:
     Analyzer();
     /*!
       *\brief Analyzer - constructor
       *\param fileName name of the file to be analyzed
      */
-    Analyzer(FileService *fs);
+    Analyzer(FileBitOperator *fs);
     ~Analyzer();
     /*!
       *\brief setData adds children to the parent.
@@ -45,33 +50,13 @@ private:
       *\param maxOff max offset possible of the parent analyzed box
      */
     void setData(TreeItem *&parent, QHash<long,TreeItem*> *items, const unsigned long int &off, unsigned long int maxOff = 0L);
+    /*!
+     * @brief decToHex
+     * @param offset
+     * @return QString that contains hex representation of given decimal number
+     */
     QString decToHex(const unsigned long& offset);
-    //ZMIANY - START
-    /*!
-      *\brief fileName
-      * name of the analyzed file
-     */
-    //QString fileName;
-    /*!
-      *\brief file
-      *analyzed file
-     */
-    //QFile *file;
-    /*!
-      *\brief fileSize
-      *number of bytes of analyzed file
-     */
-    //unsigned long int fileSize;
-    FileService *fileService;
-    //ZMIANY - KONIEC
-    /*!
-      *\brief mdatOffset
-      *offset in bytes of mdat box
-     */
-    unsigned long int mdatOffset;
-    BitOperator* bitOperator;
 
 };
-
 
 #endif // ANALYZER_H

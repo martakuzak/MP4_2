@@ -7,18 +7,12 @@ NALParser::NALParser() {}
 NALParser::NALParser(const QString &fileName) {
     this->fileName=fileName;
     this->fileSize = 0;
-    file = new QFile(fileName);
-    if (!file->open(QIODevice::ReadOnly)) {
-        return ;
-    }
-    fileSize = file->size();
-    bitOperator = new BitOperator();
-    fileService = new FileService(fileName);
+    fbOperator = new FileBitOperator(fileName);
+    fileSize = fbOperator->getSize();
 }
 
 NALParser::~NALParser() {
-    delete bitOperator;
-    delete fileService;
+    delete fbOperator;
 }
 
 NalUnitsBO *NALParser::parseFile() {
@@ -32,26 +26,24 @@ NalUnitsBO *NALParser::parseFile() {
     QList<unsigned int> syncSampleIdx; //offsety kolejnych jednostek dostępu
     QList<unsigned int> sampleIdx; //numery NALi, które rozpoczynają kolejne ramki
 
-    NalUnitFactory factory(this, fileService);
-    if(!fileService->openFile()) {
-
+    NalUnitFactory factory(this, fbOperator);
+    if(!fbOperator->openFile()) {
     } else {
         unsigned int maxLength = 0;
         while(offset < fileSize) {
-            unsigned int pref3Byte = valueOfGroupOfBytes(3, offset);
-            unsigned int pref4Byte = valueOfGroupOfBytes(4, offset);
+            unsigned int pref3Byte = fbOperator->valueOfGroupOfBytes(3, offset);
+            unsigned int pref4Byte = fbOperator->valueOfGroupOfBytes(4, offset);
 
             if(pref3Byte == 1 || pref4Byte == 1) { //prefix == 0x001 lub 0x0001
                 int off = offset;
                 offset += (pref3Byte == 1) ? 3 : 4;
                 allPrefLength += (pref3Byte == 1) ? 3 : 4;
                 //forbidden_zero_bit
-                short int forbiddenZeroBit = valueOfGroupOfBits(1, offset*8); //razem: 1 bit
+                short int forbiddenZeroBit = fbOperator->valueOfGroupOfBits(1, offset*8); //razem: 1 bit
                 //nal_ref_idc
-                short int nalRefIdc = valueOfGroupOfBits(2, offset*8 + 1); //razem: 3 bity
+                short int nalRefIdc = fbOperator->valueOfGroupOfBits(2, offset*8 + 1); //razem: 3 bity
                 //nal_unit_type;
-                int nalUnitType = valueOfGroupOfBits(5, offset*8 + 3); //razem: 8 bitów
-                //qDebug()<<"NAL unit"<<QString::number(nalUnitType);
+                int nalUnitType = fbOperator->valueOfGroupOfBits(5, offset*8 + 3); //razem: 8 bitów
                 std::shared_ptr<NalUnit> nalUnit = factory.getNalUnit(nalUnitType, nalRefIdc, off, (pref3Byte == 1) ? 3 : 4);
                 //rozmiary - start
                 int size = nalUnits.size();
@@ -119,7 +111,7 @@ NalUnitsBO *NALParser::parseFile() {
         }
         int size = nalUnits.size();
         if(size) {
-            nalUnits.at(size - 1)->setLength(fileService->getSize());
+            nalUnits.at(size - 1)->setLength(fbOperator->getSize());
             unsigned int nalUnitLength= nalUnits.at(size - 1)->getLength();
             if(nalUnitLength > maxLength)
                 maxLength = nalUnitLength;
@@ -133,12 +125,13 @@ NalUnitsBO *NALParser::parseFile() {
         else if(maxLength < 0xFFFFFFFF)
             sizeFieldLength = 4;
         //koniec
-        fileService->close();
+        fbOperator->close();
     }
     long end = QDateTime::currentMSecsSinceEpoch();
     qDebug()<<"Czas : "<<QString::number(end - start) + " ms";
 
-    return new NalUnitsBO(fileName, nalUnits, sizeFieldLength, allPrefLength, sampleIdx, syncSampleIdx, seqParSetsIdx, picParSetsIdx);
+    return new NalUnitsBO(fileName, nalUnits, sizeFieldLength, allPrefLength, sampleIdx, syncSampleIdx, seqParSetsIdx,
+                          picParSetsIdx);
 
 }
 
@@ -178,18 +171,18 @@ NalUnitsBO *NALParser::parseFile() {
 //int NALParser::parseSEI(int offset) {
 //    ////qDebug()<<"parseSEI";
 //    int payloadType = 0;
-//    /* int nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
+//    /* int nextByteValue = bitOperator->fbOperator->valueOfGroupOfBytes(file, 1, offset ++);
 //    while(nextByteValue == 0xFF) {
 //        payloadType += 255;
-//        nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
+//        nextByteValue = bitOperator->fbOperator->valueOfGroupOfBytes(file, 1, offset ++);
 //    }
 //    payloadType += nextByteValue;
 
 //    int payloadSize = 0;
-//    nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
+//    nextByteValue = bitOperator->fbOperator->valueOfGroupOfBytes(file, 1, offset ++);
 //    while(nextByteValue == 0xFF) {
 //        payloadSize += 255;
-//        nextByteValue = bitOperator->valueOfGroupOfBytes(file, 1, offset ++);
+//        nextByteValue = bitOperator->fbOperator->valueOfGroupOfBytes(file, 1, offset ++);
 //    }
 //    payloadSize += nextByteValue;*/
 
@@ -214,9 +207,9 @@ NalUnitsBO *NALParser::parseFile() {
 //int NALParser::scalabilityInfo(int payloadSize, int offset) {
 //    ////qDebug()<<"GOLOMP";
 //    /*int bitOffset = 8*offset;
-//    int temporalIdNestingFlag = bitOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
-//    int priorityLayerInfoPresentFlag = bitOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
-//    int priorityIdSettingFlag = bitOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
+//    int temporalIdNestingFlag = bitOperator->fbOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
+//    int priorityLayerInfoPresentFlag = bitOperator->fbOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
+//    int priorityIdSettingFlag = bitOperator->fbOperator->valueOfGroupOfBits(file, 1, bitOffset ++);
 
 //    int* golombOffset = new int[1];
 //    int numLayersMinus1 = bitOperator->unsignedExpGolomb(file, bitOffset, golombOffset);
@@ -240,33 +233,4 @@ bool NALParser::isVCL(NalUnitType type, bool sync){
     if(sync)
         return ( type >= 1 && type <= 5) || type == 20;
     return ( type >= 1 && type <= 4) || type == 20;
-}
-
-unsigned long int NALParser::valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
-    char* ptr = new char[length];
-    fileService->getBytes(ptr, length, offset);
-    unsigned long int ret = bitOperator->valueOfGroupOfBytes(ptr, length);
-    delete[] ptr;
-    return ret;
-}
-signed long int NALParser::signedValueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
-    char* ptr = new char[length];
-    fileService->getBytes(ptr, length, offset);
-    long int ret = bitOperator->signedValueOfGroupOfBytes(ptr, length);
-    delete[] ptr;
-    return ret;
-}
-unsigned long int NALParser::valueOfGroupOfBits(const unsigned int & length, const unsigned long& offset) const {
-    char* ptr = new char[length];
-    fileService->getBits(ptr, length, offset);
-    unsigned long int ret = bitOperator->valueOfGroupOfBits(ptr, length);
-    delete[] ptr;
-    return ret;
-}
-QString NALParser::stringValue(const unsigned int & length, const unsigned long& offset) const {
-    char* ptr = new char[length];
-    fileService->getBytes(ptr, length, offset);
-    QString ret = bitOperator->stringValue(ptr, length);
-    delete[] ptr;
-    return ret;
 }

@@ -1,14 +1,12 @@
 #include "nalunitfactory.h"
 
-NalUnitFactory::NalUnitFactory(NALParser *par, FileService* fs) : parser(par), fileService(fs){
-    bitOperator = new BitOperator();
+NalUnitFactory::NalUnitFactory(NALParser *par, FileBitOperator *fs) : parser(par), fbOperator(fs){
 }
 
 NalUnitFactory::~NalUnitFactory() {
     //delete parser; //NALParser wola obiekt factory - niech factory go nie kasuje!!!!!!!
     //TO-DO przemyselec, jak to lepiej zrobic
     //delete fileService;
-    delete bitOperator;
 }
 
 std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset, const unsigned short &sl) {
@@ -73,24 +71,24 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
     {
         unsigned int off = offset;
         off += (1 + sl); //??
-        unsigned int svcExtensionFlag = valueOfGroupOfBits(1, off*8);
+        unsigned int svcExtensionFlag = fbOperator->valueOfGroupOfBits(1, off*8);
         if(svcExtensionFlag) {
             //rozszerzony naglowek
-            unsigned int reservedOneBit = valueOfGroupOfBits(1, off*8);
-            unsigned int idrFlag = valueOfGroupOfBits(1, off*8 + 1);
-            unsigned int priorityId = valueOfGroupOfBits(6, off*8 + 2);
+            unsigned int reservedOneBit = fbOperator->valueOfGroupOfBits(1, off*8);
+            unsigned int idrFlag = fbOperator->valueOfGroupOfBits(1, off*8 + 1);
+            unsigned int priorityId = fbOperator->valueOfGroupOfBits(6, off*8 + 2);
             off += 1;
-            unsigned int noInterLayerPredFlag = valueOfGroupOfBits(1, off*8);
-            unsigned int dependencyId = valueOfGroupOfBits(3, off*8 + 1);
-            unsigned int qualityId = valueOfGroupOfBits(4, off*8 + 4);
-            unsigned int temporaryId = valueOfGroupOfBits(3, off*8 + 7);
-            unsigned int useRefBasePicFlag = valueOfGroupOfBits(1, off*8 + 10);
-            unsigned int discardableFlag = valueOfGroupOfBits(1, off*8 + 11);
-            unsigned int outputFlag = valueOfGroupOfBits(1, off*8 + 12);
-            unsigned int reservedThree2bits = valueOfGroupOfBits(2, off*8 + 13);
+            unsigned int noInterLayerPredFlag = fbOperator->valueOfGroupOfBits(1, off*8);
+            unsigned int dependencyId = fbOperator->valueOfGroupOfBits(3, off*8 + 1);
+            unsigned int qualityId = fbOperator->valueOfGroupOfBits(4, off*8 + 4);
+            unsigned int temporaryId = fbOperator->valueOfGroupOfBits(3, off*8 + 7);
+            unsigned int useRefBasePicFlag = fbOperator->valueOfGroupOfBits(1, off*8 + 10);
+            unsigned int discardableFlag = fbOperator->valueOfGroupOfBits(1, off*8 + 11);
+            unsigned int outputFlag = fbOperator->valueOfGroupOfBits(1, off*8 + 12);
+            unsigned int reservedThree2bits = fbOperator->valueOfGroupOfBits(2, off*8 + 13);
             //dalej
             if(nalRefIdc) {
-                unsigned short storeRefBasePicFlag = valueOfGroupOfBits(1, off*8 + 14);
+                unsigned short storeRefBasePicFlag = fbOperator->valueOfGroupOfBits(1, off*8 + 14);
                 if( (useRefBasePicFlag || storeRefBasePicFlag) && !idrFlag) {
                     //decrefBasePicMarking();
                 }
@@ -137,20 +135,20 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
     {
         unsigned int off = offset;
         off += (1 + sl);
-        unsigned int svcExtensionFlag = valueOfGroupOfBits(1, off*8);
+        unsigned int svcExtensionFlag = fbOperator->valueOfGroupOfBits(1, off*8);
         if(svcExtensionFlag) {
-            unsigned int reservedOneBit = valueOfGroupOfBits(1, off*8);
-            unsigned int idrFlag = valueOfGroupOfBits(1, off*8 + 1);
-            unsigned int priorityId = valueOfGroupOfBits(6, off*8 + 2);
+            unsigned int reservedOneBit = fbOperator->valueOfGroupOfBits(1, off*8);
+            unsigned int idrFlag = fbOperator->valueOfGroupOfBits(1, off*8 + 1);
+            unsigned int priorityId = fbOperator->valueOfGroupOfBits(6, off*8 + 2);
             off += 1;
-            unsigned int noInterLayerPredFlag = valueOfGroupOfBits(1, off*8);
-            unsigned int dependencyId = valueOfGroupOfBits(3, off*8 + 1);
-            unsigned int qualityId = valueOfGroupOfBits(4, off*8 + 4);
-            unsigned int temporaryId = valueOfGroupOfBits(3, off*8 + 7);
-            unsigned int useRefBasePicFlag = valueOfGroupOfBits(1, off*8 + 10);
-            unsigned int discardableFlag = valueOfGroupOfBits(1, off*8 + 11);
-            unsigned int outputFlag = valueOfGroupOfBits(1, off*8 + 12);
-            unsigned int reservedThree2bits = valueOfGroupOfBits(2, off*8 + 13);
+            unsigned int noInterLayerPredFlag = fbOperator->valueOfGroupOfBits(1, off*8);
+            unsigned int dependencyId = fbOperator->valueOfGroupOfBits(3, off*8 + 1);
+            unsigned int qualityId = fbOperator->valueOfGroupOfBits(4, off*8 + 4);
+            unsigned int temporaryId = fbOperator->valueOfGroupOfBits(3, off*8 + 7);
+            unsigned int useRefBasePicFlag = fbOperator->valueOfGroupOfBits(1, off*8 + 10);
+            unsigned int discardableFlag = fbOperator->valueOfGroupOfBits(1, off*8 + 11);
+            unsigned int outputFlag = fbOperator->valueOfGroupOfBits(1, off*8 + 12);
+            unsigned int reservedThree2bits = fbOperator->valueOfGroupOfBits(2, off*8 + 13);
 
             return std::shared_ptr<NalUnit>(new SliceLayerExtensionRbsp(nalRefIdc, offset, sl, reservedOneBit, idrFlag, priorityId,
                                                                         noInterLayerPredFlag, dependencyId, qualityId, temporaryId,
@@ -206,33 +204,4 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         break;
     }
     return std::shared_ptr<NalUnit>(new NalUnit(nalRefIdc, offset, sl));
-}
-
-unsigned long int NalUnitFactory::valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
-    char* ptr = new char[length];
-    fileService->getBytes(ptr, length, offset);
-    unsigned long int ret = bitOperator->valueOfGroupOfBytes(ptr, length);
-    delete[] ptr;
-    return ret;
-}
-signed long int NalUnitFactory::signedValueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
-    char* ptr = new char[length];
-    fileService->getBytes(ptr, length, offset);
-    long int ret = bitOperator->signedValueOfGroupOfBytes(ptr, length);
-    delete[] ptr;
-    return ret;
-}
-unsigned long int NalUnitFactory::valueOfGroupOfBits(const unsigned int & length, const unsigned long& offset) const {
-    char* ptr = new char[length];
-    fileService->getBits(ptr, length, offset);
-    unsigned long int ret = bitOperator->valueOfGroupOfBits(ptr, length);
-    delete[] ptr;
-    return ret;
-}
-QString NalUnitFactory::stringValue(const unsigned int & length, const unsigned long& offset) const {
-    char* ptr = new char[length];
-    fileService->getBytes(ptr, length, offset);
-    QString ret = bitOperator->stringValue(ptr, length);
-    delete[] ptr;
-    return ret;
 }

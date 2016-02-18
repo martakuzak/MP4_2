@@ -59,7 +59,7 @@ unsigned int NalUnitsBO::getFrameSize(int idx) const {
     if(idx > startFrameNalIdx.size())
         return 0;
     //NAL startowy
-   // NalUnit nalStart = this->getNalUnit(getStart);
+    // NalUnit nalStart = this->getNalUnit(getStart);
     //unsigned int size = 0;
     //for(int i = idx; i < idx; )
 }
@@ -97,7 +97,6 @@ unsigned long NalUnitsBO::getFrameOffset(unsigned int nalIdx) {
 unsigned long NalUnitsBO::getNalUnitsSize(int startIdx, int endIdx) {
     unsigned long size = 0;
     for(int idx = startIdx; idx <= endIdx; ++ idx)
-        size += nalUnits.at(idx)->getLength();
+        size += (nalUnits.at(idx)->getLength() + sizeFieldLen);
     return size;
 }
-

@@ -10,22 +10,20 @@
 #include "trackbox.h"
 #include "sampleentry.h"
 #include "sampletablebox.h"
-#include "fileservice.h"
-#include "bitoperator.h"
+#include "filebitoperator.h"
 
 /*!
  * \brief The BoxFactory class is a factory that creates Box objects.
  */
 class BoxFactory {
 protected:
-    FileService *fileService;
-    BitOperator *bitOperator;
+    FileBitOperator* fbOperator;
 public:
     /*!
       *\brief BoxFactory
       *\param an analyzer that enables reading extra parameters of the box.
      */
-    BoxFactory(FileService *fs);
+    BoxFactory(FileBitOperator *fs);
     /*!
       *\brief getBox creates Box according to the given parameters and adds extra parameters depending on type of the box.
       *\param size size of the box
@@ -34,7 +32,7 @@ public:
       *\return Box created according to the given and extra parametrs
      */
     std::shared_ptr<Box> getBox(const unsigned int& size = 0, QString type = "", unsigned long int off = 0);
-    ~BoxFactory() { delete bitOperator; }
+    ~BoxFactory() {}
 private:
     /*!
       *\brief getMBox creates Box according to the given parameters and adds extra parameters depending on type of the box.
@@ -72,10 +70,6 @@ private:
       *\return Box created according to the given and extra parametrs
      */
     std::shared_ptr<Box> getHBox(const unsigned int& size = 0, QString type = "", unsigned long int off = 0);
-    unsigned long int valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const;
-    signed long int signedValueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const;
-    unsigned long int valueOfGroupOfBits(const unsigned int & length, const unsigned long& offset) const;
-    QString stringValue(const unsigned int & length, const unsigned long& offset) const;
 };
 
 #endif // BOXFACTORY_H

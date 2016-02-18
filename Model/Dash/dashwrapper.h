@@ -4,7 +4,7 @@
 #include "dashcreator.h"
 #include "mpd.h"
 #include "treemodel.h"
-#include "fileservice.h"
+#include "filebitoperator.h"
 
 class TreeModel;
 class DashCreator;

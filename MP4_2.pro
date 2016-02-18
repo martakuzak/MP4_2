@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     Model/Common/fileservice.cpp \
     Model\Nal\svcwriter.cpp \
     Model/Nal/nalxml.cpp \
-    Model/Nal/nalunitsbo.cpp
+    Model/Nal/nalunitsbo.cpp \
+    Model/Common/filebitoperator.cpp
 
 HEADERS  += View\mainwindow.h \
     Model\Boxes\analyzer.h \
@@ -73,6 +74,7 @@ HEADERS  += View\mainwindow.h \
     Model/Common/fileservice.h \
     Model\Nal\svcwriter.h \
     Model/Nal/nalxml.h \
-    Model/Nal/nalunitsbo.h
+    Model/Nal/nalunitsbo.h \
+    Model/Common/filebitoperator.h
 
 FORMS

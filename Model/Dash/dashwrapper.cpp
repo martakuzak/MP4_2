@@ -29,9 +29,9 @@ bool DashWrapper::writeFile(const QString& date, const QString& name, const unsi
     fileName = name.mid(last + 1);
     catalog = "DASH_" + date;
     QString dashPath = path + catalog + "/";
-    FileService *fileService = new FileService(name);
+    FileBitOperator *fbOperator = new FileBitOperator(name);
     //Analyzer *an = new Analyzer(fileService);
-    TreeModel *model = new TreeModel(fileService);
+    TreeModel *model = new TreeModel(fbOperator);
     QList<std::shared_ptr<Box>> mdats = model->getBoxes("mdat");
     if(mdats.size() != 1)
         return false;
@@ -46,9 +46,8 @@ bool DashWrapper::writeFiles(const QString &date, const QString& name, const uns
     fileName = name.mid(last + 1);
     catalog = "DASH_" + date;
     QString dashPath = path + catalog + "/";
-    FileService *fileService = new FileService(name);
-    //Analyzer *an = new Analyzer(fileService);
-    TreeModel *model = new TreeModel(fileService);
+    FileBitOperator *fbOperator = new FileBitOperator(name);
+    TreeModel *model = new TreeModel(fbOperator);
     DashCreator *dashCreator = new DashCreator(dashPath, path + fileName, model);
     return dashCreator->writeFiles(maxSampleNum);
 }
