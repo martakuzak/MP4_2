@@ -2,17 +2,33 @@
 #define NALUNIT_H
 
 #include <QString>
-#include <QDebug>
 
+/*!
+ * \brief The NalUnit class NAL unit representation
+ */
 class NalUnit {
 protected:
     unsigned int nalRefIdc;
     unsigned long offset;
     unsigned long length;
+    /*!
+     * \brief startLength length in bytes of the start code before NAL (it may be either 0x000001 or 0x00000001)
+     */
     unsigned short startLength;
 public:
+    /*!
+     * \brief NalUnit
+     * \param nri NAL reference indicator
+     * \param off offset in bytes in the file
+     * \param sl start code length (it should be either 3 or 4)
+     */
     NalUnit(const unsigned int&  nri = 0, const unsigned long & off = 0, const unsigned short & sl = 3);
     ~NalUnit();
+    /*!
+     * \brief setLength sets length of NAL unit
+     * \param endOfNal the last byte index in the file
+     * \return
+     */
     bool setLength(const unsigned long endOfNal) {
         if(endOfNal <= offset)
             return false;
@@ -23,18 +39,48 @@ public:
     unsigned long getLength() { return length; }
     unsigned int getNalRefIdc() { return nalRefIdc; }
     unsigned int getOffset() {return offset; }
-    virtual QString getName() { return "NAL Unit"; }
-    virtual int getTypeCode() { return -1; }
-    virtual QString getInfo() { return ""; }
-    virtual QString getHeader() { return "NalRefIdc: " + QString::number(nalRefIdc);}
     virtual unsigned short getStartCodeLength() { return startLength; }
+    /*!
+     * \brief getName
+     * \return name of the NAL unit regarding its type
+     */
+    virtual QString getName() { return "NAL Unit"; }
+    /*!
+     * \brief getTypeCode
+     * \return integer value of NAL unit type
+     */
+    virtual int getTypeCode() { return -1; }
+    /*!
+     * \brief getInfo
+     * \return string value of parameters of NAL unit (without header)
+     */
+    virtual QString getInfo() { return ""; }
+    /*!
+     * \brief getHeader
+     * \return string value of NAL unit header
+     */
+    virtual QString getHeader() { return "NalRefIdc: " + QString::number(nalRefIdc);}
 };
 
+/*!
+ * \brief The ExtendedNalUnit class NAL unit that has extended header
+ */
 class ExtendedNalUnit : public NalUnit {
 protected:
+    /*!
+     * \brief SVCflag indicater whether the extended NAL unit refers to SVC or not
+     */
     unsigned int SVCflag;
 public:
-    ExtendedNalUnit(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3, const unsigned int& svcFlag = 0);
+    /*!
+     * \brief ExtendedNalUnit
+     * \param nri NAL reference indicator
+     * \param off offset in bytes in the file
+     * \param sl start code length (it should be either 3 or 4)
+     * \param svcFlag indicater whether the extended NAL unit refers to SVC or not
+     */
+    ExtendedNalUnit(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3,
+                    const unsigned int& svcFlag = 0);
     ~ExtendedNalUnit();
     virtual QString getName() { return "Extended NAL Unit"; }
     virtual int getTypeCode() { return -1; }
@@ -45,6 +91,9 @@ public:
     unsigned int getSVCflag() const;
 };
 
+/*!
+ * \brief The SVCNalUnit class NAL unit of type 14 or 20
+ */
 class SVCNalUnit : public ExtendedNalUnit {
 protected:
     unsigned int idrFlag;
@@ -82,6 +131,9 @@ public:
     unsigned int getReservedThree2bits() const;
 };
 
+/*!
+ * \brief The Unspecified class
+ */
 class Unspecified : public NalUnit {
 public:
     Unspecified(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -90,6 +142,9 @@ public:
     virtual int getTypeCode() { return 0; }
 };
 
+/*!
+ * \brief The NonIdrSliceLayerWithoutPartitioningRbsp class
+ */
 class NonIdrSliceLayerWithoutPartitioningRbsp : public NalUnit {
 protected:
     unsigned long firstMbInSlice;
@@ -104,6 +159,9 @@ public:
     virtual QString getInfo();
 };
 
+/*!
+ * \brief The SliceDataPartitionALayerRbsp class
+ */
 class SliceDataPartitionALayerRbsp : public NalUnit {
 public:
     SliceDataPartitionALayerRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -112,6 +170,9 @@ public:
     virtual int getTypeCode() { return 2; }
 };
 
+/*!
+ * \brief The SliceDataPartitionBLayerRbsp class
+ */
 class SliceDataPartitionBLayerRbsp : public NalUnit {
 public:
     SliceDataPartitionBLayerRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -120,6 +181,9 @@ public:
     virtual int getTypeCode() { return 3; }
 };
 
+/*!
+ * \brief The SliceDataPartitionCLayerRbsp class
+ */
 class SliceDataPartitionCLayerRbsp : public NalUnit {
 public:
     SliceDataPartitionCLayerRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -128,6 +192,9 @@ public:
     virtual int getTypeCode() { return 4; }
 };
 
+/*!
+ * \brief The IdrSliceLayerWithoutPartitioningRbsp class
+ */
 class IdrSliceLayerWithoutPartitioningRbsp : public NalUnit {
 protected:
     unsigned long firstMbInSlice;
@@ -142,6 +209,9 @@ public:
     virtual QString getInfo();
 };
 
+/*!
+ * \brief The SeiRbsp class
+ */
 class SeiRbsp : public NalUnit {
 public:
     SeiRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -150,6 +220,9 @@ public:
     virtual int getTypeCode() { return 6; }
 };
 
+/*!
+ * \brief The SeqParameterSetRbsp class
+ */
 class SeqParameterSetRbsp : public NalUnit {
 public:
     SeqParameterSetRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -158,6 +231,9 @@ public:
     virtual int getTypeCode() { return 7; }
 };
 
+/*!
+ * \brief The PicParameterSetRbsp class
+ */
 class PicParameterSetRbsp : public NalUnit {
 public:
     PicParameterSetRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -166,6 +242,9 @@ public:
     virtual int getTypeCode() { return 8; }
 };
 
+/*!
+ * \brief The AccessUnitDelimiterRbsp class
+ */
 class AccessUnitDelimiterRbsp : public NalUnit {
 public:
     AccessUnitDelimiterRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -174,6 +253,9 @@ public:
     virtual int getTypeCode() { return 9; }
 };
 
+/*!
+ * \brief The EndOfSequenceRbsp class
+ */
 class EndOfSequenceRbsp : public NalUnit {
 public:
     EndOfSequenceRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -182,6 +264,9 @@ public:
     virtual int getTypeCode() { return 10; }
 };
 
+/*!
+ * \brief The EndOfStreamRbsp class
+ */
 class EndOfStreamRbsp : public NalUnit {
 public:
     EndOfStreamRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -190,6 +275,9 @@ public:
     virtual int getTypeCode() { return 11; }
 };
 
+/*!
+ * \brief The FillerDataRbsp class
+ */
 class FillerDataRbsp : public NalUnit {
 public:
     FillerDataRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -198,6 +286,9 @@ public:
     virtual int getTypeCode() { return 12; }
 };
 
+/*!
+ * \brief The SeqParameterSetExtensionRbsp class
+ */
 class SeqParameterSetExtensionRbsp : public NalUnit {
 public:
     SeqParameterSetExtensionRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -206,6 +297,9 @@ public:
     virtual int getTypeCode() { return 13; }
 };
 
+/*!
+ * \brief The PrefixNalUnitRbsp class
+ */
 class PrefixNalUnitRbsp : public SVCNalUnit {
 public:
     PrefixNalUnitRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3, const unsigned int& SVCflag = 0,
@@ -222,6 +316,9 @@ public:
     }
 };
 
+/*!
+ * \brief The SubsetSequenceParameterSetRbsp class
+ */
 class SubsetSequenceParameterSetRbsp : public NalUnit {
 public:
     SubsetSequenceParameterSetRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -230,6 +327,9 @@ public:
     virtual int getTypeCode() { return 15; }
 };
 
+/*!
+ * \brief The Reserved16 class
+ */
 class Reserved16 : public NalUnit {
 public:
     Reserved16(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -238,6 +338,9 @@ public:
     virtual int getTypeCode() { return 16; }
 };
 
+/*!
+ * \brief The Reserved17 class
+ */
 class Reserved17 : public NalUnit {
 public:
     Reserved17(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -246,6 +349,9 @@ public:
     virtual int getTypeCode() { return 17; }
 };
 
+/*!
+ * \brief The Reserved18 class
+ */
 class Reserved18 : public NalUnit {
 public:
     Reserved18(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -254,6 +360,9 @@ public:
     virtual int getTypeCode() { return 18; }
 };
 
+/*!
+ * \brief The SliceLayerWithoutPartitioningRbsp class
+ */
 class SliceLayerWithoutPartitioningRbsp : public NalUnit {
 public:
     SliceLayerWithoutPartitioningRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -262,6 +371,9 @@ public:
     virtual int getTypeCode() { return 19; }
 };
 
+/*!
+ * \brief The SliceLayerExtensionRbsp class
+ */
 class SliceLayerExtensionRbsp : public SVCNalUnit {
 public:
     SliceLayerExtensionRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3,
@@ -278,6 +390,9 @@ public:
     }
 };
 
+/*!
+ * \brief The Reserved21 class
+ */
 class Reserved21 : public NalUnit {
 public:
     Reserved21(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -286,6 +401,9 @@ public:
     virtual int getTypeCode() { return 21; }
 };
 
+/*!
+ * \brief The Reserved22 class
+ */
 class Reserved22 : public NalUnit {
 public:
     Reserved22(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -294,6 +412,9 @@ public:
     virtual int getTypeCode() { return 22; }
 };
 
+/*!
+ * \brief The Reserved23 class
+ */
 class Reserved23 : public NalUnit {
 public:
     Reserved23(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -302,6 +423,9 @@ public:
     virtual int getTypeCode() { return 23; }
 };
 
+/*!
+ * \brief The Unspecified24 class
+ */
 class Unspecified24 : public NalUnit {
 public:
     Unspecified24(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -310,6 +434,9 @@ public:
     virtual int getTypeCode() { return 24; }
 };
 
+/*!
+ * \brief The Unspecified25 class
+ */
 class Unspecified25 : public NalUnit {
 public:
     Unspecified25(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -318,6 +445,9 @@ public:
     virtual int getTypeCode() { return 25; }
 };
 
+/*!
+ * \brief The Unspecified26 class
+ */
 class Unspecified26 : public NalUnit {
 public:
     Unspecified26(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -326,6 +456,9 @@ public:
     virtual int getTypeCode() { return 26; }
 };
 
+/*!
+ * \brief The Unspecified27 class
+ */
 class Unspecified27 : public NalUnit {
 public:
     Unspecified27(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -334,6 +467,9 @@ public:
     virtual int getTypeCode() { return 27; }
 };
 
+/*!
+ * \brief The Unspecified28 class
+ */
 class Unspecified28 : public NalUnit {
 public:
     Unspecified28(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -342,6 +478,9 @@ public:
     virtual int getTypeCode() { return 28; }
 };
 
+/*!
+ * \brief The Unspecified29 class
+ */
 class Unspecified29 : public NalUnit {
 public:
     Unspecified29(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -350,6 +489,9 @@ public:
     virtual int getTypeCode() { return 29; }
 };
 
+/*!
+ * \brief The Unspecified30 class
+ */
 class Unspecified30 : public NalUnit {
 public:
     Unspecified30(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
@@ -358,6 +500,9 @@ public:
     virtual int getTypeCode() { return 30; }
 };
 
+/*!
+ * \brief The Unspecified31 class
+ */
 class Unspecified31 : public NalUnit {
 public:
     Unspecified31(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);

@@ -1,6 +1,6 @@
 #include "nalunitfactory.h"
 
-NalUnitFactory::NalUnitFactory(NALParser *par, FileBitOperator *fs) : parser(par), fbOperator(fs){
+NalUnitFactory::NalUnitFactory(FileBitOperator *fbo) :fbOperator(fbo){
 }
 
 NalUnitFactory::~NalUnitFactory() {
@@ -9,7 +9,8 @@ NalUnitFactory::~NalUnitFactory() {
     //delete fileService;
 }
 
-std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset, const unsigned short &sl) {
+std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int nalRefIdc, unsigned long offset,
+                                                    const unsigned short &sl) {
     switch(typeCode) {
     case UNSPECIFIED:
         return std::shared_ptr<NalUnit>(new Unspecified(nalRefIdc, offset, sl));

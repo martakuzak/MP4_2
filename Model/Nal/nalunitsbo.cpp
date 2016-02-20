@@ -2,13 +2,13 @@
 
 NalUnitsBO::NalUnitsBO(const QString& name, const QList<std::shared_ptr<NalUnit> >& nals, unsigned int sfl, unsigned int apl,
                        const QList<unsigned int> frames, const QList<unsigned int> sync, const QList<unsigned int> sps,
-                       const QList<unsigned int> pps): svcName(name), nalUnits(nals), sizeFieldLen(sfl),
-    allPrefLength(apl), syncIdx(pps), seqParSetIdx(sps), picParSetIdx(pps), startFrameNalIdx(frames) {
-    calcNewSampleOffsets();
+                       const QList<unsigned int> pps): fileName(name), nalUnits(nals), sizeFieldLen(sfl),
+    allPrefLength(apl), syncNalIdx(pps), seqParSetIdx(sps), picParSetIdx(pps), startFrameNalIdx(frames) {
+    calcNewNalOffsets();
 }
 
-QString NalUnitsBO::getSvcName() const {
-    return svcName;
+QString NalUnitsBO::getFileName() const {
+    return fileName;
 }
 
 QList<std::shared_ptr<NalUnit> > NalUnitsBO::getNalUnits() const {
@@ -16,7 +16,7 @@ QList<std::shared_ptr<NalUnit> > NalUnitsBO::getNalUnits() const {
 }
 
 QList<unsigned int> NalUnitsBO::getSyncIdx() const {
-    return syncIdx;
+    return syncNalIdx;
 }
 
 unsigned short NalUnitsBO::getSizeFieldLen() const {
@@ -47,11 +47,11 @@ std::shared_ptr<NalUnit> NalUnitsBO::getNalUnit(unsigned int idx) const {
     return nalUnits.at(idx);
 }
 
-unsigned int NalUnitsBO::getStartFrameNalUnitIdx(unsigned int idx) const {
+unsigned int NalUnitsBO::getStartFrameNalIdx(unsigned int idx) const {
     return startFrameNalIdx.at(idx);
 }
 
-int NalUnitsBO::getFrameNum() const {
+int NalUnitsBO::getFramesNumber() const {
     return startFrameNalIdx.size();
 }
 
@@ -81,7 +81,7 @@ unsigned int NalUnitsBO::allPPSLen() {
     return len;
 }
 
-void NalUnitsBO::calcNewSampleOffsets() {
+void NalUnitsBO::calcNewNalOffsets() {
     QList<std::shared_ptr<NalUnit>>::const_iterator it;
     unsigned long newOffset = 0;
     for(it = nalUnits.constBegin(); it < nalUnits.constEnd(); ++it) {
@@ -94,7 +94,7 @@ unsigned long NalUnitsBO::getFrameOffset(unsigned int nalIdx) {
     return nalUnits.at(nalIdx)->getOffset();
 }
 
-unsigned long NalUnitsBO::getNalUnitsSize(int startIdx, int endIdx) {
+unsigned long NalUnitsBO::getNalUnitsByteLen(int startIdx, int endIdx) {
     unsigned long size = 0;
     for(int idx = startIdx; idx <= endIdx; ++ idx)
         size += (nalUnits.at(idx)->getLength() + sizeFieldLen);

@@ -38,7 +38,7 @@ bool SvcWriter::writeMP4File(const QString& name) {
 
 bool SvcWriter::writeBaseLayer(const QString &name) {
     outputFile = new QFile(name);
-    QFile* file = new QFile(nalUnitsBO->getSvcName());
+    QFile* file = new QFile(nalUnitsBO->getFileName());
     if(outputFile->open(QIODevice::ReadWrite) && file->open(QIODevice::ReadOnly)) {
         QList<std::shared_ptr<NalUnit>>::const_iterator it;
         for(it = nalUnitsBO->getNalUnits().constBegin(); it < nalUnitsBO->getNalUnits().constEnd(); ++it) {
@@ -395,7 +395,7 @@ unsigned int SvcWriter::writeAvcC(bool write) {
         QList<std::shared_ptr<NalUnit>> sps = nalUnitsBO->getSeqParSet();
         QList<std::shared_ptr<NalUnit>> pps = nalUnitsBO->getPicParSet();
         stream<<quint8(224 + sps.size()); //reserved ‘111’b; + seqPicSet num
-        QFile* svcFile = new QFile(nalUnitsBO->getSvcName());
+        QFile* svcFile = new QFile(nalUnitsBO->getFileName());
         if(svcFile->open(QIODevice::ReadOnly)) {
             for(int i = 0; i < sps.size(); ++ i) { //for (i=0; i< numOfSequenceParameterSets; i++) {
                 std::shared_ptr<NalUnit> unit = sps.at(i);
@@ -482,7 +482,7 @@ unsigned int SvcWriter::writeStsc(bool write) {
 }
 
 unsigned int SvcWriter::writeStsz(bool write) { //stz2?
-    int frameCount = nalUnitsBO->getFrameNum();
+    int frameCount = nalUnitsBO->getFramesNumber();
     unsigned int size = 12 +  8 + frameCount*4;
     if(write) {
         unsigned short version = 0;
@@ -496,10 +496,10 @@ unsigned int SvcWriter::writeStsz(bool write) { //stz2?
         stream<<quint32(0); //sample_size
         stream<<quint32(frameCount); //sample_count
         for(int i = 0; i < frameCount - 1; ++ i) {
-            stream<<quint32(nalUnitsBO->getNalUnitsSize(nalUnitsBO->getStartFrameNalUnitIdx(i),
-                                                        nalUnitsBO->getStartFrameNalUnitIdx(i + 1) - 1)); //entry_size
+            stream<<quint32(nalUnitsBO->getNalUnitsByteLen(nalUnitsBO->getStartFrameNalIdx(i),
+                                                        nalUnitsBO->getStartFrameNalIdx(i + 1) - 1)); //entry_size
         }
-        stream<<quint32(nalUnitsBO->getNalUnitsSize(nalUnitsBO->getStartFrameNalUnitIdx(frameCount - 2),
+        stream<<quint32(nalUnitsBO->getNalUnitsByteLen(nalUnitsBO->getStartFrameNalIdx(frameCount - 2),
                         nalUnitsBO->getNalUnits().length() - 1));
         /*
          * if (sample_size==0) {
@@ -556,7 +556,7 @@ void SvcWriter::writeMdat() {
     QDataStream stream(outputFile);
     short len = nalUnitsBO->getSizeFieldLen();
     if(len != -1) {
-        QFile* svcFile = new QFile(nalUnitsBO->getSvcName());
+        QFile* svcFile = new QFile(nalUnitsBO->getFileName());
         if(svcFile->open(QIODevice::ReadOnly)) {
             //oblicz rozmiar mdat
             unsigned int size = 8 + svcFile->size() - nalUnitsBO->getSizeFieldLen() +

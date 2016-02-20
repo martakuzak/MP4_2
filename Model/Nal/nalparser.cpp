@@ -17,6 +17,7 @@ NALParser::~NALParser() {
 
 NalUnitsBO *NALParser::parseFile() {
     long start = QDateTime::currentMSecsSinceEpoch();
+    QList<std::shared_ptr<NalUnit>> nalUnits;
     unsigned long int offset = 0;//offset w pliku
     unsigned short sizeFieldLength = -1; //rozmiar pola rozmiaru przed jednostka NAL - 1, 2 lub 4
     unsigned int allPrefLength = 0; //długość sumy wszystkich prefiksów przed NALami
@@ -26,7 +27,7 @@ NalUnitsBO *NALParser::parseFile() {
     QList<unsigned int> syncSampleIdx; //offsety kolejnych jednostek dostępu
     QList<unsigned int> sampleIdx; //numery NALi, które rozpoczynają kolejne ramki
 
-    NalUnitFactory factory(this, fbOperator);
+    NalUnitFactory factory(fbOperator);
     if(!fbOperator->openFile()) {
     } else {
         unsigned int maxLength = 0;

@@ -39,6 +39,7 @@ public:
     /*!
       *\brief TreeItem
       * constructor
+      *\param fb FileBitOperator that does file service and bit/byte operations
       *\param data data of the parent item
       *\param parent parent of the item
       *\param off offset

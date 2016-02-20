@@ -36,7 +36,11 @@ private:
      */
     QHash<long,TreeItem*> *treeItems;
 public:
-
+    /*!
+     * \brief TreeModel
+     * \param fs FileBitOperator that does file service and bit/byte operations
+     * \param parent
+     */
     explicit TreeModel(FileBitOperator *fs, QObject *parent = 0);
     explicit TreeModel(QObject *parent = 0);
     //!Destructor

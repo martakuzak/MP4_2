@@ -15,17 +15,36 @@
 
 class Box;
 
+/*!
+ * \brief The NALParser class is responsible for analyzing NAL unit stream.
+ */
 class NALParser {
 protected:
+    /*!
+     * \brief fileName name of the analyzed file
+     */
     QString fileName;
+    /*!
+     * \brief fileSize size of the analyzed file
+     */
     unsigned long int fileSize;
+    /*!
+     * \brief fbOperator
+     */
     FileBitOperator* fbOperator;
-    QList<std::shared_ptr<NalUnit>> nalUnits;
 public:
     NALParser();
+    /*!
+     * \brief NALParser
+     * \param fileName name of the analyzed file
+     */
     NALParser(const QString& fileName);
     ~NALParser();
-
+    /*!
+     * \brief parseFile The function parses NAL unit stream by recognizing all the NAL unit types and reading some
+     * of the inner parameters
+     * \return an object filled with data that describe NAL unit stream in the file
+     */
     NalUnitsBO* parseFile();
 //    int parseSEI(int offset);
 //    int parseSEIPayload(int payloadType, int payloadSize, int offset);
@@ -34,8 +53,18 @@ public:
 //    int sliceHeader(int offset);
 
 protected:
-    //std::shared_ptr<Box> getHBox(const unsigned int& size = 0, QString type = "", unsigned long int off = 0);
+    /*!
+     * \brief isAUStarter It decides whether the given NAL unit is Access Unit starter or not
+     * \param type NAL unit type
+     * \return true if the NAL unit starts Access Unit
+     */
     bool isAUStarter(NalUnitType type);
+    /*!
+     * \brief isVCL It says whether the given NAL unit is VCL
+     * \param type NAL unit type
+     * \param sync true if the function is supposed to look for IDR NAL units only
+     * \return true if the given NAL unit is VCL and if specified is IDR
+     */
     bool isVCL(NalUnitType type, bool sync = false);
 };
 
