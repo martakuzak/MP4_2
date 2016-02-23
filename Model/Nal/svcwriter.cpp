@@ -394,6 +394,7 @@ unsigned int SvcWriter::writeAvcC(bool write) {
         stream<<quint8(252 + nalUnitsBO->getSizeFieldLen() - 1); //reserved ‘111111’b +lengthSizeMinusOne
         QList<std::shared_ptr<NalUnit>> sps = nalUnitsBO->getSeqParSet();
         QList<std::shared_ptr<NalUnit>> pps = nalUnitsBO->getPicParSet();
+
         stream<<quint8(224 + sps.size()); //reserved ‘111’b; + seqPicSet num
         QFile* svcFile = new QFile(nalUnitsBO->getFileName());
         if(svcFile->open(QIODevice::ReadOnly)) {
@@ -402,13 +403,16 @@ unsigned int SvcWriter::writeAvcC(bool write) {
                 stream<<quint16(unit->getLength() - unit->getStartCodeLength());//sequenceParameterSetLength
                 this->writeNAL(unit, svcFile, nalUnitsBO->getSizeFieldLen(), false);
                 //bit(8*sequenceParameterSetLength) sequenceParameterSetNALUnit;
+                qDebug()<<"SPS write i = "<<QString::number(i);
             }
             stream<<quint8(pps.size());
-            for(int i = 0; i < 1; ++ i) { //for (i=0; i< numOfPictureParameterSets; i++) {
+            for(int i = 0; i < pps.size(); ++ i) { //for (i=0; i< numOfPictureParameterSets; i++) {
                 std::shared_ptr<NalUnit> unit = pps.at(i);
                 stream<<quint16(unit->getLength() - unit->getStartCodeLength());//pictureParameterSetLength
                 this->writeNAL(unit, svcFile, nalUnitsBO->getSizeFieldLen(), false);
                 //bit(8*pictureParameterSetLength) pictureParameterSetNALUnit;
+                qDebug()<<"PPS write i = "<<QString::number(i);
+
             }
         }
         svcFile->close();

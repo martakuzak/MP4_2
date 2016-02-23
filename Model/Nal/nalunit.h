@@ -224,11 +224,34 @@ public:
  * \brief The SeqParameterSetRbsp class
  */
 class SeqParameterSetRbsp : public NalUnit {
+protected:
+    unsigned short profileIdc;
+    bool constraintSet0Flag;
+    bool constraintSet1Flag;
+    bool constraintSet2Flag;
+    bool constraintSet3Flag;
+    bool constraintSet4Flag;
+    bool constraintSet5Flag;
+    unsigned short levelIdc;
+    unsigned int seqParSetId;
 public:
-    SeqParameterSetRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
+    SeqParameterSetRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3,
+                        const unsigned short& pidc = 0, const bool& f0 = false, const bool& f1 = false,
+                        const bool& f2 = false, const bool& f3 = false, const bool& f4 = false,
+                        const bool& f5 = false, const unsigned short& lidc = 0, const unsigned int& spsid = 0);
     ~SeqParameterSetRbsp();
     virtual QString getName() { return "SEQ_PARAMETER_SET_RBSP"; }
     virtual int getTypeCode() { return 7; }
+    unsigned short getProfileIdc() const;
+    bool getConstraintSet0Flag() const;
+    bool getConstraintSet1Flag() const;
+    bool getConstraintSet2Flag() const;
+    bool getConstraintSet3Flag() const;
+    bool getConstraintSet4Flag() const;
+    bool getConstraintSet5Flag() const;
+    unsigned short getLevelIdc() const;
+    unsigned int getSeqParSetId() const;
+    virtual QString getInfo();
 };
 
 /*!
@@ -320,8 +343,10 @@ public:
  * \brief The SubsetSequenceParameterSetRbsp class
  */
 class SubsetSequenceParameterSetRbsp : public NalUnit {
+
 public:
-    SubsetSequenceParameterSetRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
+    SubsetSequenceParameterSetRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0,
+                                   const unsigned short & sl = 3);
     ~SubsetSequenceParameterSetRbsp();
     virtual QString getName() { return "SUBSET_SEQUENCE_PARAMETER_SET_RBSP"; }
     virtual int getTypeCode() { return 15; }

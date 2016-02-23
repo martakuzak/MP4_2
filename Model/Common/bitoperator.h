@@ -55,10 +55,6 @@ public:
      * /note ASCII coding used here
      */
     QString stringValue(const char *entry, const unsigned int & length) const;
-
-    //DO WYRZUCENIA STĄD
-    //TODO - CO Z TYM ZROBIC?
-    unsigned long int unsignedExpGolomb(QFile *file, const unsigned long int& offset, int* resLength) const;
 };
 
 #endif // BITOPERATOR_H

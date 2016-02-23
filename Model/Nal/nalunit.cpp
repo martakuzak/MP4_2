@@ -115,8 +115,61 @@ QString IdrSliceLayerWithoutPartitioningRbsp::getInfo() {
 SeiRbsp::SeiRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned short & sl) : NalUnit(nri, off, sl) {}
 SeiRbsp::~SeiRbsp() {}
 
-SeqParameterSetRbsp::SeqParameterSetRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned short & sl) : NalUnit(nri, off, sl) {}
+SeqParameterSetRbsp::SeqParameterSetRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned short & sl,
+                                         const unsigned short &pidc, const bool &f0, const bool &f1, const bool &f2, const bool &f3,
+                                         const bool &f4, const bool &f5, const unsigned short &lidc, const unsigned int &spsid) :
+    NalUnit(nri, off, sl), profileIdc(pidc), constraintSet0Flag(f0), constraintSet1Flag(f1), constraintSet2Flag(f2),
+    constraintSet3Flag(f3), constraintSet4Flag(f4), constraintSet5Flag(f5), levelIdc(lidc), seqParSetId(spsid) {}
 SeqParameterSetRbsp::~SeqParameterSetRbsp() {}
+
+QString SeqParameterSetRbsp::getInfo() {
+    return "Profile_idc = " + QString::number(profileIdc) + "\nConstraint_set0_flag = " +
+            QString::number(constraintSet0Flag) + "\nConstraint_set1_flag = " +
+            QString::number(constraintSet1Flag) +"\nConstraint_set2_flag = " +
+            QString::number(constraintSet2Flag) +"\nConstraint_set3_flag = " +
+            QString::number(constraintSet3Flag) +"\nConstraint_set4_flag = " +
+            QString::number(constraintSet4Flag) +"\nConstraint_set5_flag = " +
+            QString::number(constraintSet5Flag) + "\nLevel_idc = " + QString::number(levelIdc) +
+            "\nSeq_par_set_id = " + QString::number(seqParSetId);
+}
+
+
+unsigned short SeqParameterSetRbsp::getProfileIdc() const {
+    return profileIdc;
+}
+
+bool SeqParameterSetRbsp::getConstraintSet0Flag() const {
+    return constraintSet0Flag;
+}
+
+bool SeqParameterSetRbsp::getConstraintSet1Flag() const {
+    return constraintSet1Flag;
+}
+
+bool SeqParameterSetRbsp::getConstraintSet2Flag() const {
+    return constraintSet2Flag;
+}
+
+bool SeqParameterSetRbsp::getConstraintSet3Flag() const {
+    return constraintSet3Flag;
+}
+
+bool SeqParameterSetRbsp::getConstraintSet4Flag() const {
+    return constraintSet4Flag;
+}
+
+bool SeqParameterSetRbsp::getConstraintSet5Flag() const {
+    return constraintSet5Flag;
+}
+
+unsigned short SeqParameterSetRbsp::getLevelIdc() const {
+    return levelIdc;
+}
+
+unsigned int SeqParameterSetRbsp::getSeqParSetId() const {
+    return seqParSetId;
+}
+
 
 PicParameterSetRbsp::PicParameterSetRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned short & sl) : NalUnit(nri, off, sl) {}
 PicParameterSetRbsp::~PicParameterSetRbsp() {}
@@ -134,7 +187,8 @@ EndOfStreamRbsp::~EndOfStreamRbsp() {}
 FillerDataRbsp::FillerDataRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned short & sl) : NalUnit(nri, off, sl) {}
 FillerDataRbsp::~FillerDataRbsp() {}
 
-SeqParameterSetExtensionRbsp::SeqParameterSetExtensionRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned short & sl) : NalUnit(nri, off, sl) {}
+SeqParameterSetExtensionRbsp::SeqParameterSetExtensionRbsp(const unsigned int&  nri, const unsigned long & off,
+                                                           const unsigned short & sl) : NalUnit(nri, off, sl) {}
 SeqParameterSetExtensionRbsp::~SeqParameterSetExtensionRbsp() {}
 
 PrefixNalUnitRbsp::PrefixNalUnitRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned short & sl, const unsigned int& rob,
@@ -152,8 +206,9 @@ QString PrefixNalUnitRbsp::getHeaderExtension() {
             + "\nDiscardable Flag: " + QString::number(discardableFlag) + "\nReserved three 2 bits: " + QString::number(reservedThree2bits);
 }
 
-SubsetSequenceParameterSetRbsp::SubsetSequenceParameterSetRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned short & sl) :
-    NalUnit(nri, off, sl) {}
+SubsetSequenceParameterSetRbsp::SubsetSequenceParameterSetRbsp(const unsigned int&  nri, const unsigned long & off,
+                                                               const unsigned short & sl) :
+    NalUnit(nri, off, sl){}
 SubsetSequenceParameterSetRbsp::~SubsetSequenceParameterSetRbsp() {}
 
 Reserved16::Reserved16(const unsigned int&  nri, const unsigned long & off, const unsigned short & sl) : NalUnit(nri, off, sl) {}

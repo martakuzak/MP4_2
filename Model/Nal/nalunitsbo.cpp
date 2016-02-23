@@ -1,9 +1,10 @@
 #include "nalunitsbo.h"
+#include <QDebug>
 
 NalUnitsBO::NalUnitsBO(const QString& name, const QList<std::shared_ptr<NalUnit> >& nals, unsigned int sfl, unsigned int apl,
                        const QList<unsigned int> frames, const QList<unsigned int> sync, const QList<unsigned int> sps,
                        const QList<unsigned int> pps): fileName(name), nalUnits(nals), sizeFieldLen(sfl),
-    allPrefLength(apl), syncNalIdx(pps), seqParSetIdx(sps), picParSetIdx(pps), startFrameNalIdx(frames) {
+    allPrefLength(apl), syncNalIdx(sync), seqParSetIdx(sps), picParSetIdx(pps), startFrameNalIdx(frames) {
     calcNewNalOffsets();
 }
 

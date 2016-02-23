@@ -18,6 +18,7 @@ unsigned long int FileBitOperator::valueOfGroupOfBytes(const unsigned int & leng
     delete[] ptr;
     return ret;
 }
+
 signed long int FileBitOperator::signedValueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const {
     char* ptr = new char[length];
     fileService->getBytes(ptr, length, offset);
@@ -25,6 +26,7 @@ signed long int FileBitOperator::signedValueOfGroupOfBytes(const unsigned int & 
     delete[] ptr;
     return ret;
 }
+
 unsigned long int FileBitOperator::valueOfGroupOfBits(const unsigned int & length, const unsigned long& offset) const {
     char* ptr = new char[length];
     fileService->getBits(ptr, length, offset);
@@ -32,10 +34,20 @@ unsigned long int FileBitOperator::valueOfGroupOfBits(const unsigned int & lengt
     delete[] ptr;
     return ret;
 }
+
 QString FileBitOperator::stringValue(const unsigned int & length, const unsigned long& offset) const {
     char* ptr = new char[length];
     fileService->getBytes(ptr, length, offset);
     QString ret = bitOperator->stringValue(ptr, length);
     delete[] ptr;
     return ret;
+}
+
+unsigned int FileBitOperator::unsignedExpGolombValue(const unsigned long & offset) const {
+    int leadingZeroBits = -1;
+    int off = offset;
+    for(unsigned int b = 0; !b; leadingZeroBits ++, off++)
+        b = valueOfGroupOfBits(1, off);
+    unsigned int codeNum = qPow(2, leadingZeroBits) - 1 + valueOfGroupOfBits(leadingZeroBits, off);
+    return codeNum;
 }

@@ -39,29 +39,3 @@ QString BitOperator::stringValue(const char *entry, const unsigned int &length) 
     QByteArray array(entry, length);
     return QString(array);
 }
-
-//DO WYWALENIA
-
-unsigned long int BitOperator::unsignedExpGolomb(QFile *file, const unsigned long int& offset, int *resLength) const {
-    QByteArray array;
-    int leadingZeroNum = 0;
-    int i = 0;
-    while(0/*!valueOfGroupOfBits(file, 1, offset + i)*/) {
-        ++ leadingZeroNum;
-        ++ i;
-    }
-    //qDebug()<<"GOLOMB zeros : "<<leadingZeroNum;
-    resLength[0] = leadingZeroNum*2 + 1;
-    return 0; //valueOfGroupOfBits(file, leadingZeroNum + 1, offset + i) - 1;
-
-    /*unsigned long int num = 0;
-    file->seek(offset);
-    array = file->read(length);
-    for(int i = 0; i< length; ++i) {
-        num |= static_cast<unsigned int>(array[i]) & 0xFF; //suma bit po bicie
-        if(0!=length && i!=(length - 1)) {
-            num=(num<<8); //przesuniecie o 8 bitow w lewo
-        }
-    }*/
-    //return num;
-}

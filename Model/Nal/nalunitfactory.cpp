@@ -41,8 +41,26 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         break;
 
     case SEQ_PARAMETER_SET_RBSP:
-        return std::shared_ptr<NalUnit>(new SeqParameterSetRbsp(nalRefIdc, offset, sl));
+    {
+        unsigned int off = offset;
+        off += (1 + sl);
+        unsigned short profileIdc = fbOperator->valueOfGroupOfBytes(1, off);
+        bool constraintSet0Flag = fbOperator->valueOfGroupOfBits(1, 8*(off + 1) + 1);
+        bool constraintSet1Flag = fbOperator->valueOfGroupOfBits(1, 8*(off + 1) + 2);
+        bool constraintSet2Flag = fbOperator->valueOfGroupOfBits(1, 8*(off + 1) + 3);
+        bool constraintSet3Flag = fbOperator->valueOfGroupOfBits(1, 8*(off + 1) + 4);
+        bool constraintSet4Flag = fbOperator->valueOfGroupOfBits(1, 8*(off + 1) + 5);
+        bool constraintSet5Flag = fbOperator->valueOfGroupOfBits(1, 8*(off + 1) + 6);
+        unsigned short reservedZero2Bits = fbOperator->valueOfGroupOfBits(2, 8*(off + 1) + 7);
+        unsigned short levelIdc = fbOperator->valueOfGroupOfBits(2, 8*(off + 1) + 9);
+        unsigned int seqParSetId = fbOperator->unsignedExpGolombValue(8*(off + 1) + 10);
+
+        return std::shared_ptr<NalUnit>(new SeqParameterSetRbsp(nalRefIdc, offset, sl, profileIdc, constraintSet0Flag,
+                                                                constraintSet1Flag, constraintSet2Flag, constraintSet3Flag,
+                                                                constraintSet4Flag, constraintSet5Flag, levelIdc,
+                                                                seqParSetId));
         break;
+    }
 
     case PIC_PARAMETER_SET_RBSP:
         return std::shared_ptr<NalUnit>(new PicParameterSetRbsp(nalRefIdc, offset, sl));

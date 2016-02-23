@@ -1,6 +1,7 @@
 #ifndef FILEBITOPERATOR_H
 #define FILEBITOPERATOR_H
 
+#include <QtMath>
 #include "bitoperator.h"
 #include "fileservice.h"
 
@@ -20,8 +21,8 @@ public:
     FileBitOperator(const QString &name);
     ~FileBitOperator();
     /*!
-     * /brief openFile Opens file with the name given in constructor paramater
-     * /param openMode open mode
+     * \brief openFile Opens file with the name given in constructor paramater
+     * \param openMode open mode
      * QIODevice::NotOpen	0x0000	The device is not open.
         QIODevice::ReadOnly	0x0001	The device is open for reading.
         QIODevice::WriteOnly	0x0002	The device is open for writing.
@@ -36,18 +37,18 @@ public:
         return fileService->openFile(openMode);
     }
     /*!
-     * /brief getSize
-     * /return size of the file
+     * \brief getSize
+     * \return size of the file
      */
     qint64 getSize() { return fileService->getSize();}
     /*!
-     * /brief close closes the file
+     * \brief close closes the file
      */
     void close() { fileService->close(); }
     /*!
      * \brief valueOfGroupOfBytes
-     * /param length length of the byte array in bytes
-     * /param offset offset in file (in bytes)
+     * \param length length of the byte array in bytes
+     * \param offset offset in file (in bytes)
      * The array represents the number that is calculated by merging bytes next to each other.
      * In other words it is a decimal value of given number in 256 (8-byte) positial notation.
      * \return unsigned long value of the bytes in the array
@@ -55,28 +56,34 @@ public:
     unsigned long int valueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const;
     /*!
      * \brief signedValueOfGroupOfBytes
-     * /param length length of the byte array in bytes
-     * /param offset offset in file (in bytes)
+     * \param length length of the byte array in bytes
+     * \param offset offset in file (in bytes)
      * \return signed long value of the bytes in the array
      */
     signed long int signedValueOfGroupOfBytes(const unsigned int & length, const unsigned long& offset) const;
     /*!
      * \brief valueOfGroupOfBits
-     * /param length length of the byte array in bytes
-     * /param offset offset in file (in bytes)
+     * \param length length of the byte array in bytes
+     * \param offset offset in file (in bytes)
      * \return unsigned long value of the bytes in the array
      */
     unsigned long int valueOfGroupOfBits(const unsigned int & length, const unsigned long& offset) const;
     /*!
      * \brief stringValue
-     * /param length length of the byte array in bytes
-     * /param offset offset in file (in bytes)
-     * /return string value created by combining the bytes together
-     * /example entry = {77, 64, 114, 99, 105, 110}
+     * \param length length of the byte array in bytes
+     * \param offset offset in file (in bytes)
+     * \return string value created by combining the bytes together
+     * \example entry = {77, 64, 114, 99, 105, 110}
      * The result is the combination of each entry character converted to the ASCII character: Marcin
-     * /note ASCII coding used here
+     * \note ASCII coding used here
      */
     QString stringValue(const unsigned int & length, const unsigned long& offset) const;
+    /*!
+     * \brief unsignedExpGolombValue
+     * \param offset bit offset in the file of coded number
+     * \return unsigned integer value of a number coded with Exp-Golomb coding
+     */
+    unsigned int unsignedExpGolombValue(const unsigned long & offset) const;
 };
 
 #endif // FILEBITOPERATOR_H
