@@ -5,6 +5,16 @@
 #include "bitoperator.h"
 #include "fileservice.h"
 
+class ExpGolombResult {
+private:
+    unsigned int value;
+    unsigned int length;
+public:
+    ExpGolombResult(const unsigned int& val, const unsigned int& len);
+    unsigned int getValue() const;
+    unsigned int getLength() const;
+};
+
 /*!
  * \brief The FileBitOperator class provides functionalities of both file service and bit operations.
  *
@@ -83,7 +93,7 @@ public:
      * \param offset bit offset in the file of coded number
      * \return unsigned integer value of a number coded with Exp-Golomb coding
      */
-    unsigned int unsignedExpGolombValue(const unsigned long & offset) const;
+    ExpGolombResult unsignedExpGolombValue(const unsigned long & offset) const;
 };
 
 #endif // FILEBITOPERATOR_H

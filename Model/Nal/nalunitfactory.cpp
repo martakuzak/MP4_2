@@ -53,7 +53,7 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         bool constraintSet5Flag = fbOperator->valueOfGroupOfBits(1, 8*(off + 1) + 6);
         unsigned short reservedZero2Bits = fbOperator->valueOfGroupOfBits(2, 8*(off + 1) + 7);
         unsigned short levelIdc = fbOperator->valueOfGroupOfBits(2, 8*(off + 1) + 9);
-        unsigned int seqParSetId = fbOperator->unsignedExpGolombValue(8*(off + 1) + 10);
+        unsigned int seqParSetId = fbOperator->unsignedExpGolombValue(8*(off + 1) + 10).getValue();
 
         return std::shared_ptr<NalUnit>(new SeqParameterSetRbsp(nalRefIdc, offset, sl, profileIdc, constraintSet0Flag,
                                                                 constraintSet1Flag, constraintSet2Flag, constraintSet3Flag,

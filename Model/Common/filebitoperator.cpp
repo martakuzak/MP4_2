@@ -43,11 +43,21 @@ QString FileBitOperator::stringValue(const unsigned int & length, const unsigned
     return ret;
 }
 
-unsigned int FileBitOperator::unsignedExpGolombValue(const unsigned long & offset) const {
+ExpGolombResult FileBitOperator::unsignedExpGolombValue(const unsigned long & offset) const {
     int leadingZeroBits = -1;
     int off = offset;
     for(unsigned int b = 0; !b; leadingZeroBits ++, off++)
         b = valueOfGroupOfBits(1, off);
     unsigned int codeNum = qPow(2, leadingZeroBits) - 1 + valueOfGroupOfBits(leadingZeroBits, off);
-    return codeNum;
+    return ExpGolombResult(codeNum, 2*leadingZeroBits + 1);
+}
+
+ExpGolombResult::ExpGolombResult(const unsigned int& val, const unsigned int& len) : value(val), length(len) {}
+
+unsigned int ExpGolombResult::getValue() const {
+    return value;
+}
+
+unsigned int ExpGolombResult::getLength() const {
+    return length;
 }
