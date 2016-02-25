@@ -170,9 +170,23 @@ unsigned int SeqParameterSetRbsp::getSeqParSetId() const {
     return seqParSetId;
 }
 
-
-PicParameterSetRbsp::PicParameterSetRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned short & sl) : NalUnit(nri, off, sl) {}
+PicParameterSetRbsp::PicParameterSetRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned short & sl,
+                                         const unsigned int &pid, const unsigned int &sid) : NalUnit(nri, off, sl),
+    ppsId(pid), spsId(sid){}
 PicParameterSetRbsp::~PicParameterSetRbsp() {}
+
+unsigned int PicParameterSetRbsp::getPpsId() const {
+    return ppsId;
+}
+
+unsigned int PicParameterSetRbsp::getSpsId() const {
+    return spsId;
+}
+
+QString PicParameterSetRbsp::getInfo() {
+    return "Picture_parameter_set_id = " + QString::number(ppsId) + "\nSequence_parameter_set_id = " +
+            QString::number(spsId);
+}
 
 AccessUnitDelimiterRbsp::AccessUnitDelimiterRbsp(const unsigned int&  nri, const unsigned long & off, const unsigned short & sl) :
     NalUnit(nri, off, sl) {}

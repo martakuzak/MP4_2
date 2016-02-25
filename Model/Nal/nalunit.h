@@ -258,11 +258,18 @@ public:
  * \brief The PicParameterSetRbsp class
  */
 class PicParameterSetRbsp : public NalUnit {
+protected:
+    unsigned int ppsId;
+    unsigned int spsId;
 public:
-    PicParameterSetRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3);
+    PicParameterSetRbsp(const unsigned int&  nri = 0, const unsigned long & offset = 0, const unsigned short & sl = 3,
+                        const unsigned int& pid = 0, const unsigned int& sid = 0);
     ~PicParameterSetRbsp();
     virtual QString getName() { return "PIC_PARAMETER_SET_RBSP"; }
     virtual int getTypeCode() { return 8; }
+    unsigned int getPpsId() const;
+    unsigned int getSpsId() const;
+    virtual QString getInfo();
 };
 
 /*!

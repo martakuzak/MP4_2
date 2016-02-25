@@ -40,8 +40,7 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         return std::shared_ptr<NalUnit>(new SeiRbsp(nalRefIdc, offset, sl));
         break;
 
-    case SEQ_PARAMETER_SET_RBSP:
-    {
+    case SEQ_PARAMETER_SET_RBSP: {
         unsigned int off = offset;
         off += (1 + sl);
         unsigned short profileIdc = fbOperator->valueOfGroupOfBytes(1, off);
@@ -62,9 +61,15 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         break;
     }
 
-    case PIC_PARAMETER_SET_RBSP:
-        return std::shared_ptr<NalUnit>(new PicParameterSetRbsp(nalRefIdc, offset, sl));
+    case PIC_PARAMETER_SET_RBSP: {
+        unsigned int off = offset;
+        off += (1 + sl);
+        ExpGolombResult res = fbOperator->unsignedExpGolombValue(8*off);
+        unsigned int ppsId = res.getValue();
+        unsigned int spsId = fbOperator->unsignedExpGolombValue(8*(off + res.getLength())).getValue();
+        return std::shared_ptr<NalUnit>(new PicParameterSetRbsp(nalRefIdc, offset, sl, ppsId, spsId));
         break;
+    }
 
     case ACCESS_UNIT_DELIMITER_RBSP:
         return std::shared_ptr<NalUnit>(new AccessUnitDelimiterRbsp(nalRefIdc, offset, sl));
