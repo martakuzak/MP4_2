@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QByteArray>
 #include <QList>
+#include <QHash>
 #include <memory>
 
 #include "nalunit.h"

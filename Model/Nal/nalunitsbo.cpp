@@ -2,8 +2,9 @@
 #include <QDebug>
 
 NalUnitsBO::NalUnitsBO(const QString& name, const QList<std::shared_ptr<NalUnit> >& nals, unsigned int sfl, unsigned int apl,
-                       const QList<unsigned int> frames, const QList<unsigned int> sync, const QList<unsigned int> sps,
-                       const QList<unsigned int> pps): fileName(name), nalUnits(nals), sizeFieldLen(sfl),
+                       const QList<unsigned int> frames, const QList<unsigned int> sync, const QHash<unsigned int,
+                       QList<unsigned int> > sps,const QHash<unsigned int, QList<unsigned int> > pps): fileName(name),
+    nalUnits(nals), sizeFieldLen(sfl),
     allPrefLength(apl), syncNalIdx(sync), seqParSetIdx(sps), picParSetIdx(pps), startFrameNalIdx(frames) {
     calcNewNalOffsets();
 }
@@ -30,15 +31,22 @@ unsigned int NalUnitsBO::getAllPrefLength() const {
 
 QList<std::shared_ptr<NalUnit>> NalUnitsBO::getSeqParSet() const {
     QList<std::shared_ptr<NalUnit>> sps;
-    for(int i = 0; i < seqParSetIdx.size(); ++ i)
-        sps.append(nalUnits.at(seqParSetIdx.at(i)));
+
+    QHashIterator<unsigned int, QList<unsigned int>> i(seqParSetIdx);
+    while (i.hasNext()) {
+        i.next();
+        sps.append(nalUnits.at(i.value().at(0)));
+    }
     return sps;
 }
 
 QList<std::shared_ptr<NalUnit>> NalUnitsBO::getPicParSet() const {
     QList<std::shared_ptr<NalUnit>> pps;
-    for(int i = 0; i < picParSetIdx.size(); ++ i)
-        pps.append(nalUnits.at(picParSetIdx.at(i)));
+    QHashIterator<unsigned int, QList<unsigned int>> i(picParSetIdx);
+    while (i.hasNext()) {
+        i.next();
+        pps.append(nalUnits.at(i.value().at(0)));
+    }
     return pps;
 }
 
@@ -68,16 +76,20 @@ unsigned int NalUnitsBO::getFrameSize(int idx) const {
 
 unsigned int NalUnitsBO::allSPSLen() {
     unsigned int len = 0;
-    for(int i = 0; i < seqParSetIdx.size(); ++i) {
-        len += (nalUnits.at(seqParSetIdx.at(i))->getLength() - nalUnits.at(i)->getStartCodeLength());
+    QHashIterator<unsigned int, QList<unsigned int>> i(seqParSetIdx);
+    while (i.hasNext()) {
+        i.next();
+        len += (nalUnits.at(i.value().at(0))->getLength() - nalUnits.at(i.value().at(0))->getStartCodeLength());
     }
     return len;
 }
 
 unsigned int NalUnitsBO::allPPSLen() {
     unsigned int len = 0;
-    for(int i = 0; i < picParSetIdx.size(); ++i) {
-        len += (nalUnits.at(picParSetIdx.at(i))->getLength() - nalUnits.at(i)->getStartCodeLength());
+    QHashIterator<unsigned int, QList<unsigned int>> i(seqParSetIdx);
+    while (i.hasNext()) {
+        i.next();
+        len += (nalUnits.at(i.value().at(0))->getLength() - nalUnits.at(i.value().at(0))->getStartCodeLength());
     }
     return len;
 }

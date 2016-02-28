@@ -403,7 +403,6 @@ unsigned int SvcWriter::writeAvcC(bool write) {
                 stream<<quint16(unit->getLength() - unit->getStartCodeLength());//sequenceParameterSetLength
                 this->writeNAL(unit, svcFile, nalUnitsBO->getSizeFieldLen(), false);
                 //bit(8*sequenceParameterSetLength) sequenceParameterSetNALUnit;
-                qDebug()<<"SPS write i = "<<QString::number(i);
             }
             stream<<quint8(pps.size());
             for(int i = 0; i < pps.size(); ++ i) { //for (i=0; i< numOfPictureParameterSets; i++) {
@@ -411,8 +410,6 @@ unsigned int SvcWriter::writeAvcC(bool write) {
                 stream<<quint16(unit->getLength() - unit->getStartCodeLength());//pictureParameterSetLength
                 this->writeNAL(unit, svcFile, nalUnitsBO->getSizeFieldLen(), false);
                 //bit(8*pictureParameterSetLength) pictureParameterSetNALUnit;
-                qDebug()<<"PPS write i = "<<QString::number(i);
-
             }
         }
         svcFile->close();
@@ -501,10 +498,10 @@ unsigned int SvcWriter::writeStsz(bool write) { //stz2?
         stream<<quint32(frameCount); //sample_count
         for(int i = 0; i < frameCount - 1; ++ i) {
             stream<<quint32(nalUnitsBO->getNalUnitsByteLen(nalUnitsBO->getStartFrameNalIdx(i),
-                                                        nalUnitsBO->getStartFrameNalIdx(i + 1) - 1)); //entry_size
+                                                           nalUnitsBO->getStartFrameNalIdx(i + 1) - 1)); //entry_size
         }
         stream<<quint32(nalUnitsBO->getNalUnitsByteLen(nalUnitsBO->getStartFrameNalIdx(frameCount - 2),
-                        nalUnitsBO->getNalUnits().length() - 1));
+                                                       nalUnitsBO->getNalUnits().length() - 1));
         /*
          * if (sample_size==0) {
             for (i=1; i u sample_count; i++) {

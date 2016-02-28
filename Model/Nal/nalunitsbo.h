@@ -4,6 +4,7 @@
 #include <QString>
 #include <QList>
 #include <memory>
+#include <QHash>
 #include "nalunit.h"
 
 /*!
@@ -26,11 +27,11 @@ protected:
     /*!
      * \brief seqParSetIdx list of indexes of sequence parameter set NAL units
      */
-    QList<unsigned int> seqParSetIdx;
+    QHash<unsigned int, QList<unsigned int>> seqParSetIdx;
     /*!
      * \brief picParSetIdx list of indexes of picture parameter set NAL units
      */
-    QList<unsigned int> picParSetIdx;
+    QHash<unsigned int, QList<unsigned int>> picParSetIdx;
     /*!
      * \brief sizeFieldLen length in bytes of size field that precedes each NAL unit in AVC stream
      */
@@ -60,14 +61,15 @@ public:
      * \param pps list of indexes of picture parameter set NAL units
      */
     NalUnitsBO(const QString& name, const QList<std::shared_ptr<NalUnit> >& nals, unsigned int sfl, unsigned int apl,
-               const QList<unsigned int> frames, const QList<unsigned int> sync, const QList<unsigned int> sps,
-               const QList<unsigned int> pps);
+               const QList<unsigned int> frames, const QList<unsigned int> sync,
+               const QHash<unsigned int, QList<unsigned int>> sps,
+               const QHash<unsigned int, QList<unsigned int>> pps);
     QString getFileName() const;
     QList<std::shared_ptr<NalUnit> > getNalUnits() const;
     QList<unsigned int> getSyncIdx() const;
     unsigned short getSizeFieldLen() const;
     unsigned int getAllPrefLength() const;
-    QList<std::shared_ptr<NalUnit>> getSeqParSet() const;
+    QList<std::shared_ptr<NalUnit> > getSeqParSet() const;
     QList<std::shared_ptr<NalUnit>> getPicParSet() const;
     std::shared_ptr<NalUnit> getNalUnit(unsigned int idx) const;
     unsigned int getStartFrameNalIdx(unsigned int idx) const;

@@ -22,8 +22,8 @@ NalUnitsBO *NALParser::parseFile() {
     unsigned short sizeFieldLength = -1; //rozmiar pola rozmiaru przed jednostka NAL - 1, 2 lub 4
     unsigned int allPrefLength = 0; //długość sumy wszystkich prefiksów przed NALami
     bool previousVCL = false; //do szukania jednostek dostępu, czy poprzednia jednostka była NALem
-    QList<unsigned int> seqParSetsIdx;
-    QList<unsigned int> picParSetsIdx;
+    QHash<unsigned int, QList<unsigned int>> seqParSetsIdx;
+    QHash<unsigned int, QList<unsigned int>> picParSetsIdx;
     QList<unsigned int> syncSampleIdx; //offsety kolejnych jednostek dostępu
     QList<unsigned int> sampleIdx; //numery NALi, które rozpoczynają kolejne ramki
 
@@ -47,7 +47,7 @@ NalUnitsBO *NALParser::parseFile() {
                 int nalUnitType = fbOperator->valueOfGroupOfBits(5, offset*8 + 3); //razem: 8 bitów
                 std::shared_ptr<NalUnit> nalUnit = factory.getNalUnit(nalUnitType, nalRefIdc, off, (pref3Byte == 1) ? 3 : 4);
                 //rozmiary - start
-                int size = nalUnits.size();
+                unsigned int size = nalUnits.size();
                 if(size) {
                     nalUnits.at(size - 1)->setLength(off);
                     unsigned int nalUnitLength= nalUnits.at(size - 1)->getLength();
@@ -56,10 +56,14 @@ NalUnitsBO *NALParser::parseFile() {
                 }
                 //rozmiary - koniec
                 //zliczanie zestawów parametrów - start
-                if(nalUnitType == 7)
-                    seqParSetsIdx.append(size);
-                else if(nalUnitType == 8)
-                    picParSetsIdx.append(size);
+                if(nalUnitType == 7) {
+                    unsigned int id = dynamic_cast<SeqParameterSetRbsp*>(nalUnit.get())->getSeqParSetId();
+                    seqParSetsIdx[id].append(size);
+                }
+                else if(nalUnitType == 8) {
+                    unsigned int id = dynamic_cast<PicParameterSetRbsp*>(nalUnit.get())->getPpsId();
+                    picParSetsIdx[id].append(size);
+                }
                 //zliczanie zestawów parametrów  - koniec
 
                 //jednostki dostepu + ramki - start
