@@ -200,7 +200,7 @@ AVCConfigurationBox::AVCConfigurationBox(const unsigned long int& s, const QStri
 {}
 
 QStandardItemModel *AVCConfigurationBox::getModel() {
-    QStandardItemModel *model = new QStandardItemModel(10
+    QStandardItemModel *model = new QStandardItemModel(9
                                                        + 2*numOfSequenceParameterSets +
                                                        2*numOfPictureParameterSets, 2, 0);
     model->setData(model->index(0, 0, QModelIndex()), "Configuration version");

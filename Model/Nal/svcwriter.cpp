@@ -345,7 +345,7 @@ unsigned int SvcWriter::writeStsd(bool write) {
         stream<<quint8(0); //flag1
         stream<<quint8(0); //flag2
         stream<<quint8(0); //flag3
-        stream<<quint32(0); //entry_count
+        stream<<quint32(1); //entry_count
         writeAvc1(true);
         //writeMP4V/AVC1
     }
@@ -381,8 +381,10 @@ unsigned int SvcWriter::writeAvc1(bool write) {
 }
 
 unsigned int SvcWriter::writeAvcC(bool write) {
-    unsigned int size = 8 + 7 + 2*(nalUnitsBO->getPicParSet().size() + nalUnitsBO->getSeqParSet().size()) +
+    unsigned int size = 8 + 7 +
+            2*(nalUnitsBO->getPicParSet().size() + nalUnitsBO->getSeqParSet().size()) +
             nalUnitsBO->allPPSLen() + nalUnitsBO->allSPSLen();
+
     if(write) {
         QDataStream stream(outputFile);
         stream<<quint32(size);
@@ -547,7 +549,7 @@ unsigned int SvcWriter::writeStss(bool write) {
         stream<<quint8(0); //flag3
         stream<<quint32(syncSize); //entry_count
         for(unsigned int i = 0; i < syncSize; ++i)
-            stream<<quint32(nalUnitsBO->getSyncIdx().at(i)); //sample_number
+            stream<<quint32(nalUnitsBO->getSyncIdx().at(i) + 1); //sample_number
     }
 
     return size;

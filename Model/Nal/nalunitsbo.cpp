@@ -86,7 +86,7 @@ unsigned int NalUnitsBO::allSPSLen() {
 
 unsigned int NalUnitsBO::allPPSLen() {
     unsigned int len = 0;
-    QHashIterator<unsigned int, QList<unsigned int>> i(seqParSetIdx);
+    QHashIterator<unsigned int, QList<unsigned int>> i(picParSetIdx);
     while (i.hasNext()) {
         i.next();
         len += (nalUnits.at(i.value().at(0))->getLength() - nalUnits.at(i.value().at(0))->getStartCodeLength());
