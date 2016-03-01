@@ -549,7 +549,7 @@ unsigned int SvcWriter::writeStss(bool write) {
         stream<<quint8(0); //flag3
         stream<<quint32(syncSize); //entry_count
         for(unsigned int i = 0; i < syncSize; ++i)
-            stream<<quint32(nalUnitsBO->getSyncIdx().at(i) + 1); //sample_number
+            stream<<quint32(nalUnitsBO->getSyncIdx().at(i)); //sample_number
     }
 
     return size;

@@ -69,8 +69,8 @@ NalUnitsBO *NALParser::parseFile() {
                 //jednostki dostepu + ramki - start
                 NalUnitType nalType = (NalUnitType)nalUnitType;
                 if(!size) {
-                    syncSampleIdx.append(size);
                     sampleIdx.append(size);
+                    syncSampleIdx.append(sampleIdx.size());
                 }
                 else if (isVCL(nalType, false)) //jesli jest to VCL, ale nie IDR, to dodaj ramke
                     sampleIdx.append(size);
@@ -78,12 +78,12 @@ NalUnitsBO *NALParser::parseFile() {
                          this->isAUStarter(nalType))) {
                     if(nalUnits.back()->getTypeCode() == 14 && //nal 14 moze byc prefiksem
                             this->isAUStarter(nalType)) {
-                        syncSampleIdx.append(size - 1);
                         sampleIdx.append(size - 1);
+                        syncSampleIdx.append(sampleIdx.size());
                     }
                     else {
-                        syncSampleIdx.append(size);
                         sampleIdx.append(size);
+                        syncSampleIdx.append(sampleIdx.size());
                     }
                 }
                 if(nalUnit->getTypeCode() != 14)
