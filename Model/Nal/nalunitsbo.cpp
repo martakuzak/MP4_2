@@ -110,6 +110,6 @@ unsigned long NalUnitsBO::getFrameOffset(unsigned int nalIdx) {
 unsigned long NalUnitsBO::getNalUnitsByteLen(int startIdx, int endIdx) {
     unsigned long size = 0;
     for(int idx = startIdx; idx <= endIdx; ++ idx)
-        size += (nalUnits.at(idx)->getLength() + sizeFieldLen);
+        size += (nalUnits.at(idx)->getLength()/* + sizeFieldLen*/);
     return size;
 }

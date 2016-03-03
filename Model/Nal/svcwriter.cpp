@@ -1,6 +1,6 @@
 #include "svcwriter.h"
 
-SvcWriter::SvcWriter(NalUnitsBO *nalInfo): nalUnitsBO(nalInfo){
+SvcWriter::SvcWriter(NalUnitsBO *nalInfo): nalUnitsBO(nalInfo), mdatOffset(0){
 }
 
 void SvcWriter::writeNAL(std::shared_ptr<NalUnit> nalUnit, QFile* file, unsigned short length, bool size) {
@@ -8,13 +8,13 @@ void SvcWriter::writeNAL(std::shared_ptr<NalUnit> nalUnit, QFile* file, unsigned
     if(size) {
         switch(length) {
         case 1:
-            stream<<quint8(nalUnit->getLength());
+            stream<<quint8(nalUnit->getLength() - 4);
             break;
         case 2:
-            stream<<quint16(nalUnit->getLength());//było getStartCodeLength
+            stream<<quint16(nalUnit->getLength() - 4);//było getStartCodeLength
             break;
         case 4:
-            stream<<quint32(nalUnit->getLength());
+            stream<<quint32(nalUnit->getLength() - 4);
             break;
         }
     }
@@ -27,9 +27,9 @@ void SvcWriter::writeNAL(std::shared_ptr<NalUnit> nalUnit, QFile* file, unsigned
 bool SvcWriter::writeMP4File(const QString& name) {
     outputFile = new QFile(name);
     if(outputFile->open(QIODevice::ReadWrite)) {
-        writeFtyp();
-        writeMoov(1);
+        mdatOffset += writeFtyp();
         writeMdat();
+        writeMoov(1);
         outputFile->close();
         return true;
     }
@@ -59,7 +59,7 @@ bool SvcWriter::writeBaseLayer(const QString &name) {
 }
 
 
-void SvcWriter::writeFtyp() {
+unsigned int SvcWriter::writeFtyp() {
     unsigned int size = 20; //PO DOPISANIU POPRAWIĆ
     QDataStream stream(outputFile);
     stream<<quint32(size);
@@ -67,6 +67,7 @@ void SvcWriter::writeFtyp() {
     stream.writeRawData("avc1", 4); //major_brand //SPRAWDZIĆ
     stream<<quint32(0); //minor_version /SPRAWDZIĆ, ALE NIE MA TO TAKIEGO ZNACZENIA
     stream.writeRawData("mp41", 4); //compatible brands /SPRAWDZIĆ
+    return size;
 }
 
 void SvcWriter::writeMoov(int layerNum) {
@@ -320,6 +321,8 @@ unsigned int SvcWriter::writeStbl(bool write){
     unsigned int stco = writeStco(false);
     unsigned int stss = writeStss(false);
 
+    //It is recommended that the boxes within the Sample Table Box be in the following order: Sample
+    //Description, Time to Sample, Sample to Chunk, Sample Size, Chunk Offset.
     unsigned int size = 8 + stsd + stts + stsc + stsz + stco + stss;
     if(write) {
         QDataStream stream(outputFile);
@@ -515,8 +518,17 @@ unsigned int SvcWriter::writeStsz(bool write) { //stz2?
     return size;
 }
 
+/*The chunk offset table gives the index of each chunk into the containing file. There are two variants, permitting
+the use of 32-bit or 64-bit offsets. The latter is useful when managing very large presentations. At most one of
+these variants will occur in any single instance of a sample table.
+Offsets are file offsets, not the offset into any box within the file (e.g. Media Data Box). This permits referring
+to media data in files without any box structure. It does also mean that care must be taken when constructing
+a self-contained ISO file with its metadata (Movie Box) at the front, as the size of the Movie Box will affect the
+chunk offsets to the media data.*/
 unsigned int SvcWriter::writeStco(bool write) {
     unsigned int size = 12 + 4 + 5*4;
+    unsigned int frameCount = nalUnitsBO->getFramesNumber();
+    unsigned int offset = mdatOffset + 8;
     if(write) {
         unsigned short version = 0;
         QDataStream stream(outputFile);
@@ -526,10 +538,15 @@ unsigned int SvcWriter::writeStco(bool write) {
         stream<<quint8(0); //flag1
         stream<<quint8(0); //flag2
         stream<<quint8(0); //flag3
-        stream<<quint32(5); //entry_count
-        for(int i = 0; i < 5; ++ i) {
-            stream<<quint32(0); //chunk_offset
+        stream<<quint32(frameCount); //entry_count //?
+        for(int i = 0; i < frameCount - 1; ++ i) {
+            stream<<quint32(offset); //chunk_offset chunk_offset is a 32 or 64 bit integer that gives the offset
+                                //of the start of a chunk into its containing
+                                //media file.
+            offset += nalUnitsBO->getNalUnitsByteLen(nalUnitsBO->getStartFrameNalIdx(i),
+                                                     nalUnitsBO->getStartFrameNalIdx(i + 1) - 1);
         }
+        stream<<quint32(offset);
     }
 
     return size;
@@ -562,8 +579,10 @@ void SvcWriter::writeMdat() {
         QFile* svcFile = new QFile(nalUnitsBO->getFileName());
         if(svcFile->open(QIODevice::ReadOnly)) {
             //oblicz rozmiar mdat
-            unsigned int size = 8 + svcFile->size() - nalUnitsBO->getSizeFieldLen() +
-                    nalUnitsBO->getSizeFieldLen() * nalUnitsBO->getNalUnits().size();
+            unsigned int size = 8 + svcFile->size() + nalUnitsBO->getNalUnits().size()*nalUnitsBO->getSizeFieldLen()
+                    - nalUnitsBO->getAllPrefLength();
+                   // - nalUnitsBO->getSizeFieldLen() +
+                    //nalUnitsBO->getSizeFieldLen() * nalUnitsBO->getNalUnits().size();
             stream<<quint32(size);
             stream.writeRawData("mdat", 4);
             QList<std::shared_ptr<NalUnit>>::const_iterator it;

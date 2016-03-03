@@ -28,6 +28,7 @@ protected:
     const char* VIDEO_HANDLER = "VideoHandler";
     QFile* outputFile;
     NalUnitsBO* nalUnitsBO;
+    unsigned int mdatOffset;
 public:
     SvcWriter(NalUnitsBO* nalInfo);
     bool writeMP4File(const QString& name);
@@ -41,7 +42,7 @@ protected:
       *\param dashFile
       *\return size in bytes of written ftyp box
      */
-    void writeFtyp();
+    unsigned int writeFtyp();
     void writeMoov(int layerNum);
     unsigned int writeMvhd(bool write, int trackNum);
     unsigned int writeTrak(bool write, int trackID);

@@ -33,7 +33,7 @@ std::shared_ptr<NalUnit> NalUnitFactory::getNalUnit(int typeCode, unsigned int n
         break;
 
     case IDR_SLICE_LAYER_WITHOUT_PARTITIONING_RBSP:
-        return std::shared_ptr<NalUnit>(new IdrSliceLayerWithoutPartitioningRbsp(nalRefIdc, offset, 0, 0, 0));
+        return std::shared_ptr<NalUnit>(new IdrSliceLayerWithoutPartitioningRbsp(nalRefIdc, offset, sl, 0, 0, 0));
         break;
 
     case SEI_RBSP:
