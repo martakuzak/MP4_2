@@ -23,7 +23,6 @@ void SvcWriter::writeNAL(std::shared_ptr<NalUnit> nalUnit, QFile* file, unsigned
     outputFile->write(array);
 }
 
-
 bool SvcWriter::writeMP4File(const QString& name) {
     outputFile = new QFile(name);
     if(outputFile->open(QIODevice::ReadWrite)) {
@@ -60,12 +59,15 @@ bool SvcWriter::writeBaseLayer(const QString &name) {
 
 
 unsigned int SvcWriter::writeFtyp() {
-    unsigned int size = 20; //PO DOPISANIU POPRAWIĆ
+    unsigned int size = 32; //PO DOPISANIU POPRAWIĆ
     QDataStream stream(outputFile);
     stream<<quint32(size);
     stream.writeRawData("ftyp", 4);//i teraz jaki typ?
-    stream.writeRawData("avc1", 4); //major_brand //SPRAWDZIĆ
-    stream<<quint32(0); //minor_version /SPRAWDZIĆ, ALE NIE MA TO TAKIEGO ZNACZENIA
+    stream.writeRawData("isom", 4); //major_brand //SPRAWDZIĆ
+    stream<<quint32(512); //minor_version /SPRAWDZIĆ, ALE NIE MA TO TAKIEGO ZNACZENIA
+    stream.writeRawData("isom", 4); //compatible brands /SPRAWDZIĆ
+    stream.writeRawData("iso2", 4); //compatible brands /SPRAWDZIĆ
+    stream.writeRawData("avc1", 4); //compatible brands /SPRAWDZIĆ
     stream.writeRawData("mp41", 4); //compatible brands /SPRAWDZIĆ
     return size;
 }
@@ -101,8 +103,8 @@ unsigned int SvcWriter::writeMvhd(bool write, int trackNum) {
         } else {
             stream<<quint32(getTimeSince1904()); //creation_time in seconds since midnight, Jn. 1, 1904, in UTC time
             stream<<quint32(getTimeSince1904()); //modfication_time in seconds since midnight, Jn. 1, 1904, in UTC time
-            stream<<quint32(25); //timescale
-            stream<<quint32(81); //duration
+            stream<<quint32(1000); //timescale
+            stream<<quint32(119520); //duration
         }
 
         stream<<quint32(65536); //rate, typically 1.0
@@ -120,7 +122,7 @@ unsigned int SvcWriter::writeMvhd(bool write, int trackNum) {
         stream<<quint32(1073741824); // 0x40000000
         for(int i = 0; i < 6; ++i)
             stream<<quint32(0); //predefined = 0
-        stream<<quint32(trackNum); //next_track_id
+        stream<<quint32(trackNum + 1); //next_track_id
     }
     return size;
 }
@@ -151,15 +153,15 @@ unsigned int SvcWriter::writeTkhd(bool write, int trackID) {
         if(version) {
             stream<<quint64(getTimeSince1904()); //creation_time
             stream<<quint64(getTimeSince1904()); //modfication_time)
-            stream<<quint32(trackID); //trackID
+            stream<<quint32(trackID + 1); //trackID
             stream<<quint32(0); //reserved
             stream<<quint64(81); //duration
         } else {
             stream<<quint32(getTimeSince1904()); //creation_time
             stream<<quint32(getTimeSince1904()); //modfication_time)
-            stream<<quint32(trackID); //trackID
+            stream<<quint32(trackID + 1); //trackID
             stream<<quint32(0); //reserved
-            stream<<quint32(81); //duration
+            stream<<quint32(119520); //duration
         }
 
         stream<<quint64(0); //unsigned int(32)[2] reserved = 0
@@ -176,8 +178,8 @@ unsigned int SvcWriter::writeTkhd(bool write, int trackID) {
         stream<<quint32(0); //0
         stream<<quint32(0); //0
         stream<<quint32(1073741824); // 0x40000000
-        stream<<quint32(0); //width
-        stream<<quint32(0); //height
+        stream<<quint32(41943040); //width 16.16 fixed value //640 - pomyslec nad uniwersalnym sposobem
+        stream<<quint32(31457280); //height 16.16 fixed value //480
     }
     return size;
 }
@@ -210,12 +212,12 @@ unsigned int SvcWriter::writeMdhd(bool write) {
             stream<<quint64(getTimeSince1904()); //creation_time
             stream<<quint64(getTimeSince1904()); //modfication_time)
             stream<<quint32(25); //timescale
-            stream<<quint64(81); //duration
+            stream<<quint64(2988); //duration
         } else {
             stream<<quint32(getTimeSince1904()); //creation_time
             stream<<quint32(getTimeSince1904()); //modfication_time)
             stream<<quint32(25); //timescale
-            stream<<quint32(81); //duration
+            stream<<quint32(2988); //duration
         }
         stream.writeRawData(UND_LAN_CODE, 2); //pad (1 bit) + unsigned int(5) [3] language //ISO-639-2/T language code
         stream<<quint16(0); //pre_defined = 0
@@ -369,8 +371,8 @@ unsigned int SvcWriter::writeAvc1(bool write) {
         stream<<quint16(0); //reserved
         stream<<quint64(0); //2 x pre_defined
         stream<<quint32(0); //pre_defined
-        stream<<quint16(352); //width //POLICZYĆ?
-        stream<<quint16(288); //height //POLICZYĆ?
+        stream<<quint16(640); //width //POLICZYĆ?
+        stream<<quint16(480); //height //POLICZYĆ?
         stream<<quint32(4718592); //horizresolution 0x00480000 - 72 dpi //?????
         stream<<quint32(4718592); //vetresoultion 0x00480000 - 72 dpi
         stream<<quint32(0); //reserved
@@ -395,7 +397,7 @@ unsigned int SvcWriter::writeAvcC(bool write) {
         stream<<quint8(1); //configurationVersion
         stream<<quint8(100); //AVCProfileIndication //
         stream<<quint8(0); //profile_compatibility //
-        stream<<quint8(5); //AVCLevelIndication //
+        stream<<quint8(100); //AVCLevelIndication //
         stream<<quint8(252 + nalUnitsBO->getSizeFieldLen() - 1); //reserved ‘111111’b +lengthSizeMinusOne
         QList<std::shared_ptr<NalUnit>> sps = nalUnitsBO->getSeqParSet();
         QList<std::shared_ptr<NalUnit>> pps = nalUnitsBO->getPicParSet();
@@ -425,7 +427,7 @@ unsigned int SvcWriter::writeAvcC(bool write) {
 }
 
 unsigned int SvcWriter::writeStts(bool write) {
-    unsigned int size = 12 + 4 + 5*8;
+    unsigned int size = 12 + 4 + 1*8;
     if(write) {
         unsigned short version = 0;
         QDataStream stream(outputFile);
@@ -435,10 +437,10 @@ unsigned int SvcWriter::writeStts(bool write) {
         stream<<quint8(0); //flag1
         stream<<quint8(0); //flag2
         stream<<quint8(0); //flag3
-        stream<<quint32(5); //entry_count
-        for(int i = 0; i < 5; ++ i) {
-            stream<<quint32(0); //sample_count
-            stream<<quint32(0); //sample_delta
+        stream<<quint32(1); //entry_count
+        for(int i = 0; i < 1; ++ i) {
+            stream<<quint32(nalUnitsBO->getFramesNumber()); //sample_count
+            stream<<quint32(1); //sample_delta
         }
     }
 
@@ -526,8 +528,8 @@ to media data in files without any box structure. It does also mean that care mu
 a self-contained ISO file with its metadata (Movie Box) at the front, as the size of the Movie Box will affect the
 chunk offsets to the media data.*/
 unsigned int SvcWriter::writeStco(bool write) {
-    unsigned int size = 12 + 4 + 5*4;
     unsigned int frameCount = nalUnitsBO->getFramesNumber();
+    unsigned int size = 12 + 4 + frameCount*4;
     unsigned int offset = mdatOffset + 8;
     if(write) {
         unsigned short version = 0;
