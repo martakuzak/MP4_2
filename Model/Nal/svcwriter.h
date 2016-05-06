@@ -65,6 +65,8 @@ protected:
     unsigned int writeStss(bool write);
     unsigned int writeAvc1(bool write);
     unsigned int writeAvcC(bool write);
+    unsigned int writeEdts(bool write);
+    unsigned int writeElst(bool write);
     void writeMdat();
     unsigned int getTimeSince1904();
 };

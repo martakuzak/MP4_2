@@ -98,13 +98,13 @@ unsigned int SvcWriter::writeMvhd(bool write, int trackNum) {
         if(version) {
             stream<<quint64(getTimeSince1904()); //creation_time in seconds since midnight, Jn. 1, 1904, in UTC time
             stream<<quint64(getTimeSince1904()); //modfication_time in seconds since midnight, Jn. 1, 1904, in UTC time
-            stream<<quint32(25); //timescale czas_trwania_w_s = duration/timescale
-            stream<<quint64(81); //duration
+            stream<<quint32(1000); //timescale czas_trwania_w_s = duration/timescale
+            stream<<quint64(11950); //duration
         } else {
             stream<<quint32(getTimeSince1904()); //creation_time in seconds since midnight, Jn. 1, 1904, in UTC time
             stream<<quint32(getTimeSince1904()); //modfication_time in seconds since midnight, Jn. 1, 1904, in UTC time
             stream<<quint32(1000); //timescale
-            stream<<quint32(119520); //duration
+            stream<<quint32(11950); //duration
         }
 
         stream<<quint32(65536); //rate, typically 1.0
@@ -128,12 +128,13 @@ unsigned int SvcWriter::writeMvhd(bool write, int trackNum) {
 }
 
 unsigned int SvcWriter::writeTrak(bool write, int trackID) {
-    unsigned int size = 8 + writeTkhd(false, trackID) + writeMdia(false);
+    unsigned int size = 8 + writeTkhd(false, trackID) + writeMdia(false) + writeEdts(false);
     if(write) {
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("trak", 4);
         writeTkhd(true, trackID);
+        writeEdts(true);
         writeMdia(true);
     }
     return size;
@@ -178,8 +179,8 @@ unsigned int SvcWriter::writeTkhd(bool write, int trackID) {
         stream<<quint32(0); //0
         stream<<quint32(0); //0
         stream<<quint32(1073741824); // 0x40000000
-        stream<<quint32(41943040); //width 16.16 fixed value //640 - pomyslec nad uniwersalnym sposobem
-        stream<<quint32(31457280); //height 16.16 fixed value //480
+        stream<<quint32(55705600); //width 16.16 fixed value //640 - pomyslec nad uniwersalnym sposobem
+        stream<<quint32(42467328); //height 16.16 fixed value //480
     }
     return size;
 }
@@ -212,12 +213,12 @@ unsigned int SvcWriter::writeMdhd(bool write) {
             stream<<quint64(getTimeSince1904()); //creation_time
             stream<<quint64(getTimeSince1904()); //modfication_time)
             stream<<quint32(25); //timescale
-            stream<<quint64(2988); //duration
+            stream<<quint64(81); //duration
         } else {
             stream<<quint32(getTimeSince1904()); //creation_time
             stream<<quint32(getTimeSince1904()); //modfication_time)
             stream<<quint32(25); //timescale
-            stream<<quint32(2988); //duration
+            stream<<quint32(81); //duration
         }
         stream.writeRawData(UND_LAN_CODE, 2); //pad (1 bit) + unsigned int(5) [3] language //ISO-639-2/T language code
         stream<<quint16(0); //pre_defined = 0
@@ -371,8 +372,8 @@ unsigned int SvcWriter::writeAvc1(bool write) {
         stream<<quint16(0); //reserved
         stream<<quint64(0); //2 x pre_defined
         stream<<quint32(0); //pre_defined
-        stream<<quint16(640); //width //POLICZYĆ?
-        stream<<quint16(480); //height //POLICZYĆ?
+        stream<<quint16(352); //width //POLICZYĆ?
+        stream<<quint16(288); //height //POLICZYĆ?
         stream<<quint32(4718592); //horizresolution 0x00480000 - 72 dpi //?????
         stream<<quint32(4718592); //vetresoultion 0x00480000 - 72 dpi
         stream<<quint32(0); //reserved
@@ -573,6 +574,43 @@ unsigned int SvcWriter::writeStss(bool write) {
 
     return size;
 }
+
+unsigned int SvcWriter::writeEdts(bool write) {
+    unsigned size = 8 + writeElst(false);
+    if(write) {
+        QDataStream stream(outputFile);
+        stream<<quint32(size);
+        stream.writeRawData("edts", 4);
+        writeElst(true);
+    }
+    return size;
+}
+
+unsigned int SvcWriter::writeElst(bool write) {
+    unsigned int version = 0;
+    unsigned int size = version ? 32 : 28;
+    if(write) {
+        QDataStream stream(outputFile);
+        stream<<quint32(size);
+        stream.writeRawData("elst", 4);
+        stream<<quint8(version);
+        stream<<quint8(0); //flag1
+        stream<<quint8(0); //flag2
+        stream<<quint8(0); //flag3
+        stream<<quint32(1); //entry_count
+        if(version) {
+            stream<<quint64(119520); //segment_duration
+            stream<<quint64(0); //media_time
+        } else {
+            stream<<quint32(119520); //segment_duration
+            stream<<quint32(0); //media_time
+        }
+        stream<<quint16(1); //media_rate_integer
+        stream<<quint16(0); //media_rate_fraction
+    }
+    return size;
+}
+
 
 void SvcWriter::writeMdat() {
     QDataStream stream(outputFile);
