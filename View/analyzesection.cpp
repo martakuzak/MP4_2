@@ -129,13 +129,15 @@ void AnalyzeSection::setSearchBoxSection() {
     typeBox->setMaximumWidth(50);
     typeBox->setMaxLength(4);
     typeBox->setMinimumHeight(20);
+    connect(typeBox,
+            SIGNAL(returnPressed()),
+            this, SLOT(searchButtonClicked()));
     searchButton = new QPushButton("Find");
     searchButton->addAction(searchBoxAct);
     searchButton->setMinimumHeight(20);
     connect(searchButton,
             SIGNAL(clicked()),
             this, SLOT(searchButtonClicked()));
-
     searchBoxGroupBox->setMaximumHeight(50);
     searchBoxGroupBox->setMinimumHeight(40);
     searchBoxLayout->addWidget(searchLabel, 1, 0);
