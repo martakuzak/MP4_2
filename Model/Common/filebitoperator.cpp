@@ -46,8 +46,10 @@ QString FileBitOperator::stringValue(const unsigned int & length, const unsigned
 ExpGolombResult FileBitOperator::unsignedExpGolombValue(const unsigned long & offset) const {
     int leadingZeroBits = -1;
     int off = offset;
-    for(unsigned int b = 0; !b; leadingZeroBits ++, off++)
+    for(unsigned int b = 0; !b; leadingZeroBits ++, off ++) {
+        //qDebug()<<"GOLOMP"<<String::number(b);
         b = valueOfGroupOfBits(1, off);
+    }
     unsigned int codeNum = qPow(2, leadingZeroBits) - 1 + valueOfGroupOfBits(leadingZeroBits, off);
     return ExpGolombResult(codeNum, 2*leadingZeroBits + 1);
 }

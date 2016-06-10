@@ -16,16 +16,6 @@ class NalUnit;
 class SvcWriter {
 protected:
     //name of analyzed file
-    const int MDHD_SIZE_0 = 32; //version = 0
-    const int MDHD_SIZE_1 = 44; //version = 1
-    const int MVHD_SIZE_0 = 108; //version = 0
-    const int MVHD_SIZE_1 = 120; //version = 1
-    const int TKHD_SIZE_0 = 92; //version = 0
-    const int TKHD_SIZE_1 = 114; //version = 1
-    const unsigned long SEC_1904_1970 = 7171200; //time between 00:00:00 01.01.1904 and 00:00:00 01.01.1970
-    const char* UND_LAN_CODE = "und";
-    const char* VIDE_TRACK = "vide";
-    const char* VIDEO_HANDLER = "VideoHandler";
     QFile* outputFile;
     NalUnitsBO* nalUnitsBO;
     unsigned int mdatOffset;

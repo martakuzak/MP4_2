@@ -1,4 +1,7 @@
 #include "svcwriter.h"
+#include "svc_params.h"
+
+using namespace svc;
 
 SvcWriter::SvcWriter(NalUnitsBO *nalInfo): nalUnitsBO(nalInfo), mdatOffset(0){
 }
@@ -63,12 +66,12 @@ unsigned int SvcWriter::writeFtyp() {
     QDataStream stream(outputFile);
     stream<<quint32(size);
     stream.writeRawData("ftyp", 4);//i teraz jaki typ?
-    stream.writeRawData("isom", 4); //major_brand //SPRAWDZIĆ
-    stream<<quint32(512); //minor_version /SPRAWDZIĆ, ALE NIE MA TO TAKIEGO ZNACZENIA
-    stream.writeRawData("isom", 4); //compatible brands /SPRAWDZIĆ
-    stream.writeRawData("iso2", 4); //compatible brands /SPRAWDZIĆ
-    stream.writeRawData("avc1", 4); //compatible brands /SPRAWDZIĆ
-    stream.writeRawData("mp41", 4); //compatible brands /SPRAWDZIĆ
+    stream.writeRawData(FTYP_MAJOR_BRAND, 4); //major_brand //SPRAWDZIĆ
+    stream<<quint32(FTYP_MINOR_VERSION); //minor_version /SPRAWDZIĆ, ALE NIE MA TO TAKIEGO ZNACZENIA
+    stream.writeRawData(FTYP_COMP_BRAND_0, 4); //compatible brands /SPRAWDZIĆ
+    stream.writeRawData(FTYP_COMP_BRAND_1, 4); //compatible brands /SPRAWDZIĆ
+    stream.writeRawData(FTYP_COMP_BRAND_2, 4); //compatible brands /SPRAWDZIĆ
+    stream.writeRawData(FTYP_COMP_BRAND_3, 4); //compatible brands /SPRAWDZIĆ
     return size;
 }
 
@@ -85,30 +88,28 @@ void SvcWriter::writeMoov(int layerNum) {
 }
 
 unsigned int SvcWriter::writeMvhd(bool write, int trackNum) {
-    unsigned short version = 0; //0 lub 1
-    unsigned int size = version ? MVHD_SIZE_1: MVHD_SIZE_0;
     if(write) {
         QDataStream stream(outputFile);
-        stream<<quint32(size);
+        stream<<quint32(MVHD_SIZE);
         stream.writeRawData("mvhd", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(0); //flag3
-        if(version) {
+        stream<<quint8(MVHD_VERSION);
+        stream<<quint8(MVHD_FLAG_0); //flag1
+        stream<<quint8(MVHD_FLAG_1); //flag2
+        stream<<quint8(MVHD_FLAG_2); //flag3
+        if(MVHD_VERSION) {
             stream<<quint64(getTimeSince1904()); //creation_time in seconds since midnight, Jn. 1, 1904, in UTC time
             stream<<quint64(getTimeSince1904()); //modfication_time in seconds since midnight, Jn. 1, 1904, in UTC time
-            stream<<quint32(1000); //timescale czas_trwania_w_s = duration/timescale
-            stream<<quint64(11950); //duration
+            stream<<quint32(MVHD_TIMESCALE); //timescale czas_trwania_w_s = duration/timescale
+            stream<<quint64(MVHD_DURATION); //duration
         } else {
             stream<<quint32(getTimeSince1904()); //creation_time in seconds since midnight, Jn. 1, 1904, in UTC time
             stream<<quint32(getTimeSince1904()); //modfication_time in seconds since midnight, Jn. 1, 1904, in UTC time
-            stream<<quint32(1000); //timescale
-            stream<<quint32(11950); //duration
+            stream<<quint32(MVHD_TIMESCALE); //timescale
+            stream<<quint32(MVHD_DURATION); //duration
         }
 
-        stream<<quint32(65536); //rate, typically 1.0
-        stream<<quint16(256); //volume, typically full volume
+        stream<<quint32(MVHD_RATE); //rate, typically 1.0
+        stream<<quint16(MVHD_VOLUME); //volume, typically full volume
         stream<<quint16(0); //reserved = 0
         stream<<quint64(0); //usnigned int(32([2] reserved = 0
         stream<<quint32(65536); //unity matrix, kolejno 0x00010000
@@ -124,7 +125,7 @@ unsigned int SvcWriter::writeMvhd(bool write, int trackNum) {
             stream<<quint32(0); //predefined = 0
         stream<<quint32(trackNum + 1); //next_track_id
     }
-    return size;
+    return MVHD_SIZE;
 }
 
 unsigned int SvcWriter::writeTrak(bool write, int trackID) {
@@ -141,34 +142,32 @@ unsigned int SvcWriter::writeTrak(bool write, int trackID) {
 }
 
 unsigned int SvcWriter::writeTkhd(bool write, int trackID) {
-    unsigned short version = 0; //0 lub 1
-    unsigned int size = (version) ? TKHD_SIZE_1: TKHD_SIZE_0;
     if(write){
         QDataStream stream(outputFile);
-        stream<<quint32(size);
+        stream<<quint32(TKHD_SIZE);
         stream.writeRawData("tkhd", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(0); //flag3
-        if(version) {
+        stream<<quint8(TKHD_VERSION);
+        stream<<quint8(TKHD_FLAG_0); //flag1
+        stream<<quint8(TKHD_FLAG_1); //flag2
+        stream<<quint8(TKHD_FLAG_2); //flag3
+        if(TKHD_VERSION) {
             stream<<quint64(getTimeSince1904()); //creation_time
             stream<<quint64(getTimeSince1904()); //modfication_time)
             stream<<quint32(trackID + 1); //trackID
             stream<<quint32(0); //reserved
-            stream<<quint64(81); //duration
+            stream<<quint64(TKHD_DURATION); //duration
         } else {
             stream<<quint32(getTimeSince1904()); //creation_time
             stream<<quint32(getTimeSince1904()); //modfication_time)
             stream<<quint32(trackID + 1); //trackID
             stream<<quint32(0); //reserved
-            stream<<quint32(119520); //duration
+            stream<<quint32(TKHD_DURATION); //duration
         }
 
         stream<<quint64(0); //unsigned int(32)[2] reserved = 0
-        stream<<quint16(0); //layer !!!
-        stream<<quint16(0); //alternate_group = 0
-        stream<<quint16(0); //volume, 0x0100 gdy audio
+        stream<<quint16(TKHD_LAYER); //layer !!!
+        stream<<quint16(TKHD_ALTERNATE_GROUP); //alternate_group = 0
+        stream<<quint16(TKHD_VOLUME); //volume, 0x0100 gdy audio
         stream<<quint16(0); //reserved = 0
         stream<<quint32(65536); //unity matrix, kolejno 0x00010000
         stream<<quint32(0); //0
@@ -179,10 +178,10 @@ unsigned int SvcWriter::writeTkhd(bool write, int trackID) {
         stream<<quint32(0); //0
         stream<<quint32(0); //0
         stream<<quint32(1073741824); // 0x40000000
-        stream<<quint32(55705600); //width 16.16 fixed value //640 - pomyslec nad uniwersalnym sposobem
-        stream<<quint32(42467328); //height 16.16 fixed value //480
+        stream<<quint32(TKHD_WIDTH); //width 16.16 fixed value //640 - pomyslec nad uniwersalnym sposobem
+        stream<<quint32(TKHD_HEIGHT); //height 16.16 fixed value //480
     }
-    return size;
+    return TKHD_SIZE;
 }
 
 unsigned int SvcWriter::writeMdia(bool write) {
@@ -199,50 +198,47 @@ unsigned int SvcWriter::writeMdia(bool write) {
 }
 
 unsigned int SvcWriter::writeMdhd(bool write) {
-    unsigned short version = 0; //0 lub 1
-    unsigned int size = (version) ? MDHD_SIZE_1: MDHD_SIZE_0;
     if(write) {
         QDataStream stream(outputFile);
-        stream<<quint32(size);
+        stream<<quint32(MDHD_SIZE);
         stream.writeRawData("mdhd", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(0); //flag3
-        if(version) {
+        stream<<quint8(MDHD_VERSION);
+        stream<<quint8(MDHD_FLAG_0); //flag1
+        stream<<quint8(MDHD_FLAG_1); //flag2
+        stream<<quint8(MDHD_FLAG_2); //flag3
+        if(MDHD_VERSION) {
             stream<<quint64(getTimeSince1904()); //creation_time
             stream<<quint64(getTimeSince1904()); //modfication_time)
-            stream<<quint32(25); //timescale
-            stream<<quint64(81); //duration
+            stream<<quint32(MDHD_TIMESCALE); //timescale
+            stream<<quint64(MDHD_DURATION); //duration
         } else {
             stream<<quint32(getTimeSince1904()); //creation_time
             stream<<quint32(getTimeSince1904()); //modfication_time)
-            stream<<quint32(25); //timescale
-            stream<<quint32(81); //duration
+            stream<<quint32(MDHD_TIMESCALE); //timescale
+            stream<<quint64(MDHD_DURATION); //duration
         }
-        stream.writeRawData(UND_LAN_CODE, 2); //pad (1 bit) + unsigned int(5) [3] language //ISO-639-2/T language code
+        //SPRAWDZIC
+        stream.writeRawData(MDHD_UND_LAN_CODE, 2); //pad (1 bit) + unsigned int(5) [3] language //ISO-639-2/T language code
         stream<<quint16(0); //pre_defined = 0
     }
-    return size;
+    return MDHD_SIZE;
 }
 unsigned int SvcWriter::writeHdlr(bool write) {
-    unsigned short version = 0; //0 lub 1
-    unsigned int size = 44; //zależy od name (na dole)
     if(write) {
         QDataStream stream(outputFile);
-        stream<<quint32(size);
+        stream<<quint32(HDLR_SIZE);
         stream.writeRawData("hdlr", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(0); //flag3
+        stream<<quint8(HDLR_VERSION);
+        stream<<quint8(HDLR_FLAG_0); //flag1
+        stream<<quint8(HDLR_FLAG_1); //flag2
+        stream<<quint8(HDLR_FLAG_2); //flag3
         stream<<quint32(0); //pre_defined = 0
-        stream.writeRawData(VIDE_TRACK, 4); //video track (soun, hint)
+        stream.writeRawData(HDLR_VIDE_TRACK, 4); //video track (soun, hint)
         for(int i = 0; i < 3; ++ i)
             stream<<quint32(0); //reserved = 0
-        stream.writeRawData(VIDEO_HANDLER, 12); //string name
+        stream.writeRawData(HDLR_VIDEO_HANDLER, 12); //string name
     }
-    return size;
+    return HDLR_SIZE;
 }
 
 unsigned int SvcWriter::writeMinf(bool write) {
@@ -261,14 +257,13 @@ unsigned int SvcWriter::writeMinf(bool write) {
 unsigned int SvcWriter::writeVmhd(bool write) {
     unsigned int size = 20;
     if(write){
-        unsigned short version = 0; //0 lub 1
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("vmhd", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(1); //flag3
+        stream<<quint8(VMHD_VERSION);
+        stream<<quint8(VMHD_FLAG_0); //flag1
+        stream<<quint8(VMHD_FLAG_1); //flag2
+        stream<<quint8(VMHD_FLAG_2); //flag3
         stream<<quint16(0); //graphicsmode = 0
         for(int i = 0; i < 3; ++ i)
             stream<<quint16(0); //opcolor = {0, 0, 0}
@@ -288,14 +283,13 @@ unsigned int SvcWriter::writeDinf(bool write){
 unsigned int SvcWriter::writeDref(bool write){
     unsigned int size = 8 + 4 + 4 + writeUrl(false);
     if(write) {
-        unsigned short version = 0; //0 lub 1
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("dref", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(1); //flag3
+        stream<<quint8(DREF_VERSION);
+        stream<<quint8(DREF_FLAG_0); //flag1
+        stream<<quint8(DREF_FLAG_1); //flag2
+        stream<<quint8(DREF_FLAG_2); //flag3
         stream<<quint32(1); //entry_count
         //for(int i = 0; i < 0; ++i) //tyle ile entry_count
         writeUrl(true);
@@ -305,14 +299,13 @@ unsigned int SvcWriter::writeDref(bool write){
 unsigned int SvcWriter::writeUrl(bool write) {
     unsigned int size = 8 + 4;
     if(write) {
-        unsigned short version = 0; //0 lub 1
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("url ", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(1); //flag3 -  this file
+        stream<<quint8(URL_VERSION);
+        stream<<quint8(URL_FLAG_0); //flag1
+        stream<<quint8(URL_FLAG_1); //flag2
+        stream<<quint8(URL_FLAG_2); //flag3 -  this file
     }
     return size;
 }
@@ -343,14 +336,13 @@ unsigned int SvcWriter::writeStbl(bool write){
 unsigned int SvcWriter::writeStsd(bool write) {
     unsigned int size = 16 + writeAvc1(false);
     if(write) {
-        unsigned short version = 0;
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("stsd", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(0); //flag3
+        stream<<quint8(STSD_VERSION);
+        stream<<quint8(STSD_FLAG_0); //flag1
+        stream<<quint8(STSD_FLAG_1); //flag2
+        stream<<quint8(STSD_FLAG_2); //flag3
         stream<<quint32(1); //entry_count
         writeAvc1(true);
         //writeMP4V/AVC1
@@ -372,14 +364,14 @@ unsigned int SvcWriter::writeAvc1(bool write) {
         stream<<quint16(0); //reserved
         stream<<quint64(0); //2 x pre_defined
         stream<<quint32(0); //pre_defined
-        stream<<quint16(352); //width //POLICZYĆ?
-        stream<<quint16(288); //height //POLICZYĆ?
-        stream<<quint32(4718592); //horizresolution 0x00480000 - 72 dpi //?????
-        stream<<quint32(4718592); //vetresoultion 0x00480000 - 72 dpi
+        stream<<quint16(AVC1_WIDTH); //width //POLICZYĆ?
+        stream<<quint16(AVC1_HEIGHT); //height //POLICZYĆ?
+        stream<<quint32(AVC1_HORIZONTAL_RESOLUTION); //horizresolution 0x00480000 - 72 dpi //?????
+        stream<<quint32(AVC1_VERTICAL_RESOLUTION); //vetresoultion 0x00480000 - 72 dpi
         stream<<quint32(0); //reserved
-        stream<<quint16(1); //frame_count
+        stream<<quint16(AVC1_FRAME_COUNT); //frame_count
         stream.writeRawData("                                ", 32); //compressorname
-        stream<<quint16(24); //depth, 0x0018
+        stream<<quint16(AVC1_DEPTH); //depth, 0x0018
         stream<<quint16(-1);
         writeAvcC(true);
     }
@@ -395,10 +387,10 @@ unsigned int SvcWriter::writeAvcC(bool write) {
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("avcC", 4);
-        stream<<quint8(1); //configurationVersion
-        stream<<quint8(100); //AVCProfileIndication //
-        stream<<quint8(0); //profile_compatibility //
-        stream<<quint8(100); //AVCLevelIndication //
+        stream<<quint8(AVCC_CONFIGURATION_VERSION); //configurationVersion
+        stream<<quint8(AVCC_AVC_PROFILE_INDICATION); //AVCProfileIndication //
+        stream<<quint8(AVCC_PROFILE_COMPABILITY); //profile_compatibility //
+        stream<<quint8(AVCC_LEVEL_INDICATION); //AVCLevelIndication //
         stream<<quint8(252 + nalUnitsBO->getSizeFieldLen() - 1); //reserved ‘111111’b +lengthSizeMinusOne
         QList<std::shared_ptr<NalUnit>> sps = nalUnitsBO->getSeqParSet();
         QList<std::shared_ptr<NalUnit>> pps = nalUnitsBO->getPicParSet();
@@ -430,14 +422,13 @@ unsigned int SvcWriter::writeAvcC(bool write) {
 unsigned int SvcWriter::writeStts(bool write) {
     unsigned int size = 12 + 4 + 1*8;
     if(write) {
-        unsigned short version = 0;
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("stts", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(0); //flag3
+        stream<<quint8(STTS_VERSION);
+        stream<<quint8(STTS_FLAG_0); //flag1
+        stream<<quint8(STTS_FLAG_1); //flag2
+        stream<<quint8(STTS_FLAG_2); //flag3
         stream<<quint32(1); //entry_count
         for(int i = 0; i < 1; ++ i) {
             stream<<quint32(nalUnitsBO->getFramesNumber()); //sample_count
@@ -471,15 +462,14 @@ unsigned int SvcWriter::writeCtts(bool write) {
 unsigned int SvcWriter::writeStsc(bool write) {
     unsigned int size = 12 + 4 + 1*12;
     if(write) {
-        unsigned short version = 0;
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("stsc", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(0); //flag3
-        stream<<quint32(1); //entry_count
+        stream<<quint8(STSC_VERSION);
+        stream<<quint8(STSC_FLAG_0); //flag1
+        stream<<quint8(STSC_FLAG_1); //flag2
+        stream<<quint8(STSC_FLAG_1); //flag3
+        stream<<quint32(STSC_FLAG_2); //entry_count
         for(int i = 0; i < 1; ++ i) {
             stream<<quint32(1); //first_chunk
             stream<<quint32(1); //samples_per_chunk
@@ -494,14 +484,13 @@ unsigned int SvcWriter::writeStsz(bool write) { //stz2?
     int frameCount = nalUnitsBO->getFramesNumber();
     unsigned int size = 12 +  8 + frameCount*4;
     if(write) {
-        unsigned short version = 0;
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("stsz", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(0); //flag3
+        stream<<quint8(STSZ_VERSION);
+        stream<<quint8(STSZ_FLAG_0); //flag1
+        stream<<quint8(STSZ_FLAG_1); //flag2
+        stream<<quint8(STSZ_FLAG_2); //flag3
         stream<<quint32(0); //sample_size
         stream<<quint32(frameCount); //sample_count
         for(int i = 0; i < frameCount - 1; ++ i) {
@@ -533,14 +522,13 @@ unsigned int SvcWriter::writeStco(bool write) {
     unsigned int size = 12 + 4 + frameCount*4;
     unsigned int offset = mdatOffset + 8;
     if(write) {
-        unsigned short version = 0;
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("stco", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(0); //flag3
+        stream<<quint8(STCO_VERSION);
+        stream<<quint8(STCO_FLAG_0); //flag1
+        stream<<quint8(STCO_FLAG_1); //flag2
+        stream<<quint8(STCO_FLAG_2); //flag3
         stream<<quint32(frameCount); //entry_count //?
         for(int i = 0; i < frameCount - 1; ++ i) {
             stream<<quint32(offset); //chunk_offset chunk_offset is a 32 or 64 bit integer that gives the offset
@@ -559,14 +547,13 @@ unsigned int SvcWriter::writeStss(bool write) {
     unsigned int syncSize = nalUnitsBO->getSyncIdx().size();
     unsigned int size = 12 + 4 + syncSize*4;
     if(write) {
-        unsigned short version = 0;
         QDataStream stream(outputFile);
         stream<<quint32(size);
         stream.writeRawData("stss", 4);
-        stream<<quint8(version);
-        stream<<quint8(0); //flag1
-        stream<<quint8(0); //flag2
-        stream<<quint8(0); //flag3
+        stream<<quint8(STSS_VERSION);
+        stream<<quint8(STSS_FLAG_0); //flag1
+        stream<<quint8(STSS_FLAG_1); //flag2
+        stream<<quint8(STSS_FLAG_2); //flag3
         stream<<quint32(syncSize); //entry_count
         for(unsigned int i = 0; i < syncSize; ++i)
             stream<<quint32(nalUnitsBO->getSyncIdx().at(i)); //sample_number
